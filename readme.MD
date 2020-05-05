@@ -8,12 +8,9 @@
     <a href="https://github.com/dklollol/Olsen-Framework-Arma-3/issues">
         <img src="https://img.shields.io/github/issues-raw/dklollol/Olsen-Framework-Arma-3.svg?label=Issues" alt="Olsen Framework Issues">
     </a>
-    <a href="http://forums.unitedoperations.net/index.php/topic/27450-olsen-framework-infodiscussion-thread/">
-        <img src="https://img.shields.io/badge/UO-Thread-lightgrey.svg?colorA=B19E71&colorB=5A5A5A" alt="UO Thread">
-    </a>
 </p>
 
-**Olsen Framework** is an efficient and modular mission making framework designed to help create large scale, high quality Arma 3 scenarios. Although originally designed for [United Operations](http://unitedoperations.net/) scenarios, it can be used in different types of communities and servers due to it's modular nature and high flexibility.
+**Olsen Framework** is an efficient and modular mission making framework designed to help create large scale, high quality Arma 3 scenarios. It can be used in different types of communities and servers due to it's modular nature and high flexibility.
 
 To learn more, visit [our wiki](https://github.com/dklollol/Olsen-Framework-Arma-3/wiki).
 
