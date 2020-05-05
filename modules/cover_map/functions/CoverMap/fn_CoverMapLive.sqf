@@ -1,10 +1,10 @@
 //Covers Map outside marker and centers map on marker center in game map
 if (!hasinterface) exitwith {};
-params ["_marker",["_centered",true],["_zoomlevel",0.4],["_name","AO"],["_AOnumber",1]];
+params ["_marker", ["_centered", true, [true]], ["_zoomlevel", 0.4, [0]], ["_name", "AO", [""]], ["_AOnumber", 1, [1]]];
 
 //delete old markers if present
-if (count FW_map_cover > 0) then {
-	{deletemarker _x} foreach FW_map_cover; 
+if !(FW_map_cover isEqualTo []) then {
+	FW_map_cover apply {deletemarker _x}; 
 	FW_map_cover = [];
 };
 
@@ -22,7 +22,7 @@ private _syo = _sy;
 private _mainS = 20000;
 private _mainBS = 50;
 
-if ((_a > 0 && _a <= 90) || (_a >180 && _a <=270)) then {
+if ((_a > 0 && {_a <= 90}) || {(_a > 180 && {_a <= 270})}) then {
 	private _temp = _sx;
 	_sx = _sy;
 	_sy = _temp;
@@ -39,15 +39,15 @@ private _colors = ["colorBlack","colorBlack",_colorForest,"colorGreen",_colorFor
 	if (_a < 0) then {_a = _a + 360};
 
 	private _s = _sx;
-	private _w = 2*_mainS+_sy;
+	private _w = 2 * _mainS +_sy;
 	private _bw = _sy + _mainBS;
-	if !((_a > 0 && _a <= 90) || (_a >180 && _a <=270)) then {
+	if !((_a > 0 && {_a <= 90}) || {(_a > 180 && {_a <= 270})}) then {
 		_s = _sy;
 		_w = _sx + 2*_mainBS;
 		_bw = _sx + _mainBS;
 	};
-	_pos_x = _px + (sin _a) * (_mainS + _s + _mainBS);
-	_pos_y = _py + (cos _a) * (_mainS + _s + _mainBS);
+	private _pos_x = _px + (sin _a) * (_mainS + _s + _mainBS);
+	private _pos_y = _py + (cos _a) * (_mainS + _s + _mainBS);
 	
 	{
 		_x params ["_color"];
@@ -82,7 +82,7 @@ private _colors = ["colorBlack","colorBlack",_colorForest,"colorGreen",_colorFor
 		_marker setMarkerColorLocal "colorwhite";
 	};
 	
-} forEach [_a, _a+90, _a+180, _a+270];
+} forEach [_a, _a + 90, _a + 180, _a + 270];
 
 _marker = createMarkerLocal ["ao_b_1", [_px, _py]];
 FW_map_cover pushBack _marker;
@@ -102,11 +102,10 @@ _marker setMarkerShapeLocal "rectangle";
 _marker setMarkerBrushLocal "border";
 _marker setMarkerColorLocal "colorBlack";
 
-[_zoomlevel,_p] spawn {
-	params [["_zoomlevel",0.4],"_p"];
-	disableSerialization;
-	waitUntil{visibleMap};
+[{
+    visibleMap
+},{
+    params [["_zoomlevel", 0.4, [0.4]], "_p"];
 	MapAnimAdd [0, _zoomlevel, _p];
 	MapAnimCommit;
-	waitUntil{mapAnimDone};
-};
+}, [_zoomlevel,_p]] call CBA_fnc_waitUntilAndExecute;

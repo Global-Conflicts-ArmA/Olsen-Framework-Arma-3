@@ -21,11 +21,7 @@ params [
 ];
 
 if (isMultiplayer) then {
-
-	FW_Teams set [count FW_Teams, [_name, _side, _type,  0, 0, [], []]];
-
-} else {
-
-	FW_Teams set [count FW_Teams, [_name, _side, "ai",  0, 0, [], []]];
-
+	_type = "ai";
 };
+
+FW_Teams set [count FW_Teams, [_name, _side, _type,  0, 0, [], []]];

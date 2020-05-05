@@ -3,15 +3,16 @@
 
 if (isServer) then {
 
-	setViewDistance 2500; //View distance for the server (the ai's)
+	FW_ServerViewDistance = 2500; //View distance for the server (the ai's)
 
 	FW_TimeLimit = 30; //Time limit in minutes, to disable the time limit set it to 0
 	FW_TimeLimitMessage = "TIME LIMIT REACHED!"; //The message displayed when the time runs out
+	FW_EndConditionFrequency = 10; // Frequency in seconds that the end conditions are checked
 
 	[west, "USMC", "player"] call FNC_AddTeam; //Adds a player team called USMC on side west
 	[east, "VDV", "ai"] call FNC_AddTeam; //Adds a ai team called VDV on side east
-	
 	// [resistance, "Local Militia", "player"] call FNC_AddTeam; //Adds a player team called Local Militia on side resistance (aka independent)
+	// [civilian, "Local Civilians", "player"] call FNC_AddTeam; //Adds a player team called Local Civilians on side civilian
 
 	//Ticket pools for different sides
 	FW_RespawnTicketsWest = 0;
@@ -49,6 +50,14 @@ if (!isDedicated) then {
 		case west: {
 			FW_RespawnTickets = 0; //If respawn is enabled you must create empty game logics, for respawn points, following the name format fw_side_respawn. Example: fw_west_respawn
 		};
-		//add more cases for other factions here
+		case east: {
+			FW_RespawnTickets = 0;
+		};
+		case independent: {
+			FW_RespawnTickets = 0;
+		};
+		case civilian: {
+			FW_RespawnTickets = 0;
+		};
 	};
 };

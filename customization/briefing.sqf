@@ -2,41 +2,149 @@
 
 switch (side player) do { //Checks what team the player is on
 
-case west: { //If player is west he receives this briefing
+	case west: { //If player is west he receives this briefing
+	
+		NEWTAB("I. Situation:")
+		<font color='#BBBBBB' size='16' face='PuristaBold'>This is an example header:</font><br/>
+		<br/>
+		Example text.<br/>
+		<br/>
+		This is how you create a <marker name='markerName'>marker</marker>.
+		ENDTAB;
 
-NEWTAB("I. Situation:")
-<font color='#BBBBBB' size='16' face='PuristaBold'>This is an example header:</font><br/>
-<br/>
-Example text.<br/>
-<br/>
-This is how you create a <marker name='markerName'>marker</marker>.
-ENDTAB;
+		NEWTAB("A. Enemy Forces:")
+		//Text goes here
+		ENDTAB;
 
-NEWTAB("A. Enemy Forces:")
-//Text goes here
-ENDTAB;
+		NEWTAB("B. Friendly Forces:")
+		//Text goes here
+		ENDTAB;
 
-NEWTAB("B. Friendly Forces:")
-//Text goes here
-ENDTAB;
+		NEWTAB("II. Mission:")
+		//Text goes here
+		ENDTAB;
 
-NEWTAB("II. Mission:")
-//Text goes here
-ENDTAB;
+		NEWTAB("III. Execution:")
+		//Text goes here
+		ENDTAB;
 
-NEWTAB("III. Execution:")
-//Text goes here
-ENDTAB;
+		NEWTAB("IV. Service Support:")
+		//Text goes here
+		ENDTAB;
 
-NEWTAB("IV. Service Support:")
-//Text goes here
-ENDTAB;
+		NEWTAB("V. Command & Signal:")
+		//Text goes here
+		ENDTAB;
+	
+	};
+	
+	case east: { 
+	
+		NEWTAB("I. Situation:")
+		<font color='#BBBBBB' size='16' face='PuristaBold'>This is an example header:</font><br/>
+		<br/>
+		Example text.<br/>
+		<br/>
+		This is how you create a <marker name='markerName'>marker</marker>.
+		ENDTAB;
 
-NEWTAB("V. Command & Signal:")
-//Text goes here
-ENDTAB;
+		NEWTAB("A. Enemy Forces:")
+		//Text goes here
+		ENDTAB;
 
-}; //End of west case
+		NEWTAB("B. Friendly Forces:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("II. Mission:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("III. Execution:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("IV. Service Support:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("V. Command & Signal:")
+		//Text goes here
+		ENDTAB;
+	
+	};
+	
+	case independent: {
+	
+		NEWTAB("I. Situation:")
+		<font color='#BBBBBB' size='16' face='PuristaBold'>This is an example header:</font><br/>
+		<br/>
+		Example text.<br/>
+		<br/>
+		This is how you create a <marker name='markerName'>marker</marker>.
+		ENDTAB;
+
+		NEWTAB("A. Enemy Forces:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("B. Friendly Forces:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("II. Mission:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("III. Execution:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("IV. Service Support:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("V. Command & Signal:")
+		//Text goes here
+		ENDTAB;
+	
+	};
+	
+	case civilian: {
+	
+		NEWTAB("I. Situation:")
+		<font color='#BBBBBB' size='16' face='PuristaBold'>This is an example header:</font><br/>
+		<br/>
+		Example text.<br/>
+		<br/>
+		This is how you create a <marker name='markerName'>marker</marker>.
+		ENDTAB;
+
+		NEWTAB("A. Enemy Forces:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("B. Friendly Forces:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("II. Mission:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("III. Execution:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("IV. Service Support:")
+		//Text goes here
+		ENDTAB;
+
+		NEWTAB("V. Command & Signal:")
+		//Text goes here
+		ENDTAB;
+	
+	};
 
 }; //End of switch
 	

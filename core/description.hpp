@@ -8,17 +8,8 @@
 	respawnButton = 1; //Disables the respawn button
 	respawnDialog = 0; //Disables the score screen while respawning
 	respawnTemplates[] = {"Base"}; //Disables respawn countdown
-	enableDebugConsole = 1; //Only for logged-in admins
+	enableDebugConsole[] = {"76561197960506129"};
 	enableTargetDebug = 1; //Enable CBA Target Debugging
-
-	class Extended_PreInit_EventHandlers {
-
-		class Mission {
-
-			init = "'' call compile preprocessFileLineNumbers 'preinit.sqf'; FNC_GearScript = compile preprocessFileLineNumbers 'customization\gear.sqf'; FNC_VehicleGearScript = compile preprocessFileLineNumbers 'customization\vehGear.sqf';"; //Compiles the gear script for the server and client
-
-		};
-	};
 
 	class CfgDebriefingSections {
 		class acex_killTracker {
@@ -33,5 +24,15 @@
 
 	#include "dia\debug\dia_debug.hpp" //Must have for the end screen to work, if removed Arma 3 will crash on mission load
 	#include "dia\endscreen\dia_endscreen.hpp" //Must have for the end screen to work, if removed Arma 3 will crash on mission load
+
+#endif
+
+#ifdef description_XEH_PreInit
+
+	class Mission {
+		init = "'' call compile preprocessFileLineNumbers 'preinit.sqf'";
+		serverInit = "'' call compile preprocessFileLineNumbers 'preinitServer.sqf'";
+		clientInit = "'' call compile preprocessFileLineNumbers 'preinitClient.sqf'";
+	};
 
 #endif

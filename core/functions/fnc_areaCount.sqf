@@ -24,12 +24,9 @@ params [
 private _count = 0;
 
 {
-	if ((side _x == _side) && (!(_x getVariable ["FW_DontTrack", false]) || !_noUntracked) && ((_x distance _logic) < _radius) && (_x call FNC_Alive)) then {
-
+	if ((side _x == _side) && {(!(_x getVariable ["FW_DontTrack", false]) || !_noUntracked)} && {((_x distance _logic) < _radius)} && {(_x call FNC_Alive)}) then {
 		_count = _count + 1;
-
 	};
-
 } forEach allUnits;
 
 _count

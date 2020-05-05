@@ -1,51 +1,43 @@
-PREP(getTeamVariable);
-PREP(setTeamVariable);
-PREP(eventKilled);
-PREP(eventPlayerSpawned);
-PREP(eventSpawned);
-PREP(eventRespawned);
-PREP(eventDisconnect);
-PREP(forceTerrainGrid);
-PREP(trackUnit);
-PREP(untrackUnit);
-PREP(StartingCount);
-PREP(stackNames);
-PREP(getDamagedAssets);
-PREP(createRespawnMarker);
-PREP(inArea);
-PREP(areaCount);
-PREP(endMission);
-PREP(casualtyPercentage);
-PREP(casualtyCount);
-PREP(alive);
-PREP(hasEmptyPositions);
-PREP(inVehicle);
-PREP(addTeam);
-PREP(spectateCheck);
-PREP(spectatePrep);
-PREP(countTeam);
-PREP(spawnAI);
-PREP(spawnVehicle);
-PREP(hasExtracted);
-
 enableSaving [false, false];
 
 if (isServer) then {
 
-	"west" call FNC_CreateRespawnMarker;
-	"east" call FNC_CreateRespawnMarker;
-	"guer" call FNC_CreateRespawnMarker;
-	"civ" call FNC_CreateRespawnMarker;
-
-	FW_Teams = []; //DO NOT REMOVE
-	FW_MissionEnded = false; //Mission has not ended
+	{
+		_x call FNC_CreateRespawnMarker;
+	} foreach ["west","east","guer","civ"];
 
 	FW_EventPlayerSpawnedHandle = ["FW_PlayerSpawned", {_this call FNC_EventPlayerSpawned;}] call CBA_fnc_addEventHandler;
 	FW_EventRespawnedHandle = addMissionEventHandler ["EntityRespawned", {_this call FNC_EventRespawned;}];
 	FW_EventKilledHandle = addMissionEventHandler ["EntityKilled", {_this call FNC_EventKilled;}];
 
 	FW_EventDisconnectHandle = addMissionEventHandler ["HandleDisconnect", {_this call FNC_EventDisconnect;}];
-
+	
+	"" call FNC_StartingCount; //DO NOT REMOVE
+	
+	setViewDistance FW_ServerViewDistance;
+	
+	[{
+		FW_endConditionsPFH = [{
+		    params ["_args", "_idPFH"];
+			
+			if (missionNamespace getVariable ["FW_Disable_Endconditions", false]) exitWith {
+				[_idPFH] call CBA_fnc_removePerFrameHandler;
+			};
+			
+			#include "..\customization\endConditions.sqf" //DO NOT REMOVE
+			
+			//The time limit in minutes variable called FW_TimeLimit is set in customization/settings.sqf, to disable the time limit set it to 0
+			if ((FW_TimeLimit > 0) && {((CBA_MissionTime / 60) >= FW_TimeLimit)}) exitWith { //It is recommended that you do not remove the time limit end condition
+				FW_TimeLimitMessage call FNC_EndMission;
+				[_idPFH] call CBA_fnc_removePerFrameHandler;
+			};
+			
+			if (missionNamespace getVariable ["FW_MissionEnded", false]) exitWith {
+				[_idPFH] call CBA_fnc_removePerFrameHandler;
+			};
+			
+		}, FW_EndConditionFrequency, []] call CBA_fnc_addPerFrameHandler;
+	}, [], 3] call CBA_fnc_waitAndExecute;
 };
 
 if (!isDedicated) then {

@@ -1,7 +1,7 @@
 //Covers Map outside marker and centers map on marker center in briefing map
-if (!hasinterface) exitwith {};
-if ((time > 0 || getClientState isEqualTo "BRIEFING READ")) exitwith {};
-params ["_marker",["_centered",true],["_zoomlevel",0.4],"_name",["_AOnumber",1]];
+if !(hasinterface) exitwith {};
+if ((CBA_MissionTime > 0 || getClientState isEqualTo "BRIEFING READ")) exitwith {};
+params ["_marker", ["_centered", true, [true]], ["_zoomlevel", 0.4, [0]], ["_name", "AO", [""]], ["_AOnumber", 1, [1]]];
 
 //for self interact options and logging
 FW_map_currentAO = _AOnumber;
@@ -17,7 +17,7 @@ private _syo = _sy;
 private _mainS = 20000;
 private _mainBS = 50;
 
-if ((_a > 0 && _a <= 90) || (_a >180 && _a <=270)) then {
+if ((_a > 0 && {_a <= 90}) || {(_a > 180 && {_a <=270})}) then {
 	private _temp = _sx;
 	_sx = _sy;
 	_sy = _temp;
@@ -36,13 +36,13 @@ private _colors = ["colorBlack","colorBlack",_colorForest,"colorGreen",_colorFor
 	private _s = _sx;
 	private _w = 2*_mainS+_sy;
 	private _bw = _sy + _mainBS;
-	if !((_a > 0 && _a <= 90) || (_a >180 && _a <=270)) then {
+	if !((_a > 0 && {_a <= 90}) || {(_a > 180 && {_a <=270})}) then {
 		_s = _sy;
 		_w = _sx + 2*_mainBS;
 		_bw = _sx + _mainBS;
 	};
-	_pos_x = _px + (sin _a) * (_mainS + _s + _mainBS);
-	_pos_y = _py + (cos _a) * (_mainS + _s + _mainBS);
+	private _pos_x = _px + (sin _a) * (_mainS + _s + _mainBS);
+	private _pos_y = _py + (cos _a) * (_mainS + _s + _mainBS);
 	
 	{
 		_x params ["_color"];
@@ -100,9 +100,10 @@ _marker setMarkerColorLocal "colorBlack";
 ((uiNamespace getVariable "RscDiary") displayCtrl 51) ctrlMapAnimAdd [0, _zoomlevel, _p];
 ctrlMapAnimCommit ((uiNamespace getVariable "RscDiary") displayCtrl 51);
 
-private _hasMap = true;
 if !("ItemMap" in assignedItems player) then {
-	_hasMap = false;
 	player linkItem "ItemMap";
+	[{
+	    player unlinkItem "ItemMap";
+	}, []] call CBA_fnc_execNextFrame;
 };
-player setvariable ["hasMap",_hasMap];
+

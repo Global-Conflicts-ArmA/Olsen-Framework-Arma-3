@@ -5,4 +5,45 @@
 
 //_AOMarkers = [MARKERNAMEINQUOTES,ISCENTERED,ZOOMLEVEL,NAME VISIBLE IN SELF INTERACT, AO NUMBER];
 //_AOMarkers = [["AOMarker_1",true,0.4,"Bahnhof",1]];
-_AOMarkers = [["AOMarker_1",true,0.6,"AO",1],["AOMarker_2",true,0.8,"AO 2",2]];
+
+//Global Map Marker Array
+private _AOMarkers = [
+    ["AOMarker_1",true,0.6,"AO",1],
+    ["AOMarker_2",true,0.8,"AO 2",2]
+];
+
+//Map Marker Arrays per side
+//private ["_AOMarkers"];
+//switch (side player) do {
+//    case west: {
+//        _AOMarkers = [
+//            ["AOMarker_1",true,0.6,"AO",1],
+//            ["AOMarker_2",true,0.8,"AO 2",2]
+//        ];
+//    };
+//    case east: {
+//        _AOMarkers = [
+//            ["AOMarker_1",true,0.6,"AO",1],
+//            ["AOMarker_2",true,0.8,"AO 2",2]
+//        ];
+//    };
+//    case independent: {
+//        _AOMarkers = [
+//            ["AOMarker_1",true,0.6,"AO",1],
+//            ["AOMarker_2",true,0.8,"AO 2",2]
+//        ];
+//    };
+//    case civilian: {
+//        _AOMarkers = [
+//            ["AOMarker_1",true,0.6,"AO",1],
+//            ["AOMarker_2",true,0.8,"AO 2",2]
+//        ];
+//    };
+//    default {
+//        _AOMarkers = [
+//            ["AOMarker_1",true,0.6,"AO",1],
+//            ["AOMarker_2",true,0.8,"AO 2",2]
+//        ];
+//    };
+//};
+

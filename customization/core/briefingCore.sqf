@@ -1,4 +1,4 @@
-_briefing = [];
+private _briefing = [];
 
 #define NEWTAB(NAME) _briefing set [count _briefing, ["Diary",[NAME,"
 #define ENDTAB "]]];
