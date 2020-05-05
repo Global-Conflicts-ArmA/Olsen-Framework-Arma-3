@@ -1,101 +1,72 @@
-["JIP Manager", "Handles JIPs in different ways depending on the module's settings.", "Olsen &amp; Starfox64"] call FNC_RegisterModule;
+#include "..\..\core\script_macros.hpp"
+
+["JIP Manager", "Handles JIPs in different ways depending on the module's settings.", "Olsen &amp; Starfox64"] call FUNC(RegisterModule);
 
 #include "settings.sqf"
 
 if (isServer) then {
-	[] spawn {
-
-		waitUntil {time > FW_JIPDENYTIME};
-
-		missionNamespace setVariable ["FW_JIPDenied", true];
-		publicVariable "FW_JIPDenied";
-
-	};
+	[{
+	    CBA_missionTime > GVAR(JIPDENYTIME)
+	},{
+	    missionNamespace setVariable [QGVAR(JIPDenied), true, true];
+	}, []] call CBA_fnc_waitUntilAndExecute;
 };
 
-if (!isDedicated && hasInterface &&str side player != "LOGIC") then {
+if (hasInterface && {(str (side player)) != "LOGIC"}) then {
 
-	if (FW_JIPTYPE == "DENY" && missionNamespace getVariable ["FW_JIPDenied", false]) exitWith {
-
-		[] spawn {
-			sleep 5;
-			player call FNC_UntrackUnit;
+	if ((GVAR(JIPTYPE) isEqualTo "DENY") && {missionNamespace getVariable [QGVAR(JIPDenied), false]}) exitWith {
+		[{
+			player call FUNC(UntrackUnit);
 			player setDamage 1;
-
-			sleep 8;
-			cutText ["This mission does not support JIP.", "PLAIN DOWN"];
-		};
-
+			[{
+			    cutText ["This mission does not support JIP.", "PLAIN DOWN"];
+			}, [], 8] call CBA_fnc_waitAndExecute;
+		}, [], 5] call CBA_fnc_waitAndExecute;
 	};
 
-	_target = leader player;
+	private _target = leader player;
 
-	if (player == _target || !(_target call FNC_Alive)) then {
-
-		_rank = -1;
-
+	if (player isEqualTo _target || !(_target call FUNC(Alive))) then {
+		private _rank = -1;
 		{
-
-			if (rankId _x > _rank && (_target call FNC_Alive)) then {
+			if ((rankId _x > _rank) && {(_target call FUNC(Alive))}) then {
 				_rank = rankId _x;
 				_target = _x;
 			};
-
 		} forEach ((units group player) - [player]);
 	};
 
-	if ((_target distance player) >  FW_JIPDISTANCE) then {
+	if ((_target distance player) > GVAR(JIPDISTANCE)) then {
 
-		switch (FW_JIPTYPE) do {
+		switch (GVAR(JIPTYPE)) do {
 
 			case "TELEPORT": {
-
-				_teleportAction = player addAction ["Teleport to Squad", "modules\jip\teleportAction.sqf", _target];
-
+				private _teleportAction = player addAction ["Teleport to Squad", "modules\jip\teleportAction.sqf", _target];
 				[_teleportAction] spawn { //Spawns code running in parallel
-
-					_spawnPos = getPosATL player;
-
+					private _spawnPos = getPosATL player;
 					while {true} do {
-
-						if (player distance _spawnPos > FW_SPAWNDISTANCE) exitWith { //Exitwith ends the loop
-
+						if (player distance _spawnPos > GVAR(SPAWNDISTANCE)) exitWith { //Exitwith ends the loop
 							player removeAction (_this select 0);
-							cutText [format ["JIP teleport option lost, you went beyond %1 meters from your spawn location", FW_SPAWNDISTANCE], 'PLAIN DOWN'];
-
+							cutText [format ["JIP teleport option lost, you went beyond %1 meters from your spawn location", GVAR(SPAWNDISTANCE)], 'PLAIN DOWN'];
 						};
-
 						sleep (60); //Runs every min
-
 					};
 				};
-
 			};
 
 			case "TRANSPORT": {
-
-				_transportAction = player addAction ["Request Transport", "modules\jip\transportAction.sqf"];
-
+				private _transportAction = player addAction ["Request Transport", "modules\jip\transportAction.sqf"];
 				[_transportAction] spawn { //Spawns code running in parallel
-
-					_spawnPos = getPosATL player;
-
+					private _spawnPos = getPosATL player;
 					while {true} do {
-
-						if (player distance _spawnPos > FW_SPAWNDISTANCE) exitWith { //Exitwith ends the loop
-
+						if (player distance _spawnPos > GVAR(SPAWNDISTANCE)) exitWith { //Exitwith ends the loop
 							player removeAction (_this select 0);
-							cutText [format ["JIP transport request option lost, you went beyond %1 meters from your spawn location", FW_SPAWNDISTANCE], 'PLAIN DOWN'];
-
+							cutText [format ["JIP transport request option lost, you went beyond %1 meters from your spawn location", GVAR(SPAWNDISTANCE)], 'PLAIN DOWN'];
 						};
-
 						sleep (60); //Runs every min
-
 					};
 				};
-
 			};
-
 		};
 	};
 };

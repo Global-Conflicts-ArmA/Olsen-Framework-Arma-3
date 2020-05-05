@@ -1,15 +1,15 @@
 //Covers Map outside marker and centers map on marker center in game map
-if (!hasinterface) exitwith {};
+if !(hasinterface) exitwith {};
 params ["_marker", ["_centered", true, [true]], ["_zoomlevel", 0.4, [0]], ["_name", "AO", [""]], ["_AOnumber", 1, [1]]];
 
 //delete old markers if present
-if !(FW_map_cover isEqualTo []) then {
-	FW_map_cover apply {deletemarker _x}; 
-	FW_map_cover = [];
+if !(GVAR(map_cover) isEqualTo []) then {
+	GVAR(map_cover) apply {deletemarker _x}; 
+	GVAR(map_cover) = [];
 };
 
 //for self interact options and logging
-FW_map_currentAO = _AOnumber;
+GVAR(map_currentAO) = _AOnumber;
 
 private _sx = (getMarkerSize _marker) select 0;
 private _sy = (getMarkerSize _marker) select 1;
@@ -53,7 +53,7 @@ private _colors = ["colorBlack","colorBlack",_colorForest,"colorGreen",_colorFor
 		_x params ["_color"];
 	
 		private _marker = createMarkerLocal ["ao_" + str _i + str _forEachIndex, [_pos_x, _pos_y]];
-		FW_map_cover pushBack _marker;
+		GVAR(map_cover) pushBack _marker;
 		
 		_marker setMarkerSizeLocal [_w,_mainS];
 		_marker setMarkerDirLocal _a;
@@ -73,7 +73,7 @@ private _colors = ["colorBlack","colorBlack",_colorForest,"colorGreen",_colorFor
 	
 	for "_m" from 0 to 7 do {
 		_marker = createMarkerLocal ["ao_w_" + str _i + str _m,[_pos_x, _pos_y]];
-		FW_map_cover pushBack _marker;
+		GVAR(map_cover) pushBack _marker;
 		
 		_marker setMarkerSizeLocal [_bw, _mainBS/2];
 		_marker setMarkerDirLocal _a;
@@ -85,7 +85,7 @@ private _colors = ["colorBlack","colorBlack",_colorForest,"colorGreen",_colorFor
 } forEach [_a, _a + 90, _a + 180, _a + 270];
 
 _marker = createMarkerLocal ["ao_b_1", [_px, _py]];
-FW_map_cover pushBack _marker;
+GVAR(map_cover) pushBack _marker;
 
 _marker setMarkerSizeLocal [_sxo, _syo];
 _marker setMarkerDirLocal _a;
@@ -94,7 +94,7 @@ _marker setMarkerBrushLocal "border";
 _marker setMarkerColorLocal "colorBlack";
 
 _marker = createMarkerLocal ["ao_b_2", [_px, _py]];
-FW_map_cover pushBack _marker;
+GVAR(map_cover) pushBack _marker;
 
 _marker setMarkerSizeLocal [_sxo+_mainBS, _syo+_mainBS];
 _marker setMarkerDirLocal _a;

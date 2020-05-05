@@ -1,13 +1,15 @@
 //Do not edit unless you know what you are doing
 //because you are on the highway to the danger zone!
 
+#include "..\..\script_macros.hpp"
+
 class DIA_DEBUG {
 
 	idd = 400;
 	fadeout = 0;
 	fadein = 0;
 	duration = 180;
-	onLoad = "uiNamespace setVariable ['FW_Debug', _this select 0];";
+	onLoad = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(Debug), _this select 0)];);
 
 	class controlsBackground {
 

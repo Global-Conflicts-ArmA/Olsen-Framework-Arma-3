@@ -1,4 +1,6 @@
-player createDiarySubject ["FW_Menu", "Olsen Framework"];
+#include "script_macros.hpp"
+
+player createDiarySubject [QGVAR(Menu), "Olsen Framework"];
 
 private _info = "
 <font size='18'>Welcome to the Olsen Framework!</font><br/>
@@ -10,4 +12,4 @@ github.com/dklollol/Olsen-Framework-Arma-3<br/>
 Current Version: 3.3.3
 ";
 
-player createDiaryRecord ["FW_Menu", ["Framework Info", _info]];
+player createDiaryRecord [QGVAR(Menu), ["Framework Info", _info]];

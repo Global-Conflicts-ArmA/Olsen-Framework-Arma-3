@@ -1,3 +1,5 @@
+#include "core\script_macros.hpp"
+
 #define description
 
 #include "core\description.hpp" //DO NOT REMOVE
@@ -7,20 +9,16 @@
 #define description_functions
 
 class CfgFunctions {
-
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
-
 };
 
 #undef description_functions
 #define description_titles
 
 class rscTitles {
-
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
-
 };
 
 #undef description_titles
@@ -32,7 +30,36 @@ class Extended_PreInit_EventHandlers {
 };
 
 #undef description_XEH_PreInit
+#define description_XEH_Init_CAManBase
 
+class Extended_Init_EventHandlers {
+	class CAManBase {
+		#include "core\description.hpp" //DO NOT REMOVE
+		#include "modules\modules.sqf" //DO NOT REMOVE
+	};
+};
+
+#undef description_XEH_Init_CAManBase
+#define description_XEH_Killed_CAManBase
+
+class Extended_Killed_EventHandlers {
+	class CAManBase {
+		#include "core\description.hpp" //DO NOT REMOVE
+		#include "modules\modules.sqf" //DO NOT REMOVE
+	};
+};
+
+#undef description_XEH_Killed_CAManBase
+#define description_XEH_Respawn_CAManBase
+
+class Extended_Respawn_EventHandlers {
+	class CAManBase {
+		#include "core\description.hpp" //DO NOT REMOVE
+		#include "modules\modules.sqf" //DO NOT REMOVE
+	};
+};
+
+#undef description_XEH_Respawn_CAManBase
 #define description_XEH_InitPost_CAManBase
 
 class Extended_InitPost_EventHandlers {
@@ -43,47 +70,35 @@ class Extended_InitPost_EventHandlers {
 };
 
 #undef description_XEH_InitPost_CAManBase
-
 #define description_notifications
 
 class CfgNotifications {
-
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
-
 };
 
 #undef description_notifications
-
 #define description_sounds
 
 class CfgSounds {
-
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
-
 };
 
 #undef description_sounds
-
 #define description_insignia
 
 class CfgUnitInsignia {
-
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
-
 };
 
 #undef description_insignia
-
 #define description_params
 
 class Params {
-
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
-
 };
 
 #undef description_params

@@ -2,24 +2,28 @@
 
 #include "core\script_macros.hpp"
 
-FW_Teams = []; //DO NOT REMOVE
-FW_MissionEnded = false; //Mission has not ended
+GVAR(Teams) = []; //DO NOT REMOVE
+GVAR(MissionEnded) = false; //Mission has not ended
 
-["FW_eventSpawned", {
+[QGVAR(eventSpawned), {
     params ["_unit"];
-    _unit setVariable ["FW_Side", side _unit];
-	_unit setVariable ["FW_Tracked", true];
-	_unit call FNC_EventSpawned;
+	_unit call FUNC(trackUnit);
 }] call CBA_fnc_addEventHandler;
 
-["FW_eventUntrack", {
+[QGVAR(eventUntrack), {
     params ["_unit"];
-	_unit call FNC_untrackUnit;
+	_unit call FUNC(untrackUnit);
 }] call CBA_fnc_addEventHandler;
 
-["FW_eventKilled", {
+[QGVAR(eventKilled), {
     params [["_unit", objNull, [objNull]], ["_killer", objNull, [objNull]]];
-	[_unit, _killer] call FNC_EventKilled;
+	[_unit, _killer] call FUNC(EventKilled);
 }] call CBA_fnc_addEventHandler;
 
+[QGVAR(eventRespawn), {
+    params [["_unit", objNull, [objNull]]];
+	[_unit] call FUNC(EventRespawned);
+}] call CBA_fnc_addEventHandler;
+
+#include "customization\teamsettings.sqf" //DO NOT REMOVE
 #include "modules\modules.sqf" //DO NOT REMOVE

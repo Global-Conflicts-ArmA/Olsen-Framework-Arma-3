@@ -1,3 +1,5 @@
+#include "script_macros.hpp"
+
 #ifdef description
 
 	#include "dia\rscdefinitions.hpp" //Must have for the end screen to work, if removed Arma 3 will crash on mission load
@@ -27,12 +29,43 @@
 
 #endif
 
+#ifdef description_functions
+	
+	#include "CfgFunctions.hpp"
+	
+#endif
+
 #ifdef description_XEH_PreInit
 
 	class Mission {
-		init = "'' call compile preprocessFileLineNumbers 'preinit.sqf'";
 		serverInit = "'' call compile preprocessFileLineNumbers 'preinitServer.sqf'";
+		init = "'' call compile preprocessFileLineNumbers 'preinit.sqf'";
 		clientInit = "'' call compile preprocessFileLineNumbers 'preinitClient.sqf'";
 	};
 
 #endif
+
+#ifdef description_XEH_Init_CAManBase
+
+	class GVAR(Core) {
+		init = QUOTE(_this call FUNC(initCAManBase));
+	};
+
+#endif
+
+#ifdef description_XEH_Killed_CAManBase
+
+	class GVAR(Core) {
+		killed = QUOTE(_this call FUNC(killedCAManBase));
+	};
+
+#endif
+
+#ifdef description_XEH_Respawn_CAManBase
+
+	class GVAR(Core) {
+		respawn = QUOTE(_this call FUNC(respawnCAManBase));
+	};
+
+#endif
+

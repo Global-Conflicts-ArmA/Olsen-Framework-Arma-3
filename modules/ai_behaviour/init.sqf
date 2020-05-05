@@ -2,6 +2,6 @@
 //Written by TinfoilHate
 //Updated: July 19, 2017
 
-["AI Behaviour", "Handles various functions for AI combat behaviour.", "TinfoilHate"] call FNC_RegisterModule;
+["AI Behaviour", "Handles various functions for AI combat behaviour.", "TinfoilHate"] call FUNC(RegisterModule);
 
 #include "settings.sqf"

@@ -1,4 +1,4 @@
-["AI drivers", "Adds AI commanded by players as drivers to vehicles.", "BlackHawk"] call FNC_RegisterModule;
+["AI drivers", "Adds AI commanded by players as drivers to vehicles.", "BlackHawk"] call FUNC(RegisterModule);
 
 #include "settings.sqf"
 

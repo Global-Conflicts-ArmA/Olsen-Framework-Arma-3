@@ -1,3 +1,5 @@
+#include "..\..\core\script_macros.hpp"
+
 private _briefing = [];
 
 #define NEWTAB(NAME) _briefing set [count _briefing, ["Diary",[NAME,"

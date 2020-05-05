@@ -1,87 +1,69 @@
+#include "..\..\script_macros.hpp"
+
 90001 cutRsc ["DIA_ENDSCREEN", "PLAIN"];
-_bg = 3000;
-_endTitle = 3001;
-_left = 3002;
-_right = 3003;
-_bottomLeft = 3004;
-_bottomMiddle = 3005;
-_bottomRight = 3006;
+private _bg = 3000;
+private _endTitle = 3001;
+private _left = 3002;
+private _right = 3003;
+private _bottomLeft = 3004;
+private _bottomMiddle = 3005;
+private _bottomRight = 3006;
 
 params ["_scenario", "_timeLimit", "_teams"];
 
 {
-
 	_x enableSimulation false;
-
 } forEach vehicles;
 
-[] spawn {
-
-	sleep 1;
+[{
 	{
-
 		_x enableSimulation false;
-		removeAllWeapons _x;
+	} forEach allUnits;
+}, [], 1] call CBA_fnc_waitAndExecute;
 
-	} forEach allPlayers;
-};
-
-_leftText = "";
-_rightText = "";
-_bottomTextLeft = "";
-_bottomTextMiddle = "";
-_bottomTextRight = "";
-_textSide = 0;
+private _leftText = "";
+private _rightText = "";
+private _bottomTextLeft = "";
+private _bottomTextMiddle = "";
+private _bottomTextRight = "";
+private _textSide = 0;
 {
 
 	_x params ["_name", "_side", "_type", "_start", "_current", "_disabled", "_destroyed"];
 
-	_temp = format ["%1<br />Casualties: %2 out of %3<br />", _name, (_start - _current), _start];
+	private _temp = format ["%1<br />Casualties: %2 out of %3<br />", _name, (_start - _current), _start];
 
 	if (count _disabled != 0) then {
-
 		_temp = _temp + "<br />Disabled assets:<br />";
-
 		{
-
 			_temp = _temp + format ["%1<br />", _x];
-
 		} forEach _disabled;
-
 	};
 
 	if (count _destroyed != 0) then {
-
 		_temp = _temp + "<br />Destroyed assets:<br />";
-
 		{
-
 			_temp = _temp + format ["%1<br />", _x];
-
 		} forEach _destroyed;
 	};
 
 	_temp = _temp + "<br />";
 
-	if (_textSide == 0) then {
-
+	if (_textSide isEqualTo 0) then {
 		_textSide = 1;
 		_leftText = _leftText + _temp;
-
 	} else {
-
 		_textSide = 0;
 		_rightText = _rightText + _temp;
-
 	};
 
 } forEach _teams;
 
-_endTitleText = _scenario;
+private _endTitleText = _scenario;
 
 if (_timeLimit != 0) then {
 
-	_time = ceil(time / 60);
+	private _time = ceil(time / 60);
 
 	if (_time >= _timeLimit) then {
 
@@ -89,7 +71,7 @@ if (_timeLimit != 0) then {
 
 	};
 
-	_timeLimitText = format ["Mission duration: %1 out of %2 minutes", _time, _timeLimit];
+	private _timeLimitText = format ["Mission duration: %1 out of %2 minutes", _time, _timeLimit];
 
 	_endTitleText = format ["%1<br />%2", _scenario, _timeLimitText];
 
@@ -102,7 +84,7 @@ if (!isNil "aCount_textBLU" && !isNil "aCount_textRED" && !isNil "aCount_textRES
 };
 
 disableSerialization;
-_dia = uiNamespace getVariable "FW_EndScreen";
+private _dia = uiNamespace getVariable QGVAR(EndScreen);
 
 (_dia displayCtrl _endTitle) ctrlSetStructuredText parseText _endTitleText;
 (_dia displayCtrl _left) ctrlSetStructuredText parseText _leftText;
@@ -111,12 +93,20 @@ _dia = uiNamespace getVariable "FW_EndScreen";
 (_dia displayCtrl _bottomMiddle) ctrlSetStructuredText parseText _bottomTextMiddle;
 (_dia displayCtrl _bottomRight) ctrlSetStructuredText parseText _bottomTextRight;
 
-for "_x" from 1 to 120 do {
 
-	(_dia displayCtrl _bg) ctrlSetBackgroundColor [0, 0, 0, (_x * (1/120))];
-	sleep(0.01);
+GVAR(endScreenPFH) = [{
+    params ["_args", "_idPFH"];
+	_args params ["_dia", "_bg", ["_count", 0, [0]]];
+	private _alpha = (_count * (1/120));
+	_count = _count + 1;
+	_args set [2, _count];
+    (_dia displayCtrl _bg) ctrlSetBackgroundColor [0, 0, 0, _alpha];
+	//if (_count > 120) exitWith {
+	//	[_idPFH] call CBA_fnc_removePerFrameHandler;
+	//};
+}, 0, [_dia, _bg]] call CBA_fnc_addPerFrameHandler;
 
-};
+[{
+    endMission "END1";
+}, [], 15] call CBA_fnc_waitAndExecute;
 
-sleep (15);
-endMission "END1";

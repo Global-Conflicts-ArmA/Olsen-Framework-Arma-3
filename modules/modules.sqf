@@ -14,7 +14,6 @@
 #include "jip\root.sqf"
 #include "self_actions\root.sqf"
 #include "shot_count\root.sqf"
-#include "start_on_safe\root.sqf"
 
 //Additional modules that can be enabled by removing the //
 //!!Some of them require changing settings in their settings.sqf file!!

@@ -1,5 +1,7 @@
+#include "..\..\core\script_macros.hpp"
+
 #define random(MIN, MAX) \
-([MIN, MAX] call FNC_RandomRange)
+([MIN, MAX] call FUNC(RandomRange))
 
 private _temp = "";
 
@@ -18,8 +20,8 @@ if !(_groupId isEqualTo "") then {
 
 if !(local _unit) exitWith {};
 
+SETPVAR(_unit,Loadout,_type);
 _unit setVariable ["BIS_enableRandomization", false];
-_unit setVariable ["FW_Loadout", _type, true];
 
-FNC_AddItem = {([_unit, _type] + _this) call FNC_AddItemOrg;};
-FNC_AddItemRandom = {([[_unit, _type]] + [_this]) call FNC_AddItemRandomOrg;};
+FNC_AddItem = {([_unit, _type] + _this) call FUNC(AddItemOrg);};
+FNC_AddItemRandom = {([[_unit, _type]] + [_this]) call FUNC(AddItemRandomOrg);};

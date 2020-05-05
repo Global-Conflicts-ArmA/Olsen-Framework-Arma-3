@@ -1,12 +1,14 @@
 //Do not edit unless you know what you are doing
 //because you are on the highway to the danger zone!
 
+#include "..\..\script_macros.hpp"
+
 class DIA_ENDSCREEN {
 	idd = 300;
 	fadeout = 0;
 	fadein = 0;
 	duration = 30;
-	onLoad = "uiNamespace setVariable ['FW_EndScreen', _this select 0];";
+	onLoad = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(EndScreen), _this select 0)];);
 	controlsBackground[] = {BACKGROUND};
 	objects[] = {};
 	controls[] = {TEXT_TITLE, TEXT_LEFT, TEXT_RIGHT, TEXT_BOTTOM_LEFT,TEXT_BOTTOM_MIDDLE, TEXT_BOTTOM_RIGHT};

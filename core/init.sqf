@@ -1,46 +1,46 @@
+#include "script_macros.hpp"
+
 enableSaving [false, false];
 
 if (isServer) then {
 
 	{
-		_x call FNC_CreateRespawnMarker;
+		_x call FUNC(CreateRespawnMarker);
 	} foreach ["west","east","guer","civ"];
 
-	FW_EventPlayerSpawnedHandle = ["FW_PlayerSpawned", {_this call FNC_EventPlayerSpawned;}] call CBA_fnc_addEventHandler;
-	FW_EventRespawnedHandle = addMissionEventHandler ["EntityRespawned", {_this call FNC_EventRespawned;}];
-	FW_EventKilledHandle = addMissionEventHandler ["EntityKilled", {_this call FNC_EventKilled;}];
+	GVAR(EventPlayerSpawnedHandle) = [QGVAR(PlayerSpawned), {_this call FUNC(EventPlayerSpawned);}] call CBA_fnc_addEventHandler;
 
-	FW_EventDisconnectHandle = addMissionEventHandler ["HandleDisconnect", {_this call FNC_EventDisconnect;}];
+	GVAR(EventDisconnectHandle) = addMissionEventHandler ["HandleDisconnect", {_this call FUNC(EventDisconnect);}];
 	
-	"" call FNC_StartingCount; //DO NOT REMOVE
+	//"" call FUNC(StartingCount); //DO NOT REMOVE
 	
-	setViewDistance FW_ServerViewDistance;
+	setViewDistance GVAR(ServerViewDistance);
 	
 	[{
-		FW_endConditionsPFH = [{
+		GVAR(endConditionsPFH) = [{
 		    params ["_args", "_idPFH"];
 			
-			if (missionNamespace getVariable ["FW_Disable_Endconditions", false]) exitWith {
+			if (GETMVAR(Disable_Endconditions,false)) exitWith {
 				[_idPFH] call CBA_fnc_removePerFrameHandler;
 			};
 			
 			#include "..\customization\endConditions.sqf" //DO NOT REMOVE
 			
-			//The time limit in minutes variable called FW_TimeLimit is set in customization/settings.sqf, to disable the time limit set it to 0
-			if ((FW_TimeLimit > 0) && {((CBA_MissionTime / 60) >= FW_TimeLimit)}) exitWith { //It is recommended that you do not remove the time limit end condition
-				FW_TimeLimitMessage call FNC_EndMission;
+			//The time limit in minutes variable called GVAR(TimeLimit) is set in customization/settings.sqf, to disable the time limit set it to 0
+			if ((GVAR(TimeLimit) > 0) && {((CBA_MissionTime / 60) >= GVAR(TimeLimit))}) exitWith { //It is recommended that you do not remove the time limit end condition
+				GVAR(TimeLimitMessage) call FUNC(EndMission);
 				[_idPFH] call CBA_fnc_removePerFrameHandler;
 			};
 			
-			if (missionNamespace getVariable ["FW_MissionEnded", false]) exitWith {
+			if (missionNamespace getVariable [QGVAR(MissionEnded), false]) exitWith {
 				[_idPFH] call CBA_fnc_removePerFrameHandler;
 			};
 			
-		}, FW_EndConditionFrequency, []] call CBA_fnc_addPerFrameHandler;
+		}, GVAR(EndConditionFrequency), []] call CBA_fnc_addPerFrameHandler;
 	}, [], 3] call CBA_fnc_waitAndExecute;
 };
 
-if (!isDedicated) then {
+if (hasInterface) then {
 
 	//Anything done using "player" must be past this line for JIP compatibility
 	waitUntil {!(isNull player)};
@@ -48,19 +48,19 @@ if (!isDedicated) then {
 	if (!isServer) then {
 
 		//Tells the server the player has spawned
-		["FW_PlayerSpawned", player] call CBA_fnc_serverEvent;
+		[QGVAR(PlayerSpawned), player] call CBA_fnc_serverEvent;
 
 		["endMission", {
 			private _msg = "Mission ended by the admin";
 			if (count (_this select 0) > 0) then {
 				_msg = _msg + ": " + (_this select 0);
 			};
-			_msg remoteExecCall ["FNC_EndMission", 2];
+			_msg remoteExecCall [QFUNC(EndMission), 2];
 		}, "admin"] call CBA_fnc_registerChatCommand;
 	};
 
-	//"FW_EndMission" player event sends the received variables to the end screen
-	FW_EndMissionEh = ["FW_EndMission", {_this execVM "core\dia\endscreen\dia_endscreen.sqf";}] call CBA_fnc_addEventHandler;
+	//QGVAR(EndMission) player event sends the received variables to the end screen
+	GVAR(EndMissionEh) = [QGVAR(EndMission), {_this call FW_fnc_EndScreen}] call CBA_fnc_addEventHandler;
 
 	//Various settings
 	enableEngineArtillery false; //Disable Arma 3 artillery computer
@@ -69,21 +69,30 @@ if (!isDedicated) then {
 	0 fadeRadio 0; //Lower radio volume to 0
 
 	//Creates the briefing notes for the player
-	"" call FNC_Briefing;
-	"" call FNC_Menu;
+	"" call FUNC(Briefing);
+	"" call FUNC(Menu);
 
-	FW_RespawnTickets = 0; //Initialize respawn tickets to 0
+	GVAR(RespawnTickets) = 0; //Initialize respawn tickets to 0
 
-	player setVariable ["FW_Dead", false, true]; //Tells the framework the player is alive
-	player setVariable ["FW_Spectating", false, true]; //Player is not spectating
-	player setVariable ["FW_Body", player, true]; //Remembers his old body for spectating his dead body
+	player setVariable [QGVAR(Dead), false, true]; //Tells the framework the player is alive
+	player setVariable [QGVAR(Spectating), false, true]; //Player is not spectating
+	player setVariable [QGVAR(Body), player, true]; //Remembers his old body for spectating his dead body
 
 	//Makes the player go into spectator mode when dead or respawn if he has respawn tickets
-	FW_KilledEh = player addEventHandler ["Killed", {"" spawn FNC_SpectateCheck;}];
-	FW_RespawnEh = player addEventHandler ["Respawn", {_this call FNC_SpectatePrep;}];
+	GVAR(KilledEh) = player addEventHandler ["Killed", {"" spawn FUNC(SpectateCheck);}];
+	GVAR(RespawnEh) = player addEventHandler ["Respawn", {_this call FUNC(SpectatePrep);}];
 
 	//Various settings
 	player addRating 100000; //Makes sure ai doesnt turn hostile when teamkilling
 	player setVariable ["BIS_noCoreConversations", true]; //Disable scroll wheel conversations
-
+	
+	if (GVAR(StartOnSafe)) then {
+		if (hasInterface) then {
+			[{
+				if (currentWeapon player != "") then {
+					[player, currentWeapon player, currentMuzzle player] call ace_safemode_fnc_lockSafety;
+				};
+			}, []] call CBA_fnc_execNextFrame;
+		};
+	};
 };

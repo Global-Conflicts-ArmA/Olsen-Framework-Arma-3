@@ -1,8 +1,10 @@
+#include "..\..\script_macros.hpp"
+
 FNC_DebugMessage = {};
 
 if (!isDedicated) then {
 	
-	if (FW_DebugMessagesEnabled) then {
+	if (GVAR(DebugMessagesEnabled)) then {
 		
 		100 cutRsc ["DIA_DEBUG", "PLAIN"];
 		
@@ -16,9 +18,9 @@ if (!isDedicated) then {
 		
 			_text = _text + _x + "<br></br><br></br>";
 			
-		} forEach FW_DebugMessages;
+		} forEach GVAR(DebugMessages);
 		
-		((uiNamespace getVariable "FW_Debug") displayCtrl _someText) ctrlSetStructuredText parseText _text;
+		((uiNamespace getVariable QGVAR(Debug)) displayCtrl _someText) ctrlSetStructuredText parseText _text;
 
 		FNC_DebugMessage = {
 			
@@ -38,11 +40,11 @@ if (!isDedicated) then {
 					
 				};
 			
-			} forEach FW_DebugMessages;
+			} forEach GVAR(DebugMessages);
 			
 			if (!_found) then {
 			
-				FW_DebugMessages set [count FW_DebugMessages, _message];
+				GVAR(DebugMessages) set [count GVAR(DebugMessages), _message];
 				
 				_text = "";
 				
@@ -50,9 +52,9 @@ if (!isDedicated) then {
 				
 					_text = _text + _x + "<br></br><br></br>";
 					
-				} forEach FW_DebugMessages;
+				} forEach GVAR(DebugMessages);
 				
-				((uiNamespace getVariable "FW_Debug") displayCtrl _someText) ctrlSetStructuredText parseText _text;
+				((uiNamespace getVariable QGVAR(Debug)) displayCtrl _someText) ctrlSetStructuredText parseText _text;
 			
 			};
 		};

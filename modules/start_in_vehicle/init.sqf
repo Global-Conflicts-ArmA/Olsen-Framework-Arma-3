@@ -1,4 +1,4 @@
-["Start in Vehicle", "Moves units into specific vehicle slots upon mission start, includes JiP timeout", "PIZZADOX"] call FNC_RegisterModule;
+["Start in Vehicle", "Moves units into specific vehicle slots upon mission start, includes JiP timeout", "PIZZADOX"] call FUNC(RegisterModule);
 
 ["CBA_loadingScreenDone", {
     [] call StartInVehicle_fnc_startInVehicle;

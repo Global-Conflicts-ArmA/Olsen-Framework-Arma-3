@@ -1,4 +1,4 @@
-["Soft AO Limit", "Allows the mission maker to set AO limits to specific sides.", "Olsen &amp; Starfox64"] call FNC_RegisterModule;
+["Soft AO Limit", "Allows the mission maker to set AO limits to specific sides.", "Olsen &amp; Starfox64"] call FUNC(RegisterModule);
 
 #define ANY sideLogic
 
