@@ -12,6 +12,6 @@
  * Public: Yes
  */
 
-private _unit = _this;
+params ["_unit"];
 
-(alive _unit) && !(_unit getVariable ["FW_Dead", false])
+(alive _unit) && {!(_unit getVariable ["FW_Dead", false])}

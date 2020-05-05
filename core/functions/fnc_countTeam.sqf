@@ -12,7 +12,7 @@
  * Public: Yes
  */
 
-private _team = _this;
+params ["_team"];
 
 private _count = -1;
 

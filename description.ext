@@ -12,10 +12,10 @@ class CfgFunctions {
 	#include "modules\modules.sqf" //DO NOT REMOVE
 
 };
-	
+
 #undef description_functions
 #define description_titles
-	
+
 class rscTitles {
 
 	#include "core\description.hpp" //DO NOT REMOVE
@@ -24,8 +24,28 @@ class rscTitles {
 };
 
 #undef description_titles
+#define description_XEH_PreInit
+
+class Extended_PreInit_EventHandlers {
+	#include "core\description.hpp" //DO NOT REMOVE
+	#include "modules\modules.sqf" //DO NOT REMOVE
+};
+
+#undef description_XEH_PreInit
+
+#define description_XEH_InitPost_CAManBase
+
+class Extended_InitPost_EventHandlers {
+	class CAManBase {
+		#include "core\description.hpp" //DO NOT REMOVE
+		#include "modules\modules.sqf" //DO NOT REMOVE
+	};
+};
+
+#undef description_XEH_InitPost_CAManBase
+
 #define description_notifications
-	
+
 class CfgNotifications {
 
 	#include "core\description.hpp" //DO NOT REMOVE
@@ -36,7 +56,7 @@ class CfgNotifications {
 #undef description_notifications
 
 #define description_sounds
-	
+
 class CfgSounds {
 
 	#include "core\description.hpp" //DO NOT REMOVE
@@ -47,7 +67,7 @@ class CfgSounds {
 #undef description_sounds
 
 #define description_insignia
-	
+
 class CfgUnitInsignia {
 
 	#include "core\description.hpp" //DO NOT REMOVE
@@ -60,10 +80,10 @@ class CfgUnitInsignia {
 #define description_params
 
 class Params {
-	
+
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
-	
+
 };
 
 #undef description_params

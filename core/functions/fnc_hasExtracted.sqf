@@ -21,7 +21,7 @@ params [["_team", "", [""]],
 ];
 private _side = [_team, 1] call FNC_getTeamVariable;
 private _count = {
-	side _x == _side && [_x, _marker] call FNC_inArea
+	(side _x isEqualTo _side) && {_x inArea _marker}
 } count allUnits;
 
 private _result = false;

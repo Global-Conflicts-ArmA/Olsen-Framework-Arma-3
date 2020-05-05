@@ -1,7 +1,7 @@
 #define random(MIN, MAX) \
 ([MIN, MAX] call FNC_RandomRange)
 
-_temp = "";
+private _temp = "";
 
 #define SET_GROUP(groupName) _temp = #groupName + package;\
 call compile format ['%1 = {
@@ -10,20 +10,13 @@ call compile format ['%1 = {
 
 #define ADD_GROUP(groupName) call call compile format ["%1", #groupName + package]
 
-private ["_unit", "_type", "_groupId"];
+params ["_unit", "_type", ["_groupId", "", [""]]];
 
-_unit = _this select 0;
-_type = _this select 1;
-
-if (count _this > 2) then {
-	
-	_groupId = _this select 2;
-	
+if !(_groupId isEqualTo "") then {
 	(group _unit) setGroupId [_groupId];
-	
 };
 
-if (!local _unit) exitWith {};
+if !(local _unit) exitWith {};
 
 _unit setVariable ["BIS_enableRandomization", false];
 _unit setVariable ["FW_Loadout", _type, true];
