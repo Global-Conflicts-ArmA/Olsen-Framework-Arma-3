@@ -8,7 +8,7 @@
 	respawnButton = 1; //Disables the respawn button
 	respawnDialog = 0; //Disables the score screen while respawning
 	respawnTemplates[] = {"Base"}; //Disables respawn countdown
-	enableDebugConsole[] = {"76561197960506129"};
+	enableDebugConsole = 1;
 	enableTargetDebug = 1; //Enable CBA Target Debugging
 
 	class CfgDebriefingSections {
