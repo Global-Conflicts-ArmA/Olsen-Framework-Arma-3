@@ -6,7 +6,6 @@
 } foreach ["west","east","guer","civ"];
 
 GVAR(EventPlayerSpawnedHandle) = [QGVAR(PlayerSpawned), {_this call FUNC(EventPlayerSpawned);}] call CBA_fnc_addEventHandler;
-
 GVAR(EventDisconnectHandle) = addMissionEventHandler ["HandleDisconnect", {_this call FUNC(EventDisconnect);}];
 
 //"" call FUNC(StartingCount); //DO NOT REMOVE

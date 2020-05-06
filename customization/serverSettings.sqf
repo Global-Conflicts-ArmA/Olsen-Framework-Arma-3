@@ -4,8 +4,19 @@ GVAR(TimeLimit) = 30; //Time limit in minutes, to disable the time limit set it 
 GVAR(TimeLimitMessage) = "TIME LIMIT REACHED!"; //The message displayed when the time runs out
 GVAR(EndConditionFrequency) = 10; // Frequency in seconds that the end conditions are checked
 
-//If respawn is enabled you must create empty game logics, for respawn points, following the name format GVAR(side_respawn). Example: FW_west_respawn
-//Ticket pools for different sides
+/*
+Time for how long disconnected players should be deleted since mission start (in minutes)
+Set this to 0 or a negative number to disable behaviour
+*/
+GVAR(DisconnectBodyCleanupTime) = 2;
+
+//Sides which should have their gear deleted, all by default (example: [WEST, EAST] will remove unit from WEST and EAST, but keep INDEPENDENT and CIVILIAN)
+GVAR(DisconnectBodyCleanupSides) = [WEST, EAST, INDEPENDENT, CIVILIAN];
+
+/*
+If respawn is enabled you must create empty game logics, for respawn points, following the name format GVAR(side_respawn). Example: FW_west_respawn
+Ticket pools for different sides
+*/
 GVAR(RespawnTickets_West) = 0;
 GVAR(RespawnTickets_East) = 0;
 GVAR(RespawnTickets_Ind) = 0;
@@ -23,8 +34,10 @@ GVAR(WaveSizeEast) = 0;
 GVAR(WaveSizeInd) = 0;
 GVAR(WaveSizeCiv) = 0;
 
-//Players should be put in enclosed space, when their number reaches treshold, the defined "gate" will disappear for 30 seconds
-//it has to be defined for wave respawn to work
+/*
+Players should be put in enclosed space, when their number reaches treshold, the defined "gate" will disappear for 30 seconds
+it has to be defined for wave respawn to work
+*/
 //GVAR(RespawnPenGateWest) = YourEditorObjectName;
 //GVAR(RespawnPenGateEast) = YourEditorObjectName;
 //GVAR(RespawnPenGateInd) = YourEditorObjectName;

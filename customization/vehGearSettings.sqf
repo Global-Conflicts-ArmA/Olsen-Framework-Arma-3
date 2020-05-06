@@ -1,6 +1,8 @@
-// Call this with [this, "LOADOUT"] call FW_fnc_VehicleGearScript; in the Init field of the vehile
-// Example:
-// [this, "HUMMVEE"] call FW_fnc_VehicleGearScript;
+/*
+Call this with [this, "LOADOUT"] call FW_fnc_VehicleGearScript; in the Init field of the vehile
+Example:
+[this, "HUMMVEE"] call FW_fnc_VehicleGearScript;
+*/
 
 switch (_type) do {
 

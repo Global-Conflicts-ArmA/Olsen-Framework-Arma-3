@@ -1,8 +1,10 @@
-// Call this with [this, "LOADOUT", (optional) "GROUPNAME"] call FW_fnc_GearScript; in the Init field of the unit
-// Example:
-// [this, "SL", "1'1"] call FW_fnc_GearScript;\
-//
-// more info: https://github.com/dklollol/Olsen-Framework-Arma-3/wiki/gear.sqf
+/*
+Call this with [this, "LOADOUT", (optional) "GROUPNAME"] call FW_fnc_GearScript; in the Init field of the unit
+Example:
+[this, "SL", "1'1"] call FW_fnc_GearScript;\
+
+more info: https://github.com/dklollol/Olsen-Framework-Arma-3/wiki/gear.sqf
+*/
 
 //when set to false, facewear types that are whitelisted will not be removed
 GVAR(force_remove_facewear) = false;

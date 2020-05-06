@@ -8,11 +8,11 @@ of reinforcements or subsequent AOs.
 
 // Array objects
 // eg: ["mainEnemy", "patrol_1", "patrol_2", "patrol_3"]
-GVAR(ArrayObjects) = [];
+GVAR(ArrayObjects) = ["hc_1"];
 
 // Initial spawns are spawned upon init, at the start of the mission.
 // eg: ["mainEnemy"]
-GVAR(InitialSpawn) = [];
+GVAR(InitialSpawn) = ["hc_1"];
 
 // Initial random spawns are randomly selected upon init, at the start of the mission according to their weight value.
 // Array is structured with array object name and random selection weight.
