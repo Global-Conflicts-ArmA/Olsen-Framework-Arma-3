@@ -26,4 +26,6 @@ if (isMultiplayer) then {
 	_type = "ai";
 };
 
+GVAR(TeamSides) pushBackUnique _side;
+
 GVAR(Teams) set [count GVAR(Teams), [_name, _side, _type,  0, 0, [], []]];

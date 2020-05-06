@@ -117,45 +117,54 @@ for "_x" from 1 to _amount do {
 			}
 		};
 	} else {
+		switch (_position) do {
+			case "backpack": {
+				if (_unit canAddItemToBackpack _item || (GVAR(enableOverfill))) then {
+					if ((GVAR(enableOverfill))) then {
+						(backpackContainer _unit) addItemCargoGlobal [_item, 1];
+					}
+					else {
+						_unit addItemToBackpack _item;
+					};
+					_success = true;
+				};
+			};
+			case "vest": {
+				if (_unit canAddItemToVest _item || (GVAR(enableOverfill))) then {
+					if ((GVAR(enableOverfill))) then {
+						(vestContainer _unit) addItemCargoGlobal [_item, 1];
+					}
+					else {
+						_unit addItemToVest _item;
+					};
+					_success = true;
+				};
+			};
+			case "uniform": {
+				if (_unit canAddItemToUniform _item || (GVAR(enableOverfill))) then {
+					if ((GVAR(enableOverfill))) then {
+						(uniformContainer _unit) addItemCargoGlobal [_item, 1];
+					}
+					else {
+						_unit addItemToUniform _item;
+					};
+					_success = true;
+				};
+			};
+			default {
+				if (_unit canAddItemToUniform _item || (GVAR(enableOverfill))) then {
+					if ((GVAR(enableOverfill))) then {
+						(uniformContainer _unit) addItemCargoGlobal [_item, 1];
+					}
+					else {
+						_unit addItemToUniform _item;
+					};
+					_success = true;
+				};
+			};
+		};
 		if !(_success) then {
-			switch (_position) do {
-				case "backpack": {
-					if (_unit canAddItemToBackpack _item || (GVAR(enableOverfill))) then {
-						if ((GVAR(enableOverfill))) then {
-							(backpackContainer _unit) addItemCargoGlobal [_item, 1];
-						}
-						else {
-							_unit addItemToBackpack _item;
-						};
-						_success = true;
-					};
-				};
-				case "vest": {
-					if (_unit canAddItemToVest _item || (GVAR(enableOverfill))) then {
-						if ((GVAR(enableOverfill))) then {
-							(vestContainer _unit) addItemCargoGlobal [_item, 1];
-						}
-						else {
-							_unit addItemToVest _item;
-						};
-						_success = true;
-					};
-				};
-				case "uniform": {
-					if (_unit canAddItemToUniform _item || (GVAR(enableOverfill))) then {
-						if ((GVAR(enableOverfill))) then {
-							(uniformContainer _unit) addItemCargoGlobal [_item, 1];
-						}
-						else {
-							_unit addItemToUniform _item;
-						};
-						_success = true;
-					};
-				};
-			};
-			if !(_success) then {
-				(format ["Core_fnc_AddItem: Warning %1 overflown from %2, in %3, case %4", _item, _position, _unit, _loadoutType]) call FUNC(DebugMessage);
-			};
+			(format ["Core_fnc_AddItem: Warning %1 overflown from %2, in %3, case %4", _item, _position, _unit, _loadoutType]) call FUNC(DebugMessage);
 		};
 	};
 

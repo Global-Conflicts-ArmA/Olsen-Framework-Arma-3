@@ -1,104 +1,118 @@
 #include "core\script_macros.hpp"
 
 #define description
-
 #include "core\description.hpp" //DO NOT REMOVE
 #include "modules\modules.sqf" //DO NOT REMOVE
-
 #undef description
-#define description_functions
 
 class CfgFunctions {
+	#define description_functions
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
+	#undef description_functions
 };
-
-#undef description_functions
-#define description_titles
 
 class rscTitles {
+	#define description_titles
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
+	#undef description_titles
 };
-
-#undef description_titles
-#define description_XEH_PreInit
 
 class Extended_PreInit_EventHandlers {
+	#define description_XEH_PreInit
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
+	#undef description_XEH_PreInit
 };
 
-#undef description_XEH_PreInit
-#define description_XEH_Init_CAManBase
+class Extended_PostInit_EventHandlers  {
+	#define description_XEH_PostInit
+	#include "core\description.hpp" //DO NOT REMOVE
+	#include "modules\modules.sqf" //DO NOT REMOVE
+	#undef description_XEH_PostInit
+};
+
 
 class Extended_Init_EventHandlers {
 	class CAManBase {
+		#define description_XEH_Init_CAManBase
 		#include "core\description.hpp" //DO NOT REMOVE
 		#include "modules\modules.sqf" //DO NOT REMOVE
+		#undef description_XEH_Init_CAManBase
 	};
 };
 
-#undef description_XEH_Init_CAManBase
-#define description_XEH_Killed_CAManBase
+class Extended_FiredMan_EventHandlers {
+	class CAManBase {
+		#define description_XEH_FiredMan_CAManBase
+		#include "core\description.hpp" //DO NOT REMOVE
+		#include "modules\modules.sqf" //DO NOT REMOVE
+		#undef description_XEH_FiredMan_CAManBase
+	};
+};
 
 class Extended_Killed_EventHandlers {
 	class CAManBase {
+		#define description_XEH_Killed_CAManBase
 		#include "core\description.hpp" //DO NOT REMOVE
 		#include "modules\modules.sqf" //DO NOT REMOVE
+		#undef description_XEH_Killed_CAManBase
 	};
 };
-
-#undef description_XEH_Killed_CAManBase
-#define description_XEH_Respawn_CAManBase
 
 class Extended_Respawn_EventHandlers {
 	class CAManBase {
+		#define description_XEH_Respawn_CAManBase
 		#include "core\description.hpp" //DO NOT REMOVE
 		#include "modules\modules.sqf" //DO NOT REMOVE
+		#undef description_XEH_Respawn_CAManBase
 	};
 };
-
-#undef description_XEH_Respawn_CAManBase
-#define description_XEH_InitPost_CAManBase
 
 class Extended_InitPost_EventHandlers {
 	class CAManBase {
+		#define description_XEH_InitPost_CAManBase
 		#include "core\description.hpp" //DO NOT REMOVE
 		#include "modules\modules.sqf" //DO NOT REMOVE
+		#undef description_XEH_InitPost_CAManBase
 	};
 };
 
-#undef description_XEH_InitPost_CAManBase
-#define description_notifications
-
 class CfgNotifications {
+	#define description_notifications
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
+	#undef description_notifications
 };
 
-#undef description_notifications
-#define description_sounds
 
 class CfgSounds {
+	#define description_sounds
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
+	#undef description_sounds
 };
 
-#undef description_sounds
-#define description_insignia
+class CfgMusic {
+    #define description_music
+    #include "core\description.hpp" //DO NOT REMOVE
+    #include "modules\modules.sqf" //DO NOT REMOVE
+    #undef description_music
+};
 
 class CfgUnitInsignia {
+	#define description_insignia
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
+	#undef description_insignia
 };
-
-#undef description_insignia
-#define description_params
 
 class Params {
+	#define description_params
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
+	#undef description_params
 };
 
-#undef description_params
+

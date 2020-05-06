@@ -18,4 +18,4 @@
 
 params ["_name", "_description", "_author"];
 
-FW_Modules set [count FW_Modules, [_name, _description, _author]];
+GVAR(Modules) set [count GVAR(Modules), [_name, _description, _author]];

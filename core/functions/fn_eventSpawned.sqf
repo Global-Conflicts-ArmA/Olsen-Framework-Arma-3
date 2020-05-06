@@ -28,7 +28,6 @@ if (GETVAR(_unit,Tracked,false)) then {
 			if (_unit call FUNC(Alive)) then {
 				_x set [4, _current + 1];
 			};
-			LOG_1("cba init 6 for unit: %1", _unit);
 		};
 	} forEach GVAR(Teams);
 };

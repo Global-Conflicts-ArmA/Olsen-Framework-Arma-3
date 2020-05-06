@@ -43,6 +43,10 @@ class FW {
 		class trackAsset {};
 		class trackUnit {};
 		class untrackUnit {};
+		class briefing {};
+		class gear {};
+		class vehGear {};
+		class postChecks {};
 	};
 	
 	class XEH {
@@ -50,5 +54,23 @@ class FW {
 		class initCAManBase {};
 		class killedCAManBase {};
 		class respawnCAManBase {};
+	};
+	
+	class endscreen {
+		file = "core\dia\endscreen";
+		class endScreen {};
+	};
+	
+	class debug {
+		file = "core\dia\debug";
+		class debug {};
+	};
+	
+	class ShotCount {
+		file = "core\functions\shotCount";
+		class SC_FiredEH {};
+		class SC_getDisplayName {};
+		class SC_shotCount {};
+		class SC_shotDisplay {};
 	};
 };
