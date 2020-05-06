@@ -30,14 +30,14 @@ private _magazinesBase = [];
 
 	if (([(configFile >> "CfgWeapons" >> _item),true] call BIS_fnc_returnParents) findIf {_x == "ItemCore"} != -1) then {
 		_accBase pushBack _item;
-	};
-
-	if (isClass (configFile >> "CfgWeapons" >> _item) && {!(_accBase findIf {_x == _item} != -1)}) then {
-		_weaponBase pushBack _item;
-	};
-
-	if (isClass (configFile >> "CfgMagazines" >> _item)) then {
-		_magazinesBase pushBack _item;
+	} else {
+		if (isClass (configFile >> "CfgWeapons" >> _item) && {!(_accBase findIf {_x == _item} != -1)}) then {
+			_weaponBase pushBack _item;
+		} else {
+			if (isClass (configFile >> "CfgMagazines" >> _item)) then {
+				_magazinesBase pushBack _item;
+			};			
+		};
 	};
 } forEach _inputArray;
 
@@ -86,10 +86,10 @@ private _accBipodFinal = [];
 private _itemsFinal = [];
 _itemsFinal pushBack _weaponFinal;
 
-if (count _accOpticFinal > 0) then {_itemsFinal pushBack (selectRandom _accOpticFinal)};
-if (count _accMuzzleFinal > 0) then {_itemsFinal pushBack (selectRandom _accMuzzleFinal)};
-if (count _accPointerFinal > 0) then {_itemsFinal pushBack (selectRandom _accPointerFinal)};
-if (count _accBipodFinal > 0) then {_itemsFinal pushBack (selectRandom _accBipodFinal)};
+if !(_accOpticFinal isEqualTo []) then {_itemsFinal pushBack (selectRandom _accOpticFinal)};
+if !(_accMuzzleFinal isEqualTo []) then {_itemsFinal pushBack (selectRandom _accMuzzleFinal)};
+if !(_accPointerFinal isEqualTo []) then {_itemsFinal pushBack (selectRandom _accPointerFinal)};
+if !(_accBipodFinal isEqualTo []) then {_itemsFinal pushBack (selectRandom _accBipodFinal)};
 
 _itemsFinal apply {[_x] call FNC_AddItem};
 

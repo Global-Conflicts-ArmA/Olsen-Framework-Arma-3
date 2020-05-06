@@ -25,7 +25,7 @@ private _vest = vest _unit;
 private _backpack = backpack _unit;
 private _magazineRandom = "";
 
-if (typeName _magazineBase == "STRING") then {
+if (_magazineBase isEqualType "STRING") then {
 	_magazineBase = [_magazineBase];
 };
 
@@ -33,8 +33,10 @@ if (isClass (configFile >> "CfgWeapons" >> (_magazineBase # 0))) then {
 	_magazineBase = getArray (configFile >> "CfgWeapons" >> (_magazineBase # 0) >> "magazines");
 };
 
+_location = toLower(_location);
+
 if (_uniform != "") then {
-	if (_location == "uniform" || _location == "") then {
+	if (_location isEqualTo "uniform" || {_location isEqualTo ""}) then {
 		private _i = 0;
 		while {_magazineRandom = selectRandom _magazineBase; _unit canAddItemToUniform _magazineRandom} do {
 			if (_i >= _max) exitWith {};
@@ -47,7 +49,7 @@ if (_uniform != "") then {
 };
 
 if (_vest != "") then {
-	if (_location == "vest" || _location == "") then {
+	if (_location isEqualTo "vest" || {_location isEqualTo ""}) then {
 		private _i = 0;
 		while {_magazineRandom = selectRandom _magazineBase; _unit canAddItemToVest _magazineRandom} do {
 			if (_i >= _max) exitWith {};
@@ -60,7 +62,7 @@ if (_vest != "") then {
 };
 
 if (_backpack != "") then {
-	if (_location == "backpack" || _location == "") then {
+	if (_location isEqualTo "backpack" || {_location isEqualTo ""}) then {
 		private _i = 0;
 		while {_magazineRandom = selectRandom _magazineBase; _unit canAddItemToBackpack _magazineRandom} do {
 			if (_i >= _max) exitWith {};
