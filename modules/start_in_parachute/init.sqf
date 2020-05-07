@@ -1,4 +1,4 @@
-["Start in Parachute", "Starts players in parachutes", "Briland"] call FNC_RegisterModule;
+["Start in Parachute", "Starts players in parachutes", "Briland"] call FUNC(RegisterModule);
 
 FNC_DOPARACHUTE = {
 

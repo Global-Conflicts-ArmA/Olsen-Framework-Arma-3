@@ -1,4 +1,4 @@
-["EG Spectator Mode", "Replaces the Olsen Framework spectator script with the Vanilla Spectator.", "BI, Perfk &amp; BlackHawk"] call FNC_RegisterModule;
+["EG Spectator Mode", "Replaces the Olsen Framework spectator script with the Vanilla Spectator.", "BI, Perfk &amp; BlackHawk"] call FUNC(RegisterModule);
 
 #define DEBUG_MSG(MSG)
 //systemchat MSG;\
