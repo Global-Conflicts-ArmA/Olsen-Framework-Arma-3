@@ -1,7 +1,7 @@
 //Covers Map outside marker and centers map on marker center in briefing map
 if !(hasinterface) exitwith {};
 if ((CBA_MissionTime > 0 || getClientState isEqualTo "BRIEFING READ")) exitwith {};
-params ["_marker", ["_centered", true, [true]], ["_zoomlevel", 0.4, [0]], ["_name", "AO", [""]], ["_AOnumber", 1, [1]]];
+params ["_marker", ["_centered", true, [true]], ["_zoomlevel", 0.4, [0]], ["_name", "AO", [""]], ["_AOnumber", 1, [1]], ["_bgColour", "colorKhaki"]];
 
 //for self interact options and logging
 GVAR(map_currentAO) = _AOnumber;
@@ -23,13 +23,12 @@ if ((_a > 0 && {_a <= 90}) || {(_a > 180 && {_a <=270})}) then {
 	_sy = _temp;
 };
 
-private _colorForest = "colorKhaki";
-private _colors = ["colorBlack","colorBlack",_colorForest,"colorGreen",_colorForest,/**/"colorBlack"/**/,_colorForest,_colorForest];
+private _colors = ["colorBlack", "colorBlack", _bgColour, "colorGreen", _bgColour, /**/"colorBlack"/**/, _bgColour, _bgColour];
 
 {
 	_x params ["_a"];
 	private _i = _forEachIndex;
-	
+
 	_a = _a mod 360;
 	if (_a < 0) then {_a = _a + 360};
 
@@ -43,40 +42,40 @@ private _colors = ["colorBlack","colorBlack",_colorForest,"colorGreen",_colorFor
 	};
 	private _pos_x = _px + (sin _a) * (_mainS + _s + _mainBS);
 	private _pos_y = _py + (cos _a) * (_mainS + _s + _mainBS);
-	
+
 	{
 		_x params ["_color"];
-	
+
 		private _marker = createMarkerLocal ["ao_" + str _i + str _forEachIndex, [_pos_x, _pos_y]];
 		GVAR(map_cover) pushBack _marker;
-		
+
 		_marker setMarkerSizeLocal [_w,_mainS];
 		_marker setMarkerDirLocal _a;
 		_marker setMarkerShapeLocal "rectangle";
 		_marker setMarkerBrushLocal "solid";
 		_marker setMarkerColorLocal _color;
-		
+
 		if (_forEachIndex == 5) then {
 			_marker setMarkerBrushLocal "grid";
 		};
-		
+
 	} forEach _colors;
-	
-	
+
+
 	_pos_x = _px + (sin _a) * (_mainBS/2 + _s);
 	_pos_y = _py + (cos _a) * (_mainBS/2 + _s);
-	
+
 	for "_m" from 0 to 7 do {
 		_marker = createMarkerLocal ["ao_w_" + str _i + str _m,[_pos_x, _pos_y]];
 		GVAR(map_cover) pushBack _marker;
-		
+
 		_marker setMarkerSizeLocal [_bw, _mainBS/2];
 		_marker setMarkerDirLocal _a;
 		_marker setMarkerShapeLocal "rectangle";
 		_marker setMarkerBrushLocal "solid";
 		_marker setMarkerColorLocal "colorwhite";
 	};
-	
+
 } forEach [_a, _a+90, _a+180, _a+270];
 
 _marker = createMarkerLocal ["ao_b_1", [_px, _py]];
@@ -106,4 +105,3 @@ if !("ItemMap" in assignedItems player) then {
 	    player unlinkItem "ItemMap";
 	}, []] call CBA_fnc_execNextFrame;
 };
-

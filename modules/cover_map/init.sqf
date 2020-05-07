@@ -1,28 +1,28 @@
-["Cover Map", "Covers map except specified area, allows switching between multiple AOs", "Blackhawk &amp; PIZZADOX"] call FUNC(RegisterModule);
+["Cover Map", "Covers map except specified area, allows switching between multiple AOs", "Blackhawk, PIZZADOX &amp; StatusRed"] call FUNC(RegisterModule);
 
 if (hasinterface) then {
-	
+
 	//contains _AOMarkers array
 	#include "settings.sqf"
-	
+
 	//make all AOmarkers invisible
 	{
 		(_x select 0) setMarkerAlphaLocal 0;
 	} foreach _AOMarkers;
-	
+
 	//initial marker array define
 	GVAR(map_cover) = [];
 	GVAR(map_currentAO) = 0;
-	
+
 	//briefing map cover and center
 	(_AOMarkers select 0) call CoverMap_fnc_CoverMapBriefing;
-	
+
 	[{
 	    visibleMap
 	},{
 	    params ["_AOMarkers"];
 		(_AOMarkers select 0) call CoverMap_fnc_CoverMapLive;
-		
+
 		//Add self interact option on map to switch AOs
 		if (count _AOMarkers > 1) then {
 			params ["_AOMarkers"];
@@ -36,5 +36,5 @@ if (hasinterface) then {
 			} foreach _AOMarkers;
 		};
 	}, [_AOMarkers]] call CBA_fnc_waitUntilAndExecute;
-	
+
 };
