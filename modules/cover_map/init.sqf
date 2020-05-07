@@ -1,4 +1,4 @@
-["Cover Map", "Covers map except specified area, allows switching between multiple AOs", "Blackhawk &amp; PIZZADOX"] call FNC_RegisterModule;
+["Cover Map", "Covers map except specified area, allows switching between multiple AOs", "Blackhawk &amp; PIZZADOX"] call FUNC(RegisterModule);
 
 if (hasinterface) then {
 	
@@ -11,8 +11,8 @@ if (hasinterface) then {
 	} foreach _AOMarkers;
 	
 	//initial marker array define
-	FW_map_cover = [];
-	FW_map_currentAO = 0;
+	GVAR(map_cover) = [];
+	GVAR(map_currentAO) = 0;
 	
 	//briefing map cover and center
 	(_AOMarkers select 0) call CoverMap_fnc_CoverMapBriefing;

@@ -1,4 +1,4 @@
-["Marker Control", "Allows the mission maker to create markers visible to a single side.", "Olsen"] call FNC_RegisterModule;
+["Marker Control", "Allows the mission maker to create markers visible to a single side.", "Olsen"] call FUNC(RegisterModule);
 
 #define SYSTEM sideLogic
 

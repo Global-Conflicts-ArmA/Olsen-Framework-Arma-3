@@ -1,4 +1,4 @@
-["Remove Maps", "Removes maps and compasses from specific gear cases.", "TinfoilHate"] call FNC_RegisterModule;
+["Remove Maps", "Removes maps and compasses from specific gear cases.", "TinfoilHate"] call FUNC(RegisterModule);
 
 	[{time > 1}, {
 		#include "settings.sqf"

@@ -3,7 +3,7 @@ AI_EXEC_CHECK(CLIENTHC);
 
 LOG("HC Client Pre Init");
 
-["Headless AI", format ["Spawns AI via logic sync and provides custom AI system. Version: %1", VERSIONSTR], "PIZZADOX"] call FNC_RegisterModule;
+["Headless AI", format ["Spawns AI via logic sync and provides custom AI system. Version: %1", VERSIONSTR], "PIZZADOX"] call FUNC(RegisterModule);
 
 //[QGVAR(ClientEvent), {
 //

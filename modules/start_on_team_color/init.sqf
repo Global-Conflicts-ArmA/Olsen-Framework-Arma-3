@@ -1,4 +1,4 @@
-["Start on team color", "Allows the mission maker to set the team colors in squads on start.", "Olsen"] call FNC_RegisterModule;
+["Start on team color", "Allows the mission maker to set the team colors in squads on start.", "Olsen"] call FUNC(RegisterModule);
 
 if (!isDedicated) then {
 	

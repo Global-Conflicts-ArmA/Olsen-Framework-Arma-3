@@ -11,7 +11,7 @@
 //Syntax:		[UNIT,CVC CLASS] call FNC_CVCCHECK;
 //Example: 		[player, "rhsusf_cvc_green_helmet"] call FNC_CVCCHECK;
 
-["cvcCheck", "Checks if a unit is a crewman in an armored vehicle, adds/removes CVC as appropriate.", "TinfoilHate"] call FNC_RegisterModule;
+["cvcCheck", "Checks if a unit is a crewman in an armored vehicle, adds/removes CVC as appropriate.", "TinfoilHate"] call FUNC(RegisterModule);
 
 #include "settings.sqf"
 

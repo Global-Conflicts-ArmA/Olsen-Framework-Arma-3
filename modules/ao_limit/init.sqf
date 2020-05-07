@@ -1,4 +1,4 @@
-["AO Limit", "Allows the mission maker to set AO limits to specific sides.", "Olsen"] call FNC_RegisterModule;
+["AO Limit", "Allows the mission maker to set AO limits to specific sides.", "Olsen"] call FUNC(RegisterModule);
 
 #define ANY sideLogic
 
