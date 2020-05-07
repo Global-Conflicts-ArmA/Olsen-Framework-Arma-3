@@ -24,7 +24,7 @@ if !([_item] call FUNC(checkClassname)) exitWith {};
 
 for "_x" from 1 to _amount do {
 	if (_vehicle canAdd _item) then {
-		if (_type isEqualTo "backpack") then {
+		if (_type isEqualTo "Backpack") then {
 			_vehicle addBackpackCargoGlobal [_item, 1];
 		} else {
 			_vehicle addItemCargoGlobal [_item, 1];
