@@ -27,7 +27,7 @@ class FW {
 		class forceTerrainGrid {};
 		class getDamagedAssets {};
 		class getTeamVariable {};
-		class hasEmptyPositions {};
+		class getEmptyPositions {};
 		class hasExtracted {};
 		class inVehicle {};
 		class makeUnitsList {};

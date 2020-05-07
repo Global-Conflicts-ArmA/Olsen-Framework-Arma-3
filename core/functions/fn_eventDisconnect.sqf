@@ -28,8 +28,8 @@ if (GETVAR(_unit,Tracked,false)) then {
 			};
 		};
 	} forEach GVAR(Teams);
-	
-	if ((GVAR(DisconnectBodyCleanupTime) < 0) && {(CBA_nissionTime < (GVAR(DisconnectBodyCleanupTime) * 60))} && {(side _unit) in GVAR(DisconnectBodyCleanupSides)}) then {
+
+	if ((GVAR(DisconnectBodyCleanupTime) < 0) && {(CBA_missionTime < (GVAR(DisconnectBodyCleanupTime) * 60))} && {(side _unit) in GVAR(DisconnectBodyCleanupSides)}) then {
 		deleteVehicle _unit;
 	};
 };

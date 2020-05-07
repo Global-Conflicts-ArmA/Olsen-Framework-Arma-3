@@ -28,4 +28,4 @@ if (isMultiplayer) then {
 
 GVAR(TeamSides) pushBackUnique _side;
 
-GVAR(Teams) set [count GVAR(Teams), [_name, _side, _type,  0, 0, [], []]];
+GVAR(Teams) pushBack [_name, _side, _type,  0, 0, [], []];

@@ -2,6 +2,16 @@
 
 #include "settings.sqf"
 
+vehicles select {
+    (GVAR(AiDriversAllTanks) && {(_x isKindOf "Tank")})
+    ||
+    (GVAR(AiDriversAllShips) && {(_x isKindOf "Ship")})
+    ||
+    (GVAR(AiDriversAllCars) && {(_x isKindOf "Car")})
+} apply {
+    GVAR(AiDriversVehicles) pushBack _x
+};
+
 aidrivers_toggle = {
     params ["_target", "_caller"];
     if (!isNull (_target getVariable ["aidrivers_driver", objNull])) then {
@@ -126,7 +136,7 @@ FNC_toggleDriverCam = {
 
 FNC_enableAIDriver = {
     private _vehs = _this;
-    if (typeName _vehs != "ARRAY") then {
+    if !(_vehs isEqualType "ARRAY") then {
         _vehs = [_vehs];
     };
 
@@ -190,4 +200,4 @@ FNC_enableAIDriver = {
 
 FW_AiDriverVehicle = objNull;
 
-VEHS call FNC_enableAIDriver;
+GVAR(AiDriversVehicles) call FNC_enableAIDriver;

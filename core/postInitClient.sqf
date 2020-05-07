@@ -1,7 +1,7 @@
 #include "script_macros.hpp"
 #define postInitClient
 
-[{!isNull player},{
+[{!isNull ace_player},{
     
     [] call FUNC(debug);
     [] call FUNC(postChecks);
@@ -46,13 +46,20 @@
 	player setVariable ["BIS_noCoreConversations", true]; //Disable scroll wheel conversations
 	
 	if (GVAR(StartOnSafe)) then {
-		if (hasInterface) then {
-			[{
-				if (currentWeapon player != "") then {
-					[player, currentWeapon player, currentMuzzle player] call ace_safemode_fnc_lockSafety;
-				};
-			}, []] call CBA_fnc_execNextFrame;
-		};
+		[{(!isNull ace_player)}, {
+			if (currentWeapon player != "") then {
+				[player, currentWeapon player, currentMuzzle player] call ace_safemode_fnc_lockSafety;
+                if (GETMVAR(StartOnSafe_Lowered,true)) then {
+                    player action ["WeaponOnBack", player];
+                };
+                if (GETMVAR(StartOnSafe_Unloaded,true)) then {
+                    private _magazineClass = currentMagazine player;
+                    player setAmmo [currentWeapon player, 0];
+                    player addMagazines [_magazineClass, 1];
+                    [player, _magazineClass, -1, true] call CBA_fnc_addMagazine;
+                };
+			};
+		}, []] call CBA_fnc_waitUntilAndExecute;
 	};
 }, []] call CBA_fnc_waitUntilAndExecute;
 

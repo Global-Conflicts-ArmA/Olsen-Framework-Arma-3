@@ -18,7 +18,7 @@
 
 #include "..\script_macros.hpp"
 
-params ["_unit", "_loadoutType", "_item", ["_amount", 1, [1]], ["_position", "", [""]]];
+params ["_unit", "_loadoutType", "_item", ["_amount", 1, [1]], ["_position", "none", [""]]];
 
 if !([_item, _unit] call FUNC(checkClassname)) exitWith {};
 
@@ -56,19 +56,19 @@ for "_x" from 1 to _amount do {
 				_success = true;
 			};
 		};
-		if (!_success && {_type isEqualTo "uniform"}) then {
+		if (!_success && {_type isEqualTo "Uniform"}) then {
 			if (uniform _unit isEqualTo "") then {
 				_unit forceAddUniform _item;
 				_success = true;
 			};
 		};
-		if (!_success && {_type isEqualTo "vest"}) then {
+		if (!_success && {_type isEqualTo "Vest"}) then {
 			if (vest _unit isEqualTo "") then {
 				_unit addVest _item;
 				_success = true;
 			};
 		};
-		if (!_success && {_type isEqualTo "backpack"}) then {
+		if (!_success && {_type isEqualTo "Backpack"}) then {
 			if (backpack _unit isEqualTo "") then {
 				_unit addBackpackGlobal _item;
 				_success = true;
@@ -175,7 +175,7 @@ for "_x" from 1 to _amount do {
 		} else {
 			private _message = "Core_fnc_AddItem: Warning couldn't fit %1 anywhere, originally intended for %2, in %3, case %4";
 
-			if (_position == "none") then {
+			if (_position isEqualTo "none") then {
 				_message = "Core_fnc_AddItem: Warning couldn't fit %1 anywhere, in %3, case %4";
 			};
 			(format [_message, _item, _position, _unit, _loadoutType]) call FUNC(DebugMessage);

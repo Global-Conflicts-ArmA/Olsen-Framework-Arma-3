@@ -23,7 +23,7 @@ params [
 private _result = false;
 
 {
-	if (_item isEqualTo _x) exitWith {
+	if (toLower _item isEqualTo toLower _x) exitWith {
 		_result = true;
 	};
 } forEach ([_weapon] call BIS_fnc_compatibleItems);
