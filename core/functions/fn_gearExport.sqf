@@ -2,12 +2,12 @@
 // If you wish to use this script from a trigger use the following trigger parameters:
 // Activation: Select the side of your unit.
 // Repeatedly
-// On Activation: nul = (thisList select 0) execVM "utility\gearExport.sqf";
+// On Activation: nul = (thisList select 0) call FW_fnc_gearExport;
 //
 // Now simply walk into the trigger and the script will export the gear of the unit to your clipboard.
 //
 // If you wish to use this script outside of a trigger use this:
-// _unit execVM "utility\gearExport.sqf";
+// _unit call FW_fnc_gearExport;
 //
 // Where _unit is the unit the script will scan.
 
