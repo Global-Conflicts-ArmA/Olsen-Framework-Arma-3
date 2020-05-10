@@ -1,4 +1,5 @@
 #include "script_macros.hpp"
+
 #define postInit
 #define framework
 

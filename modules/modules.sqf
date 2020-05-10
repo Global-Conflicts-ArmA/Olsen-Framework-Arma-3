@@ -32,7 +32,7 @@ Additional modules that can be enabled by removing the //
 //#include "ao_limit_soft\root.sqf"
 //#include "call_mission\root.sqf"
 //#include "capture_zone\root.sqf"
-//#include "cover_map\root.sqf"
+#include "cover_map\root.sqf"
 //#include "env_parameters\root.sqf"
 //#include "extract\root.sqf"
 //#include "firemission\root.sqf"

@@ -2,10 +2,10 @@
 #define postInitClient
 
 [{!isNull ace_player},{
-    
+
     [] call FUNC(debug);
     [] call FUNC(postChecks);
-    
+
     setViewDistance GVAR(ClientViewDistance);
 
 	if (isMultiplayer && {!(isServer)}) then {
@@ -44,7 +44,7 @@
 	//Various settings
 	player addRating 100000; //Makes sure ai doesnt turn hostile when teamkilling
 	player setVariable ["BIS_noCoreConversations", true]; //Disable scroll wheel conversations
-	
+
 	if (GVAR(StartOnSafe)) then {
 		[{(!isNull ace_player)}, {
 			if (currentWeapon player != "") then {

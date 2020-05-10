@@ -63,7 +63,7 @@ if !(_varName isEqualTo "") then {
 };
 
 if !(_olsenGearType isEqualTo "") then {
-    [_unit, _olsenGearType] call FNC_GearScript;
+    [_unit, _olsenGearType] call FWFUNC(gearScript);
 };
 
 [{
@@ -105,12 +105,12 @@ if !(_storedVars isEqualTo []) then {
 
 private _groupStance = GETVAR(_group,Stance,"AUTO");
 
-["FW_eventSpawned", [_unit]] call CBA_fnc_serverEvent;
+//["FW_eventSpawned", [_unit]] call CBA_fnc_serverEvent;
 
-[_unit, "Killed", {
-    _thisArgs params ["_unit"];
-    ["FW_eventKilled", _unit] call CBA_fnc_serverEvent;
-}, [_unit]] call CBA_fnc_addBISEventHandler;
+//[_unit, "Killed", {
+//    _thisArgs params ["_unit"];
+//    ["FW_eventKilled", _unit] call CBA_fnc_serverEvent;
+//}, [_unit]] call CBA_fnc_addBISEventHandler;
 
 [{!isNull (_this select 0)}, {
 	params ["_unit", "_groupStance", "_unitStance"];

@@ -21,7 +21,6 @@ params [
 ];
 
 if (GETVAR(_unit,Tracked,false)) then {
-
 	{
 		_x params ["", "_side", "_type", "", "_current"];
 		if (

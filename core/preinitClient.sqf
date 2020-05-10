@@ -1,6 +1,7 @@
-#define preinitClient
-
 #include "script_macros.hpp"
+
+#define preInitClient
+
 #include "..\customization\clientSettings.sqf" //DO NOT REMOVE
 
 //QGVAR(EndMission) player event sends the received variables to the end screen

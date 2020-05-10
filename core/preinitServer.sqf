@@ -1,4 +1,4 @@
-#define preinitServer
+#define preInitServer
 
 #include "script_macros.hpp"
 
