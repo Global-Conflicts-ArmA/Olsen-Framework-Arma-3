@@ -1,5 +1,4 @@
 #include "..\..\script_macros.hpp"
-AI_EXEC_CHECK(CLIENTHC);
 
 LOG("HC Client Pre Init");
 

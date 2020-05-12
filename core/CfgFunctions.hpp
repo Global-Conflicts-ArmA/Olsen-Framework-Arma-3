@@ -35,6 +35,7 @@ class Core {
 	class removeAllVehicleGear {};
 	class setTeamVariable {};
 	class spectatePrep {};
+	class startSpectator {};
 	class stackNames {};
 	class startingCount {};
 	class trackAsset {};

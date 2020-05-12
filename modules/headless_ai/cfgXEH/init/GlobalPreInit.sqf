@@ -1,5 +1,4 @@
 #include "..\..\script_macros.hpp"
-AI_EXEC_CHECK(ALL);
 
 LOG("HC Global Pre Init");
 
