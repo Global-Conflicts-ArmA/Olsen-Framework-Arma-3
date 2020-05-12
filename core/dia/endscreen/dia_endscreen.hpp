@@ -46,6 +46,7 @@ class DIA_ENDSCREEN {
 		w = 0.13125 * safezoneW;
 		h = 0.350035 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,bottomMiddleRight4)): RscStructuredText
 	{
@@ -55,6 +56,7 @@ class DIA_ENDSCREEN {
 		w = 0.13125 * safezoneW;
 		h = 0.350035 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,bottomMiddleLeft4)): RscStructuredText
 	{
@@ -64,6 +66,7 @@ class DIA_ENDSCREEN {
 		w = 0.13125 * safezoneW;
 		h = 0.350035 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,bottomLeft4)): RscStructuredText
 	{
@@ -73,6 +76,7 @@ class DIA_ENDSCREEN {
 		w = 0.13125 * safezoneW;
 		h = 0.350035 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,bottomRight3)): RscStructuredText
 	{
@@ -82,6 +86,7 @@ class DIA_ENDSCREEN {
 		w = 0.177187 * safezoneW;
 		h = 0.350035 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,bottomMiddle3)): RscStructuredText
 	{
@@ -91,6 +96,7 @@ class DIA_ENDSCREEN {
 		w = 0.177187 * safezoneW;
 		h = 0.350035 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,bottomLeft3)): RscStructuredText
 	{
@@ -100,6 +106,7 @@ class DIA_ENDSCREEN {
 		w = 0.170625 * safezoneW;
 		h = 0.350035 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,bottomRight2)): RscStructuredText
 	{
@@ -127,6 +134,7 @@ class DIA_ENDSCREEN {
 		w = 0.13125 * safezoneW;
 		h = 0.210021 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,middleRight4)): RscStructuredText
 	{
@@ -136,6 +144,7 @@ class DIA_ENDSCREEN {
 		w = 0.13125 * safezoneW;
 		h = 0.210021 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,middleLeft4)): RscStructuredText
 	{
@@ -145,6 +154,7 @@ class DIA_ENDSCREEN {
 		w = 0.13125 * safezoneW;
 		h = 0.210021 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,Left4)): RscStructuredText
 	{
@@ -153,6 +163,7 @@ class DIA_ENDSCREEN {
 		y = 0.289979 * safezoneH + safezoneY;
 		w = 0.13125 * safezoneW;
 		h = 0.210021 * safezoneH;
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,Right3)): RscStructuredText
 	{
@@ -162,6 +173,7 @@ class DIA_ENDSCREEN {
 		w = 0.177187 * safezoneW;
 		h = 0.210021 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,Middle3)): RscStructuredText
 	{
@@ -171,6 +183,7 @@ class DIA_ENDSCREEN {
 		w = 0.177187 * safezoneW;
 		h = 0.210021 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,Left3)): RscStructuredText
 	{
@@ -180,6 +193,7 @@ class DIA_ENDSCREEN {
 		w = 0.170625 * safezoneW;
 		h = 0.210021 * safezoneH;
 		colorText[] = {-1,-1,-1,-1};
+		size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75)";
 	};
 	class GVAR(DOUBLES(DIA,Right2)): RscStructuredText
 	{
