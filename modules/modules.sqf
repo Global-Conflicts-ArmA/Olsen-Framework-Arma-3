@@ -45,3 +45,4 @@ Additional modules that can be enabled by removing the //
 //#include "task_control\root.sqf"
 //#include "start_in_vehicle\root.sqf"
 //#include "headless_ai\root.sqf"
+//#include "weapon_helper\root.sqf"
