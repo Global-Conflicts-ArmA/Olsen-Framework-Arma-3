@@ -7,7 +7,7 @@ if (isServer) then {
 
 	[{
 		{
-			if (count kobld_billboards_textureArray <= 0) then {kobld_billboards_textureArray = kobld_billboards_textureArray_base};
+			if (kobld_billboards_textureArray isEqualTo []) then {kobld_billboards_textureArray = kobld_billboards_textureArray_base};
 
 			_randomTexture = selectRandom kobld_billboards_textureArray;
 
