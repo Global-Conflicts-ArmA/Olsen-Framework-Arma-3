@@ -43,6 +43,7 @@ class Core {
 	class untrackUnit {};
 	class briefing {};
 	class gearScript {};
+	class gearExport {};
 	class vehGear {};
 	class postChecks {};
 };
