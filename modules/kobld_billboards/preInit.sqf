@@ -16,7 +16,7 @@ if (isServer) then {
 	};
 
 	if !(kobld_billboards_textureNames isEqualTo []) then {
-		{kobld_billboards_textureArray_base pushBack (_modulePath + _x)} forEach kobld_billboards_textureNames;
+		kobld_billboards_textureNames apply {kobld_billboards_textureArray_base pushBack (_modulePath + _x)};
 	};
 
 	kobld_billboards_textureArray = kobld_billboards_textureArray_base;
