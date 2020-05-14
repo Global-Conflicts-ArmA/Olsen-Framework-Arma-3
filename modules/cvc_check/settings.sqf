@@ -1,27 +1,17 @@
-//Author:		TinfoilHate
-//
-//Description: 	Checks if the unit is the pilot or copilot of a tank or APC,
-//				and swaps their hat for a CVC while retaining the original
-//				headgear class, and swaps it back when they exit or go to cargo.
-//
-//Comments: 	Assigned to individual units, not the vehicles. UNIT need only
-//				be the unit the EH is local to, and CVC is the class of the
-//				CVC to add.
-//
-//Syntax:		[UNIT,CVC CLASS] call FNC_CVCCHECK;
-//Example: 		[player, "rhsusf_cvc_green_helmet"] call FNC_CVCCHECK;
+//Automatically adds the below CVCs when in crew positions and depending on unit side. Will revert headgear on leaving crew position.
+//No action is required for usage with players. AI units can be listed in the AIUNITLIST array if so desired.
 
 //West CVC Class
-#define WESTCVC "rhsusf_cvc_green_alt_helmet"
+#define WESTCVC "rhs_tsh4"
 
 //East CVC Class
-#define EASTCVC "RHS_TSH4_ESS"
+#define EASTCVC "rhs_tsh4"
 
 //Resistance CVC Class
-#define GUERCVC "rhsusf_cvc_green_alt_helmet"
+#define GUERCVC "rhs_tsh4"
 
 //Civilian CVC Class
-#define CIVCVC "rhsusf_cvc_green_alt_helmet"
+#define CIVCVC "rhs_tsh4"
 
 //AI Units to Handle [GUY1,GUY2,..] (Optional)
 #define AIUNITLIST [];
