@@ -15,7 +15,7 @@ if (isServer) then {
 		kobld_billboards_textureArray_base pushBack "a3\structures_f\civ\infoboards\data\billboard_metal_co.paa";
 	};
 
-	if (count kobld_billboards_textureNames > 0) then {
+	if !(kobld_billboards_textureNames isEqualTo []) then {
 		{kobld_billboards_textureArray_base pushBack (_modulePath + _x)} forEach kobld_billboards_textureNames;
 	};
 
