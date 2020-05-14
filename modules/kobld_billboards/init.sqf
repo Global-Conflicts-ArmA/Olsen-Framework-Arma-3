@@ -3,7 +3,7 @@
 #include "settings.sqf"
 
 if (isServer) then {
-	if (count kobld_billboards <= 0) then {kobld_billboards = allMissionObjects "Land_Billboard_F"};
+	if (kobld_billboards isEqualTo []) then {kobld_billboards = allMissionObjects "Land_Billboard_F"};
 
 	[{
 		{
