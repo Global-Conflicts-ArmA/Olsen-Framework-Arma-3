@@ -47,25 +47,26 @@ class FW {
 		class gear {};
 		class vehGear {};
 		class postChecks {};
+		class gearExport {};
 	};
-	
+
 	class XEH {
 		file = "core\XEH";
 		class initCAManBase {};
 		class killedCAManBase {};
 		class respawnCAManBase {};
 	};
-	
+
 	class endscreen {
 		file = "core\dia\endscreen";
 		class endScreen {};
 	};
-	
+
 	class debug {
 		file = "core\dia\debug";
 		class debug {};
 	};
-	
+
 	class ShotCount {
 		file = "core\functions\shotCount";
 		class SC_FiredEH {};
