@@ -1,7 +1,6 @@
 // AUTHOR: StatusRed (EM-Creations.co.uk)
 
-private _validWeapons = (_this select 0);
-private _reviveAction = (_this select 1);
+params ["_validWeapons", "_reviveAction"];
 
 private ["_nearestunits", "_nearestunitofside", "_prevAnim"];
 
@@ -13,21 +12,19 @@ _useUnits = []; // Instanatiate an array for units which can be targetted
 
 // Check that they have a suitable weapon to knock down with
 if ((primaryWeapon player) in _validWeapons) then { // If the player has a valid weapon
-	if(count _nearestUnits > 0) then { // If there's at least one man nearby
+	if !(_nearestUnits isEqualTo []) then { // If there's at least one person nearby
 		{
 			_unit = _x;
 			//_isOut = _unit getVariable "knockedDown";
 			_isOut = false; // The above isn't working at the moment
-			if (((side player) != (side _unit)) && !_isOut) then { // If the unit is not the player, not on the same side and not already hit
+			if (!_isOut && {(side player) != (side _unit)}) then { // If the unit is not the player, not on the same side and not already hit
 				_useUnits = _useUnits + [_unit]; // Add it to the targetable units array
 			};
 		} foreach _nearestUnits; // For each of the nearby men
 
-		if (count _useUnits > 0) then { // If there's at least one targetable unit
+		if !(_useUnits isEqualTo []) then { // If there's at least one targetable unit
 
-			[-2, {
-				(_this select 0) switchMove "acts_miller_knockout";
-			}, [player]] call CBA_fnc_globalExecute; // Hitting animation
+			[player, "acts_miller_knockout"] remoteExec ["switchMove", 0]; // Hitting animation
 
 			[-2, {
 				[(_this select 0), true] call ace_medical_fnc_setUnconscious;
