@@ -1,5 +1,7 @@
-class PZAI_InitPost {
-	Init = "_this call PZAI_fnc_onInitPost";
+#include "..\script_macros.hpp"
+
+class GVAR(InitPost) {
+	Init = QUOTE(_this call FUNC(onInitPost));
 };
 
 

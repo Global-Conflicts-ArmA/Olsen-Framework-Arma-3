@@ -84,7 +84,7 @@ if (GVAR(UseMarkers)) then {
 //ForceTime
 if (!(hasInterface) && {!(isServer)}) then {
 	setViewDistance GVAR(AIViewDistance);
-	setTerrainGrid 50;
+	setTerrainGrid 6.25;
 	if (GVAR(ForceTimeEnable)) then {
 		private _forcedDate = [date select 0, date select 1, date select 2, GVAR(ForceTime) select 0, GVAR(ForceTime) select 1];
 		GVAR(TimeHandlePFH) = [{

@@ -9,10 +9,10 @@ if (_target isEqualTo objnull) exitwith {false};
 private _targetPos = getposATL _target;
 private _relDir = _unit getRelDir _targetPos;
 
-private _facing = if !((_relDir <= 90) || {_relDir >= 270}) then {
-    true;
-﻿} else {
-    false;
-};
+private _facing = false;
+
+if !((_relDir <= 90) || {_relDir >= 270}) then {
+    _facing = true;
+﻿};
 
 _facing

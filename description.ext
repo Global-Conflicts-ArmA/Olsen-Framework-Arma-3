@@ -6,10 +6,17 @@
 #undef description
 
 class CfgFunctions {
-	#define description_functions
+	class FW {
+		tag = "FW";
+		#define description_functions
+		#include "core\description.hpp" //DO NOT REMOVE
+		#include "modules\modules.sqf" //DO NOT REMOVE
+		#undef description_functions
+	};
+	#define description_external_functions
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
-	#undef description_functions
+	#undef description_external_functions
 };
 
 class rscTitles {

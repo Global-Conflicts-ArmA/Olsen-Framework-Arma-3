@@ -1,5 +1,4 @@
 #include "..\..\script_macros.hpp"
-AI_EXEC_CHECK(SERVER);
 
 LOG("HC Server Pre Init");
 

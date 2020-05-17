@@ -35,8 +35,6 @@ if (GETMVAR(Debug,false)) then {
 private _flying = "NONE";
 if (_fly && {(_vehClass isKindOf "Air")}) then {
     _flying = "FLY";
-};
-if (_flying isEqualTo "FLY") then {
     _pos = ([_pos select 0, _pos select 1, _flyInHeight] vectorAdd [0,0,150]);
 };
 private _vehicle = createVehicle [_vehClass, _pos, [], 0, _flying];

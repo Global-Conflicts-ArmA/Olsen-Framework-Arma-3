@@ -13,7 +13,7 @@ if (isServer) then {
 
 			_vehicle = _x;
 
-			if ([_vehicle, _marker] call FNC_InArea) then {
+			if (_vehicle inArea  _marker) then {
 
 				{
 

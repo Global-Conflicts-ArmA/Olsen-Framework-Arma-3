@@ -2,7 +2,7 @@ GVAR(ServerViewDistance) = 2500; //View distance for the server (the ai's)
 
 GVAR(TimeLimit) = 30; //Time limit in minutes, to disable the time limit set it to 0
 GVAR(TimeLimitMessage) = "TIME LIMIT REACHED!"; //The message displayed when the time runs out
-GVAR(EndConditionFrequency) = 10; // Frequency in seconds that the end conditions are checked
+GVAR(EndConditionFrequency) = 60; // Frequency in seconds that the end conditions are checked
 
 /*
 Time for how long disconnected players should be deleted since mission start (in minutes)
@@ -38,10 +38,10 @@ GVAR(WaveSizeCiv) = 0;
 Players should be put in enclosed space, when their number reaches treshold, the defined "gate" will disappear for 30 seconds
 it has to be defined for wave respawn to work
 */
-//GVAR(RespawnPenGateWest) = YourEditorObjectName;
-//GVAR(RespawnPenGateEast) = YourEditorObjectName;
-//GVAR(RespawnPenGateInd) = YourEditorObjectName;
-//GVAR(RespawnPenGateCiv) = YourEditorObjectName;
+GVAR(RespawnPenGateWest) = objnull;
+GVAR(RespawnPenGateEast) = objnull;
+GVAR(RespawnPenGateInd) = objnull;
+GVAR(RespawnPenGateCiv) = objnull;
 
 [west, "USMC", "player"] call FUNC(AddTeam); //Adds a player team called USMC on side west
 [east, "VDV", "ai"] call FUNC(AddTeam); //Adds a ai team called VDV on side east

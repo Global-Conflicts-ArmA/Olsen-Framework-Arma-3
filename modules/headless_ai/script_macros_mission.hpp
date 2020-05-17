@@ -41,6 +41,8 @@
 
 */
 
+#define FWFUNC(var1) TRIPLES(FW,fnc,var1)
+
 #ifdef CUSTOM_FOLDER
     #define PATHTO_SYS(var1,var2,var3) ##CUSTOM_FOLDER\##var3.sqf
     #define PATHTOF_SYS(var1,var2,var3) ##CUSTOM_FOLDER\##var3

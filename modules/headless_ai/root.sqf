@@ -3,7 +3,7 @@
 	#include "CfgRemoteExec.hpp"
 #endif
 
-#ifdef description_functions
+#ifdef description_external_functions
 	#include "CfgFunctions.hpp"
 #endif
 
