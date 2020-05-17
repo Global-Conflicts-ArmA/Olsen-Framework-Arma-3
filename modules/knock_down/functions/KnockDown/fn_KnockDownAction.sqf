@@ -1,14 +1,12 @@
 // AUTHOR: StatusRed (EM-Creations.co.uk)
-
+if !(hasinterface) exitwith {};
 params ["_validWeapons", "_reviveAction"];
 
-private ["_nearestunits", "_nearestunitofside", "_prevAnim"];
+private _prevAnim = animationState player; // Get the player's current animation
+private _nearestUnits = nearestObjects [player, ["Man"], 3]; // Get all units within range
+private _useUnits = []; // Instanatiate an array for units which can be targetted
 
-_prevAnim = animationState player; // Get the player's current animation
-
-_nearestUnits = nearestObjects [player, ["Man"], 3]; // Get all units within range
-
-_useUnits = []; // Instanatiate an array for units which can be targetted
+private _animToUse = "acts_miller_knockout";
 
 // Check that they have a suitable weapon to knock down with
 if ((primaryWeapon player) in _validWeapons) then { // If the player has a valid weapon
@@ -24,7 +22,17 @@ if ((primaryWeapon player) in _validWeapons) then { // If the player has a valid
 
 		if !(_useUnits isEqualTo []) then { // If there's at least one targetable unit
 
-			[player, "acts_miller_knockout"] remoteExec ["switchMove", 0]; // Hitting animation
+			[player, _animToUse] remoteExec ["switchMove", 0]; // Hitting animation
+
+			// This handler is NOT being called
+			player addEventHandler ["AnimDone", {
+					params ["_unit", "_anim"];
+
+					if ((local _unit) && (_animToUse == _anim)) then {
+						[player, _prevAnim] remoteExec ["switchMove", 0]; // Original animation
+					};
+					diag_log "ANIMATION DONE";
+			}];
 
 			[-2, {
 				[(_this select 0), true] call ace_medical_fnc_setUnconscious;
@@ -40,10 +48,9 @@ if ((primaryWeapon player) in _validWeapons) then { // If the player has a valid
 			};
 
 			//[(_useUnits select 0), 1] call ace_blackoutAll;
-			sleep 2; // Sleep for two seconds
-			[-2, {
+			/* [-2, {
 				(_this select 0) switchmove (_this select 1);
-			}, [player, _prevAnim]] call CBA_fnc_globalExecute; // Go back to the previous animation
+			}, [player, _prevAnim]] call CBA_fnc_globalExecute; // Go back to the previous animation */
 		};
 	};
 };
