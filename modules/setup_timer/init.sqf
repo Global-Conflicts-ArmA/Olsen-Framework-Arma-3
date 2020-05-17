@@ -1,4 +1,4 @@
-["Setup Timer", "Allows the mission maker to restrict the AO of a side for a set amount of time.", "Olsen"] call FNC_RegisterModule;
+["Setup Timer", "Allows the mission maker to restrict the AO of a side for a set amount of time.", "Olsen"] call FUNC(RegisterModule);
 
 #define ADDSETUPMARKER(SIDE, TIME, NAME) \
 if !(markerType NAME == "") then { \
@@ -51,7 +51,7 @@ if (!isDedicated && !_aborted) then {
 			};
 			
 			{
-				if (((_x select 0) == (side player)) && [(vehicle player), (_x select 2)] call FNC_InArea) then {
+				if (((_x select 0) == (side player)) && (vehicle player) inArea  (_x select 2)) then {
 				
 					_marker = [(_x select 1), (_x select 2)];
 					
@@ -69,7 +69,7 @@ if (!isDedicated && !_aborted) then {
 			
 				_vehicle = (vehicle player);
 			
-				if ([_vehicle, (_marker select 1)] call FNC_InArea) then {
+				if (_vehicle inArea  (_marker select 1)) then {
 				
 					_pos = getPosATL _vehicle;
 					

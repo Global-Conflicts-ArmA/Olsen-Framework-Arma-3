@@ -96,6 +96,3 @@ _marker setMarkerShapeLocal "RECTANGLE";
 _marker setMarkerBrushLocal (_lineColor select 1);
 _marker setMarkerColorLocal (_lineColor select 0);
 GVAR(map_cover) pushBack _marker;
-
-
-	

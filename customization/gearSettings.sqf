@@ -1,0 +1,24 @@
+/*
+Call this with [this, "LOADOUT", (optional) "GROUPNAME"] call FW_fnc_GearScript; in the Init field of the unit
+Example:
+[this, "SL", "1'1"] call FW_fnc_GearScript;\
+
+more info: https://github.com/dklollol/Olsen-Framework-Arma-3/wiki/gear.sqf
+*/
+
+//when set to false, facewear types that are whitelisted will not be removed
+GVAR(force_remove_facewear) = false;
+
+//forces adding an item to inventory. Works only if container is specified!
+GVAR(enableOverfill) = false;
+
+_unit call FUNC(RemoveAllGear);
+
+switch (_type) do {
+
+	//#include "loadouts\USMCRiflePlatoon.sqf"
+	//#include "loadouts\RURiflePlatoon.sqf"
+	//#include "loadouts\BAF.sqf"
+	//#include "loadouts\1989VDV.sqf"
+	//#include "loadouts\2000MSV.sqf"
+};

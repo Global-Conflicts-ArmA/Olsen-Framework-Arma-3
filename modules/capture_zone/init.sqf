@@ -1,4 +1,4 @@
-["Capture Zone", "Adds functionality for defining and monitoring capture zones.", "Sacher"] call FNC_RegisterModule;
+["Capture Zone", "Adds functionality for defining and monitoring capture zones.", "Sacher"] call FUNC(RegisterModule);
 
 FNC_setCapturezone =
 {

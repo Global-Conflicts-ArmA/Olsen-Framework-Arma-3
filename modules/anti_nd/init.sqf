@@ -1,4 +1,4 @@
-["Anti ND", "Prevents negligent discharges at spawn.", "Starfox64"] call FNC_RegisterModule;
+["Anti ND", "Prevents negligent discharges at spawn.", "Starfox64"] call FUNC(RegisterModule);
 
 #include "settings.sqf"
 

@@ -1,4 +1,4 @@
-["AO Limit", "Allows the mission maker to set AO limits to specific sides.", "Olsen"] call FNC_RegisterModule;
+["AO Limit", "Allows the mission maker to set AO limits to specific sides.", "Olsen"] call FUNC(RegisterModule);
 
 #define ANY sideLogic
 
@@ -27,7 +27,7 @@ if (!isDedicated) then {
 				if ((_x select 0) == (side player) || (_x select 0) == ANY) then {
 					_markers set [count _markers, (_x select 1)];
 					
-					if ([_vehicle, (_x select 1)] call FNC_InArea) then {
+					if (_vehicle inArea  (_x select 1)) then {
 						_allowedOutside = false;
 					};
 				};
@@ -39,7 +39,7 @@ if (!isDedicated) then {
 				if (!(_vehicle isKindOf "Air")) then {
 					_outSide = true;
 					{
-						if ([_vehicle, _x] call FNC_InArea) exitWith {
+						if (_vehicle inArea  _x) exitWith {
 							_outSide = false;
 						};
 					} forEach _markers;
