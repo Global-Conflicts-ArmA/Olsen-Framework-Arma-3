@@ -1,4 +1,4 @@
-["Auto Track Assets", "Automatically runs FNC_TrackAsset on AI vehicles.", "Starfox64"] call FNC_RegisterModule;
+["Auto Track Assets", "Automatically runs FNC_TrackAsset on AI vehicles.", "Starfox64"] call FUNC(RegisterModule);
 
 if (isServer) then {
 
@@ -13,7 +13,7 @@ if (isServer) then {
 
 			_vehicle = _x;
 
-			if ([_vehicle, _marker] call FNC_InArea) then {
+			if (_vehicle inArea  _marker) then {
 
 				{
 

@@ -2,7 +2,7 @@
 //RADIO SCRAMBLE
 //////////////////
 
-FW_enable_scramble = false;
+FW_enable_scramble = true;
 
 //If enabled all sides will have different scramble frequencies.
 //Function below is to switch one unit to different scramble side.
@@ -10,7 +10,7 @@ FW_enable_scramble = false;
 /*
  * FNC_SetScramble
  * Change unit's scramble so it matches set faction
- * 
+ *
  * Example:
  * [this, east] call FNC_SetScramble;
  * Will set unit's radio to east's scramble setting.
@@ -86,7 +86,7 @@ FW_enable_babel = false;
 
 /*
  * FNC_SetLanguages
- * 
+ *
  * Use this function in player's init to set player's custom languages (translator for example)
  * faction setting will be overwritten by this value
  *
@@ -146,7 +146,7 @@ FW_enable_addRackDebug = false;
  * 6: who cannot access the rack (blacklist) <ARRAY>
  *  - Strings or an arrays of a string and a number for the vehicle specific position
  *  - Ex: ["driver",["cargo",0], ["cargo",1]]
- *	- 0 to 8 from param 5 
+ *	- 0 to 8 from param 5
  *	- http://acre2.idi-systems.com/wiki/frameworks/vehicle-racks#configuration-examples
  * 7: side for radio to be configured for <SIDE> (west, east, independent, civilian, etc)
 */
@@ -160,7 +160,7 @@ FW_ORRList = [
 	["accVic", "ACRE_VRC103", true, true, ["Radio Rack Three", "R3"], ["driver", ["cargo",0]], ["cargo"], west]
 	/*	For whitelisted/blacklisted positions
 	 *	If you wish to limit access to the rack to certain specific seats use this array setyp:
-	 *	[_name, _num] 
+	 *	[_name, _num]
 	 *	- _name being one of the possible "listable" positions
 	 *	_num as the index of that position as in the case of cargo you may have multiple cargo seats
 	 *	You will need to add one for each position if you say, blacklist all of cargo but make specific exceptions.
@@ -216,7 +216,7 @@ FW_ORRList = [
 /*
   Direct speech slider
   ACRE2 has a built in direct speech slider allowing you to determine how far your voice in direct speech should travel. The system has five states and by default starts in the middle state. The below table contains an approximated table with empirical testing by Bullhorn.
-  
+
   Volume state  |  Loud (m)  |  Quiet (m)  |  Barely audible (m)
   -2			|  1		 |  2		  |  13
   -1			|  3		 |  15		 |  55
@@ -226,4 +226,3 @@ FW_ORRList = [
 */
 
 FW_Acre_Volume_Value = -1;
-

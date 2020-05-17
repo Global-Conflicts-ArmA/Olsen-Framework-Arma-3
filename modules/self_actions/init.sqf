@@ -1,4 +1,4 @@
-["Self actions", "Allows players to check their own team color, view other's maps and cut grass.", "TinfoilHate"] call FNC_RegisterModule;
+["Self actions", "Allows players to check their own team color, view other's maps and cut grass.", "TinfoilHate"] call FUNC(RegisterModule);
 
 #include "settings.sqf"
 
