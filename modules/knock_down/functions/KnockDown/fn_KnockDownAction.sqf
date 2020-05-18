@@ -22,14 +22,14 @@ if ((primaryWeapon player) in _validWeapons) then { // If the player has a valid
 
 		if !(_useUnits isEqualTo []) then { // If there's at least one targetable unit
 
-			[player, _animToUse] remoteExec ["switchMove", 0]; // Hitting animation
+			[player, _animToUse] remoteExec ["playMove", 0]; // Hitting animation
 
 			// This handler is NOT being called
 			player addEventHandler ["AnimDone", {
 					params ["_unit", "_anim"];
 
 					if ((local _unit) && (_animToUse == _anim)) then {
-						[player, _prevAnim] remoteExec ["switchMove", 0]; // Original animation
+						[player, _prevAnim] remoteExec ["playMove", 0]; // Original animation
 					};
 					diag_log "ANIMATION DONE";
 			}];
