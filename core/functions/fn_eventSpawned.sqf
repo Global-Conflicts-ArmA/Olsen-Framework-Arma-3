@@ -28,7 +28,7 @@ if ((isPlayer _unit) || !(GETVAR(_unit,DontTrack,false))) then {
             _x params ["_name", "_side", "_Type", "_total", "_current"];
             if (
 				(GETVAR(_unit,Side,sideUnknown) isEqualto _side) && 
-				{((_Type isEqualto "player" && {isPlayer _unit}) || {(_Type isEqualto "ai" && {!(isPlayer _unit)})}}
+				{(_Type isEqualto "player" && {isPlayer _unit}) || {(_Type isEqualto "ai" && {!(isPlayer _unit)})}}
 			) exitWith {
                 _x set [3, (_total + 1)];
                 if (_unit call FUNC(Alive)) then {
