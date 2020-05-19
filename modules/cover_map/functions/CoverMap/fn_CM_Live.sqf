@@ -2,11 +2,11 @@
 
 //Covers Map outside marker and centers map on marker center in game map
 if !(hasinterface) exitwith {};
-params ["_marker", ["_centered", true, [true]], ["_zoomlevel", 0.4, [0]], ["_name", "AO", [""]], ["_bgColour", "ColorBlack", [""]]];
+params ["_marker", ["_centered", true, [true]], ["_zoomlevel", 0.4, [0]], ["_name", "AO", [""]], ["_bgColour", "ColorGrey", [""]]];
 
 //delete old markers if present
 if !(GVAR(map_cover) isEqualTo []) then {
-	GVAR(map_cover) apply {deletemarker _x}; 
+	GVAR(map_cover) apply {deletemarker _x};
 	GVAR(map_cover) = [];
 };
 

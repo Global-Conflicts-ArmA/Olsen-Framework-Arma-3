@@ -1,10 +1,10 @@
 #include "script_component.hpp"
 
-params ["_marker", ["_centered", true, [true]], ["_zoomlevel", 0.4, [0]], ["_name", "AO", [""]], ["_bgColour", "ColorBlack", [""]]];
+params ["_marker", ["_centered", true, [true]], ["_zoomlevel", 0.4, [0]], ["_name", "AO", [""]], ["_bgColour", "ColorGrey", [""]]];
 
 //delete old markers if present
 if !(GVAR(map_cover) isEqualTo []) then {
-	GVAR(map_cover) apply {deletemarker _x}; 
+	GVAR(map_cover) apply {deletemarker _x};
 	GVAR(map_cover) = [];
 };
 
@@ -59,7 +59,7 @@ for "_i" from 0 to 270 step 90 do {
 	_marker setMarkerBrushLocal (_borderColor select 1);
 	_marker setMarkerColorLocal (_borderColor select 0);
 	GVAR(map_cover) pushBack _marker;
-	
+
 	_markerPos = [
 		_posX + (sin _dirTemp * _size1) + (sin (_dirTemp + 90) * _size2),
 		_posY + (cos _dirTemp * _size1) + (cos (_dirTemp + 90) * _size2)
