@@ -14,8 +14,7 @@ killcam_toggleFnc = {
         if (killcam_toggle) then {
             killcam_toggle = false;
             cutText ["", "PLAIN DOWN"];
-        }
-        else {
+        } else {
             killcam_toggle = true;
             cutText ["Line shows LINE OF SIGHT from postion of enemy to player's position during the time of death.\nPress K to toggle hud markers off.\n\nTHIS FRAMEWORK FEATURE IS WIP. It may contain bugs and may be updated or changed at any point.", "PLAIN DOWN"];
         };

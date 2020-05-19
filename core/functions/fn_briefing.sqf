@@ -9,7 +9,7 @@ switch (side player) do {
 	case west: {
 		#include "..\..\customization\briefings\blufor.sqf"
 	};
-	case east: {
+	case east: { 
 		#include "..\..\customization\briefings\opfor.sqf"
 	};
 	case independent: {
@@ -19,9 +19,8 @@ switch (side player) do {
 		#include "..\..\customization\briefings\civilian.sqf"
 	};
 };
-
+	
 #include "..\..\customization\briefings\missionNotes.sqf"
-#include "..\..\customization\briefings\changelog.sqf"
 
 private _size = count _briefing - 1;
 for '_i' from 0 to _size step 1 do {

@@ -22,7 +22,7 @@ params [
 	["_type", "ai", [""]]
 ];
 
-if (isMultiplayer) then {
+if !(isMultiplayer) then {
 	_type = "ai";
 };
 

@@ -1,7 +1,10 @@
 #include "..\script_macros.hpp"
 
 params ["_unit"];
+if !(local _unit) exitWith {};
 
-[QGVAR(eventSpawned), [_unit]] call CBA_fnc_serverEvent;
+LOG("Spawned_Event called");
+
+[QGVAR(SpawnedEvent), _this] call CBA_fnc_serverEvent;
 
 

@@ -30,7 +30,7 @@ if (_randomPick isEqualType "") then {
 			} else {
 				if (_x isEqualType []) then {
 					_x params [["_item", "", [""]], ["_amount", 1, [1]]];
-					[_vehicle, _loadoutType, _item, _amount, _position] call FUNC(AddItemOrg);
+					[_vehicle, _loadoutType, _item, _amount] call FUNC(AddItemOrg);
 				};
 			};
 		} forEach _randomPick;

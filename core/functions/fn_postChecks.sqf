@@ -7,11 +7,15 @@
 
 	for "_i" from 0 to (count GVAR(Modules) - 1) step 1 do {
 		private _module = GVAR(Modules) select _i;
-        _module params ["_name", "_description", "_author", ["_version", 0, [0]]];
+        _module params ["_name", "_description", "_author", ["_version", 0, [0, ""]]];
         _version = if (_version isEqualTo 0) then {
             "Legacy"
         } else {
-            str _version
+			if (_version isEqualType 0) then {
+				str _version
+			} else {
+				_version
+			};
         };
 		_modules = _modules + "<font size='16'>" + _name + "</font><br/>Version: " + _version + "</font><br/>Description: " + _description + "<br/>by " + _author;
 		if (_i < count GVAR(Modules)) then {

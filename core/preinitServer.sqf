@@ -6,22 +6,22 @@ GVAR(Teams) = []; //DO NOT REMOVE
 GVAR(TeamSides) = []; //DO NOT REMOVE
 GVAR(MissionEnded) = false; //Mission has not ended
 
-[QGVAR(eventSpawned), {
+[QGVAR(spawnedEvent), {
     params ["_unit"];
-	_unit call FUNC(trackUnit);
+	_unit call FUNC(eventSpawned);
 }] call CBA_fnc_addEventHandler;
 
-[QGVAR(eventUntrack), {
+[QGVAR(untrackEvent), {
     params ["_unit"];
 	_unit call FUNC(untrackUnit);
 }] call CBA_fnc_addEventHandler;
 
-[QGVAR(eventKilled), {
+[QGVAR(killedEvent), {
     params [["_unit", objNull, [objNull]], ["_killer", objNull, [objNull]]];
 	[_unit, _killer] call FUNC(EventKilled);
 }] call CBA_fnc_addEventHandler;
 
-[QGVAR(eventRespawn), {
+[QGVAR(respawnEvent), {
     params [["_unit", objNull, [objNull]]];
 	[_unit] call FUNC(EventRespawned);
 }] call CBA_fnc_addEventHandler;

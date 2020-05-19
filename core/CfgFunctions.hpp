@@ -18,7 +18,6 @@ class Core {
 	class endMission {};
 	class eventDisconnect {};
 	class eventKilled {};
-	class eventPlayerSpawned {};
 	class eventRespawned {};
 	class eventSpawned {};
 	class forceTerrainGrid {};

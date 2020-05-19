@@ -29,7 +29,8 @@ if (GETVAR(_unit,Tracked,false)) then {
 				{(GETVAR(_unit,Side,sideUnknown)) isEqualTo _side} && 
 				{(_type != "ai" && {isPlayer _unit}) || (_type isEqualTo "ai")}
 		) exitWith {
-			SETVAR(_unit,HasDied,true);
+			SETPVAR(_unit,HasDied,true);
+            SETPVAR(_unit,Dead,true);
 			_x set [4, _current - 1];
 		};
 	} forEach GVAR(Teams);
