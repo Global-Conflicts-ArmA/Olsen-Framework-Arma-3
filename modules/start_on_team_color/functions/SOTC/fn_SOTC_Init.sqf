@@ -1,17 +1,13 @@
 #include "script_component.hpp"
 
-if (!isDedicated) then {
-  #include "..\..\settings.sqf"
+#include "..\..\settings.sqf"
 
-  "" spawn {
-    private _color = GETVAR(player, FW_TeamColor, "NONE");
+[{!(isNull ACE_player)}, {
+  private _colour = GETVAR(player, teamColour, "NONE");
 
-  	sleep 0.01;
+  if (_colour != "NONE") then {
+  	["CBA_teamColorChanged", [player, _colour]] call CBA_fnc_globalEvent;
+    SETVAR(player, teamColour, nil);
 
-  	if (_color != "NONE") then {
-  		["CBA_teamColorChanged", [player, _color]] call CBA_fnc_globalEvent;
-      SETVAR(player, FW_TeamColor, nil);
-
-  	};
   };
-};
+}, []] call CBA_fnc_waitUntilAndExecute;

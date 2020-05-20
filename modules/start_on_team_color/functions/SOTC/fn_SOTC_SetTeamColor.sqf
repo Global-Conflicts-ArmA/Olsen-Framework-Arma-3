@@ -2,7 +2,7 @@
 
 params [
   ["_unit", objNull, [objNull]],
-  ["_color", "", [""]]
+  ["_colour", "", [""]]
 ];
 
-SETVAR(_unit, FW_TeamColor, _color);
+SETVAR(_unit, teamColour, _colour);
