@@ -1,4 +1,4 @@
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
 [{!(GVAR(Modules) isEqualTo [])},{
 	player createDiarySubject [QGVAR(Menu), "Olsen Framework"];

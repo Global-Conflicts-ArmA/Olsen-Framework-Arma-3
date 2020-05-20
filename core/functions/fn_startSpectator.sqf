@@ -1,4 +1,4 @@
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
 player setVariable [QGVAR(Dead), true, true]; //Tells the framework the player is dead
 

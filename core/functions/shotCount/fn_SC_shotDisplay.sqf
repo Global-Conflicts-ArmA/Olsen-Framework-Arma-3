@@ -1,4 +1,4 @@
-#include "..\..\script_macros.hpp"
+#include "script_component.hpp"
 
 private _textBLUFOR = "BLUFOR Munitions Expended:<br/>";
 private _textOPFOR = "OPFOR Munitions Expended:<br/>";

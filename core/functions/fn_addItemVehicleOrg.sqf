@@ -15,7 +15,7 @@
  * Public: No
  */
  
-#include "..\script_macros.hpp" 
+#include "script_component.hpp" 
 
 params ["_vehicle", "_loadoutType", "_item", ["_amount", 1, [1]]];
 private _type = (_item call BIS_fnc_itemType) select 1;

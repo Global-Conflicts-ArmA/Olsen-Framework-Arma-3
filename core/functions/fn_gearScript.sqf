@@ -1,4 +1,4 @@
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
 #define random(MIN, MAX) \
 ([MIN, MAX] call FUNC(RandomRange))

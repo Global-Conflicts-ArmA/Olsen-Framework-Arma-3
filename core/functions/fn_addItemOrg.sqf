@@ -16,7 +16,7 @@
  * Public: No
  */
 
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
 params ["_unit", "_loadoutType", "_item", ["_amount", 1, [1]], ["_position", "none", [""]]];
 

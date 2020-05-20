@@ -12,27 +12,25 @@
  * Public: No
  */
 
-#include "..\script_macros.hpp"
-
-params ["_unit"];
+#include "script_component.hpp"
 
 params ["_unit"];
 
 SETPVAR(_unit,Side,(side _unit));
 
-if ((isPlayer _unit) || !(GETVAR(_unit,DontTrack,false))) then {
+if ((isPlayer _unit) || {!(GETVAR(_unit,DontTrack,false))}) then {
     if !(GETVAR(_unit,Tracked,false)) then {
         SETPVAR(_unit,Tracked,true);
         SETPVAR(_unit,HasDied,false); //we will use this variable to make sure killed eventHandler doesn't fire twice
         {
-            _x params ["_name", "_side", "_Type", "_total", "_current"];
+            _x params ["_name", "_side", "_type", "_total", "_current"];
             if (
 				(GETVAR(_unit,Side,sideUnknown) isEqualto _side) && 
-				{(_Type isEqualto "player" && {isPlayer _unit}) || {(_Type isEqualto "ai" && {!(isPlayer _unit)})}}
+				{(isPlayer _unit && {_type != "ai"}) || {_type isEqualto "ai"}}
 			) exitWith {
-                _x set [3, (_total + 1)];
+                _x set [3, _total + 1];
                 if (_unit call FUNC(Alive)) then {
-                    _x set [4, (_current + 1)];
+                    _x set [4, _current + 1];
                 };
             };
         } forEach GVAR(Teams);
