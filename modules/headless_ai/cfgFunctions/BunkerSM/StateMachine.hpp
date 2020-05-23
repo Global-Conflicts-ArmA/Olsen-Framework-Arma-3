@@ -1,14 +1,18 @@
 #include "..\..\script_macros.hpp"
 
 class GVAR(bunkerStateMachine) {
-    list = QUOTE(allUnits select {\
+    list = QUOTE(allUnits select { \
         local _x && \
-        {!isPlayer _x} &&\
-        {!(QGETVAR(_x,NOAI,false))} &&\
-        {(side (leader _x)) in GVAR(SideBasedExecution)} &&\
-        {((QGETVAR(group _x,Mission,'NONE')) isEqualTo 'BUNKER') || ((QGETVAR(_x,Bunker,false)))}\
+        {!isNull _x} && \
+        {alive _x} && \
+        {!isPlayer (leader _x)} && \
+        {!(QGETVAR(_x,NOAI,false))} && \
+        {QGETVAR(group _x,Spawned,false)} && \
+        {side _x in GVAR(SideBasedExecution)} && \
+        {((QGETVAR(group _x,Mission,'NONE')) isEqualTo 'BUNKER') || {(QGETVAR(_x,Bunker,false))}} \
     });
     skipNull = 1;
+    repeatPerFrame = 4;
     class Initial {
         onStateEntered = QFUNC(onSEInitial);
         class isInitialized {

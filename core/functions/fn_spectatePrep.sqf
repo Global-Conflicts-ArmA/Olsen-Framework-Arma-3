@@ -19,6 +19,10 @@ killcam_body = _body;
 
 LOG_1("spectatePrep started: %1",_unit);
 
+if (GVAR(RespawnTickets) == -1) exitWith {
+    [QGVAR(eventPlayerRespawned), [-1]] call CBA_fnc_localEvent;
+    [QGVAR(eventRespawn), [player]] call CBA_fnc_serverEvent;
+};
 if (GVAR(RespawnTickets) > 0) then {
     GVAR(RespawnTickets) = GVAR(RespawnTickets) - 1;
     [QGVAR(eventPlayerRespawned), [0]] call CBA_fnc_localEvent;

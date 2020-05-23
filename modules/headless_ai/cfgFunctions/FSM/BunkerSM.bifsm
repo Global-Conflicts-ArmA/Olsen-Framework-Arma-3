@@ -1207,16 +1207,21 @@ class Globals
 	CompileConfig="C:\Program Files (x86)\Steam\steamapps\common\Arma 3 Tools\FSMEditor\CBA_FSMEditor.cfg";
 	class Attributes
 	{
-		items=2;
+		items=3;
 		class Item0
 		{
 			name="list";
-			value="allUnits select {\" \n "    local _x && \" \n "    {!isPlayer _x} &&\" \n "    {!(QGETVAR(_x,NOAI,false))} &&\" \n "    {(side (leader _x)) in GVAR(SideBasedExecution)} &&\" \n "    {((QGETVAR(group _x,Mission,'NONE')) isEqualTo 'BUNKER') || ((QGETVAR(_x,Bunker,false)))}\" \n "}";
+			value="allUnits select { \" \n "    local _x && \" \n "    {!isNull _x} && \" \n "    {alive _x} && \" \n "    {!isPlayer (leader _x)} && \" \n "    {!(QGETVAR(_x,NOAI,false))} && \" \n "    {QGETVAR(group _x,Spawned,false)} && \" \n "    {side _x in GVAR(SideBasedExecution)} && \" \n "    {((QGETVAR(group _x,Mission,'NONE')) isEqualTo 'BUNKER') || {(QGETVAR(_x,Bunker,false))}} \" \n "}";
 		};
 		class Item1
 		{
 			name="skipnull";
 			value="1";
+		};
+		class Item2
+		{
+			name="repeatperframe";
+			value="4";
 		};
 	};
 	class DefaultLink
@@ -1242,10 +1247,10 @@ class Window
 	MaxPosY=-1;
 	MinPosX=-1;
 	MinPosY=-1;
-	Left=332;
-	Top=176;
-	Right=1273;
-	Bottom=1007;
+	Left=-1842;
+	Top=78;
+	Right=-901;
+	Bottom=909;
 	ShowCmd=1;
 	SplitPos=565;
 };

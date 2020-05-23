@@ -12,4 +12,4 @@ params ["_GroupUnits","_Group"];
 	SETVAR(_x,MovedRecently,false);
 } foreach _GroupUnits;
 
-SETVAR(_Group,Mission,"DEFEND");
+SETVAR(_group,Task,"DEFEND");

@@ -3,7 +3,7 @@
 
 params ["_Unit","_Group","","_thisFSM"];
 
-SETVAR(_Group,Mission,"GARRISON");
+SETVAR(_group,Task,"GARRISON");
 SETVAR(_Group,InitialWPSet,true);
 
 private _UnitLeader = _Unit;

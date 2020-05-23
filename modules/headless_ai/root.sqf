@@ -11,7 +11,7 @@
 	#include "cfgXEH\PreInit.hpp"
 #endif
 
-#ifdef description_XEH_InitPost_CAManBase
-	#include "cfgXEH\InitPost.hpp"
+#ifdef description_XEH_FiredMan_CAManBase
+	#include "cfgXEH\FiredMan.hpp"
 #endif
 

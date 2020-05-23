@@ -65,6 +65,6 @@ for "_i" from 1 to _wpcount do {
 [_group,_pos,_radius,"CYCLE",_behaviour, _combat, _speed, _formation, _oncomplete, _timeout] call CBA_fnc_addWaypoint;
 
 SETVAR(_group,InitialWPSet,true);
-SETVAR(_group,Mission,"PATROL");
+SETVAR(_group,Task,"PATROL");
 [_group] call FUNC(taskForceSpeed);
 true

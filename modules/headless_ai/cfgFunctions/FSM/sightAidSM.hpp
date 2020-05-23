@@ -1,12 +1,17 @@
 class GVAR(sightAidStateMachine) {
     list = QUOTE(allUnits select {\
         local _x && \
-        {!isPlayer _x} &&\
-        {!(QGETVAR(_x,NOAI,false))} &&\
-        {(side (leader _x)) in GVAR(SideBasedExecution)} &&\
-        {(vehicle _x isEqualTo _x) || (QGETMVAR(SightAidVehicles,false))}\
+        {!isNull _x} && \
+        {alive _x} && \
+        {!isPlayer (leader _x)} && \
+        {!(QGETVAR(_x,NOAI,false))} && \
+        {QGETVAR(group _x,Spawned,false)} && \
+        {side _x in GVAR(SideBasedExecution)} && \
+        {!((QGETVAR(group _x,Mission,'NONE')) isEqualTo 'BUNKER') && {!(QGETVAR(_x,Bunker,false))}} && \
+        {(QGETMVAR(SightAidVehicles,true)) || {vehicle _x isEqualTo _x}} \
     });
     skipNull = 1;
+    repeatPerFrame = 2;
     class Initial {
         onStateEntered = "";
         class isInitialized {
@@ -54,7 +59,7 @@ class GVAR(sightAidStateMachine) {
         class Max_Checks {
             targetState = QUOTE(Wait);
 
-            condition = QUOTE((QGETVAR(_this,SA_seeChecks,0) > 3));
+            condition = QUOTE(QGETVAR(_this,SA_seeChecks,0) > 8);
         };
         class Check_Next_Enemy {
             targetState = QUOTE(Check_Nearby_Ene);

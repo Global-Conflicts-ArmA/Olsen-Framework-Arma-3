@@ -3,24 +3,20 @@
 
 //FUNC(CombatAttack)
 
-params ["_Group","_currenttarget","_enemydir"];
+params ["_group", "_targetPos", ["_forceAttack", false, [false]]];
 
-private _position = getposASL _currenttarget;
+private _enemydir = getposATL leader _group getDir _targetPos;
 private _radius = 100;
 
-if ((random 2) > 1) then {_group setformation "LINE";} else {_group setformation "WEDGE";};
+private _formation = if ((random 2) > 1) then {"LINE"} else {"WEDGE"};
+_group setformation _formation;
 _group setformdir _enemydir;
 
-[_Group] call CBA_fnc_clearWaypoints;
-SETVAR(_Group,Mission,"ATTACK");
-[_group, _position, _radius, "SAD", "AWARE", "RED"] call CBA_fnc_addWaypoint;
-
-//_NoFlanking = GETVAR(_Group,REINFORCE,false);
-//if (_NoFlanking) then {
-//	[_Group] call CBA_fnc_clearWaypoints;
-//	SETVAR(_Group,Mission,"ATTACK");
-//	[_group, _position, _radius, "SAD", "COMBAT", "RED"] call CBA_fnc_addWaypoint;
-//} else {
-//	SETVAR(_Group,Mission,"FLANK");
-//	[_Group,false] spawn FUNC(FlankManeuver);
-//};
+if (_forceAttack) then {
+	[_Group] call CBA_fnc_clearWaypoints;
+	SETVAR(_group,Task,"ATTACK");
+	[_group, _targetPos, _radius, "SAD", "COMBAT", "RED"] call CBA_fnc_addWaypoint;
+} else {
+	SETVAR(_group,Task,"FLANK");
+	[_Group,false] spawn FUNC(FlankManeuver);
+};

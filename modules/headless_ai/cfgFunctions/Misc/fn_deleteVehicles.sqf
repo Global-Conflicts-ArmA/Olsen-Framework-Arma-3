@@ -6,8 +6,8 @@ params ["_arr"];
 {
     private _vehicle = _x;
     if (!(_vehicle isKindOf "Logic") && {!isNull _vehicle}) then {
-        if (_vehicle getVariable ["FW_Tracked", false]) then {
-            ["FW_eventUntrack", [_vehicle]] call CBA_fnc_serverEvent;
+        if (EGETVAR(_vehicle,FW,Tracked,false)) then {
+            [QEGVAR(FW,untrackEvent), [_vehicle]] call CBA_fnc_serverEvent;
         };
         {
             private _object = _x;

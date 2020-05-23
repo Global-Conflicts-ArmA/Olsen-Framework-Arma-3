@@ -8,11 +8,11 @@ of reinforcements or subsequent AOs.
 
 // Array objects
 // eg: ["mainEnemy", "patrol_1", "patrol_2", "patrol_3"]
-GVAR(ArrayObjects) = ["hc_1"];
+GVAR(ArrayObjects) = [];
 
 // Initial spawns are spawned upon init, at the start of the mission.
 // eg: ["mainEnemy"]
-GVAR(InitialSpawn) = ["hc_1"];
+GVAR(InitialSpawn) = [];
 
 // Initial random spawns are randomly selected upon init, at the start of the mission according to their weight value.
 // Array is structured with array object name and random selection weight.
@@ -31,7 +31,6 @@ GVAR(ForceTime) = [12,00];
 GVAR(Debug) = true;
 GVAR(VerboseDebug) = false;
 GVAR(GroupDebug) = false;
-GVAR(CommanderDebug) = false;
 // Turn on map markers that track AI movement
 GVAR(UseMarkers) = true;
 
@@ -64,8 +63,7 @@ GVAR(QRF_Distance) = 2500;
 GVAR(MountStatics) = true;
 // Distance AI will mount empty statics from - maximum of 100m
 GVAR(MountStaticsDistance) = 50;
-// Should we let AI use flanking manuevers? false means they can flank
-GVAR(REINFORCE) = false;
+GVAR(RadioWait) = 30;
 // Should AI use smoke grenades? Besides default A3 behavior?
 GVAR(USESMOKE) = false;
 // Percentage chance of AI using grenades

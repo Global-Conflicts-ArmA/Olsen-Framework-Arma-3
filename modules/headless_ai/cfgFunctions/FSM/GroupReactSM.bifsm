@@ -104,7 +104,7 @@ class GraphItems
 			{
 				Id=13;
 				Priority=1;
-				Condition="QGETVAR(_this,CH_enemyInRange,false) && {!((behaviour (leader _this)) in ['COMBAT','STEALTH'])}";
+				Condition="(((QGETVAR(_this,CH_enemyInRange,[])) isEqualTo []) && {!((behaviour (leader _this)) isEqualTo QN(COMBAT))})";
 				Action="onTransition = QFUNC(CH_transCacheGroup);";
 			};
 		};
@@ -164,7 +164,7 @@ class GraphItems
 	};
 	class Item6
 	{
-		Flags=4314;
+		Flags=218;
 		BasicText="";
 		Left=-225;
 		Top=225;
@@ -186,8 +186,9 @@ class GraphItems
 			{
 				Id=16;
 				Priority=1;
-				Condition="QGETVAR(_this,CH_enemyInRange,false) && {!((behaviour (leader _this)) in ['COMBAT','STEALTH'])}";
+				Condition="(!((QGETVAR(_this,CH_enemyInRange,[])) isEqualTo []) || ((behaviour (leader _this)) isEqualTo QN(COMBAT)))";
 				Action="onTransition = QFUNC(CH_transUnCacheGroup);";
+				ConditionTab=1;
 			};
 		};
 	};
@@ -215,7 +216,7 @@ class GraphItems
 			{
 				Id=17;
 				Condition="true";
-				ConditionTab=1;
+				ConditionTab=2;
 			};
 		};
 	};
@@ -296,7 +297,7 @@ class GraphItems
 			class ItemInfo
 			{
 				Id=33;
-				InitCode="onStateEntered = """";";
+				InitCode="onStateEntered = QFUNC(onSERemoveCantSeeEnemy);";
 			};
 		};
 	};
@@ -325,6 +326,7 @@ class GraphItems
 				Id=34;
 				Condition="true";
 				PreCondition="conditionFrequency = 2;";
+				ConditionTab=2;
 			};
 		};
 	};
@@ -379,7 +381,7 @@ class GraphItems
 				Id=37;
 				Condition="true";
 				PreCondition="conditionFrequency = 2;";
-				ConditionTab=1;
+				ConditionTab=2;
 			};
 		};
 	};
@@ -591,10 +593,10 @@ class Globals
 	DefaultLinkColorFromSelected=6316287;
 	DefaultLinkColorToSelected=6356832;
 	DefaultLinkUseCustom=1;
-	PZoomLeft=-415.0882;
-	PZoomRight=243.79956;
-	PZoomBottom=549.85352;
-	PZoomTop=-243.94336;
+	PZoomLeft=-441.58813;
+	PZoomRight=217.29961;
+	PZoomBottom=571.5343;
+	PZoomTop=-222.26257;
 	Clxs=547;
 	Clys=659;
 	Aspect=1;
@@ -606,10 +608,10 @@ class Window
 	MaxPosY=-1;
 	MinPosX=-1;
 	MinPosY=-1;
-	Left=-1738;
-	Top=182;
-	Right=-797;
-	Bottom=1013;
+	Left=-1790;
+	Top=130;
+	Right=-849;
+	Bottom=961;
 	ShowCmd=1;
 	SplitPos=565;
 };

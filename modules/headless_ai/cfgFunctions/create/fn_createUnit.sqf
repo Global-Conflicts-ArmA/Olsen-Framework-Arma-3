@@ -63,7 +63,7 @@ if !(_varName isEqualTo "") then {
 };
 
 if !(_olsenGearType isEqualTo "") then {
-    [_unit, _olsenGearType] call FWFUNC(gearScript);
+    [_unit, _olsenGearType] call EFUNC(FW,gearScript);
 };
 
 [{

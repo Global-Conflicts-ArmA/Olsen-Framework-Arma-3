@@ -403,7 +403,7 @@ class GraphItems
 			{
 				Id=38;
 				Priority=2;
-				Condition="(QGETVAR(_this,SA_seeChecks,0) > 3)";
+				Condition="QGETVAR(_this,SA_seeChecks,0) > 8";
 			};
 		};
 	};
@@ -628,16 +628,21 @@ class Globals
 	CompileConfig="C:\Program Files (x86)\Steam\steamapps\common\Arma 3 Tools\FSMEditor\CBA_FSMEditor.cfg";
 	class Attributes
 	{
-		items=2;
+		items=3;
 		class Item0
 		{
 			name="list";
-			value="allUnits select {\" \n "    local _x && \" \n "    {!isPlayer _x} &&\" \n "    {!(QGETVAR(_x,NOAI,false))} &&\" \n "    {(side (leader _x)) in GVAR(SideBasedExecution)} &&\" \n "    {(vehicle _x isEqualTo _x) || (QGETMVAR(SightAidVehicles,false))}\" \n "}";
+			value="allUnits select {\" \n "    local _x && \" \n "    {!isNull _x} && \" \n "    {alive _x} && \" \n "    {!isPlayer (leader _x)} && \" \n "    {!(QGETVAR(_x,NOAI,false))} && \" \n "    {QGETVAR(group _x,Spawned,false)} && \" \n "    {side _x in GVAR(SideBasedExecution)} && \" \n "    {!((QGETVAR(group _x,Mission,'NONE')) isEqualTo 'BUNKER') && {!(QGETVAR(_x,Bunker,false))}} && \" \n "    {(QGETMVAR(SightAidVehicles,true)) || {vehicle _x isEqualTo _x}} \" \n "}";
 		};
 		class Item1
 		{
 			name="skipnull";
 			value="1";
+		};
+		class Item2
+		{
+			name="repeatperframe";
+			value="2";
 		};
 	};
 	class DefaultLink
@@ -663,10 +668,10 @@ class Window
 	MaxPosY=-1;
 	MinPosX=-1;
 	MinPosY=-1;
-	Left=-1738;
-	Top=182;
-	Right=-797;
-	Bottom=1013;
+	Left=-1712;
+	Top=208;
+	Right=-771;
+	Bottom=1039;
 	ShowCmd=1;
 	SplitPos=565;
 };

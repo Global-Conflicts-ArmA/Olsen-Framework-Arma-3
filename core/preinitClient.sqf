@@ -89,6 +89,9 @@ eg_keyHandler2 = {
     player setVariable [QGVAR(Body), player, true];
 
     switch (_respawnType) do {
+        case -1: {
+            cutText ["You have respawned. This mission has unlimited respawns.", 'PLAIN DOWN'];
+        };
         case 0: {
             private _p = "";
         	if (GVAR(RespawnTickets) != 1) then {
