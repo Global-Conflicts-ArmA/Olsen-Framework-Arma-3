@@ -47,6 +47,7 @@ GVAR(HearingDistance) = 2000;
 GVAR(HearingMinIncrease) = 1;
 // Distance AI will respond to call of help from each other
 GVAR(RadioDistance) = 1200;
+GVAR(RadioWait) = 30;
 // Whether or not AI need ACRE radios to broadcast info to other groups
 GVAR(RadioNeedRadio) = false;
 // Distance the AI will patrol to by default
