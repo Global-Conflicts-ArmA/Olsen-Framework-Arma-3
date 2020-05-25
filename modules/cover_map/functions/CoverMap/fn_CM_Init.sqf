@@ -32,7 +32,7 @@ GVAR(map_currentAO) = "";
     	[player, 1, ["ACE_SelfActions", "ACE_Equipment"], _MapChangeMenu] call ace_interact_menu_fnc_addActionToObject;
     	{
     		_x params [["_marker", "", [""]], ["_centered", false, [false]], ["_zoomLevel", 0.6, [0.6]], ["_mapName", "NONE", [""]]];
-    		private _text = "Test Switch Map to " + _mapName;
+    		private _text = "Switch Map to " + _mapName;
     		private _MapChangeAction = ["switch_MapAO", _text, "", {
                 (_this select 2) call FUNC(CM_Live);
             },{
