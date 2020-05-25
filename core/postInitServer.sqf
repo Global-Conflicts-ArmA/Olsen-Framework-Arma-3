@@ -1,13 +1,15 @@
 #include "script_macros.hpp"
 #define postInitServer
 
-{
-	_x call FUNC(CreateRespawnMarker);
-} foreach ["west","east","guer","civ"];
+["west","east","guer","civ"] apply {
+    private _team = _x;
+    private _markerName = format ["respawn_%1", _team];
+    createMarker [_markerName, [0, 0, 0]];
+    _markerName setMarkerShape "ICON";
+    _markerName setMarkerType "EMPTY";
+};
 
 GVAR(EventDisconnectHandle) = addMissionEventHandler ["HandleDisconnect", {_this call FUNC(EventDisconnect);}];
-
-//"" call FUNC(StartingCount); //DO NOT REMOVE
 
 setViewDistance GVAR(ServerViewDistance);
 

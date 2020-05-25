@@ -5,7 +5,7 @@ class Core {
 	class addItemVehicleOrg {};
 	class addItemVehicleRandomOrg {};
 	class addTeam {};
-	class alive {};
+	class isAlive {};
 	class areaCount {};
 	class canAttachItem {};
 	class canLinkItem {};
@@ -13,7 +13,6 @@ class Core {
 	class casualtyPercentage {};
 	class checkClassname {};
 	class countTeam {};
-	class createRespawnMarker {};
 	class debugMessage {};
 	class endMission {};
 	class eventDisconnect {};
@@ -25,10 +24,8 @@ class Core {
 	class getTeamVariable {};
 	class getEmptyPositions {};
 	class hasExtracted {};
-	class inVehicle {};
 	class makeUnitsList {};
 	class notTrackUnit {};
-	class randomRange {};
 	class registerModule {};
 	class removeAllGear {};
 	class removeAllVehicleGear {};
@@ -36,7 +33,6 @@ class Core {
 	class spectatePrep {};
 	class startSpectator {};
 	class stackNames {};
-	class startingCount {};
 	class trackAsset {};
 	class trackUnit {};
 	class untrackUnit {};
@@ -45,6 +41,7 @@ class Core {
 	class gearExport {};
 	class vehGear {};
 	class postChecks {};
+	class initLoadingScreen {};
 };
 
 class XEH {
@@ -66,8 +63,17 @@ class debug {
 
 class ShotCount {
 	file = "core\functions\shotCount";
-	class SC_FiredEH {};
-	class SC_getDisplayName {};
-	class SC_shotCount {};
-	class SC_shotDisplay {};
+	class firedEH {};
+	class getDisplayName {};
+	class shotCount {};
+	class shotDisplay {};
+};
+
+class Markers {
+	file = "core\functions\markers";
+	class arrowToMap {};
+	class drawToMap {};
+	class writeToMap {};
+	class writeToMapFont {};
+	class clearmarkers {};
 };

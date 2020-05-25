@@ -17,23 +17,33 @@
 
 params [
 	["_team", "", [""]],
-	["_index", 0, [0]]
+	["_type", "", [""]]
 ];
 
-private _return = 0;
-private _found = false;
-
-{
-
-	if ((_x select 0) isEqualTo _team) exitWith {
-		_return = (_x select _index);
-		_found = true;
-	};
-} forEach GVAR(Teams);
-
-if !(_found) then {
-	private _tempText = format ["Critical:<br></br>Team ""%1"" does not exist.", _team];
-	_tempText call FUNC(DebugMessage);
+if (_type isEqualTo "") exitWith {
+	ERROR_1("Critical:<br></br>type '%1' does not exist.", _type);
 };
+
+private _index = switch (toUpper _type) do {
+    case "SIDE": {1};
+    case "TYPE": {2};
+    case "TOTAL": {3};
+    case "CURRENT": {4};
+    default {-1};
+};
+
+if (_index isEqualTo -1) exitwith {
+	ERROR_1("Critical:<br></br>Data '%1' does not exist.", _type);
+};
+
+private _teamIndex = GVAR(Teams) findIF {
+	_x params ["_name"];
+	((toUpper _name) isEqualTo (toUpper _team))
+};
+
+if (_teamIndex isEqualTo -1) exitwith {
+	ERROR_1("Critical:<br></br>Team '%1' does not exist.", _team);
+};
+private _return = GVAR(Teams) select _teamIndex select _index;
 
 _return

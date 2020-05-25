@@ -16,14 +16,14 @@
 
 params ["_team"];
 
-private _start = [_team, 3] call FUNC(GetTeamVariable);
-private _current = [_team, 4] call FUNC(GetTeamVariable);
+//IGNORE_PRIVATE_WARNING ["_start", "_current", "_team"];
+GETTEAMVAR(_start,_team,"START");
+GETTEAMVAR(_current,_team,"CURRENT");
 
 private _count = 0;
 
 if (_start isEqualTo 0) then {
-	private _tempText = format ["Casualty count:<br></br>Warning no units on team ""%1"".", _team];
-	_tempText call FUNC(DebugMessage);
+	ERROR_1("Casualty count:<br></br>Warning no units on team ""%1"".", _team);
 } else {
 	_count = _start - _current;
 };

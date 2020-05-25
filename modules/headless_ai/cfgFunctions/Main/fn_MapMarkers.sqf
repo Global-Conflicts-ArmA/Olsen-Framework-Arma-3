@@ -14,7 +14,7 @@ params [
     "_assetType"
 ];
 
-if (!(alive _leader) || !(local _leader)) then {
+if (!(alive _leader) || {!(local _leader)}) then {
     private _trackername = format ["trk_%1_%2",_side,_group];
     if (_trackername in GVAR(MarkerArray)) then {
         deletemarker _trackername;
@@ -39,13 +39,13 @@ if (!(alive _leader) || !(local _leader)) then {
     private _rankshort = [rank _leader,"displayNameShort"] call BIS_fnc_rankparams;
     private _lastName = name _leader;
     private _trackername = format ["trk_%1_%2",_side,_group];
-    private _markercolour = (switch (_side) do {
+    private _markercolour = switch (_side) do {
         case west: {"ColorBlue"};
         case east: {"ColorRed"};
         case independent: {"ColorGreen"};
         case civilian: {"ColorYellow"};
         default {"ColorBlack"};
-    });
+    };
     if !(_trackername in GVAR(MarkerArray)) then {
         createMarker [_trackername,[0,0]];
         GVAR(MarkerArray) pushback _trackername;
@@ -65,7 +65,6 @@ if (!(alive _leader) || !(local _leader)) then {
         "PERIMPATROL",
         "SENTRY",
         "ATTACK",
-        "BUNKER",
         "ASSAULT",
         "FLANK",
         "MOVE",
@@ -84,7 +83,7 @@ if (!(alive _leader) || !(local _leader)) then {
     _trackername setMarkerText _text;
     if (_usedest) then {
         private _destname = format["dest_%1_%2",_side,_group];
-        if (!(_destname in GVAR(MarkerArray))) then {
+        if !(_destname in GVAR(MarkerArray)) then {
             createMarker [_destname,[0,0]];
             GVAR(MarkerArray) pushback _destname;
             _destname setMarkerShape "ICON";
@@ -105,7 +104,7 @@ if (!(alive _leader) || !(local _leader)) then {
         private _ang = _position getDir _wppos;
         private _center = _position getPos [_dist, _ang];
         private _destlinename = format ["destline_%1_%2",_side,_group];
-        if (!(_destlinename in GVAR(MarkerArray))) then {
+        if !(_destlinename in GVAR(MarkerArray)) then {
             createMarker [_destlinename,[0,0]];
             GVAR(MarkerArray) pushback _destlinename;
             _destlinename setMarkerShape "RECTANGLE";
@@ -129,7 +128,7 @@ if (!(alive _leader) || !(local _leader)) then {
     };
     if (_usetarget) then {
         private _targetname = format["target_%1_%2",_side,_group];
-        if (!(_targetname in GVAR(MarkerArray))) then {
+        if !(_targetname in GVAR(MarkerArray)) then {
             createMarker [_targetname,[0,0]];
             GVAR(MarkerArray) pushback _targetname;
             private _targettext = format ["%1. %2",_rankshort,_lastname];

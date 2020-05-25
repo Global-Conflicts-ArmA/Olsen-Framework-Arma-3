@@ -1,5 +1,4 @@
 #define COMPONENT PZAI
-#define DEBUG_MODE_FULL
 #include "..\..\core\script_macros.hpp"
 
 //Script control
@@ -8,7 +7,7 @@ private _argUpper = toUpper(#ARG);\
 if (is3DEN) exitWith {};\
 if ((_argUpper isEqualTo "SERVER") && {((!isServer) && {isMultiplayer})}) exitWith {};\
 if ((_argUpper isEqualTo "CLIENT") && {(!hasinterface)}) exitWith {};\
-if ((_argUpper isEqualTo "HC") && {((hasinterface || isServer) && {isMultiplayer})}) exitWith {};\
+if ((_argUpper isEqualTo "HC") && {((hasinterface || {isDedicated}) && {isMultiplayer})}) exitWith {};\
 if ((_argUpper isEqualTo "CLIENTHC") && {((isDedicated) && {isMultiplayer})}) exitWith {};\
 if ((_argUpper isEqualTo "SERVERHC") && {((hasinterface) && {isMultiplayer})}) exitWith {};
 

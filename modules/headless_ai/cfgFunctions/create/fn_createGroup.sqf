@@ -35,7 +35,8 @@ _groupSet params [
     /* 23 */ "_name",
     /* 24 */ "_groupID",
     /* 25 */ "_areaAssigned",
-    /* 26 */ "_assetType"
+    /* 26 */ "_assetType",
+    /* 27 */ ["_manualPos", [0,0,0], [[]]]
 ];
 
 createCenter _side;
@@ -49,7 +50,7 @@ if !(_name isEqualTo "") then {
 };
 
 if !(_groupID isEqualTo "") then {
-    _group setGroupIdGlobal _groupID;
+    _group setGroupIdGlobal [_groupID];
 };
 
 if !(_storedVars isEqualTo []) then {
@@ -84,7 +85,13 @@ if (((GETVAR(leader _group,noAI,false)) || {GETVAR(_group,noAI,false)}) || {(cou
     [_group,_waypoints] call FUNC(createWaypoints);
 } else {
     LOG_2("Setting %1 to task: %2",_group,_task);
-    private _passarray = [_task,_group,_groupPos,_taskRadius,_wait,_behaviour,_combat,_speed,_formation,_occupyOption];
+    private _taskPos = if (_manualPos isEqualTo [0,0,0]) then {
+        _groupPos
+    } else {
+        _manualPos
+    };
+    TRACE_2("",_group,_taskPos);
+    private _passarray = [_task,_group,_taskPos,_taskRadius,_wait,_behaviour,_combat,_speed,_formation,_occupyOption];
     [{!((count waypoints (_this select 1)) isEqualTo 0)},{
         _this call FUNC(taskAssign);
     },_passarray] call CBA_fnc_waitUntilAndExecute;

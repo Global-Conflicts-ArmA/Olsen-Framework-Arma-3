@@ -33,5 +33,5 @@ while {alive _unit && {!_error} && {(_unit getvariable[QGVAR(Occupy),true])} && 
 private _group = (group _unit);
 SETVAR(_group,InitialWPSet,true);
 SETVAR(_group,Task,"BLDPATROL");
-[_group] call FUNC(taskForceSpeed);
+[_group] call FUNC(taskRelease);
 true

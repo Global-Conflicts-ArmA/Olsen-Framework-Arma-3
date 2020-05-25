@@ -7,7 +7,7 @@ private _leader = leader _group;
 
 SETVAR(_Group,InitialWPSet,true);
 SETVAR(_group,Task,"BLDSEARCH");
-[_group] call FUNC(taskForceSpeed);
+[_group] call FUNC(taskRelease);
 SETVAR(_group,searchingBuilding,true);
 
 private _markerName = format ["PZAI_b_%1",CBA_missionTime];

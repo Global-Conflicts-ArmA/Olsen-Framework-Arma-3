@@ -31,7 +31,7 @@ private _areaAssignedAssets = GETVAR(_namespace,assignedAssets,[]);
 LOG_2("assigning %1 to Area: %2",_group,_areaDisplayName);
 SETVAR(_group,areaAssigned,_areaMarker);
 
-private _pos = _areaMarker call BIS_fnc_randomPosTrigger;
+private _pos = [_areaMarker] call CBA_fnc_randPosArea;
 private _taskSet = [
     _group,
     _pos,

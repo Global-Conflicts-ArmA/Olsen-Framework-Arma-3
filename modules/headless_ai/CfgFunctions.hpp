@@ -5,6 +5,7 @@ class PZAI {
 		file = "modules\headless_ai\cfgFunctions\Combat";
 		class ArmEmptyStatic {};
 		class CombatAttack {};
+		class CombatAssault {};
 		class CombatDefend {};
 		class CombatMode {};
 		class CombatMoveTo {};
@@ -230,11 +231,6 @@ class PZAI {
 	    class getSyncedObjects {};
 	};
 
-	//class GroupHandler {
-	//	file = "modules\headless_ai\cfgFunctions\GroupHandler";
-	//    class onInitEntered {};
-	//};
-
 	class set {
 		file = "modules\headless_ai\cfgFunctions\set";
 	    class setAssignedVehicle {};
@@ -255,14 +251,11 @@ class PZAI {
 	    class setZone {};
 	};
 
-	class Settings {
-		file = "modules\headless_ai\cfgFunctions\Settings";
-	};
-
 	class task {
 		file = "modules\headless_ai\cfgFunctions\task";
 	    class taskActivate {};
 	    class taskAssign {};
+	    class taskAssault {};
 	    class taskCheck {};
 	    class taskComplete {};
 	    class taskForceFire {};
@@ -270,7 +263,7 @@ class PZAI {
 	    class taskLoiter {};
 	    class taskHoldUntil {};
 	    class taskInit {};
-	    class taskForceSpeed {};
+	    class taskRelease {};
 	    class taskBuildingPatrol {};
 	    class taskBuildingDefend {};
 	    class taskMonitor {};

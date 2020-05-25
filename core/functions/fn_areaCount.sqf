@@ -25,7 +25,7 @@ params [
 
 private _nearMen = _logic nearEntities ["Man", _radius];
 private _count = {
-	(_x call FUNC(Alive)) &&
+	(_x call FUNC(isAlive)) &&
 	{side _x isEqualTo _side} &&
 	{(!(GETVAR(_x,DontTrack,false)) || !_noUntracked)}
 } count _nearMen;

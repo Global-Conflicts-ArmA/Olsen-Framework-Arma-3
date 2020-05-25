@@ -164,7 +164,7 @@ for "_x" from 1 to _amount do {
 			};
 		};
 		if !(_success) then {
-			(format ["Core_fnc_AddItem: Warning %1 overflown from %2, in %3, case %4", _item, _position, _unit, _loadoutType]) call FUNC(DebugMessage);
+            ERROR_4("FW_fnc_AddItem: Warning %1 overflown from %2, in %3, case %4", _item, _position, _unit, _loadoutType);
 		};
 	};
 
@@ -173,12 +173,11 @@ for "_x" from 1 to _amount do {
 			_unit addItem _item;
 			_success = true;
 		} else {
-			private _message = "Core_fnc_AddItem: Warning couldn't fit %1 anywhere, originally intended for %2, in %3, case %4";
-
-			if (_position isEqualTo "none") then {
-				_message = "Core_fnc_AddItem: Warning couldn't fit %1 anywhere, in %3, case %4";
-			};
-			(format [_message, _item, _position, _unit, _loadoutType]) call FUNC(DebugMessage);
+            if (_position isEqualTo "none") then {
+                ERROR_4("FW_fnc_AddItem: Warning couldn't fit %1 anywhere, in %3, case %4", _item, _position, _unit, _loadoutType);
+			} else {
+                ERROR_4("FW_fnc_AddItem: Warning couldn't fit %1 anywhere, originally intended for %2, in %3, case %4", _item, _position, _unit, _loadoutType);
+            };
 		};
 	};
 };

@@ -21,7 +21,7 @@ params [
 ];
 
 if (GETVAR(_unit,Tracked,false)) then {
-	{
+	GVAR(Teams) apply {
 		_x params ["", "_side", "_type", "", "_current"];
 		if (
 				!(GETVAR(_unit,HasDied,false)) &&  
@@ -33,5 +33,5 @@ if (GETVAR(_unit,Tracked,false)) then {
             SETPVAR(_unit,Dead,true);
 			_x set [4, _current - 1];
 		};
-	} forEach GVAR(Teams);
+	};
 };

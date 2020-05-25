@@ -113,8 +113,6 @@
 #define QGETVAR(var1,var2,var3) var1 QGETVAR_SYS(var2,var3)
 #define QGETMVAR(var1,var2) missionNamespace QGETVAR_SYS(var1,var2)
 
-#define UGROUP (group _unit)
-
 #ifdef CUSTOM_FOLDER
     #define PATHTO_SYS(var1,var2,var3) ##CUSTOM_FOLDER\##var3.sqf
     #define PATHTOF_SYS(var1,var2,var3) ##CUSTOM_FOLDER\##var3

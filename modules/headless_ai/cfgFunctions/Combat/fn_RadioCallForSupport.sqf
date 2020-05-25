@@ -29,9 +29,18 @@ if (_knownEnemy) then {
 	_reportedLocation = [_nearbyEnemy select 0, 30] call CBA_fnc_randPos;
 };
 
-
 // Radio friendly groups and get responses
-{
+allGroups select {
+	private _leader = leader _x;
+	(GETVAR(_x,Spawned,false)) &&
+	{!(_groupcaller isEqualTo _x)} &&
+	{!(isNull _leader)} &&
+	{(alive _leader)} &&
+	{!(GETVAR(_leader,NOAI,false))} &&
+	{!(isPlayer _leader)} && 
+	{side _leader in GVAR(SideBasedExecution)} &&
+	{!([_x] call FUNC(isInCombat))}
+} apply {
 	private _group = _x;
 	//private _aliveUnits = units _group select {alive _x};
 	private _leader = leader _group;
@@ -44,45 +53,35 @@ if (_knownEnemy) then {
 	//private _behaviour = behaviour _leader;
 	private _target = GETVAR(_group,CurrentTarget,objnull);
 	private _distanceToGroup = (leader _groupcaller) distance2d _leader;
-	if (
-		([_sidecaller, _side] call BIS_fnc_sideIsFriendly) && 
-		{!_knownEnemy || {_target isEqualTo objnull} || {!(_target in _nearbyEnemy)}} &&
-		{_distanceToGroup <= GVAR(RadioDistance)} &&
-		{!(GETMVAR(RadioNeedRadio,false)) || {_group call FUNC(hasRadioGroup)}}
-	) then {
-		private _response = [_group, _groupcaller, _distanceToGroup, _reportedLocation, CBA_MissionTime, _nearbyEnemy, _enemyHasArmored] call FUNC(ReinforcementResponse);
-		TRACE_3("reinforcement response",_groupcaller,_group,_response);
-		if (_response) then {
-			switch _assetType do {
-			    case "Infantry": {
-					_respondingInfantry pushBackUnique _group;
-			    };
-				case "Motorized": {
-					_respondingMotorized pushBackUnique _group;
-			    };
-				case "Mechanized": {
-					_respondingMechanized pushBackUnique _group; 
-			    };
-				case "Armored": {
-					_respondingArmored pushBackUnique _group;
-			    };
-			    default {
-					_respondingInfantry pushBackUnique _group;
-			    };
-			};
-		};
-	};
-} foreach (allGroups select {
-	private _leader = leader _x;
-	(GETVAR(_x,Spawned,false)) &&
-	{!(_groupcaller isEqualTo _x)} &&
-	{!(isNull _leader)} &&
-	{(alive _leader)} &&
-	{!(GETVAR(_leader,NOAI,false))} &&
-	{!(isPlayer _leader)} && 
-	{side _leader in GVAR(SideBasedExecution)} &&
-	{!([_x] call FUNC(isInCombat))}
-});
+    if (
+    	([_sidecaller, _side] call BIS_fnc_sideIsFriendly) && 
+    	{!_knownEnemy || {_target isEqualTo objnull} || {!(_target in _nearbyEnemy)}} &&
+    	{_distanceToGroup <= GVAR(RadioDistance)} &&
+    	{!(GETMVAR(RadioNeedRadio,false)) || {_group call FUNC(hasRadioGroup)}}
+    ) then {
+    	private _response = [_group, _groupcaller, _distanceToGroup, _reportedLocation, CBA_MissionTime, _nearbyEnemy, _enemyHasArmored] call FUNC(ReinforcementResponse);
+    	TRACE_3("reinforcement response",_groupcaller,_group,_response);
+    	if (_response) then {
+    		switch _assetType do {
+    		    case "Infantry": {
+    				_respondingInfantry pushBackUnique _group;
+    		    };
+    			case "Motorized": {
+    				_respondingMotorized pushBackUnique _group;
+    		    };
+    			case "Mechanized": {
+    				_respondingMechanized pushBackUnique _group; 
+    		    };
+    			case "Armored": {
+    				_respondingArmored pushBackUnique _group;
+    		    };
+    		    default {
+    				_respondingInfantry pushBackUnique _group;
+    		    };
+    		};
+    	};
+    };
+};
 
 private _groupCount = count _respondingInfantry + count _respondingMotorized + count _respondingMechanized + count _respondingArmored;
 if (GVAR(Debug)) then {

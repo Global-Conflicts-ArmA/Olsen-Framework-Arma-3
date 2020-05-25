@@ -16,4 +16,6 @@
 
 params ["_unit"];
 
-(alive _unit) && {!(GETVAR(_unit,Dead,false))}
+private _return = !(isNull _unit) && {alive _unit} && {!(GETVAR(_unit,Dead,false))};
+
+_return

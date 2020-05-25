@@ -21,18 +21,18 @@ SETPVAR(_unit,Side,(side _unit));
 if ((isPlayer _unit) || {!(GETVAR(_unit,DontTrack,false))}) then {
     if !(GETVAR(_unit,Tracked,false)) then {
         SETPVAR(_unit,Tracked,true);
-        SETPVAR(_unit,HasDied,false); //we will use this variable to make sure killed eventHandler doesn't fire twice
-        {
-            _x params ["_name", "_side", "_type", "_total", "_current"];
-            if (
-				(GETVAR(_unit,Side,sideUnknown) isEqualto _side) && 
-				{(isPlayer _unit && {_type != "ai"}) || {_type isEqualto "ai"}}
-			) exitWith {
-                _x set [3, _total + 1];
-                if (_unit call FUNC(Alive)) then {
-                    _x set [4, _current + 1];
-                };
+    };
+    SETPVAR(_unit,HasDied,false); //we will use this variable to make sure killed eventHandler doesn't fire twice
+    GVAR(Teams) apply {
+        _x params ["_name", "_side", "_type", "_total", "_current"];
+        if (
+			((GETVAR(_unit,Side,sideUnknown)) isEqualto _side) && 
+			{(isPlayer _unit && {_type != "ai"}) || {_type == "ai"}}
+		) exitWith {
+            _x set [3, _total + 1];
+            if (_unit call FUNC(isAlive)) then {
+                _x set [4, _current + 1];
             };
-        } forEach GVAR(Teams);
+        };
     };
 };

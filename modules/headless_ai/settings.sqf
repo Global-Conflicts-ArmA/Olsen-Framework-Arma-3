@@ -63,7 +63,6 @@ GVAR(QRF_Distance) = 2500;
 GVAR(MountStatics) = true;
 // Distance AI will mount empty statics from - maximum of 100m
 GVAR(MountStaticsDistance) = 50;
-GVAR(RadioWait) = 30;
 // Should AI use smoke grenades? Besides default A3 behavior?
 GVAR(USESMOKE) = false;
 // Percentage chance of AI using grenades
@@ -101,4 +100,3 @@ GVAR(WaypointDistance) = 300;
 #include "settings\bunker.hpp"
 #include "settings\skill.hpp"
 #include "settings\sight.hpp"
-

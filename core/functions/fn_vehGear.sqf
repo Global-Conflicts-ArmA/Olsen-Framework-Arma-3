@@ -1,7 +1,6 @@
 #include "script_component.hpp"
 
-#define random(MIN, MAX) \
-([MIN, MAX] call FUNC(RandomRange))
+#define random(MIN, MAX) RNDRANGE(var1,var2)
 
 params ["_vehicle", "_type"];
 

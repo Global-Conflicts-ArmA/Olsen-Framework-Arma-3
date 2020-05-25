@@ -1,7 +1,7 @@
 #include "..\..\script_macros.hpp"
 
 
-params ["_unit", ["_randomSelect", true, [true]]];
+params ["_unit", ["_randomSelect", false, [false]]];
 
 private _side = side _unit;
 private _group = group _unit;

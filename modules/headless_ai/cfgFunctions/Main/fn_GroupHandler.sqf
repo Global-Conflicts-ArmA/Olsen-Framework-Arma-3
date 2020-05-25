@@ -69,17 +69,19 @@ GVAR(GroupHandlerPFH) = [{
                     //"BLDSEARCH"
                 };
                 //radio for help
-                if (!(GETMVAR(RadioNeedRadio,false)) || {_group call FUNC(hasRadioGroup)}) then {
-                    //TRACE_1("radio check",_group);
-                    private _radioWait = GETMVAR(RadioWait,30);
-                    private _lastCallTime = GETVAR(_group,LastCallTime,(CBA_MissionTime - _radioWait));
-                    if (CBA_MissionTime >= (_LastCallTime + _radioWait)) then {
-                        SETVAR(_group,LastCallTime,CBA_MissionTime);
-                        //if (GVAR(CommanderEnabled)) then {
-                        //    [_group,_target,_side] call FUNC(RadioReportThreat);
-                        //} else {
-                            [_group,_target,_side] call FUNC(RadioCallForSupport);
-                        //};
+                if ((GETMVAR(RadioDistance,2000)) > 0) then {
+                    if (!(GETMVAR(RadioNeedRadio,false)) || {_group call FUNC(hasRadioGroup)}) then {
+                        //TRACE_1("radio check",_group);
+                        private _radioWait = GETMVAR(RadioWait,30);
+                        private _lastCallTime = GETVAR(_group,LastCallTime,(CBA_MissionTime - _radioWait));
+                        if (CBA_MissionTime >= (_LastCallTime + _radioWait)) then {
+                            SETVAR(_group,LastCallTime,CBA_MissionTime);
+                            //if (GVAR(CommanderEnabled)) then {
+                            //    [_group,_target,_side] call FUNC(RadioReportThreat);
+                            //} else {
+                                [_group,_target,_side] call FUNC(RadioCallForSupport);
+                            //};
+                        };
                     };
                 };
             } else {

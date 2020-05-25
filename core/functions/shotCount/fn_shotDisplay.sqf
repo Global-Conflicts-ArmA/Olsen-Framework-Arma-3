@@ -8,16 +8,16 @@ private _textCIVILIAN = "CIVILIAN Munitions Expended:<br/>";
 private _textArray = [];
 
 if (west in GVAR(TeamSides)) then {
-    _textArray pushBack [_textBLUFOR, GVAR(SC_west_ExpendedAmmo)];
+    _textArray pushBack [_textBLUFOR, GVAR(west_ExpendedAmmo)];
 };
 if (east in GVAR(TeamSides)) then {
-    _textArray pushBack [_textOPFOR, GVAR(SC_east_ExpendedAmmo)];
+    _textArray pushBack [_textOPFOR, GVAR(east_ExpendedAmmo)];
 };
 if (independent in GVAR(TeamSides)) then {
-    _textArray pushBack [_textINDFOR, GVAR(SC_ind_ExpendedAmmo)];
+    _textArray pushBack [_textINDFOR, GVAR(ind_ExpendedAmmo)];
 };
 if (civilian in GVAR(TeamSides)) then {
-    _textArray pushBack [_textCIVILIAN, GVAR(SC_civ_ExpendedAmmo)];
+    _textArray pushBack [_textCIVILIAN, GVAR(civ_ExpendedAmmo)];
 };
 
 LOG_1("shotDisplay _textArray: %1",_textArray);

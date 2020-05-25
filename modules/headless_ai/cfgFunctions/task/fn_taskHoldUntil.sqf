@@ -29,5 +29,5 @@ for "_i" from 0 to (count _units) do {
 };
 SETVAR(_Group,InitialWPSet,true);
 _group setVariable [QGVAR(Mission),"HOLD"];
-[_group] call FUNC(taskForceSpeed);
+[_group] call FUNC(taskRelease);
 true

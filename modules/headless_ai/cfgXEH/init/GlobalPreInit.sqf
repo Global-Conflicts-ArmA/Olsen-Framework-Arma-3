@@ -7,7 +7,7 @@ LOG("HC Global Pre Init");
 [] call FUNC(checkifHC);
 
 //exit clients
-AI_EXEC_CHECK(SERVERHC);
+AI_EXEC_CHECK(HC);
 
 GVAR(zoneEntities) = [];
 

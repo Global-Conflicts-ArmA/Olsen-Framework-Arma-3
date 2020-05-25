@@ -3,7 +3,7 @@
 params [
     "_group",
     "_pos",
-    ["_radius",30,[0]],
+    ["_radius",100,[0]],
     ["_wait",3,[0]],
     ["_behaviour", "UNCHANGED", [""]],
     ["_combat", "NO CHANGE", [""]],
@@ -66,5 +66,5 @@ for "_i" from 1 to _wpcount do {
 
 SETVAR(_group,InitialWPSet,true);
 SETVAR(_group,Task,"PATROL");
-[_group] call FUNC(taskForceSpeed);
+[_group] call FUNC(taskRelease);
 true

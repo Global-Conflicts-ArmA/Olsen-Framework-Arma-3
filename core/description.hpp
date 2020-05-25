@@ -1,3 +1,4 @@
+#define COMPONENT FW
 #include "script_macros.hpp"
 
 #ifdef description
@@ -18,6 +19,12 @@
 			variable = "acex_killTracker_outputText";
 		};
 	};
+	
+	class Extended_DisplayLoad_EventHandlers {
+	    class RscDisplayLoading {
+	        Mission_customLoadingScreen = QUOTE(_this call FUNC(initLoadingScreen));
+	    };
+	};
 #endif
 
 #ifdef description_titles
@@ -31,21 +38,21 @@
 
 #ifdef description_XEH_PreInit
 	class Mission {
-		serverInit = "'' call compile preprocessFileLineNumbers 'core\preinitServer.sqf'";
-		init = "'' call compile preprocessFileLineNumbers 'core\preinit.sqf'";
-		clientInit = "'' call compile preprocessFileLineNumbers 'core\preinitClient.sqf'";
+		serverInit = "call compile preprocessFileLineNumbers 'core\preinitServer.sqf'";
+		init = "call compile preprocessFileLineNumbers 'core\preinit.sqf'";
+		clientInit = "call compile preprocessFileLineNumbers 'core\preinitClient.sqf'";
 	};
 #endif
 
 #ifdef description_XEH_PostInit
 	class Mission {
-		serverInit = "'' call compile preprocessFileLineNumbers 'core\postInitServer.sqf'";
-		init = "'' call compile preprocessFileLineNumbers 'core\postInit.sqf'";
-		clientInit = "'' call compile preprocessFileLineNumbers 'core\postInitClient.sqf'";
+		serverInit = "call compile preprocessFileLineNumbers 'core\postInitServer.sqf'";
+		init = "call compile preprocessFileLineNumbers 'core\postInit.sqf'";
+		clientInit = "call compile preprocessFileLineNumbers 'core\postInitClient.sqf'";
 	};
 #endif
 
-#ifdef description_XEH_Init_CAManBase
+#ifdef description_XEH_InitPost_CAManBase
 	class GVAR(Core) {
 		init = QUOTE(_this call FUNC(initCAManBase));
 	};
@@ -63,9 +70,8 @@
 	};
 #endif
 
-#ifdef description_XEH_FiredMan_CAManBase
-	class GVAR(ShotCount) {
-		firedMan = QUOTE(_this call FUNC(SC_FiredEH));
-	};
-#endif
-
+//#ifdef description_XEH_FiredMan_CAManBase
+//	class GVAR(ShotCount) {
+//		firedMan = QUOTE(_this call FUNC(FiredEH));
+//	};
+//#endif
