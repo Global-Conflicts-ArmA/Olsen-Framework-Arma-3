@@ -1,15 +1,16 @@
 params ["", "", "_id", ["_target", leader player, [objnull]]];
 
-if !((_target call FUNC(Alive)) && {(!(_target call FUNC(InVehicle)) || ((vehicle _target) call FUNC(getEmptyPositions) isEqualTo []))}) then {
+if !((_target call FUNC(isAlive)) && {(!(INVEHICLE(_target)) || {((vehicle _target) call FUNC(getEmptyPositions) isEqualTo [])})}) then {
 
 	private _rank = -1;
 	private _count = 0;
     
-    (units group player) - [player] select {
-        _x call FUNC(Alive)
+    (units group player) select {
+        _x call FUNC(isAlive) &&
+		{!(_x isEqualTo player)}
     } apply {
         _count = _count + 1;
-        if ((rankId _x > _rank) && {!(_x call FUNC(InVehicle)) || ((vehicle _x) call FUNC(getEmptyPositions) isEqualTo [])}) then {
+        if ((rankId _x > _rank) && {!(INVEHICLE(_x)) || {((vehicle _x) call FUNC(getEmptyPositions) isEqualTo [])}}) then {
             _rank = rankId _x;
             _target = _x;
         };
@@ -27,7 +28,7 @@ if !((_target call FUNC(Alive)) && {(!(_target call FUNC(InVehicle)) || ((vehicl
 };
 
 if !(_target isEqualTo objnull) then {
-	if (_target call FUNC(InVehicle)) then {
+	if (INVEHICLE(_target)) then {
 		player moveInAny (vehicle _target);
 	} else {
 		player setPos (getPos _target);
