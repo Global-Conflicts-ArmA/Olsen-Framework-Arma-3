@@ -1,5 +1,5 @@
 // Distance a bunker enemy can see/engage the enemy
-GVAR(BunkerDistance) = 1800;
+GVAR(BunkerDistance) = 10;
 // Bunker Aiming Settings
 GVAR(AimDistAdjust) = 0.00024;
 GVAR(AimConeAdjust) = 0.975;

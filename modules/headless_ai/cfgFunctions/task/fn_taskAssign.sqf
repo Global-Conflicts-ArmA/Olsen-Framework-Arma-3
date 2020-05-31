@@ -77,6 +77,9 @@ switch (_task) do {
     case "BLDSEARCH": {
         _taskSet call FUNC(taskPatrol);
     };
+    case "PICKUP": {
+        _taskSet call FUNC(taskPickup);
+    };
     default {
         _taskSet call FUNC(taskPatrol);
     };

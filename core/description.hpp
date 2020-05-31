@@ -19,17 +19,27 @@
 			variable = "acex_killTracker_outputText";
 		};
 	};
-	
+
 	class Extended_DisplayLoad_EventHandlers {
 	    class RscDisplayLoading {
-	        Mission_customLoadingScreen = QUOTE(_this call FUNC(initLoadingScreen));
+	        GVAR(customLoadingScreen) = QUOTE(_this call FUNC(initLoadingScreen));
+	    };
+		class RscDisplayEGSpectator {
+	        GVAR(customLoadingScreen) = QUOTE(_this call FUNC(initSpectateScreen));
+	    };
+		class RscDisplayMission {
+	        GVAR(missionLoaded) = QUOTE(_this call FUNC(initSafeStart));
+	    };
+		class RscDisplayCamera {
+	        GVAR(startedCamera) = QUOTE(_this call FUNC(initCamera));
 	    };
 	};
+	
 #endif
 
 #ifdef description_titles
-	#include "dia\debug\dia_debug.hpp" //Must have for the end screen to work, if removed Arma 3 will crash on mission load
-	#include "dia\endscreen\dia_endscreen.hpp" //Must have for the end screen to work, if removed Arma 3 will crash on mission load
+	#include "dia\debug\dia_debug.hpp"
+	#include "dia\endscreen\dia_endscreen.hpp"
 #endif
 
 #ifdef description_functions
@@ -69,9 +79,3 @@
 		respawn = QUOTE(_this call FUNC(respawnCAManBase));
 	};
 #endif
-
-//#ifdef description_XEH_FiredMan_CAManBase
-//	class GVAR(ShotCount) {
-//		firedMan = QUOTE(_this call FUNC(FiredEH));
-//	};
-//#endif

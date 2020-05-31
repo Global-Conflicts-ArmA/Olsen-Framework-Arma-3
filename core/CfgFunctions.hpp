@@ -31,7 +31,6 @@ class Core {
 	class removeAllVehicleGear {};
 	class setTeamVariable {};
 	class spectatePrep {};
-	class startSpectator {};
 	class stackNames {};
 	class trackAsset {};
 	class trackUnit {};
@@ -42,6 +41,17 @@ class Core {
 	class vehGear {};
 	class postChecks {};
 	class initLoadingScreen {};
+	class initSafeStart {};
+};
+
+class Spectator {
+	file = "core\functions\spectator";
+	class startSpectator {};
+	class initSpectateScreen {};
+	class spectatorBriefing {};
+	class parseBriefing {};
+	class initCamera {};
+	class cameraHandleKeyDown {};
 };
 
 class XEH {

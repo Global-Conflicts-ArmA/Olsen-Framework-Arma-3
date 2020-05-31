@@ -4,20 +4,58 @@
 
 #include "..\customization\clientSettings.sqf" //DO NOT REMOVE
 
+if (GETMVAR(SpectateBriefing,true)) then {
+	
+	#define NEWTAB(NAME) _briefing set [count _briefing, ["Diary",[NAME,"
+	#define ENDTAB "]]];
+	
+	GVAR(allBriefings) = [];
+
+	private _briefing = [];
+	#include "..\customization\briefings\blufor.sqf"
+	private _westBriefing = _briefing;
+
+	_briefing = [];
+	#include "..\customization\briefings\opfor.sqf"
+	private _eastBriefing = _briefing;
+
+	_briefing = [];
+	#include "..\customization\briefings\indfor.sqf"
+	private _indBriefing = _briefing;
+
+	_briefing = [];
+	#include "..\customization\briefings\civilian.sqf"
+	private _civBriefing = _briefing;
+
+	_briefing = [];
+	#include "..\customization\briefings\missionNotes.sqf"
+	private _missionNotes = _briefing;
+	
+	[_westBriefing, _eastBriefing, _indBriefing, _civBriefing, _missionNotes] apply {
+		private _tempEntry = [];
+		_x apply {
+			(_x select 1) params ["_name", "_text"];
+			_text = _text call FUNC(parseBriefing);
+			_tempEntry pushBack [_name, _text];
+		};
+		GVAR(allBriefings) pushBack _tempEntry;
+	};
+};
+
 //QGVAR(EndMission) player event sends the received variables to the end screen
 GVAR(EndMissionEh) = [QGVAR(EndMission), {_this call FUNC(EndScreen)}] call CBA_fnc_addEventHandler;
 
 GVAR(eg_keyHandler_display_hidden) = false;
+
+#define DIK_APOSTROPHE 0x28
 
 FUNC(killcam_toggleFnc) = {
     //37 is DIK code for K
     if ((_this select 1) == 37) then {
         if (GETMVAR(killcam_toggle,false)) then {
             GVAR(killcam_toggle) = false;
-            cutText ["", "PLAIN DOWN"];
         } else {
             GVAR(killcam_toggle) = true;
-            cutText ["Line shows LINE OF SIGHT from postion of enemy to player's position during the time of death.\nPress K to toggle hud markers off.\n\nTHIS FRAMEWORK FEATURE IS WIP. It may contain bugs and may be updated or changed at any point.", "PLAIN DOWN"];
         };
     };
 };

@@ -3,7 +3,7 @@
 
 params ["_logic"];
 private _synced = synchronizedObjects _logic;
-LOG_1("command _synced %1",_synced);
+//LOG_1("command _synced %1",_synced);
 {
     private _obj = _x;
     if (_obj isKindOf "StaticWeapon"

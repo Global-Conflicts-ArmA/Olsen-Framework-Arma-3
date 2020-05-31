@@ -14,7 +14,9 @@
 
 #include "script_component.hpp"
 
-params ["_unit"];
+params ["_unit", "_id", "_uid", "_name"];
+
+TRACE_1("HandleDisconnect",_this);
 
 if (GETVAR(_unit,Tracked,false)) then {
 	GVAR(Teams) apply {

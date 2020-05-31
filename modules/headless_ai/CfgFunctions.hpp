@@ -6,7 +6,9 @@ class PZAI {
 		class ArmEmptyStatic {};
 		class CombatAttack {};
 		class CombatAssault {};
+		class CombatAssaultVehicle {};
 		class CombatDefend {};
+		class CombatLand {};
 		class CombatMode {};
 		class CombatMoveTo {};
 		class CombatResponse {};
@@ -110,7 +112,6 @@ class PZAI {
 	class Misc {
 		file = "modules\headless_ai\cfgFunctions\Misc";
 		class checkifHC {};
-		class playerInit {};
 		class setunitskill {};
 		class UnitInit {};
 		class SetInit {};
@@ -151,7 +152,6 @@ class PZAI {
 	    class createWaypointModified {};
 	    class createWaypoints {};
 	    class createZone {};
-	    class setupZone {};
 	    class spawnArray {};
 	};
 
@@ -285,6 +285,7 @@ class PZAI {
 	    class taskRemoveZoneActivated {};
 	    class taskSearchNearby {};
 	    class taskSet {};
+	    class taskPickup {};
 	    class taskSetBunker {};
 	    class taskSentry {};
 	    class taskPlacement {};

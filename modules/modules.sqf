@@ -37,7 +37,7 @@ Additional modules that can be enabled by removing the //
 //#include "firemission\root.sqf"
 //#include "hostage\root.sqf"
 //#include "marker_control\root.sqf"
-//#include "plank\root.sqf"
+//#include "grad-fortifications\root.sqf"
 //#include "setup_timer\root.sqf"
 //#include "start_in_parachute\root.sqf"
 //#include "start_on_team_color\root.sqf"

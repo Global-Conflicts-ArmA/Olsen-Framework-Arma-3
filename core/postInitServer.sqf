@@ -11,6 +11,13 @@
 
 GVAR(EventDisconnectHandle) = addMissionEventHandler ["HandleDisconnect", {_this call FUNC(EventDisconnect);}];
 
+[{
+    getClientStateNumber > 10
+},{
+    diag_log "getClientStateNumber trigered";
+    LOG_1("getClientStateNumber EH triggered with time: %1",CBA_missionTime);
+}, []] call CBA_fnc_waitUntilAndExecute;
+
 setViewDistance GVAR(ServerViewDistance);
 
 [{

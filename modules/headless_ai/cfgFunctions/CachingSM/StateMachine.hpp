@@ -12,7 +12,7 @@ class GVAR(cachingStateMachine) {
         {side _leader in GVAR(SideBasedExecution)} \
     });
     skipNull = 1;
-    repeatPerFrame = ;
+    repeatPerFrame = 1;
     class Initial {
         onStateEntered = "";
         class isInitialized {
@@ -26,7 +26,7 @@ class GVAR(cachingStateMachine) {
         class No_Enemy_in__Ran {
             targetState = QUOTE(Cache_Group);
 
-            condition = QUOTE(QGETVAR(_this,CH_enemyInRange,false) && {!((behaviour (leader _this)) in ['COMBAT','STEALTH'])});            onTransition = QFUNC(CH_transCacheGroup);
+            condition = QUOTE(!(QGETVAR(_this,CH_enemyInRange,false)) && {!((behaviour (leader _this)) in ['COMBAT','STEALTH'])});            onTransition = QFUNC(CH_transCacheGroup);
         };
         class Enemy__in_Range {
             targetState = QUOTE(Wait);

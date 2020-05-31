@@ -1,5 +1,3 @@
-__EXEC (MISSION_ROOT = __FILE__ select [0, count __FILE__ - 15])
-
 #include "core\script_macros.hpp"
 
 #define description
@@ -19,7 +17,6 @@ class CfgFunctions {
 	#include "core\description.hpp" //DO NOT REMOVE
 	#include "modules\modules.sqf" //DO NOT REMOVE
 	#undef description_external_functions
-	
 };
 
 class rscTitles {

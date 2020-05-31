@@ -40,7 +40,7 @@ if !(_result) then {
 			};
 		};
 	}] remoteExec ["BIS_fnc_call", 0, true];
-	
+
 	if !(isNull _unit) then {
 		[_class, _unit] remoteExecCall [QFUNC(makeUnitsList), 2, false];
 	};

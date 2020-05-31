@@ -22,10 +22,27 @@ params [
 	["_type", "ai", [""]]
 ];
 
+if (_side in GVAR(TeamSides)) exitwith {};
+
 if !(isMultiplayer) then {
 	_type = "ai";
 };
 
 GVAR(TeamSides) pushBackUnique _side;
+switch _side do {
+    case west: {
+	    SETMPVAR(TeamName_Blufor,_name);
+    };
+	case east: {
+	    SETMPVAR(TeamName_Opfor,_name);
+    };
+	case independent: {
+	    SETMPVAR(TeamName_Indfor,_name);
+    };
+	case civilian: {
+	    SETMPVAR(TeamName_Civ,_name);
+    };
+    default {};
+};
 
 GVAR(Teams) pushBack [_name, _side, _type,  0, 0, [], []];

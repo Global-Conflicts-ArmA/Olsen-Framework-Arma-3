@@ -78,7 +78,11 @@ if (!(alive _leader) || {!(local _leader)}) then {
     } else {
         _usetarget = true;
     };
-    private _text = format ["%1. %2 - Grpcount: %3 - Mission: %4 - Area: %7 - Type: %8 - CombatMode: %5 - Target: %6",_rankshort, _lastname, _groupcount, _mission, _behaviour, _target, _areaAssigned, _assetType];
+    private _text = if ((GETMVAR(CommanderEnabled,false)) && {(GETMVAR(CommanderSide,east)) isEqualTo _side}) then {
+        format ["%1. %2 - Grpcount: %3 - Mission: %4 - Area: %7 - Type: %8 - CombatMode: %5 - Target: %6",_rankshort, _lastname, _groupcount, _mission, _behaviour, _target, _areaAssigned, _assetType];
+    } else {
+        format ["%1. %2 - Grpcount: %3 - Mission: %4 - CombatMode: %5 - Target: %6",_rankshort, _lastname, _groupcount, _mission, _behaviour, _target];
+    };
     //LOG_1("MarkerText: %1",_text);
     _trackername setMarkerText _text;
     if (_usedest) then {

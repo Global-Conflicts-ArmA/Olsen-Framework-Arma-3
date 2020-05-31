@@ -1,17 +1,23 @@
 #include "..\..\script_macros.hpp"
 
 params ["_group", "_targetPos", ["_compradius", 250, [0]]];
+LOG_1("combatAssault started _this: %1",_this);
 
-private _enemyDir = getposATL leader _group getDir _targetPos;
+private _leader = leader _group;
+if !(vehicle _leader isEqualTo _leader) exitWith {
+    _this call FUNC(CombatAssaultVehicle);
+};
+private _enemyDir = leader _group getDir _targetPos;
 
-private _formation = if ((random 2) > 1) then {"LINE"} else {"WEDGE"};
+private _formation = if (RNG(0.5)) then {"LINE"} else {"WEDGE"};
 _group setFormation _formation;
 _group setFormDir _enemyDir;
 private _units = units _group;
 
 [_group] call CBA_fnc_clearWaypoints;
+[_group, _targetPos, 100, "SAD", "COMBAT", "RED"] call CBA_fnc_addWaypoint;
 
-private _arrayTest = ["AUTOCOMBAT", "FSM", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "CHECKVISIBLE"];
+private _arrayTest = ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "FSM"];
 _group enableAttack false;
 _units apply {
     private _unit = _x;
@@ -20,9 +26,9 @@ _units apply {
     };
 };
 _group setBehaviour "AWARE";
-_group setFormation "DIAMOND";
-//_group setCombatMode "BLUE";
-//_group setSpeedMode "FULL";
+//_group setFormation "DIAMOND";
+_group setCombatMode "BLUE";
+_group setSpeedMode "FULL";
 
 // manoeuvre function
 private _assaultTaskPFH = [{
@@ -49,7 +55,7 @@ private _assaultTaskPFH = [{
         SETVAR(_group,ExitAssault,false);
         _units apply {
             private _unit = _x;
-            ["AUTOCOMBAT", "FSM", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "CHECKVISIBLE"] apply {
+            ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "FSM"] apply {
                 _unit enableAI _x;
             };
             _group setCombatMode "RED";
@@ -69,11 +75,11 @@ private _assaultTaskPFH = [{
         private _unit = _x;
         _unit doMove _targetPos;
         //_unit setDestination [_targetPos, "FORMATION PLANNED", false];
-        _group forgetTarget (_unit findNearestEnemy _unit);
+        //_group forgetTarget (_unit findNearestEnemy _unit);
         _unit setUnitPos "UP";
-        _unit setDestination [_targetPos, "LEADER PLANNED", false];
+        _unit setDestination [_targetPos, "FORMATION PLANNED", false];
         _unit setSuppression 0;
-        _unit forceSpeed ([2, 3] select (speedMode _unit isEqualTo "FULL"));
+        //_unit forceSpeed ([2, 3] select (speedMode _unit isEqualTo "FULL"));
     };
 }, 5, [_group, _targetPos, _units, _compradius]] call CBA_fnc_addPerFrameHandler;
 

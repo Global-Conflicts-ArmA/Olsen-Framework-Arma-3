@@ -30,7 +30,7 @@ if !(_name isEqualTo "") then {
 };
 
 if !(_olsenGearType isEqualTo "") then {
-    [_vehicle, _olsenGearType] call FNC_VehicleGearScript;
+    [_vehicle, _olsenGearType] call FUNC(VehicleGearScript);
 };
 
 _vehicle setDamage _damage;
@@ -46,12 +46,11 @@ _vehCustomization params ["_vehCustomSkin", "_vehCustomAnimations"];
 [_vehicle,_persistent] call FUNC(setPersistent);
 _vehicle call _vehInit;
 if !(_storedVars isEqualTo []) then {
-    LOG_1("Setting vars: %1",_storedVars);
+    //LOG_1("Setting vars: %1",_storedVars);
     {
-        _x params ["_varName",
-"_varValue"];
+        _x params ["_varName", "_varValue"];
         _vehicle setvariable [_varName,_varValue];
-        LOG_2("Setting _varName: %1 with: %2",_varName,_varValue);
+        //LOG_2("Setting _varName: %1 with: %2",_varName,_varValue);
     } forEach _storedVars;
 };
 

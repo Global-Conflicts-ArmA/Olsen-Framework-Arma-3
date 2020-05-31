@@ -8,7 +8,20 @@ of reinforcements or subsequent AOs.
 
 // Array objects
 // eg: ["mainEnemy", "patrol_1", "patrol_2", "patrol_3"]
-GVAR(ArrayObjects) = [];
+GVAR(ArrayObjects) = [
+    "infwest_1",
+    "infsoutheast_1",
+    "infsouth_1",
+    "infnortheast_1",
+    "infnorth_1",
+    "infmountain_1",
+    "vehnorthwest_1",
+    "vehsouthwest_1",
+    "vehnortheast_1",
+    "vehnortheast_2",
+    "gunship",
+    "cargoheli"
+];
 
 // Initial spawns are spawned upon init, at the start of the mission.
 // eg: ["mainEnemy"]
@@ -46,7 +59,7 @@ GVAR(HearingDistance) = 2000;
 // How revealed an enemy is from a gunshot report
 GVAR(HearingMinIncrease) = 1;
 // Distance AI will respond to call of help from each other
-GVAR(RadioDistance) = 1200;
+GVAR(RadioDistance) = 0;
 GVAR(RadioWait) = 30;
 // Whether or not AI need ACRE radios to broadcast info to other groups
 GVAR(RadioNeedRadio) = false;
@@ -101,3 +114,4 @@ GVAR(WaypointDistance) = 300;
 #include "settings\bunker.hpp"
 #include "settings\skill.hpp"
 #include "settings\sight.hpp"
+
