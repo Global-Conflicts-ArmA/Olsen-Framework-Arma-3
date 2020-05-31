@@ -1,2 +1,1 @@
-#define COMPONENT CM
-#include "..\..\script_component.hpp"
+#include "..\..\..\..\core\script_macros.hpp"

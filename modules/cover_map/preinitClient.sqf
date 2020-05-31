@@ -1,8 +1,7 @@
-#include "script_component.hpp"
+#include "..\..\core\script_macros.hpp"
 
-private _version = 0.2;
+private _version = 0.3;
 
-["Cover Map", "Covers map except specified area, allows switching between multiple AOs", "Blackhawk &amp; PIZZADOX", _version] call EFUNC(FW,RegisterModule);
+["Cover Map", "Covers map except specified area, allows switching between multiple AOs", "Blackhawk, PIZZADOX &amp; StatusRed", _version] call FUNC(RegisterModule);
 
-[] call FUNC(Init);
-
+[] call FUNC(CM_Init);

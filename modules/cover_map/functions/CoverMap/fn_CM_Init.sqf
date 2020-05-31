@@ -1,15 +1,16 @@
 #include "script_component.hpp"
 
-if (!hasinterface || {is3DEN}) exitwith {};
+if (!(hasinterface) || {is3DEN}) exitwith {};
 
 //contains _AOMarkers array
 #include "..\..\settings.sqf"
 
 //initial marker array define
-GVAR(cover) = [];
-GVAR(currentAO) = "";
+GVAR(map_cover) = [];
+GVAR(map_currentAO) = "";
 
-private _AOMarkers = GVAR(AOMarkers);
+//IGNORE_PRIVATE_WARNING ["_AOMarkers"];
+
 [{!(getMarkerColor (_this select 0 select 0 select 0) isEqualTo "")},{
     //make all AOmarkers invisible
     params ["_AOMarkers"];
@@ -20,7 +21,7 @@ private _AOMarkers = GVAR(AOMarkers);
     } forEach _AOMarkers;
 
     //briefing map cover and center
-    _firstMarker call FUNC(bordersToMap);
+    _firstMarker call FUNC(CM_bordersToMap);
     if (_centered) then {
         ((uiNamespace getVariable "RscDiary") displayCtrl 51) ctrlMapAnimAdd [0, _zoomlevel, getMarkerPos _marker];
         ctrlMapAnimCommit ((uiNamespace getVariable "RscDiary") displayCtrl 51);
@@ -33,11 +34,11 @@ private _AOMarkers = GVAR(AOMarkers);
     		_x params [["_marker", "", [""]], ["_centered", false, [false]], ["_zoomLevel", 0.6, [0.6]], ["_mapName", "NONE", [""]]];
     		private _text = "Switch Map to " + _mapName;
     		private _MapChangeAction = ["switch_MapAO", _text, "", {
-                (_this select 2) call FUNC(Live);
+                (_this select 2) call FUNC(CM_Live);
             },{
                 visibleMap && 
                 {
-                    !(GVAR(currentAO) isEqualTo (_this select 2 select 0))
+                    !(GVAR(map_currentAO) isEqualTo (_this select 2 select 0))
                 } && 
                 {(player getvariable ["HasAltMaps",false])}
             }, {}, [_marker, _centered, _zoomLevel, _mapName]] call ace_interact_menu_fnc_createAction;

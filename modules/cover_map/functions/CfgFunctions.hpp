@@ -1,10 +1,6 @@
-#include "..\script_component.hpp"
-class COMPONENT {
-	tag = COMPONENT;
-	class CoverMap {
-		file = "modules\cover_map\functions\CoverMap";
-		class bordersToMap {};
-		class Init {};
-		class Live {};
-	};
+class CoverMap {
+	file = "modules\cover_map\functions\CoverMap";
+	class CM_bordersToMap {};
+	class CM_Init {};
+	class CM_Live {};
 };

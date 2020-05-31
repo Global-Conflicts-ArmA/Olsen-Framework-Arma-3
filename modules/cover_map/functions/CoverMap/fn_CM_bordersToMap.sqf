@@ -3,12 +3,12 @@
 params ["_marker", ["_centered", true, [true]], ["_zoomlevel", 0.4, [0]], ["_name", "AO", [""]], ["_bgColour", "BH_checkLOS_colorNotVisible", [""]]];
 
 //delete old markers if present
-if !(GVAR(cover) isEqualTo []) then {
-	GVAR(cover) apply {deletemarker _x}; 
-	GVAR(cover) = [];
+if !(GVAR(map_cover) isEqualTo []) then {
+	GVAR(map_cover) apply {deletemarker _x};
+	GVAR(map_cover) = [];
 };
 
-GVAR(currentAO) = _marker;
+GVAR(map_currentAO) = _marker;
 
 private _backgroundColor = [_bgColour, "SolidFull"];
 private _borderColor = ["ColorWhite", "SolidFull"];
@@ -38,18 +38,7 @@ for "_i" from 0 to 270 step 90 do {
 	_marker setMarkerShapeLocal "RECTANGLE";
 	_marker setMarkerBrushLocal (_backgroundColor select 1);
 	_marker setMarkerColorLocal (_backgroundColor select 0);
-	_marker setMarkerAlphaLocal 1;
-	GVAR(cover) pushBack _marker;
-	_marker = format ["CM_side_%1_2", _i];
-	createMarkerLocal [_marker,_markerPos];
-	_marker setMarkerPosLocal _markerPos;
-	_marker setMarkerSizeLocal [_sizeMarker,_mapAdjustment - _size1];
-	_marker setMarkerDirLocal _dirTemp;
-	_marker setMarkerShapeLocal "RECTANGLE";
-	_marker setMarkerBrushLocal (_backgroundColor select 1);
-	_marker setMarkerColorLocal (_backgroundColor select 0);
-	_marker setMarkerAlphaLocal 1;
-	GVAR(cover) pushBack _marker;
+	GVAR(map_cover) pushBack _marker;
 };
 
 for "_i" from 0 to 270 step 90 do {
@@ -69,9 +58,8 @@ for "_i" from 0 to 270 step 90 do {
 	_marker setMarkerShapeLocal "RECTANGLE";
 	_marker setMarkerBrushLocal (_borderColor select 1);
 	_marker setMarkerColorLocal (_borderColor select 0);
-	_marker setMarkerAlphaLocal 1;
-	GVAR(cover) pushBack _marker;
-	
+	GVAR(map_cover) pushBack _marker;
+
 	_markerPos = [
 		_posX + (sin _dirTemp * _size1) + (sin (_dirTemp + 90) * _size2),
 		_posY + (cos _dirTemp * _size1) + (cos (_dirTemp + 90) * _size2)
@@ -84,8 +72,7 @@ for "_i" from 0 to 270 step 90 do {
 	_marker setMarkerShapeLocal "RECTANGLE";
 	_marker setMarkerBrushLocal (_borderColor select 1);
 	_marker setMarkerColorLocal (_borderColor select 0);
-	_marker setMarkerAlphaLocal 1;
-	GVAR(cover) pushBack _marker;
+	GVAR(map_cover) pushBack _marker;
 };
 
 //--- Frame
@@ -97,8 +84,7 @@ _marker setMarkerDirLocal _dir;
 _marker setMarkerShapeLocal "RECTANGLE";
 _marker setMarkerBrushLocal (_lineColor select 1);
 _marker setMarkerColorLocal (_lineColor select 0);
-_marker setMarkerAlphaLocal 1;
-GVAR(cover) pushBack _marker;
+GVAR(map_cover) pushBack _marker;
 
 //--- Frame
 _marker = "CM_side_border_outside";
@@ -109,8 +95,4 @@ _marker setMarkerDirLocal _dir;
 _marker setMarkerShapeLocal "RECTANGLE";
 _marker setMarkerBrushLocal (_lineColor select 1);
 _marker setMarkerColorLocal (_lineColor select 0);
-_marker setMarkerAlphaLocal 1;
-GVAR(cover) pushBack _marker;
-
-
-	
+GVAR(map_cover) pushBack _marker;
