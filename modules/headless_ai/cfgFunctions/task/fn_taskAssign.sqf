@@ -45,7 +45,7 @@ switch (_task) do {
         _taskSet call FUNC(taskPatrol);
     };
     case "ASSAULT": {
-        _taskSet call FUNC(taskPatrol);
+        _taskSet call FUNC(taskAssault);
     };
     case "MOVE": {
         _taskSet call FUNC(taskPatrol);
@@ -76,6 +76,9 @@ switch (_task) do {
     };
     case "BLDSEARCH": {
         _taskSet call FUNC(taskPatrol);
+    };
+    case "PICKUP": {
+        _taskSet call FUNC(taskPickup);
     };
     default {
         _taskSet call FUNC(taskPatrol);

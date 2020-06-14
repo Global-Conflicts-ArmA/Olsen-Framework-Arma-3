@@ -5,7 +5,10 @@ class PZAI {
 		file = "modules\headless_ai\cfgFunctions\Combat";
 		class ArmEmptyStatic {};
 		class CombatAttack {};
+		class CombatAssault {};
+		class CombatAssaultVehicle {};
 		class CombatDefend {};
+		class CombatLand {};
 		class CombatMode {};
 		class CombatMoveTo {};
 		class CombatResponse {};
@@ -27,7 +30,9 @@ class PZAI {
 		class MoveInCombat {};
 		class MoveToCover {};
 		class PlaceMine {};
+		class RadioCallForSupport {};
 		class RadioCommsEnemy {};
+		class RadioReportThreat {};
 		class RearmGo {};
 		class RearmSelf {};
 		class ReinforcementResponse {};
@@ -44,6 +49,7 @@ class PZAI {
 		file = "modules\headless_ai\cfgFunctions\Commander";
 		class assignToArea {};
 		class CommanderHandler {};
+		class CommanderInit {};
 	};
 
 	class StateMachine {
@@ -65,12 +71,6 @@ class PZAI {
 	class CommanderSM {
 		file = "modules\headless_ai\cfgFunctions\CommanderSM";
 		class CM_OnStateInitial {};
-	};
-
-    class GroupHandlerSM {
-		file = "modules\headless_ai\cfgFunctions\GroupHandlerSM";
-		class GH_OnStateInitial {};
-		class GH_OnStateGroupCheck {};
 	};
 
 	class SightAidSM {
@@ -104,17 +104,14 @@ class PZAI {
 
 	class Main {
 		file = "modules\headless_ai\cfgFunctions\Main";
-		class ActiveHandler {};
 		class GroupHandler {};
 		class initMain {};
 		class MapMarkers {};
-		class QueueHandle {};
 	};
 
 	class Misc {
 		file = "modules\headless_ai\cfgFunctions\Misc";
 		class checkifHC {};
-		class playerInit {};
 		class setunitskill {};
 		class UnitInit {};
 		class SetInit {};
@@ -138,17 +135,9 @@ class PZAI {
 		class CondBurstCount {};
 	};
 
-	//class GroupHandlerSM {
-	//	file = "modules\headless_ai\cfgFunctions\GroupHandlerSM";
-	//	class GH_OnStateInitial {};
-	//};
-
 	class Eventhandlers {
 		file = "modules\headless_ai\cfgFunctions\Eventhandlers";
-		class onAIHit {};
-		class onPlayerInit {};
-		class onInit {};
-		class onInitPost {};
+		class onFiredMan {};
 	};
 
 	class create {
@@ -163,7 +152,6 @@ class PZAI {
 	    class createWaypointModified {};
 	    class createWaypoints {};
 	    class createZone {};
-	    class setupZone {};
 	    class spawnArray {};
 	};
 
@@ -179,16 +167,19 @@ class PZAI {
 		class DriverCheck {};
 		class EnemyArray {};
 		class getStance {};
-		class HasMine {};
+		class hasMine {};
+		class hasAT {};
 		class HasRadioGroup {};
 		class IRCheck {};
 		class isAimed {};
+		class isInCombat {};
 		class LOSCheck {};
 		class StanceModifier {};
 		class UnitCheck {};
 		class VehicleHandle {};
 		class Waypointcheck {};
 		class WepSupCheck {};
+		class nearbyFriendlyEntities {};
 	};
 
 	class DangerCauses {
@@ -240,11 +231,6 @@ class PZAI {
 	    class getSyncedObjects {};
 	};
 
-	//class GroupHandler {
-	//	file = "modules\headless_ai\cfgFunctions\GroupHandler";
-	//    class onInitEntered {};
-	//};
-
 	class set {
 		file = "modules\headless_ai\cfgFunctions\set";
 	    class setAssignedVehicle {};
@@ -265,14 +251,11 @@ class PZAI {
 	    class setZone {};
 	};
 
-	class Settings {
-		file = "modules\headless_ai\cfgFunctions\Settings";
-	};
-
 	class task {
 		file = "modules\headless_ai\cfgFunctions\task";
 	    class taskActivate {};
 	    class taskAssign {};
+	    class taskAssault {};
 	    class taskCheck {};
 	    class taskComplete {};
 	    class taskForceFire {};
@@ -280,7 +263,7 @@ class PZAI {
 	    class taskLoiter {};
 	    class taskHoldUntil {};
 	    class taskInit {};
-	    class taskForceSpeed {};
+	    class taskRelease {};
 	    class taskBuildingPatrol {};
 	    class taskBuildingDefend {};
 	    class taskMonitor {};
@@ -302,6 +285,7 @@ class PZAI {
 	    class taskRemoveZoneActivated {};
 	    class taskSearchNearby {};
 	    class taskSet {};
+	    class taskPickup {};
 	    class taskSetBunker {};
 	    class taskSentry {};
 	    class taskPlacement {};

@@ -1,42 +1,21 @@
 #define PREFIX FW
-#define COMPONENT FW
+#ifndef COMPONENT
+    #define COMPONENT FW
+#endif
+//#define DEBUG_MODE_NORMAL
 #define DEBUG_MODE_FULL
 #define VERSIONSTR "0.1.1"
-#include "script_macros_common.hpp"
 #include "script_macros_mission.hpp"
 
-#define QUOTEIN(var1) QUOTE(QUOTE(var1))
-#define QN(var1) QUOTE(QUOTE(var1))
-#define QUOTE3(var1) QUOTE(QUOTE(QUOTE(var1)))
+#define RNG(var1) var1 > random 1
+#define INVEHICLE(var1) (vehicle var1) isEqualTo var1
+#define RNDRANGE(var1,var2) var1 + (floor(random (1 + var2 - var1)))
+#define GETTEAMVAR(var1,var2,var3) private var1 = [var2, var3] call FUNC(GetTeamVariable)
 
-#define FUNC(var1) TRIPLES(COMPONENT,fnc,var1)
+#define ERROR(MESSAGE) MESSAGE call FUNC(DebugMessage); \
+LOG_SYS('ERROR',MESSAGE)
 
-#define GETVAR_SYS(var1,var2) getVariable [ARR_2(QUOTE(DOUBLES(COMPONENT,var1)),var2)]
-#define SETVAR_SYS(var1,var2) setVariable [ARR_2(QUOTE(DOUBLES(COMPONENT,var1)),var2)]
-#define SETPVAR_SYS(var1,var2) setVariable [ARR_3(QUOTE(DOUBLES(COMPONENT,var1)),var2,true)]
-
-#define QGETVAR_SYS(var1,var2) getVariable [ARR_2(QN(DOUBLES(COMPONENT,var1)),var2)]
-
-#define GETVAR_SYS(var1,var2) getVariable [ARR_2(QUOTE(DOUBLES(COMPONENT,var1)),var2)]
-#define SETVAR_SYS(var1,var2) setVariable [ARR_2(QUOTE(DOUBLES(COMPONENT,var1)),var2)]
-#define SETPVAR_SYS(var1,var2) setVariable [ARR_3(QUOTE(DOUBLES(COMPONENT,var1)),var2,true)]
-
-#define GETVAR(var1,var2,var3) var1 GETVAR_SYS(var2,var3)
-#define GETMVAR(var1,var2) missionNamespace GETVAR_SYS(var1,var2)
-#define GETPLVAR(var1,var2) player GETVAR_SYS(var1,var2)
-
-#define QGETVAR(var1,var2,var3) var1 QGETVAR_SYS(var2,var3)
-#define QGETMVAR(var1,var2) missionNamespace QGETVAR_SYS(var1,var2)
-
-#define SETVAR(var1,var2,var3) var1 SETVAR_SYS(var2,var3)
-#define SETPVAR(var1,var2,var3) var1 SETPVAR_SYS(var2,var3)
-#define SETMVAR(var1,var2) missionNamespace SETVAR_SYS(var1,var2)
-#define SETMPVAR(var1,var2) missionNamespace SETPVAR_SYS(var1,var2)
-#define SETPLVAR(var1,var2) player SETVAR_SYS(var1,var2)
-#define SETPLPVAR(var1,var2) player SETPVAR_SYS(var1,var2)
-
-#define GVAR(varName) DOUBLES(COMPONENT,varName)
-#define EGVAR(compName,varName) DOUBLES(compName,varName)
-#define QGVAR(varName) QUOTE(DOUBLES(COMPONENT,varName))
-
-#define UGROUP (group _unit)
+#define POS_X(N) ((N) * safezoneW + safezoneX)
+#define POS_Y(N) ((N) * safezoneH + safezoneY)
+#define POS_W(N) ((N) * safezoneW)
+#define POS_H(N) ((N) * safezoneH)

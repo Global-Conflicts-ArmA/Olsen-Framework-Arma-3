@@ -4,7 +4,7 @@
 params ["_logic",["_entities",[[], [], []],[[]]],["_vehLog",[],[[]]]];
 // Get all Synced units/objects to module (excludes other modules)
 private _synced = [_logic] call FUNC(getSynced);
-LOG_1("_synced %1",_synced);
+//LOG_1("_synced %1",_synced);
 private _groups = [];
 private _emptyVehs = [];
 private _objects = [];

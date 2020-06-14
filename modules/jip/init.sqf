@@ -26,10 +26,10 @@ if (hasInterface && {(str (side player)) != "LOGIC"}) then {
 
 	private _target = leader player;
 
-	if (player isEqualTo _target || !(_target call FUNC(Alive))) then {
+	if (player isEqualTo _target || !(_target call FUNC(isAlive))) then {
 		private _rank = -1;
 		{
-			if ((rankId _x > _rank) && {(_target call FUNC(Alive))}) then {
+			if ((rankId _x > _rank) && {(_target call FUNC(isAlive))}) then {
 				_rank = rankId _x;
 				_target = _x;
 			};

@@ -2,7 +2,9 @@
 
 LOG("HC Client Pre Init");
 
-["Headless AI", format ["Spawns AI via logic sync and provides custom AI system. Version: %1", VERSIONSTR], "PIZZADOX"] call FUNC(RegisterModule);
+private _version = "0.2.4";
+
+["Headless AI", "Spawns AI via logic sync and provides custom AI system", "PIZZADOX", _version] call FUNC(RegisterModule);
 
 //[QGVAR(ClientEvent), {
 //

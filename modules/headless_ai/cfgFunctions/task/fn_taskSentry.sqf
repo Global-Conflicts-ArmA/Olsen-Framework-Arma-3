@@ -28,6 +28,6 @@ _this2 set [8, "CYCLE"];
 _this2 call FUNC(createWaypoint);
 
 SETVAR(_group,InitialWPSet,true);
-_group setVariable [QGVAR(Mission),"SENTRY"];
-[_group] call FUNC(taskForceSpeed);
+SETVAR(_group,Task,"SENTRY");
+[_group] call FUNC(taskRelease);
 true

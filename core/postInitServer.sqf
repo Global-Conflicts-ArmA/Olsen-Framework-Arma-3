@@ -1,14 +1,22 @@
 #include "script_macros.hpp"
 #define postInitServer
 
-{
-	_x call FUNC(CreateRespawnMarker);
-} foreach ["west","east","guer","civ"];
+["west","east","guer","civ"] apply {
+    private _team = _x;
+    private _markerName = format ["respawn_%1", _team];
+    createMarker [_markerName, [0, 0, 0]];
+    _markerName setMarkerShape "ICON";
+    _markerName setMarkerType "EMPTY";
+};
 
-GVAR(EventPlayerSpawnedHandle) = [QGVAR(PlayerSpawned), {_this call FUNC(EventPlayerSpawned);}] call CBA_fnc_addEventHandler;
 GVAR(EventDisconnectHandle) = addMissionEventHandler ["HandleDisconnect", {_this call FUNC(EventDisconnect);}];
 
-//"" call FUNC(StartingCount); //DO NOT REMOVE
+[{
+    getClientStateNumber > 10
+},{
+    diag_log "getClientStateNumber trigered";
+    LOG_1("getClientStateNumber EH triggered with time: %1",CBA_missionTime);
+}, []] call CBA_fnc_waitUntilAndExecute;
 
 setViewDistance GVAR(ServerViewDistance);
 

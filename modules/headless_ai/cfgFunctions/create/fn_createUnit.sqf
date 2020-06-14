@@ -45,7 +45,7 @@ if (_occupy) then {
 private _unit = _group createUnit [_unitClass,_unitPos,[],0,"CAN_COLLIDE"];
 [_unit] join _group;
 _unit disableAI "Path";
-_unit forcespeed 0;
+//_unit forcespeed 0;
 _unit setPosATL _unitPos;
 //LOG_2("_unit: %1 _unitPos: %2",_unit,_unitPos);
 _unit setUnitLoadout _editorGear;
@@ -63,7 +63,7 @@ if !(_varName isEqualTo "") then {
 };
 
 if !(_olsenGearType isEqualTo "") then {
-    [_unit, _olsenGearType] call FWFUNC(gearScript);
+    [_unit, _olsenGearType] call EFUNC(FW,gearScript);
 };
 
 [{

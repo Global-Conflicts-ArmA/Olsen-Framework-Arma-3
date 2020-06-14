@@ -13,7 +13,7 @@
  * Public: No
  */
 
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
 params [["_nestedArray", [], [[]]], ["_items", [], [[]]]];
 _nestedArray params ["_vehicle", "_loadoutType"];
@@ -30,7 +30,7 @@ if (_randomPick isEqualType "") then {
 			} else {
 				if (_x isEqualType []) then {
 					_x params [["_item", "", [""]], ["_amount", 1, [1]]];
-					[_vehicle, _loadoutType, _item, _amount, _position] call FUNC(AddItemOrg);
+					[_vehicle, _loadoutType, _item, _amount] call FUNC(AddItemOrg);
 				};
 			};
 		} forEach _randomPick;

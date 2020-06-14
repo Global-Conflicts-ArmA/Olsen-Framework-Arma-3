@@ -15,7 +15,7 @@
  * Public: No
  */
  
-#include "..\script_macros.hpp" 
+#include "script_component.hpp" 
 
 params ["_vehicle", "_loadoutType", "_item", ["_amount", 1, [1]]];
 private _type = (_item call BIS_fnc_itemType) select 1;
@@ -30,6 +30,6 @@ for "_x" from 1 to _amount do {
 			_vehicle addItemCargoGlobal [_item, 1];
 		};
 	} else {
-		(format ["FNC_AddItemVehicle: Warning couldn't fit %1, in %2, case %3", _item, _vehicle, _loadoutType]) call FUNC(DebugMessage);
+        ERROR_3("FW_fnc_AddItemVehicle: Warning couldn't fit %1, in %2, case %3", _item, _vehicle, _loadoutType);
 	};
 };

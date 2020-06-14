@@ -26,5 +26,5 @@ private _UnitArray = units _group;
         [_x,_UnitArray] spawn FUNC(LoiterAction);
     };
 } foreach _UnitArray;
-[_group] call FUNC(taskForceSpeed);
+[_group] call FUNC(taskRelease);
 true

@@ -5,7 +5,7 @@
 params ["_Unit", "_Group","_thisFSM"];
 
 private _Unitleader = leader _Group;
-SETVAR(_Group,Mission,"LOITER");
+SETVAR(_group,Task,"LOITER");
 SETVAR(_Group,InitialWPSet,true);
 
 //We need a list of actions that the AI can do for loitering.

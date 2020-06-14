@@ -93,7 +93,6 @@ class CfgNotifications {
 	#undef description_notifications
 };
 
-
 class CfgSounds {
 	#define description_sounds
 	#include "core\description.hpp" //DO NOT REMOVE
@@ -121,5 +120,3 @@ class Params {
 	#include "modules\modules.sqf" //DO NOT REMOVE
 	#undef description_params
 };
-
-

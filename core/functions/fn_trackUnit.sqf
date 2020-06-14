@@ -12,13 +12,12 @@
  * Public: No
  */
 
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
 params ["_unit"];
 
 if !(GETVAR(_unit,Tracked,false)) then {
-	private _side = side _unit;
-	_unit setVariable [QGVAR(Side), _side];
-	_unit setVariable [QGVAR(Tracked), true];
+	SETVAR(_unit,side,side _unit);
+	SETPVAR(_unit,Tracked,true);
 	_unit call FUNC(EventSpawned);
 };

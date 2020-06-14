@@ -13,7 +13,7 @@
  * Public: No
  */
 
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
 params [
 	["_unit", objNull, [objNull]],
@@ -21,16 +21,17 @@ params [
 ];
 
 if (GETVAR(_unit,Tracked,false)) then {
-	{
+	GVAR(Teams) apply {
 		_x params ["", "_side", "_type", "", "_current"];
 		if (
 				!(GETVAR(_unit,HasDied,false)) &&  
 				{!(GETVAR(_unit,Dead,false))} && 
 				{(GETVAR(_unit,Side,sideUnknown)) isEqualTo _side} && 
-				{(_type != "ai" && {isPlayer _unit}) || (_type isEqualTo "ai")}
+				{((_type != "ai") && {isPlayer _unit}) || (_type isEqualTo "ai")}
 		) exitWith {
-			SETVAR(_unit,HasDied,true);
+			SETPVAR(_unit,HasDied,true);
+            SETPVAR(_unit,Dead,true);
 			_x set [4, _current - 1];
 		};
-	} forEach GVAR(Teams);
+	};
 };

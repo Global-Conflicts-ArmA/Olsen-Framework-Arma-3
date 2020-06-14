@@ -2,8 +2,10 @@
 
 params ["_unit"];
 
-_unit setCombatMode "RED";
-_unit setBehaviour "COMBAT";
+if (GETVAR(group _unit,forcedCombatMode,"AUTO") isEqualTo "AUTO") then {
+	_unit setCombatMode "RED";
+	_unit setBehaviour "COMBAT";
+};
 
 private _enemyTarget = GETVAR(_unit,SA_enemyTarget,objnull);
 if (_enemyTarget isEqualTo objnull) exitwith {};

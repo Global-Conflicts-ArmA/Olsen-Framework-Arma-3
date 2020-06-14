@@ -1,7 +1,7 @@
 #include "..\..\script_macros.hpp"
 
-
-params [
+params ["_args", ["_specialArgs", [], [[]]]];
+_args params [
     "",
     "_groupSet",
     "_groupMem",
@@ -33,10 +33,16 @@ _groupSet params [
     /* 21 */ "_tracker",
     /* 22 */ "_storedVars",
     /* 23 */ "_name",
-    /* 24 */ "_groupID"
+    /* 24 */ "_groupID",
+    /* 25 */ "_areaAssigned",
+    /* 26 */ "_assetType",
+    /* 27 */ ["_manualPos", [0,0,0], [[]]]
 ];
+
 createCenter _side;
 private _group = createGroup _side;
+
+SETVAR(_group,Spawned,true);
 
 if !(_name isEqualTo "") then {
     private _uniqueName = [_name] call FUNC(findUniqueName);
@@ -44,7 +50,7 @@ if !(_name isEqualTo "") then {
 };
 
 if !(_groupID isEqualTo "") then {
-    _group setGroupIdGlobal _groupID;
+    _group setGroupIdGlobal [_groupID];
 };
 
 if !(_storedVars isEqualTo []) then {
@@ -52,6 +58,13 @@ if !(_storedVars isEqualTo []) then {
         _x params ["_varName", "_varValue"];
         _group setvariable [_varName, _varValue];
     } forEach _storedVars;
+};
+
+if !(_specialArgs isEqualTo []) then {
+    {
+        _x params ["_varName", "_varValue"];
+        _group setvariable [_varName, _varValue];
+    } forEach _specialArgs;
 };
 
 {
@@ -67,29 +80,20 @@ if !(_storedVars isEqualTo []) then {
 [_group,_groupSet] call FUNC(setGroupVariables);
 _group call CBA_fnc_clearWaypoints;
 
-
-//if !(_tasks isEqualTo []) then {
-//    [_group,_tasks] call FUNC(taskRegister);
-//    _tasks = _tasks call FUNC(taskRemoveZoneActivated);
-//};
-//if !(_tasks isEqualTo []) then {GVAR(taskedGroups) pushBack [_group];};
-if ((count _waypoints > 1) && {_task isEqualTo "NONE"}) then {
+if (((GETVAR(leader _group,noAI,false)) || {GETVAR(_group,noAI,false)}) || {(count _waypoints > 1) && {_task isEqualTo "NONE"}}) then {
     LOG_2("Setting %1 to manual wp mode with: %2",_group,_waypoints);
     [_group,_waypoints] call FUNC(createWaypoints);
 } else {
     LOG_2("Setting %1 to task: %2",_group,_task);
-    private _passarray = [_task,_group,_groupPos,_taskRadius,_wait,_behaviour,_combat,_speed,_formation,_occupyOption];
+    private _taskPos = if (_manualPos isEqualTo [0,0,0]) then {
+        _groupPos
+    } else {
+        _manualPos
+    };
+    TRACE_2("",_group,_taskPos);
+    private _passarray = [_task,_group,_taskPos,_taskRadius,_wait,_behaviour,_combat,_speed,_formation,_occupyOption];
     [{!((count waypoints (_this select 1)) isEqualTo 0)},{
         _this call FUNC(taskAssign);
     },_passarray] call CBA_fnc_waitUntilAndExecute;
-    //if (!(_tasks isEqualTo []) && {(_group getVariable [QGVAR(TaskTimer),0]) isEqualTo 0}) then {
-    //    [_group,_tasks] call FUNC(taskInit);
-    //} else {
-    //    _group setVariable [QGVAR(CurrentTaskEndTime),(CBA_MissionTime + _taskTimer)];
-    //    private _passarray = [_task,_group,_groupPos,_taskRadius,_wait,_behaviour,_combat,_speed,_formation,_occupyOption];
-    //    [{!((count waypoints (_this select 1)) isEqualTo 0)},{
-    //        _this call FUNC(taskAssign);
-    //    },_passarray] call CBA_fnc_waitUntilAndExecute;
-    //};
 };
 _group

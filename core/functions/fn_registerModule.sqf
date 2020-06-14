@@ -14,8 +14,8 @@
  * Public: Yes
  */
 
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
-params ["_name", "_description", "_author", ["_version", 0, [0]]];
+params ["_name", "_description", "_author", ["_version", 0, [0, ""]]];
 
 GVAR(Modules) set [count GVAR(Modules), [_name, _description, _author, _version]];

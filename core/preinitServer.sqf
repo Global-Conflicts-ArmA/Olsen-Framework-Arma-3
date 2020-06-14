@@ -6,23 +6,27 @@ GVAR(Teams) = []; //DO NOT REMOVE
 GVAR(TeamSides) = []; //DO NOT REMOVE
 GVAR(MissionEnded) = false; //Mission has not ended
 
-[QGVAR(eventSpawned), {
+[QGVAR(spawnedEvent), {
     params ["_unit"];
-	_unit call FUNC(trackUnit);
+    LOG_1("spawnedEvent started: %1",_unit);
+	_unit call FUNC(eventSpawned);
 }] call CBA_fnc_addEventHandler;
 
-[QGVAR(eventUntrack), {
+[QGVAR(untrackEvent), {
     params ["_unit"];
+    LOG_1("untrackEvent started: %1",_unit);
 	_unit call FUNC(untrackUnit);
 }] call CBA_fnc_addEventHandler;
 
-[QGVAR(eventKilled), {
+[QGVAR(killedEvent), {
     params [["_unit", objNull, [objNull]], ["_killer", objNull, [objNull]]];
+    LOG_1("killedevent started: %1",_unit);
 	[_unit, _killer] call FUNC(EventKilled);
 }] call CBA_fnc_addEventHandler;
 
-[QGVAR(eventRespawn), {
+[QGVAR(respawnEvent), {
     params [["_unit", objNull, [objNull]]];
+    LOG_1("respawnEvent started: %1",_unit);
 	[_unit] call FUNC(EventRespawned);
 }] call CBA_fnc_addEventHandler;
 
@@ -102,10 +106,15 @@ GVAR(MissionEnded) = false; //Mission has not ended
 	[_unit] call FUNC(EventRespawned);
 }] call CBA_fnc_addEventHandler;
 
-[QGVAR(SC_CountEvent), {
-    params ["_side", "_magazine"];
-    private _magName = _magazine call FUNC(SC_getDisplayName);
-	[_side, _magName] call FUNC(SC_shotCount);
+[QGVAR(ShotCountEvent), {
+    params ["_side", "_magazine", ["_projectile", "", [""]]];
+    private _magName = if (_magazine isEqualTo "GRENADE") then {
+        [_projectile, true] call FUNC(getDisplayName);
+    } else {
+        [_magazine] call FUNC(getDisplayName);
+    };
+    TRACE_3("count event",_magName,_magazine,_projectile);
+    [_side, _magName] call FUNC(shotCount);
 }] call CBA_fnc_addEventHandler;
 
 GVAR(CurrentWaveUnlockedWest) = false;
@@ -118,11 +127,11 @@ GVAR(CurrentWaveCountEast) = if (GVAR(WaveSizeEast) > 0) then {0} else {-1000};
 GVAR(CurrentWaveCountInd) = if (GVAR(WaveSizeInd) > 0) then {0} else {-1000};
 GVAR(CurrentWaveCountCiv) = if (GVAR(WaveSizeCiv) > 0) then {0} else {-1000};
 
-GVAR(SC_west_ExpendedAmmo) = [];
-GVAR(SC_east_ExpendedAmmo) = [];
-GVAR(SC_ind_ExpendedAmmo) = [];
-GVAR(SC_civ_ExpendedAmmo) = [];
-GVAR(SC_classNames) = [];
+GVAR(west_ExpendedAmmo) = [];
+GVAR(east_ExpendedAmmo) = [];
+GVAR(ind_ExpendedAmmo) = [];
+GVAR(civ_ExpendedAmmo) = [];
+GVAR(shotClassNames) = [];
 
 #include "..\customization\serverSettings.sqf" //DO NOT REMOVE
 #include "..\customization\inits\PreInitServer.sqf" //DO NOT REMOVE

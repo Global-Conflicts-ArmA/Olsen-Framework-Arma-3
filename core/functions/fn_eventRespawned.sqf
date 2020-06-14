@@ -12,12 +12,16 @@
  * Public: No
  */
 
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
-params ["_unit"];
+params ["_new", "_corpse"];
+SETVAR(_new,Body,_corpse);
 
-if !(GETVAR(_unit,Dead,false)) then {
-	_unit call FUNC(EventSpawned);
+LOG("Server Event Respawned called");
+if (GETVAR(_new,Spectating,false)) then {
+    _new call FUNC(UntrackUnit);
 } else {
-	_unit call FUNC(UntrackUnit);
+    SETPVAR(_new,Dead,false);
+    SETPVAR(_new,Spectating,false);
+    _new call FUNC(EventSpawned);
 };

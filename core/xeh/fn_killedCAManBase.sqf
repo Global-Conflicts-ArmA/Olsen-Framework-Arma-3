@@ -1,6 +1,11 @@
 #include "..\script_macros.hpp"
 
 params ["_unit"];
+if !(local _unit) exitWith {};
 
-[QGVAR(eventKilled), [_unit]] call CBA_fnc_serverEvent;
+LOG("Killed_Event called");
+[QGVAR(KilledEvent), _unit] call CBA_fnc_serverEvent;
 
+if (isPlayer _unit) then {
+    [_unit] call FUNC(killcam_killedHandle);
+};

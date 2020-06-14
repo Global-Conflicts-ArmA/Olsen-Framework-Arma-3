@@ -1,7 +1,6 @@
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
-#define random(MIN, MAX) \
-([MIN, MAX] call FUNC(RandomRange))
+#define random(var1, var2) RNDRANGE(var1,var2)
 
 private _temp = "";
 
@@ -26,4 +25,9 @@ _unit setVariable ["BIS_enableRandomization", false];
 FUNC(AddItem) = {([_unit, _type] + _this) call FUNC(AddItemOrg);};
 FUNC(AddItemRandom) = {([[_unit, _type]] + [_this]) call FUNC(AddItemRandomOrg);};
 
-#include "..\..\customization\gearSettings.sqf"
+switch _type do {
+	#include "..\..\customization\loadouts.sqf"
+	default {
+		ERROR_2("UNIT: %1 USING TYPE: %2 IS USING AN INVALID GEAR TYPE!",_unit,_type);
+	};
+};

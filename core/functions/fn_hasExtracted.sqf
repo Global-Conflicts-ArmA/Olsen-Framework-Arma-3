@@ -15,21 +15,23 @@
  * Public: Yes
  */
 
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
 params [["_team", "", [""]],
 	["_marker", "", [""]],
 	["_ratio", 1, [0]]
 ];
 
-private _side = [_team, 1] call FUNC(getTeamVariable);
+//IGNORE_PRIVATE_WARNING ["_side"];
+GETTEAMVAR(_side,_team,"SIDE");
+
 private _count = {
 	(side _x isEqualTo _side) && {_x inArea _marker}
 } count ([] call BIS_fnc_listPlayers);
 
 private _result = false;
-if ((CBA_missionTime > 60) && {_count >= _ratio * ([_team, 4] call FUNC(getTeamVariable))}) then {
-	if (GETVAR(missionNamespace,hasDeparted,false)) then {
+if ((CBA_missionTime > 60) && {_count >= _ratio * ([_team, "CURRENT"] call FUNC(GetTeamVariable))}) then {
+	if (GETMVAR(hasDeparted,false)) then {
 		_result = true;
 	};
 } else {

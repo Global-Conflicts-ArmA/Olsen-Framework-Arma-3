@@ -12,18 +12,18 @@
  * Public: Yes
  */
 
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
 params ["_team"];
 
 private _count = -1;
 
-{
+GVAR(Teams) apply {
 	_x params ["_name", "_side", "_type", "_total", "_current"];
 	
 	if (_name isEqualTo _team) exitWith {
 		_count = _current;
 	};
-} forEach GVAR(Teams);
+};
 
 _count

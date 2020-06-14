@@ -13,7 +13,7 @@
  * Public: Yes
  */
 
-#include "..\script_macros.hpp"
+#include "script_component.hpp"
 
 GVAR(terrainGridPFH_handle) = [{
 	if ((CBA_missionTime > 0) && {getTerrainGrid != 2}) then {

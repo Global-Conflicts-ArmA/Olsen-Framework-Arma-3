@@ -6,7 +6,7 @@ params [
     ["_unitStance", "AUTO", [""]]
 ];
 
-LOG_1("setstance: %1",_this);
+//LOG_1("setstance: %1",_this);
 
 private _stance = if (!(_groupStance isEqualTo "AUTO") && {_unitStance isEqualTo "AUTO"}) then {
     _groupStance

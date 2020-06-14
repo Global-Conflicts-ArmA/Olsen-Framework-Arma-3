@@ -26,5 +26,5 @@ private _units = units _group;
     _x disableAI "PATH";
 } foreach _units;
 SETVAR(_group,InitialWPSet,true);
-SETVAR(_group,Mission,"STATIONARY");
+SETVAR(_group,Task,"STATIONARY");
 true
