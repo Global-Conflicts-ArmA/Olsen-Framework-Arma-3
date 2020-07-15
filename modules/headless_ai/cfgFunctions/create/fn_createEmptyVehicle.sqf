@@ -21,8 +21,8 @@ params [
 ];
 
 private _vehicle = createVehicle [_vehClass,_vehPos,[],0,"CAN_COLLIDE"];
-_vehicle setPosATL _vehPos;
 _vehicle setVectorDirAndUp [_vectorDir, _vectorUp];
+_vehicle setPosATL _vehPos;
 
 if !(_name isEqualTo "") then {
     private _uniqueName = [_name] call FUNC(findUniqueName);

@@ -31,6 +31,10 @@ params [
     ["_repeatPerFrame", 0, [0]]
 ];
 
+if (_repeatPerFrame > (GETMVAR(StateMachineFrames,1))) then {
+    _repeatPerFrame = GETMVAR(StateMachineFrames,1);
+};
+
 if (isNil QGVAR(stateMachines)) then {
     GVAR(stateMachines) = [];
     GVAR(nextUniqueID) = 0;

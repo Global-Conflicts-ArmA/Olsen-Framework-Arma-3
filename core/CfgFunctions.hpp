@@ -12,7 +12,6 @@ class Core {
 	class casualtyCount {};
 	class casualtyPercentage {};
 	class checkClassname {};
-	class countTeam {};
 	class debugMessage {};
 	class endMission {};
 	class eventDisconnect {};
@@ -29,9 +28,9 @@ class Core {
 	class registerModule {};
 	class removeAllGear {};
 	class removeAllVehicleGear {};
+	class parsedTextDisplay {};
 	class setTeamVariable {};
 	class spectatePrep {};
-	class stackNames {};
 	class trackAsset {};
 	class trackUnit {};
 	class untrackUnit {};

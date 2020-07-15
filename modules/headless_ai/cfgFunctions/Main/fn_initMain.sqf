@@ -86,3 +86,24 @@ if (!(hasInterface) && {!(isServer)}) then {
 	};
 };
 
+(allMissionObjects "rhsusf_stryker_m1132_m2_wd") apply {
+    _x addEventHandler ["HandleDamage", {
+        params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
+        
+        private _currentDamage = _unit getHitPointDamage _hitPoint;
+        
+        if (_projectile isEqualTo "rhs_mine_tm62m_ammo" && {[_selection, "mineplow"] call CBA_fnc_find == -1} && {_unit animationSourcePhase "SMP" < 0.25}) then {
+            private _plowDamage = {_unit getHitPointDamage _x >= 1} count ["hit_mineplow_1","hit_mineplow_2","hit_mineplow_3","hit_mineplow_4","hit_mineplow_5","hit_mineplow_6","hit_mineplow_7","hit_mineplow_8","hit_mineplow_9"];
+            
+            private _damageMultiplier = _plowDamage / 20;
+            
+            _damage = _currentDamage + (_damage * _damageMultiplier);
+        } else {
+            if (_unit animationSourcePhase "SMP" < 0.25) then {
+                _damage = _currentDamage + _damage * 0.2;
+            };
+        };
+        
+        _damage
+    }];
+};

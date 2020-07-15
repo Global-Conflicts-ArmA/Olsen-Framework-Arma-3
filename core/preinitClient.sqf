@@ -42,6 +42,10 @@ if (GETMVAR(SpectateBriefing,true)) then {
 	};
 };
 
+[{!isNull ace_player},{
+	SETMVAR(SpawnPos,getpos player);
+}] call CBA_fnc_waitUntilAndExecute;
+
 //QGVAR(EndMission) player event sends the received variables to the end screen
 GVAR(EndMissionEh) = [QGVAR(EndMission), {_this call FUNC(EndScreen)}] call CBA_fnc_addEventHandler;
 

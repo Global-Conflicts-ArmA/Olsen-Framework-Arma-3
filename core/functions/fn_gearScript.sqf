@@ -19,6 +19,10 @@ if !(_groupId isEqualTo "") then {
 
 if !(local _unit) exitWith {};
 
+if (GETMVAR(removeGear,true)) then {
+	[] call FUNC(removeAllGear);
+};
+
 SETPVAR(_unit,Loadout,_type);
 _unit setVariable ["BIS_enableRandomization", false];
 
