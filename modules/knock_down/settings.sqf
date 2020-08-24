@@ -1,4 +1,4 @@
-// AUTHOR: StatusRed (EM-Creations.co.uk)
+// AUTHOR: StatusRed
 #include "\a3\editor_f\Data\Scripts\dikCodes.h"
 
 // This module allows you to use a melee knockdown action in your missions.

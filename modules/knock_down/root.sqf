@@ -1,4 +1,4 @@
-// AUTHOR: StatusRed (EM-Creations.co.uk)
+// AUTHOR: StatusRed
 #ifdef framework
 
 	#include "init.sqf"

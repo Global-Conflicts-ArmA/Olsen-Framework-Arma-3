@@ -1,4 +1,4 @@
-// AUTHOR: StatusRed (EM-Creations.co.uk)
+// AUTHOR: StatusRed
 
 // Register this module
 ["Knock Down", "Allows melee knocking out of units.", "StatusRed, Krause"] call FUNC(RegisterModule);

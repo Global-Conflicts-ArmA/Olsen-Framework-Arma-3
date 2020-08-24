@@ -1,4 +1,4 @@
-// AUTHOR: StatusRed (EM-Creations.co.uk)
+// AUTHOR: StatusRed
 if !(hasinterface) exitwith {};
 params ["_validWeapons", "_reviveAction"];
 
@@ -21,18 +21,16 @@ if ((primaryWeapon player) in _validWeapons) then { // If the player has a valid
 		} foreach _nearestUnits; // For each of the nearby men
 
 		if !(_useUnits isEqualTo []) then { // If there's at least one targetable unit
-
-			[player, _animToUse] remoteExec ["playMove", 0]; // Hitting animation
-
-			// This handler is NOT being called
 			player addEventHandler ["AnimDone", {
 					params ["_unit", "_anim"];
 
-					if ((local _unit) && (_animToUse == _anim)) then {
-						[player, _prevAnim] remoteExec ["playMove", 0]; // Original animation
+					if ((player == _unit) && ("acts_miller_knockout" == _anim)) then {
+						[player, ""] remoteExec ["switchMove", 0]; // Reset animation
+						diag_log "ANIMATION DONE";
 					};
-					diag_log "ANIMATION DONE";
 			}];
+
+			[player, _animToUse] remoteExec ["playMove", 0]; // Hitting animation
 
 			[-2, {
 				[(_this select 0), true] call ace_medical_fnc_setUnconscious;
@@ -41,16 +39,10 @@ if ((primaryWeapon player) in _validWeapons) then { // If the player has a valid
 			(_useUnits select 0) setVariable ["knockedDown", true, true]; // Set that this unit has been hit
 
 			if (_reviveAction) then { // If the revive action is enabled
-				//systemChat "Registering revive..";
 				[-2, {
 					revive = (_this select 0) addAction ["Revive", "modules\knock_down\revive.sqf", [], 6, false, true, "", "(_this distance _target < 3) && (alive _target)"];
 				}, [(_useUnits select 0)]] call CBA_fnc_globalExecute; // Option to revive the person who's been hit
 			};
-
-			//[(_useUnits select 0), 1] call ace_blackoutAll;
-			/* [-2, {
-				(_this select 0) switchmove (_this select 1);
-			}, [player, _prevAnim]] call CBA_fnc_globalExecute; // Go back to the previous animation */
 		};
 	};
 };
