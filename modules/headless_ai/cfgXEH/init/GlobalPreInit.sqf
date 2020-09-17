@@ -53,7 +53,7 @@ GVAR(zoneEntities) = [];
     if (_logic isEqualTo objnull) exitwith {
         LOG_1("Could not find arrayName %1",_arrayName);
     };
-    private _entities = (([_arrayName, GVAR(zoneEntities)] call FUNC(getDetails)) select 1);
+    private _entities = (([_arrayName, GVAR(zoneEntities), 0, []] call FUNC(getDetails)) select 1);
     LOG_2("SpawnArray _Array: %1 _entities: %2",_arrayName,_entities);
 
     if !(_entities isEqualTo []) then {

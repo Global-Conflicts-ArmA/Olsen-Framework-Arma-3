@@ -34,21 +34,23 @@ private _bottomRight4 = 1114;
 private _teamTextArray = [];
 
 {
-	_x params ["_name", "_side", "_type", "_start", "_current", "_disabled", "_destroyed"];
+	_x params ["_name", "_side", "_type", "_total", "_current", "_disabled", "_destroyed"];
 
-	private _temp = format ["%1<br />Casualties: %2 out of %3<br />", _name, (_start - _current), _start];
+	private _temp = format ["%1<br />Casualties: %2 out of %3<br />", _name, (_total - _current), _total];
 
 	if !(_disabled isEqualTo []) then {
 		_temp = _temp + "<br />Disabled assets:<br />";
 		{
-			_temp = _temp + format ["%1<br />", _x];
+			_x params ["_assetName", "_count"];
+			_temp = _temp + format ["%1 x %2<br />", _assetName, _count];
 		} forEach _disabled;
 	};
 
 	if !(_destroyed isEqualTo []) then {
 		_temp = _temp + "<br />Destroyed assets:<br />";
 		{
-			_temp = _temp + format ["%1<br />", _x];
+			_x params ["_assetName", "_count"];
+			_temp = _temp + format ["%1 x %2<br />", _assetName, _count];
 		} forEach _destroyed;
 	};
 

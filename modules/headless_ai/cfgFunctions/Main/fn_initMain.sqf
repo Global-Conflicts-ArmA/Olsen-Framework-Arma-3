@@ -85,4 +85,3 @@ if (!(hasInterface) && {!(isServer)}) then {
 		}, 1, [_forcedDate]] call CBA_fnc_addPerFrameHandler;
 	};
 };
-
