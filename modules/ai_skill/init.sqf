@@ -1,4 +1,4 @@
-["AI skill", "Allows the mission maker to change the subskills of ai", "Sacher"] call FNC_RegisterModule;
+["AI skill", "Allows the mission maker to change the subskills of ai", "Sacher"] call FUNC(RegisterModule);
 
 FNC_setAISkill =
 {

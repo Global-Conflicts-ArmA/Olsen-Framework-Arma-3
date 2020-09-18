@@ -1,4 +1,4 @@
-["Firemission", "Custom Artillery Strike Missions", "Sacher"] call FNC_RegisterModule;
+["Firemission", "Custom Artillery Strike Missions", "Sacher"] call FUNC(RegisterModule);
 
 //to say the truth, this code is a goddamm mess
 

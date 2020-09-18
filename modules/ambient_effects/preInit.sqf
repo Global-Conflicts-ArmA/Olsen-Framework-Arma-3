@@ -1,4 +1,4 @@
-["Ambient Effects", "Fire and Particles!", "TinfoilHate"] call FNC_RegisterModule;
+["Ambient Effects", "Fire and Particles!", "TinfoilHate"] call FUNC(RegisterModule);
 
 	FNC_hideHelperObject = {
 		_this hideObject true

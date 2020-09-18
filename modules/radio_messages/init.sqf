@@ -1,4 +1,4 @@
-["Radio Messaging", "Radio text messages for simulated communications.", "TinfoilHate"] call FNC_RegisterModule;
+["Radio Messaging", "Radio text messages for simulated communications.", "TinfoilHate"] call FUNC(RegisterModule);
 
 #include "settings.sqf"
 
