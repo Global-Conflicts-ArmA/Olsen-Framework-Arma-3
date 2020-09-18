@@ -2,8 +2,6 @@
 
 #define random(var1, var2) RNDRANGE(var1,var2)
 
-private _temp = "";
-
 #define SET_GROUP(groupName) _temp = #groupName + package;\
 call compile format ['%1 = {
 
@@ -13,11 +11,13 @@ call compile format ['%1 = {
 
 params ["_unit", "_type", ["_groupId", "", [""]]];
 
+if !(local _unit) exitWith {};
+
+private _temp = "";
+
 if !(_groupId isEqualTo "") then {
 	(group _unit) setGroupId [_groupId];
 };
-
-if !(local _unit) exitWith {};
 
 if (GETMVAR(removeGear,true)) then {
 	[] call FUNC(removeAllGear);
