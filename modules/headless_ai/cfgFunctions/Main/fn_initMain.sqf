@@ -5,6 +5,7 @@ GVAR(BasicCheckCurrent) = 0;
 GVAR(LeaderExecuteCurrent) = 0;
 GVAR(MarkerArray) = [];
 
+
 //StateMachines
 LOG("creating bunkerStateMachine");
 GVAR(bunkerStateMachineHandler) = (missionConfigFile >> QGVAR(bunkerStateMachine)) call FUNC(createFromConfig);
@@ -85,3 +86,4 @@ if (!(hasInterface) && {!(isServer)}) then {
 		}, 1, [_forcedDate]] call CBA_fnc_addPerFrameHandler;
 	};
 };
+

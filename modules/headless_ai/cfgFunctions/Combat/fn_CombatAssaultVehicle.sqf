@@ -66,7 +66,7 @@ private _assaultTaskPFH = [{
     _group setBehaviour "AWARE";
     _group setSpeedMode "FULL";
     private _driver = driver _veh;
-    _driver domove _targetPos;
+    _driver doMove _targetPos;
 }, 5, [_group, _targetPos, _units, _compradius]] call CBA_fnc_addPerFrameHandler;
 
 SETVAR(_group,Task,"ASSAULT");
