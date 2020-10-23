@@ -5,5 +5,5 @@
 //	_keepMapClasses 		= ["USMCRiflePlatoon_SL"];
 //	_keepCompassClasses 	= ["USMCRiflePlatoon_TL"];
 
-	_keepMapClasses 		= ["USARMY_PL","USARMY_PSG","USARMY_SL","USARMY_FO"];
+	_keepMapClasses 		= ["USARMY_PL", "USARMY_PSG", "USARMY_SL", "USARMY_FO"];
 	_keepCompassClasses 	= ["USARMY_TL"];
