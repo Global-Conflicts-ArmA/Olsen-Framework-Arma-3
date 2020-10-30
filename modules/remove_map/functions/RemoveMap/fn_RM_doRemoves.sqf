@@ -3,9 +3,7 @@
 
 params ["_keepMapClasses", "_keepCompassClasses"];
 
-_keepMapClasses append _keepCompassClasses;
-
-[{time > 1}, {
+[{CBA_missionTime > 1}, {
 	private _keepMapClasses = (_this select 0);
 	private _keepCompassClasses = (_this select 1);
 
@@ -18,13 +16,11 @@ _keepMapClasses append _keepCompassClasses;
 
 		if (local _unit) then {
 			private _inKeepMap = _gear in _keepMapClasses;
-			private _inKeepCompass = _gear in _keepMapClasses;
+			private _inKeepCompass = _gear in _keepCompassClasses;
 
-			if (_inKeepMap) then {
-				if (_inKeepCompass) then {
+			if (_inKeepMap || _inKeepCompass) then {
+				if (_inKeepCompass && (!_inKeepMap)) then {
 					_unit unlinkItem "ItemMap";
-				} else {
-					//Hooray, you're important!
 				};
 			} else {
 				_unit unlinkItem "ItemMap";
