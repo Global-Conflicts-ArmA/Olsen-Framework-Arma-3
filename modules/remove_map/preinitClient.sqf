@@ -5,7 +5,3 @@ if (!hasInterface) exitWith { }; // As this module is client-side only, only con
 private _version = 0.1;
 
 ["Remove Maps", "Removes maps and compasses from specific gear cases.", "TinfoilHate &amp; StatusRed", _version] call FUNC(RegisterModule);
-
-#include "settings.sqf"
-
-[_keepMapClasses, _keepCompassClasses] call FUNC(RM_doRemoves);
