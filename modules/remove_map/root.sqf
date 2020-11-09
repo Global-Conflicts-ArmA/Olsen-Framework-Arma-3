@@ -1,6 +1,17 @@
+#ifdef description_XEH_PreInit
+	class RM {
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\remove_map\preinitClient.sqf'";
+	};
+#endif
 
-#ifdef framework
+#ifdef description_XEH_InitPost_CAManBase
+	class RM {
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\remove_map\postinitClient.sqf'";
+	};
+#endif
 
-	#include "init.sqf"
+#ifdef description_functions
+
+	#include "functions\CfgFunctions.hpp"
 
 #endif
