@@ -1,14 +1,16 @@
 #include "..\..\script_macros.hpp"
 
+params [
+    ["_synced", [], [[]]]
+];
 
-params ["_logic",["_entities",[[], [], []],[[]]],["_vehLog",[],[[]]]];
-// Get all Synced units/objects to module (excludes other modules)
-private _synced = [_logic] call FUNC(getSynced);
-//LOG_1("_synced %1",_synced);
+// Get all Synced units/objects to logic
 private _groups = [];
 private _emptyVehs = [];
 private _objects = [];
-{
+private _vehLog = [];
+private _entities = [];
+_synced apply {
     private _obj =  _x;
     if (!(_obj isKindOf "Logic")) then {
         if (_obj isKindOf "Thing") then {
@@ -21,8 +23,8 @@ private _objects = [];
             };
         };
         if (_obj isKindOf "Man") then {
-            private _group = (group _obj);
-            private _groupldr = (leader _group);
+            private _group = group _obj;
+            private _groupldr = leader _group;
             if (_groupldr isEqualTo _obj) then {
                 private _groupPos = getposATL _groupldr;
                 private _units = units _group;
@@ -111,10 +113,10 @@ private _objects = [];
             };
         };
     };
-} foreach _synced;
-//LOG_1("Deleting Objects for Logic: %1",_logic);
+};
+LOG_1("Deleting Objects for Logic: %1",_logic);
 [_synced] call FUNC(deleteVehicles);
-//LOG_1("Deleting %1 Objects",count _synced);
-//LOG_1("return _entities %1",_entities);
+LOG_1("Deleting %1 Objects",count _synced);
 _entities = [_groups,_emptyVehs,_objects];
+LOG_1("return _entities %1",_entities);
 _entities

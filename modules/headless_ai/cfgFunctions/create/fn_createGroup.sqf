@@ -4,8 +4,7 @@ params ["_args", ["_specialArgs", [], [[]]]];
 _args params [
     "",
     "_groupSet",
-    "_groupMem",
-    ["_currentVeh",objNull,[objNull]]
+    "_groupMem"
 ];
 
 _groupSet params [
@@ -35,8 +34,7 @@ _groupSet params [
     /* 23 */ "_name",
     /* 24 */ "_groupID",
     /* 25 */ "_areaAssigned",
-    /* 26 */ "_assetType",
-    /* 27 */ ["_manualPos", [0,0,0], [[]]]
+    /* 26 */ "_assetType"
 ];
 
 createCenter _side;
@@ -69,22 +67,31 @@ if !(_specialArgs isEqualTo []) then {
 
 {
     if ((_x select 0)) then {
-        private _u = [false, _group, _groupPos, _startBld, _foreachIndex, _x, _taskRadius, _currentVeh] call FUNC(createUnit);
+        private _u = [false, _group, _groupPos, _startBld, _foreachIndex, _x, _taskRadius] call FUNC(createUnit);
     } else {
         private _vpos = (_x select 2);
         private _v = [_vpos, _x, _side] call FUNC(createVehicle);
-        _currentVeh = _v;
     };
 } foreach _groupMem;
 
 [_group,_groupSet] call FUNC(setGroupVariables);
 _group call CBA_fnc_clearWaypoints;
 
-if (((GETVAR(leader _group,noAI,false)) || {GETVAR(_group,noAI,false)}) || {(count _waypoints > 1) && {_task isEqualTo "NONE"}}) then {
+if ((GETVAR(leader _group,noAI,false) || {GETVAR(_group,noAI,false)}) || {(count _waypoints > 1) && {_task isEqualTo "NONE"}}) then {
     LOG_2("Setting %1 to manual wp mode with: %2",_group,_waypoints);
     [_group,_waypoints] call FUNC(createWaypoints);
 } else {
+    if (GETVAR(_group,vehCargo,false)) then {
+        SETVAR(_group,vehCargoOrigTask,_task);
+        private _veh = vehicle leader _group;
+        private _cargoGroups = GETVAR(_veh,vehCargoGroups,[]);
+        _cargoGroups pushBackUnique _group;
+        SETVAR(_veh,vehCargoGroups,_cargoGroups);
+        TRACE_2("vehCargoGroups added",_veh,_cargoGroups);
+        _task = "CARGO";
+    };
     LOG_2("Setting %1 to task: %2",_group,_task);
+    private _manualPos = GETVAR(_group,taskPos,[ARR_3(0,0,0)]);
     private _taskPos = if (_manualPos isEqualTo [0,0,0]) then {
         _groupPos
     } else {

@@ -5,6 +5,10 @@
 params ["_vehicle", "_type"];
 
 if !(local _vehicle) exitWith {};
+    
+if (GETMVAR(removeVehicleGear,true)) then {
+	[] call FUNC(removeAllVehicleGear);
+};
 
 FUNC(AddItemVehicle) = {([_vehicle, _type] + _this) call FUNC(AddItemVehicleOrg);};
 FUNC(AddItemVehicleRandom) = {([[_vehicle, _type]] + [_this]) call FUNC(AddItemVehicleRandomOrg);};

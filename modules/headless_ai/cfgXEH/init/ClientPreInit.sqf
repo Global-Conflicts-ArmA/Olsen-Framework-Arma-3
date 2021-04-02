@@ -12,4 +12,16 @@ private _version = "0.2.4";
 
 AI_EXEC_CHECK(HC);
 
-[] call FUNC(initMain);
+//Ask server for entities data
+if (isMultiplayer) then {
+	[QGVAR(HCRequestArrayDataEvent), clientOwner] call CBA_fnc_serverEvent;
+	[{
+	    (GETMVAR(receivedArrayData,false))
+	},{
+	    [] call FUNC(initMain);
+	}] call CBA_fnc_waitUntilAndExecute;
+} else {
+	[] call FUNC(initMain);
+};
+
+

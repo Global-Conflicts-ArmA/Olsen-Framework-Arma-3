@@ -70,7 +70,9 @@ if (!(alive _leader) || {!(local _leader)}) then {
         "MOVE",
         "MANUAL",
         "BLDMOVE",
-        "BLDSEARCH"
+        "BLDSEARCH",
+        "PICKUP",
+        "DROPOFF"
     ]) then {true} else {false};
     private _usetarget = false;
     if (_target isEqualTo objnull) then {

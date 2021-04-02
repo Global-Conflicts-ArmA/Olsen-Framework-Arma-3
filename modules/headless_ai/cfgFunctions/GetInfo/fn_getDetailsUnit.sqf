@@ -26,6 +26,11 @@ private _identity = [
 ];
 private _name = GETVAR(_unit,varName,"");
 private _olsenGearType = GETVAR(_unit,gearType,"");
+private _vehArray = [
+    _vehicle, 
+    typeOf _vehicle,
+    assignedVehicleRole _unit
+];
 
 [true,
 typeOf _unit,
@@ -34,9 +39,8 @@ _vectorDir,
 _vectorUp,
 _damage,
 getUnitLoadout _unit,
-typeOf _vehicle,
-assignedVehicleRole _unit,
 _vehAssigned,
+_vehArray,
 _unit getVariable ["ACE_captives_isHandcuffed",false],
 surfaceIsWater (getposATL _unit),
 GETVAR(_unit,Persistent,true),
