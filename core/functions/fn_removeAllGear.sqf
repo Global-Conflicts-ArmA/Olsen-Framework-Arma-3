@@ -19,7 +19,7 @@
 params ["_unit"];
 
 removeHeadgear _unit;
-if (!isPlayer _unit || !((goggles _unit) in WHITELIST) || (!isNil "FW_force_remove_facewear" && {FW_force_remove_facewear})) then {
+if (!isPlayer _unit || !((goggles _unit) in WHITELIST) || (GETMVAR(force_remove_facewear,false))) then {
 	removeGoggles _unit;
 };
 removeVest _unit;

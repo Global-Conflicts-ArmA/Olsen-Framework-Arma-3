@@ -10,9 +10,6 @@ SETVAR(_group,Task,"BLDSEARCH");
 [_group] call FUNC(taskRelease);
 SETVAR(_group,searchingBuilding,true);
 
-private _markerName = format ["PZAI_b_%1",CBA_missionTime];
-private _bDebugMarker = [_markerName, getpos _building, "ICON", [1, 1], "TYPE:", "mil_box","COLOR:", "ColorRed"] call CBA_fnc_createMarker;
-
 _group lockWP true;
 private _wp = _group addWaypoint [getPos _leader, 0, currentWaypoint _group];
 private _cond = QUOTE(!(QGETVAR((group (thisList select 0)),searchingBuilding,false)));
@@ -92,7 +89,6 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
         "_positions",
         "_coverTeam",
         ["_teams", [], [[]]],
-        "_bDebugMarker",
         "_totalPositions",
         ["_clearedPositions", 0, [0]],
         "_lastTimeChanged",
@@ -125,7 +121,6 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
         SETVAR(_building,searched,CBA_missionTime);
         SETVAR(_group,searchingBuilding,false);
         [_idPFH] call CBA_fnc_removePerFrameHandler;
-        _bDebugMarker setMarkerColor "ColorBlue";
     };
     //private _leader = leader _group;
     
@@ -173,13 +168,5 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
     _args set [3, _positions];
     _args set [5, _aliveTeams];
     _args set [8, _clearedPositions];
-    
-    if (!(_debugSet) && {(_clearedPositions > (count _positions))}) then {
-        _debugSet = true;
-        _args set [10, _debugSet];
-        _bDebugMarker setMarkerColor "ColorYellow";
-    };
-    
-    //LOG_3("group: %1 cleared pos: %2 total pos: %3",_group,_clearedPositions,_totalPositions); 
-    
-}, 5, [_group, _building, _otask, _positions, _coverTeam, _teams, _bDebugMarker, _totalPositions, 0, (CBA_missionTime + 10)]] call CBA_fnc_addPerFrameHandler;
+
+}, 5, [_group, _building, _otask, _positions, _coverTeam, _teams, _totalPositions, 0, (CBA_missionTime + 10)]] call CBA_fnc_addPerFrameHandler;

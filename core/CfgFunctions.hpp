@@ -37,7 +37,7 @@ class Core {
 	class briefing {};
 	class gearScript {};
 	class gearExport {};
-	class vehGear {};
+	class vehGearScript {};
 	class postChecks {};
 	class initLoadingScreen {};
 	class initSafeStart {};

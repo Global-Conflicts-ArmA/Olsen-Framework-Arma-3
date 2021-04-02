@@ -8,6 +8,7 @@ class PZAI {
 		class CombatAssault {};
 		class CombatAssaultVehicle {};
 		class CombatDefend {};
+		class CombatDropOff {};
 		class CombatLand {};
 		class CombatMode {};
 		class CombatMoveTo {};
@@ -43,6 +44,7 @@ class PZAI {
 		class ThrowGrenade {};
 		class WatchEnemy {};
 		class SearchBuilding {};
+		class VehicleEject {};
 	};
 
 	class Commander {
@@ -258,6 +260,7 @@ class PZAI {
 	    class taskAssault {};
 	    class taskCheck {};
 	    class taskComplete {};
+	    class taskDropOff {};
 	    class taskForceFire {};
 	    class taskGroup {};
 	    class taskLoiter {};
