@@ -5,6 +5,12 @@
 	};
 #endif
 
+#ifdef description_XEH_PostInit
+	class JIP {
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\jip\postInitClient.sqf'";
+	};
+#endif
+
 #ifdef description_functions
 	#include "functions\CfgFunctions.hpp"
 #endif
