@@ -31,7 +31,7 @@ switch (side player) do {
 		GVAR(JIPDISTANCE) = 50;
 		GVAR(SPAWNDISTANCE) = 200;
 	};
-	
+
 		case civilian: {
 		GVAR(JIPTYPE) = "TELEPORT";
 		GVAR(JIPDISTANCE) = 50;

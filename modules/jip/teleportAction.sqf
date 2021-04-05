@@ -1,10 +1,12 @@
 params ["", "", "_id", ["_target", leader player, [objnull]]];
 
-if !((_target call FUNC(isAlive)) && {(!(INVEHICLE(_target)) || {((vehicle _target) call FUNC(getEmptyPositions) isEqualTo [])})}) then {
+#include "..\..\core\script_macros.hpp"
+
+if !((_target call FUNC(isAlive)) && {(!(INVEHICLE(_target)) || {((vehicle _target) call FUNC(getEmptyPositions)) isEqualTo []})}) then {
 
 	private _rank = -1;
 	private _count = 0;
-    
+
     (units group player) select {
         _x call FUNC(isAlive) &&
 		{!(_x isEqualTo player)}
