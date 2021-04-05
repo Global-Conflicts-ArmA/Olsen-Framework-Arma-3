@@ -2,7 +2,7 @@
 //RADIO SCRAMBLE
 //////////////////
 
-FW_enable_scramble = true;
+GVAR(ACRE_Enable_Scramble) = true;
 
 //If enabled all sides will have different scramble frequencies.
 //Function below is to switch one unit to different scramble side.
@@ -34,12 +34,12 @@ FW_enable_scramble = true;
 //CHANNEL NAMES
 /////////////
 
-FW_enable_channel_names = false;
+GVAR(ACRE_Enable_Channel_Names) = false;
 
 //define custom radio channel names in following array
 //don't change "label" value!
 
-FW_ChannelNames = [
+GVAR(ACRE_ChannelNames) = [
 	[//WEST - USE SIDE SETTINGS ONLY IF SCRAMBLE IS ON
 		[1, "label", "PLTNET 1"],
 		[2, "label", "PLTNET 2"],
@@ -82,7 +82,7 @@ FW_ChannelNames = [
 //BABEL
 //////////////
 
-FW_enable_babel = false;
+GVAR(ACRE_Enable_Babel) = false;
 
 /*
  * FNC_SetLanguages
@@ -97,14 +97,14 @@ FW_enable_babel = false;
 
 //define all available languages here
 
-FW_all_languages = [
+GVAR(ACRE_All_Languages) = [
 	["en", "English"],
 	["ru", "Russian"],
 	["fr", "French"]
 ];
 
 //define languages for different sides
-FW_languages_babel = [
+GVAR(ACRE_Languages_Babel) = [
 	["fr", "en"],//WEST
 	["ru", "en"],//EAST
 	["fr", "en", "ru"],//INDEPENDENT
@@ -115,8 +115,8 @@ FW_languages_babel = [
 //ADD RACKS TO VEHICLES
 ///////////////////////
 
-FW_enable_addRacks = false;
-FW_enable_addRackDebug = false;
+GVAR(ACRE_Enable_AddRacks) = false;
+GVAR(ACRE_Enable_AddRackDebug) = false;
 
 /* params:
  * 0: variable name for vehicle or object rack is being added to <OBJECT>
@@ -152,7 +152,7 @@ FW_enable_addRackDebug = false;
 */
 
 //ORR = object receiving rack
-FW_ORRList = [
+GVAR(ACRE_ORRList) = [
 	//These examples will cause errors if you do not comment them out or remove them.
 	//If you want to test the module, make an object and give it the variable name accVic, or change this name to whatever you want it to be
 	["accVic", "ACRE_VRC103", true, false, ["Radio Rack One", "R1"], ["driver",["cargo",0], ["cargo",1]], ["cargo"], west],
@@ -225,4 +225,4 @@ FW_ORRList = [
   +2			|  15		|  55		 |  195
 */
 
-FW_Acre_Volume_Value = -1;
+GVAR(ACRE_Volume_Value) = -1;
