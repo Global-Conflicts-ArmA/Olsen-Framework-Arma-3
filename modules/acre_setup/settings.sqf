@@ -8,11 +8,11 @@ GVAR(ACRE_Enable_Scramble) = true;
 //Function below is to switch one unit to different scramble side.
 
 /*
- * FNC_SetScramble
+ * FW_fnc_ACRES_SetScramble
  * Change unit's scramble so it matches set faction
  *
  * Example:
- * [this, east] call FNC_SetScramble;
+ * [this, east] call FW_fnc_ACRES_SetScramble;
  * Will set unit's radio to east's scramble setting.
  * (if following example is used on west unit, that unit will hear east units on radio, but won't hear west)
 */
@@ -22,12 +22,12 @@ GVAR(ACRE_Enable_Scramble) = true;
 /////////////////
 
 /*
- * FNC_SetRadio
+ * FW_fnc_ACRES_SetRadio
  * use this in player init to set default radio channel and spatial (optional)
  *
  * Examples:
- * [this, "ACRE_PRC343", 2] call FNC_SetRadio;
- * [this, "ACRE_PRC117F", 7, "LEFT"] call FNC_SetRadio;
+ * [this, "ACRE_PRC343", 2] call FW_fnc_ACRES_SetRadio;
+ * [this, "ACRE_PRC117F", 7, "LEFT"] call FW_fnc_ACRES_SetRadio;
 */
 
 /////////////
@@ -85,14 +85,14 @@ GVAR(ACRE_ChannelNames) = [
 GVAR(ACRE_Enable_Babel) = false;
 
 /*
- * FNC_SetLanguages
+ * FW_fnc_ACRES_SetLanguages
  *
  * Use this function in player's init to set player's custom languages (translator for example)
  * faction setting will be overwritten by this value
  *
  * Examples:
- * [this, ["ru"]] call FNC_SetLanguages;
- * [this, ["fr", "en", "ru"]] call FNC_SetLanguages;
+ * [this, ["ru"]] call FW_fnc_ACRES_SetLanguages;
+ * [this, ["fr", "en", "ru"]] call FW_fnc_ACRES_SetLanguages;
 */
 
 //define all available languages here
