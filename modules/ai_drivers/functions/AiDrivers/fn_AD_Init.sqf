@@ -5,8 +5,6 @@ if (!(hasinterface) || {is3DEN}) exitwith {};
 //contains _AOMarkers array
 #include "..\..\settings.sqf"
 
-[{((count vehicles) > 0)}, {
-
 vehicles select {
     private _veh = _x;
 
@@ -18,4 +16,3 @@ vehicles select {
 } apply {
     _x call FUNC(AD_EnableAIDriver)
 };
-}, []] call CBA_fnc_waitUntilAndExecute;
