@@ -1,3 +1,3 @@
 #include "..\..\core\script_macros.hpp"
 
-[] call FUNC(ENV_preInit);
+[] call FUNC(ENV_serverInit);
