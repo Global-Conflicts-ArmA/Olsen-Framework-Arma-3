@@ -33,7 +33,7 @@ if !(_target isEqualTo objnull) then {
 	if (INVEHICLE(_target)) then {
 		player moveInAny (vehicle _target);
 	} else {
-		player setPos (getPos _target);
+		player setPosATL (getPosATL _target);
 	};
 	player removeAction _id;
 } else {
