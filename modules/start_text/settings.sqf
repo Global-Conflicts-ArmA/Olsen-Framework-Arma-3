@@ -1,4 +1,4 @@
-//_startTextArray Format:
+//GVAR(START_TEXT_ARRAY) Format:
 //
 //["LINE_TYPE", "LINE_TEXT"], <-- remember to put a comma unless this is the last line
 //
@@ -11,47 +11,53 @@
 //DATE -> Displays date (no text required)
 //DATETIME -> Displays date and time (no text required)
 
-
 switch (side player) do { //Checks what team the player is on
 
-	case west: { //If player is west he receives this message
+	case blufor: { //If player is blufor they receive this message
 
-		_startTextArray = [
+		GVAR(START_TEXT_ARRAY) = [
 			["TITLEQUOTE", "BLUFOR Time"],
 			["TEXT", "Somewhere in Kavala"],
 			["DATETIME"]
 		];
 
-	}; //End of west case
+		GVAR(START_TEXT_DELAY) = 10; // Delay (in seconds) after mission start to display the text
 
-	case east: { //If player is east he receives this message
+	}; //End of blufor case
 
-		_startTextArray = [
+	case opfor: { //If player is opfor they receive this message
+
+		GVAR(START_TEXT_ARRAY) = [
 			["TITLEQUOTE", "Malden"],
 			["TEXT", "Near Saint Maire"],
 			["DATETIME"]
 		];
 
-	}; //End of east case
+		GVAR(START_TEXT_DELAY) = 10; // Delay (in seconds) after mission start to display the text
+
+	}; //End of opfor case
 
 	case independent: {
 
-		_startTextArray = [
+		GVAR(START_TEXT_ARRAY) = [
 			["TITLEQUOTE", "Malden"],
 			["TEXT", "Near Saint Maire"],
 			["DATETIME"]
 		];
+
+		GVAR(START_TEXT_DELAY) = 10; // Delay (in seconds) after mission start to display the text
 
 	};
 
 	case civilian: {
 
-		_startTextArray = [
+		GVAR(START_TEXT_ARRAY) = [
 			["TITLEQUOTE", "Malden"],
 			["TEXT", "Near Saint Maire"],
 			["DATETIME"]
 		];
 
+		GVAR(START_TEXT_DELAY) = 10; // Delay (in seconds) after mission start to display the text
+
 	};
 }; //End of switch
-
