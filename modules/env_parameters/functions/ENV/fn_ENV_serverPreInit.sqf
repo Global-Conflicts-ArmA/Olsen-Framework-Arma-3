@@ -1,7 +1,8 @@
 #include "script_component.hpp"
 #include "..\..\settings.sqf"
 
-private ["_TimeParam", "_date"];
+private _TimeParam;
+private _date;
 
 _TimeParam = ["TimeOfDay", -1] call BIS_fnc_getParamValue;
 

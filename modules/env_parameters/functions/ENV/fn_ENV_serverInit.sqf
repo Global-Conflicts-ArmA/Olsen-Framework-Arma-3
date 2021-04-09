@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-private ["_TimeLimitParam"];
+private _TimeLimitParam;
 
 _TimeLimitParam = "TimeLimit" call BIS_fnc_getParamValue;
 
