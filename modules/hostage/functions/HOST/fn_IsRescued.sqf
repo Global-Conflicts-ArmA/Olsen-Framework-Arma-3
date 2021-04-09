@@ -2,6 +2,6 @@
 
 params ["_unit"];
 
-private _isRescued = _unit getVariable ["HOST_Rescued", false];
+private _isRescued = GETVAR(_unit,IsRescued,false);
 
 _isRescued;
