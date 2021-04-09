@@ -9,7 +9,7 @@ if !((_target call FUNC(isAlive)) && {(!(INVEHICLE(_target)) || {((vehicle _targ
 
     (units group player) select {
         _x call FUNC(isAlive) &&
-		{!(_x isEqualTo player)}
+		{_x isNotEqualTo player}
     } apply {
         _count = _count + 1;
         if ((rankId _x > _rank) && {!(INVEHICLE(_x)) || {((vehicle _x) call FUNC(getEmptyPositions) isEqualTo [])}}) then {
