@@ -17,7 +17,7 @@
 				_version
 			};
         };
-		_modules = _modules + "<font size='16'>" + _name + "</font><br/>Version: " + _version + "</font><br/>Description: " + _description + "<br/>by " + _author;
+		_modules = _modules + "<font size='16'>" + _name + "</font><br/>Version: " + _version + "<br/>Description: " + _description + "<br/>by " + _author;
 		if (_i < count GVAR(Modules)) then {
 			_modules = _modules + "<br/><br/>";
 		};
