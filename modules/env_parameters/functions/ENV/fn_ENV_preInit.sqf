@@ -3,18 +3,11 @@
 
 if !(isMultiplayer) exitWith {};
 
-private _WeatherParam;
-private _FogParam;
-private _overcast;
-private _wind;
-private _windDir;
-private _fog;
-
-_WeatherParam = ["Weather", -1] call BIS_fnc_getParamValue;
+private _WeatherParam = ["Weather", -1] call BIS_fnc_getParamValue;
 
 if (-1 != _WeatherParam) then {
 
-	_overcast = _WeatherParam;
+	private _overcast = _WeatherParam;
 	if (-10 == _overcast) then {
 		_overcast = random 10;
 	};
@@ -22,8 +15,8 @@ if (-1 != _WeatherParam) then {
 
 };
 
-_wind = ["Wind", -1] call BIS_fnc_getParamValue;
-_windDir = ["WindDir", 90] call BIS_fnc_getParamValue;
+private _wind = ["Wind", -1] call BIS_fnc_getParamValue;
+private _windDir = ["WindDir", 90] call BIS_fnc_getParamValue;
 
 if (-1 != _wind) then {
     // Calculate X and Y component of wind direction vector
@@ -36,7 +29,7 @@ if (-1 != _wind) then {
     setWind [_dirX * _wind, _dirY * _wind, true];
 };
 
-_FogParam = ["Fog", -1] call BIS_fnc_getParamValue;
+private _FogParam = ["Fog", -1] call BIS_fnc_getParamValue;
 
 if (-1 != _FogParam) then {
 
@@ -45,7 +38,7 @@ if (-1 != _FogParam) then {
 	};
 
 	if (defaultFogType) then {
-		_fog = _FogParam;
+		private _fog = _FogParam;
 		0 setFog (_fog / 3.2);
 	} else {
 		_fog = (fogArrays select _FogParam);

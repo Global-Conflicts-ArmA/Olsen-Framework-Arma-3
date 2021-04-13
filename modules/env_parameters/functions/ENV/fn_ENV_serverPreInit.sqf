@@ -1,10 +1,7 @@
 #include "script_component.hpp"
 #include "..\..\settings.sqf"
 
-private _TimeParam;
-private _date;
-
-_TimeParam = ["TimeOfDay", -1] call BIS_fnc_getParamValue;
+private _TimeParam = ["TimeOfDay", -1] call BIS_fnc_getParamValue;
 
 private _t = -1;
 
@@ -40,7 +37,7 @@ if (-10 == _t) then {
 if (-1 != _t) then {
   _t = [floor _t, floor ((_t % 1) * 60)];
 
-  _date = date;
+  private _date = date;
   _date set [3, _t select 0];
   _date set [4, _t select 1];
   [_date] call BIS_fnc_setDate;

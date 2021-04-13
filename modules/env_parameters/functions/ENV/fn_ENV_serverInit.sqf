@@ -1,8 +1,6 @@
 #include "script_component.hpp"
 
-private _TimeLimitParam;
-
-_TimeLimitParam = "TimeLimit" call BIS_fnc_getParamValue;
+private _TimeLimitParam = "TimeLimit" call BIS_fnc_getParamValue;
 
 if (_TimeLimitParam == -1) then {
 	GVAR(TimeLimit) = 0;
