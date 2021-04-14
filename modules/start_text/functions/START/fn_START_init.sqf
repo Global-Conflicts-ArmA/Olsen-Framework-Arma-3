@@ -5,7 +5,7 @@ private _hour = "";
 private _min = "";
 
 private _startTextArray = switch (side player) do {
-	case blufor: {GETMVAR(START_TEXT_ARRAY_OPFOR, "null")};
+	case blufor: {GETMVAR(START_TEXT_ARRAY_BLUFOR, "null")};
 	case opfor: {GETMVAR(START_TEXT_ARRAY_OPFOR, "null")};
 	case independent: {GETMVAR(START_TEXT_ARRAY_INDFOR, "null")};
 	case civilian: {GETMVAR(START_TEXT_ARRAY_CIVFOR, "null")};
