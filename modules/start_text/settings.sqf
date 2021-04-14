@@ -1,4 +1,4 @@
-//GVAR(START_TEXT_ARRAY) Format:
+//GVAR(START_TEXT_ARRAY_<TEAM>) Format:
 //
 //["LINE_TYPE", "LINE_TEXT"], <-- remember to put a comma unless this is the last line
 //
@@ -10,54 +10,34 @@
 //TIME -> Displays time (no text required)
 //DATE -> Displays date (no text required)
 //DATETIME -> Displays date and time (no text required)
+// To disable the start text for a specific team just comment out its declaration.
 
-switch (side player) do { //Checks what team the player is on
+GVAR(START_TEXT_DELAY) = 10; // Delay (in seconds) after mission start to display the text
 
-	case blufor: { //If player is blufor they receive this message
+// If player is BLUFOR they receive this message
+GVAR(START_TEXT_ARRAY_BLUFOR) = [
+	["TITLEQUOTE", "BLUFOR Time"],
+	["TEXT", "Somewhere in Kavala"],
+	["DATETIME"]
+];
 
-		GVAR(START_TEXT_ARRAY) = [
-			["TITLEQUOTE", "BLUFOR Time"],
-			["TEXT", "Somewhere in Kavala"],
-			["DATETIME"]
-		];
+// If player is OPFOR they receive this message
+GVAR(START_TEXT_ARRAY_OPFOR) = [
+	["TITLEQUOTE", "OPFOR Time"],
+	["TEXT", "Somewhere in Kavala"],
+	["DATETIME"]
+];
 
-		GVAR(START_TEXT_DELAY) = 10; // Delay (in seconds) after mission start to display the text
+// If player is INDEPENDENT they receive this message
+GVAR(START_TEXT_ARRAY_INDFOR) = [
+	["TITLEQUOTE", "INDFOR Time"],
+	["TEXT", "Somewhere in Kavala"],
+	["DATETIME"]
+];
 
-	}; //End of blufor case
-
-	case opfor: { //If player is opfor they receive this message
-
-		GVAR(START_TEXT_ARRAY) = [
-			["TITLEQUOTE", "Malden"],
-			["TEXT", "Near Saint Maire"],
-			["DATETIME"]
-		];
-
-		GVAR(START_TEXT_DELAY) = 10; // Delay (in seconds) after mission start to display the text
-
-	}; //End of opfor case
-
-	case independent: {
-
-		GVAR(START_TEXT_ARRAY) = [
-			["TITLEQUOTE", "Malden"],
-			["TEXT", "Near Saint Maire"],
-			["DATETIME"]
-		];
-
-		GVAR(START_TEXT_DELAY) = 10; // Delay (in seconds) after mission start to display the text
-
-	};
-
-	case civilian: {
-
-		GVAR(START_TEXT_ARRAY) = [
-			["TITLEQUOTE", "Malden"],
-			["TEXT", "Near Saint Maire"],
-			["DATETIME"]
-		];
-
-		GVAR(START_TEXT_DELAY) = 10; // Delay (in seconds) after mission start to display the text
-
-	};
-}; //End of switch
+// If player is CIVILIAN they receive this message
+GVAR(START_TEXT_ARRAY_CIVFOR) = [
+	["TITLEQUOTE", "CIVFOR Time"],
+	["TEXT", "Somewhere in Kavala"],
+	["DATETIME"]
+];
