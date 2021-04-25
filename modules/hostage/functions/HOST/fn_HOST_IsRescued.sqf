@@ -1,9 +1,7 @@
 #include "script_component.hpp"
 
-private ["_unit", "_isRescued"];
+params ["_unit"];
 
-_unit = _this;
-
-_isRescued = _unit getVariable ["HOST_Rescued", false];
+private _isRescued = GETVAR(_unit,IsRescued,false);
 
 _isRescued;

@@ -1,73 +1,58 @@
 #include "script_component.hpp"
 
-private "_unit";
+params ["_unit"];
 
-_unit = _this select 0;
-
-if (hasInterface) then {
-  _unit addAction ["<t color='#FBB829'>Rescue Hostage</t>",{
-    [-2,{_this call FUNC(HOST_RescueHostage);},[_this select 0, _this select 1]] call CBA_fnc_globalExecute;
-  }, nil, 6, true, true, "", "(_target distance _this) < 2 && !(_target getVariable ['HOST_Rescued', false]);"];
+private _markerName = (GETVAR(_unit,RescueLocation,""));
+if (_markerName isEqualTo "") exitwith {
+    ERROR_1("Hostage Rescue Area not defined: %1!",_unit);
 };
+if (markerColor _markerName isEqualto "") exitWith {
+    ERROR_2("Hostage Rescue marker for unit: %1 does not exist: %2!",_unit,_markerName);
+};
+LOG_2("%1 set to hostage with rescue area of %2",_unit,_moduleAreaName);
 
-if (!isServer) exitWith {};
+SETPVAR(_unit,IsUntied,false);
+SETPVAR(_unit,IsRescued,false);
 
-_this spawn {
-  private ["_EhAnimDone", "_unit", "_marker", "_break"];
+[{(CBA_missionTime > 0)},{
+    params ["_unit","_markerName"];
 
-  _unit = _this select 0;
-  _marker = _this select 1;
-
-  waitUntil {time > 0.1};
-  /* [{time > 0.1}, { */
+    [QGVAR(ACEActionsEvent), [_unit]] call CBA_fnc_globalEventJiP;
     _unit setBehaviour "CARELESS";
     _unit allowFleeing 0;
     _unit setCaptive true;
+    [_unit, "Acts_AidlPsitMstpSsurWnonDnon04", 1] call ace_common_fnc_doAnimation;
+    _unit disableAI "MOVE";
 
-    _unit playMoveNow "Acts_AidlPsitMstpSsurWnonDnon04";
-
-    _EhAnimDone = _unit addEventHandler ["AnimDone", {
-        private "_unit";
-        _unit = _this select 0;
-
-        if (!alive _unit) exitWith {
-          _unit removeEventHandler ["AnimDone", _unit getVariable ["FW_EhAnimDone", 0]];
+    //IGNORE_PRIVATE_WARNING ["_thisID","_thisType"];
+    private _EhAnimDone = [_unit, "AnimDone", {
+        params ["_unit", "_anim"];
+        if ((!alive _unit) || (GETVAR(_unit,IsRescued,false)) || (GETVAR(_unit,IsUntied,false))) exitWith {
+            _unit removeEventHandler [_thisType, _thisID];
         };
+        [_unit, "Acts_AidlPsitMstpSsurWnonDnon04", 1] call ace_common_fnc_doAnimation;
+    }, []] call CBA_fnc_addBISEventHandler;
 
-        _unit playMoveNow "Acts_AidlPsitMstpSsurWnonDnon04";
-      }
-    ];
+    SETVAR(_unit,EhAnimDone,_EhAnimDone);
 
-    _unit setVariable ["FW_EhAnimDone", _EhAnimDone];
-
-    _break = false;
-
-    while {true} do {
-    /* [{
-      params ["_args", "_idPFH"]; */
-
-      if (animationState _unit != "acts_aidlpsitmstpssurwnondnon04" && _unit inArea  _marker) then {
-
-        _unit setVariable ["HOST_Rescued", true, true];
-
-        if (vehicle _unit == _unit) exitWith {
-
-          [_unit] joinSilent grpNull;
-          _unit disableAI "MOVE";
-
-          [{
-            _unit playMoveNow "AmovPsitMstpSnonWnonDnon_ground";
-            _break = true;
-
-            /* [_idPFH] call CBA_fnc_removePerFrameHandler; */
-          }, [], 1] call CBA_fnc_waitAndExecute;
+    [{
+        params ["_argNested", "_idPFH"];
+        _argNested params ["_unit","_markerName","_lastCheckedTime"];
+        private _timeDifference = (CBA_missionTime - _lastCheckedTime);
+        if (_timeDifference < 5) exitwith {};
+        _argNested set [2,(CBA_missionTime)];
+        if ((animationState _unit != "acts_aidlpsitmstpssurwnondnon04") && {(GETVAR(_unit,IsUntied,false))} && {(_unit inArea _markerName)}) exitwith {
+            if ((vehicle _unit) isEqualto _unit) then {
+                [_unit] joinSilent grpNull;
+                _unit disableAI "MOVE";
+                [_unit, "AmovPsitMstpSnonWnonDnon_ground", 1] call ace_common_fnc_doAnimation;
+                _unit disableAI "ANIM";
+            };
+            SETPVAR(_unit,IsRescued,true);
+            [_idPFH] call CBA_fnc_removePerFrameHandler;
         };
-      };
-
-      if (_break) exitWith {};
-
-      sleep 15;
-      /* } , 15, []] call CBA_fnc_addPerFrameHandler; */
-    };
-  /* }, []] call CBA_fnc_waitUntilAndExecute; */
-};
+        if (GETVAR(_unit,IsRescued,false)) exitWith {
+            [_idPFH] call CBA_fnc_removePerFrameHandler;
+        };
+    }, 5, [_unit,_markerName,CBA_missionTime]] call CBA_fnc_addPerFrameHandler;
+}, [_unit,_markerName]] call CBA_fnc_WaitUntilAndExecute;

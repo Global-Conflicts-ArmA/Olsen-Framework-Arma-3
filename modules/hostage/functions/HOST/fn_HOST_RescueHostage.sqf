@@ -1,17 +1,23 @@
 #include "script_component.hpp"
 
-private ["_unit", "_caller"];
+params ["_unit", "_caller"];
 
-_unit = _this select 0;
-_caller = _this select 1;
+TRACE_2("Hostage Rescue called",_unit,_caller);
 
-if (_unit getVariable ["HOST_Rescued", false]) exitWith {};
-
-if (animationState _unit find "acts_aidlpsitmstpssurwnondnon" != -1) then {
-
-  _unit removeEventHandler ["AnimDone", _unit getVariable ["FW_EhAnimDone", 0]];
-  _unit playMoveNow "Acts_AidlPsitMstpSsurWnonDnon_out";
-
+if ((GETVAR(_unit,IsRescued,false)) || {GETVAR(_unit,IsUntied,false)}) exitWith {};
+if !((animationState _unit find "acts_aidlpsitmstpssurwnondnon") isEqualto -1) then {
+    _unit removeEventHandler ["AnimDone", (GETVAR(_unit,EhAnimDone,0))];
+    [_unit, "", 1] call ace_common_fnc_doAnimation;
+    _unit enableAI "ANIM";
+    _unit enableAI "MOVE";
 };
 
-[_unit] join group _caller;
+if (GETVAR(_unit,FreedBehaviorModifier,true)) then {
+    _unit setBehaviour (GETVAR(_unit,FreedBehavior,"careless"));
+};
+
+if (GETVAR(_unit,FreedJoinSquad,true)) then {
+    [_unit] joinSilent (group _caller);
+};
+
+SETPVAR(_unit,IsUntied,true);
