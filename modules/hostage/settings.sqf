@@ -14,3 +14,6 @@
 // if (!alive hostage1 && !alive hostage2) exitWith {
 //		"Hostages Killed" call FUNC(EndMission);
 // };
+
+SETVAR(hostage, Enabled, true);
+SETVAR(hostage, RescueLocation, "marker_rescue");
