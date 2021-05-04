@@ -1,8 +1,8 @@
 /*
 
-FNC_Extract syntax:
+EXTRACT_Extract syntax:
 
-[arguments] call FNC_Extract;
+[arguments] call FUNC(EXTRACT_Extract);
 
 Arguments:
 1. STRING: Helicopter Classname.
@@ -16,12 +16,13 @@ Arguments:
 Note: Although the script is supposed to work with helicopters, you can use ground vehicles too.
 
 Exemples:
-["B_Heli_Transport_01_F", "spawnMarker", 15, helipad1, playableUnits, "extractMarker"] call FNC_Extract; // In this situation the helicopter will wait for ALL players to be mounted.
-["B_Heli_Transport_01_F", "spawnMarker", 15, helipad1, playableUnits + [hostage], "extractMarker"] call FNC_Extract; // In this situation the helicopter will wait for ALL players AND the hostage to be mounted.
-["B_Heli_Transport_01_F", "spawnMarker", 15, helipad1, east, "extractMarker"] call FNC_Extract; // In this situation the helicopter will wait for ALL OPFOR players to be mounted.
-["B_Heli_Transport_01_F", "spawnMarker", 15, helipad1, playableUnits, "extractMarker", "_this setDamage 1;"] call FNC_Extract; // In this situation the helicopter will blow-up when spawned.
-["B_Heli_Transport_01_F", "spawnMarker", 15, helipad1, "_this emptyPositions 'cargo' == 0", "extractMarker"] call FNC_Extract; // In this situation the helicopter will wait until it is full.
+["B_Heli_Transport_01_F", "spawnMarker", 15, helipad1, playableUnits, "extractMarker"] call FUNC(EXTRACT_Extract); // In this situation the helicopter will wait for ALL players to be mounted.
+["B_Heli_Transport_01_F", "spawnMarker", 15, helipad1, playableUnits + [hostage], "extractMarker"] call FUNC(EXTRACT_Extract); // In this situation the helicopter will wait for ALL players AND the hostage to be mounted.
+["B_Heli_Transport_01_F", "spawnMarker", 15, helipad1, east, "extractMarker"] call FUNC(EXTRACT_Extract); // In this situation the helicopter will wait for ALL OPFOR players to be mounted.
+["B_Heli_Transport_01_F", "spawnMarker", 15, helipad1, playableUnits, "extractMarker", "_this setDamage 1;"] call FUNC(EXTRACT_Extract); // In this situation the helicopter will blow-up when spawned.
+["B_Heli_Transport_01_F", "spawnMarker", 15, helipad1, "_this emptyPositions 'cargo' == 0", "extractMarker"] call FUNC(EXTRACT_Extract); // In this situation the helicopter will wait until it is full.
 
 Note: Keep in mind that the script does not wait for dead units to be mounted.
 
  */
+ 
