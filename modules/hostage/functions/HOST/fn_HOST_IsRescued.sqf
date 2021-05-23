@@ -2,6 +2,9 @@
 
 params ["_unit"];
 
-private _isRescued = GETVAR(_unit,IsRescued,false);
+TRACE_1("Hostage isRescued called", _unit);
+/* diag_log format ["Rescued?: %1", GETVAR(_unit, IsRescued, false)]; */
+
+private _isRescued = GETVAR(_unit, IsRescued, false);
 
 _isRescued;

@@ -20,4 +20,4 @@ if (GETVAR(_unit,FreedJoinSquad,true)) then {
     [_unit] joinSilent (group _caller);
 };
 
-SETPVAR(_unit,IsUntied,true);
+SETPVAR(_unit, IsUntied, true);

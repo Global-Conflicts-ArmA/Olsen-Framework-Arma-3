@@ -14,7 +14,7 @@ private _version = 0.1;
     };
     private _statement = {
         params ["_target", "_player"];
-        [_target,_player] call FUNC(Rescue);
+        [_target,_player] call FUNC(HOST_RescueHostage);
     };
     private _rescueaction = ["RescueHostage", "Untie Hostage","",_statement,_condition] call ace_interact_menu_fnc_createAction;
     [_unit, 0, ["ACE_MainActions"], _rescueaction] call ace_interact_menu_fnc_addActionToObject;

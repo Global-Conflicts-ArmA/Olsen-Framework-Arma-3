@@ -11,8 +11,8 @@ if (markerColor _markerName isEqualto "") exitWith {
 };
 LOG_2("%1 set to hostage with rescue area of %2", _unit, _markerName);
 
-SETPVAR(_unit, IsUntied, false);
-SETPVAR(_unit, IsRescued, false);
+SETVAR(_unit, IsUntied, false);
+SETVAR(_unit, IsRescued, false);
 
 [{(CBA_missionTime > 0)},{
     params ["_unit","_markerName"];
@@ -41,17 +41,21 @@ SETPVAR(_unit, IsRescued, false);
         private _timeDifference = (CBA_missionTime - _lastCheckedTime);
         if (_timeDifference < 5) exitwith {};
         _argNested set [2, (CBA_missionTime)];
+        /* diag_log format ["Checking.. untied? %1 in area? %2", (GETVAR(_unit, IsUntied, false)), (_unit inArea _markerName)]; */
         if ((animationState _unit != "acts_aidlpsitmstpssurwnondnon04") && {(GETVAR(_unit, IsUntied, false))} && {(_unit inArea _markerName)}) exitwith {
+          /* diag_log "Rescued exiting.."; */
             if ((vehicle _unit) isEqualto _unit) then {
                 [_unit] joinSilent grpNull;
                 _unit disableAI "MOVE";
                 [_unit, "AmovPsitMstpSnonWnonDnon_ground", 1] call ace_common_fnc_doAnimation;
                 _unit disableAI "ANIM";
             };
-            SETPVAR(_unit,IsRescued,true);
+            /* diag_log "Setting var!"; */
+            SETPVAR(_unit, IsRescued, true);
+            /* diag_log format ["Var set to: %1", GETVAR(_unit, IsRescued, false)]; */
             [_idPFH] call CBA_fnc_removePerFrameHandler;
         };
-        if (GETVAR(_unit,IsRescued,false)) exitWith {
+        if (GETVAR(_unit, IsRescued, false)) exitWith {
             [_idPFH] call CBA_fnc_removePerFrameHandler;
         };
     }, 5, [_unit, _markerName, CBA_missionTime]] call CBA_fnc_addPerFrameHandler;

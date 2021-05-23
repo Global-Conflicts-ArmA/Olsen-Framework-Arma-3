@@ -3,9 +3,6 @@
 
 params ["_unit"];
 
-diag_log format ["Unit: %1", _unit];
-diag_log format ["Passed params: %1", _this];
-
 if !(local _unit) exitwith {};
 
 private _hostageState = GETVAR(_unit, Enabled, false);
