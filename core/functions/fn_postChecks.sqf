@@ -1,9 +1,9 @@
 #include "script_component.hpp"
 
 [{!(GVAR(Modules) isEqualTo [])},{
-	player createDiarySubject [QGVAR(Menu), "Olsen Framework"];
+	player createDiarySubject [QGVAR(Menu), "GC Framework"];
 
-	private _modules = "<font size='18'>Olsen Framework Modules</font><br/><br/>";
+	private _modules = "<font size='18'>Global Conflicts Framework Modules</font><br/><br/>";
 
 	for "_i" from 0 to (count GVAR(Modules) - 1) step 1 do {
 		private _module = GVAR(Modules) select _i;
@@ -26,11 +26,13 @@
 	player createDiaryRecord [QGVAR(Menu), ["Modules", _modules]];
 
 	private _info = "
-	<font size='18'>Welcome to the Olsen Framework!</font><br/>
-	The Olsen Framework is a simple framework designed for ArmA 3. It supports modules and is easy to configure.<br/>
+	<img image='core\logo.jpg' />
+	<br /><br />
+	<font size='18'>Welcome to the Global Conflicts Framework!</font><br/>
+	The Global Conflicts Framework is a simple framework designed for ArmA 3. It supports modules and is easy to configure.<br/>
 	<br/>
 	Find out more about the framework on GitHub.<br/>
-	github.com/Bear-Cave-ArmA/Olsen-Framework-Arma-3<br/>
+	github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3<br/>
 	<br/>
 	Current Version: " + VERSIONSTR;
 
