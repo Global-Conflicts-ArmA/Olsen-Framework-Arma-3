@@ -10,4 +10,4 @@
 // Uncomment and modify the below lines to use the module
 //GVAR(vehiclesWithBoost) = [veh1]; // Each of these named vehicles will have the boost option
 //GVAR(vehicleBoostSpeed) = 20; // The speed increase when the boost option is used
-//GVAR(vehicleBoostDelay) = 5; // 30 second delay between boosting
+//GVAR(vehicleBoostDelay) = 30; // 30 second delay between boosting

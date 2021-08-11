@@ -2,7 +2,7 @@
 
 params ["_vehicle"];
 
-if ((GVAR(boostLastUsed) + GVAR(vehicleBoostDelay)) > time) exitWith {};
+if ((GVAR(boostLastUsed) + GVAR(vehicleBoostDelay)) > CBA_MissionTime) exitWith {};
 
 private _vel = velocity _vehicle;
 private _dir = direction _vehicle;
@@ -12,4 +12,4 @@ _vehicle setVelocity [
   (_vel select 2)
 ];
 
-GVAR(boostLastUsed) = time;
+GVAR(boostLastUsed) = CBA_MissionTime;
