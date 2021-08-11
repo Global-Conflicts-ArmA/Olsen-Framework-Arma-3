@@ -12,6 +12,8 @@
 
 **Global Conflicts Framework** is an efficient and modular mission making framework designed to help create large scale, high quality ArmA 3 scenarios. It can be used in different types of communities and servers due to it's modular nature and high flexibility.
 
+To use enhanced mission briefings, simply remove the customization\briefings directory, then rename the customization\enhanced_briefings directory to customization\briefings.
+
 To learn more, visit [our wiki](https://github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3/wiki).
 
 For information on how to make a mission read [this guide](https://github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3/wiki/Making-your-first-mission).
