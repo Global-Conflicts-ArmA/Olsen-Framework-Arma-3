@@ -1,11 +1,15 @@
-#ifdef preinit
-
-	#include "preinit.sqf"
-
+#ifdef description_XEH_PreInit
+	class HOST {
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\hostage\preInitClient.sqf'";
+	};
 #endif
 
-#ifdef framework
+#ifdef description_XEH_InitPost_CAManBase
+	class HOST {
+		init = "call compile preprocessFileLineNumbers 'modules\hostage\postInitClient.sqf'";
+	};
+#endif
 
-	#include "init.sqf"
-
+#ifdef description_functions
+	#include "functions\CfgFunctions.hpp"
 #endif
