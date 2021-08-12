@@ -1,11 +1,11 @@
 #include "script_component.hpp"
 
-private _veh = _this select 0;
-private _side = _this select 1;
+params [
+    ["_veh", objNull, [objNull]],
+    ["_side", sideEmpty, [sideEmpty]]
+];
 
-private _units = [];
-
-{if (side _x == _side) then {_units set [count _units, _x]}} forEach playableUnits;
+private _units = playableUnits select {side _x isEqualTo _side};
 
 private _result = [_veh, _units] call FUNC(EXTRACT_CheckArrayInVeh);
 
