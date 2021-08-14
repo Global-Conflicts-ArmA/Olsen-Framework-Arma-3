@@ -12,27 +12,22 @@ params [
     ["_vehInit", "", [""]]
 ];
 
-private _spawnPos = nil;
-private _landPos = nil;
-private _extractPos = nil;
-private _isHelicopter = false;
-
-if ("" isEqualType _spawnLoc) then {
-  _spawnPos = getMarkerPos _spawnLoc;
+private _spawnPos = if (_spawnLoc isEqualType "") then {
+  getMarkerPos _spawnLoc;
 } else {
-  _spawnPos = getPos _spawnLoc;
+  getPos _spawnLoc;
 };
 
-if ("" isEqualType _landLoc) then {
-  _landPos = getMarkerPos _landLoc;
+private _landPos = if (_landLoc isEqualType "") then {
+  getMarkerPos _landLoc;
 } else {
-  _landPos = getPos _landLoc;
+  getPos _landLoc;
 };
 
-if ("" isEqualType _extractLoc) then {
-  _extractPos = getMarkerPos _extractLoc;
+private _extractPos = if (_extractLoc isEqualType "") then {
+  getMarkerPos _extractLoc;
 } else {
-  _extractPos = getPos _extractLoc;
+  getPos _extractLoc;
 };
 
 private _veh = createVehicle [_class, _spawnPos, [], 0, "FLY"];
@@ -44,6 +39,8 @@ _veh allowDamage false;
 if (_vehInit isNotEqualTo "") then {
   _veh call compile _vehInit;
 };
+
+private _isHelicopter = false;
 
 if (_veh isKindOf "Air") then {
   _isHelicopter = true;
