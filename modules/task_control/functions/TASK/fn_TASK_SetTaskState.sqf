@@ -1,6 +1,8 @@
 #include "script_component.hpp"
 
-private _title = _this select 0;
-private _state = _this select 1;
+params [
+    ["_title", "", [""]],
+    ["_state", "", [""]]
+];
 
 [_title, _state] call BIS_fnc_taskSetState;

@@ -1,6 +1,8 @@
 #include "script_component.hpp"
 
-private _title = _this select 0;
+params [
+    ["_title", "", [""]]
+];
 
 private _state = [_title] call FUNC(TASK_GetTaskState);
 private _completed = false;
