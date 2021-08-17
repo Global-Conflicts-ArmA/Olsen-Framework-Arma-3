@@ -1,8 +1,8 @@
 //Add a backpack and medical items to a unit. Ex: [this,"usm_pack_m5_medic"] call FW_fnc_ACEM_assignMedicBagUnit;
-private ["_unit", "_type"];
-
-_unit 	= _this select 0;	//Vehicle to add a medic bag to
-_type 	= _this select 1;	//Class of backpack to add
+params[
+  ["_unit", objNull, [objNull]], //Vehicle to add a medic bag to
+  ["_type", "usm_pack_m5_medic", [""]] //Class of backpack to add
+];
 
 if (local _unit) then {
   _unit addBackpack _type;

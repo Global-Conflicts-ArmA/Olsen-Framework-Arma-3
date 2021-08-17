@@ -2,11 +2,11 @@
 // Be aware it will fill every once of that class name, so use something unique like a medical bag.
 if (!isServer) exitWith {};
 
-private ["_unit", "_type", "_amt"];
-
-_unit 	= _this select 0;	//Vehicle to add a medic bag to
-_type 	= _this select 1;	//Class of backpack to add
-_amt 	= _this select 2;	//Number of bags to add
+params[
+  ["_unit", objNull, [objNull]], //Class of backpack to add
+  ["_type", "usm_pack_m5_medic", [""]], //Class of backpack to add
+  ["_amt", 1, [1]] //Number of bags to add
+];
 
 [{
   (_this select 0) addBackpackCargoGlobal [(_this select 1), (_this select 2)];
