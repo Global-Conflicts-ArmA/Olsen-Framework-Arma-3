@@ -1,12 +1,16 @@
 // AUTHOR: StatusRed
-#ifdef framework
+#ifdef description_XEH_PreInit
+	class KnockDown {
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\knock_down\preInitClient.sqf'";
+	};
+#endif
 
-	#include "init.sqf"
-
+#ifdef description_XEH_PostInit
+	class KnockDown {
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\knock_down\postInitClient.sqf'";
+	};
 #endif
 
 #ifdef description_functions
-
 	#include "functions\CfgFunctions.hpp"
-
 #endif

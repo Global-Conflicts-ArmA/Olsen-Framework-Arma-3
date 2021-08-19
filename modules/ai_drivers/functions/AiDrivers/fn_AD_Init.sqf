@@ -7,7 +7,9 @@ if (!(hasinterface) || {is3DEN}) exitwith {};
 
 vehicles select {
     private _veh = _x;
-    (GVAR(AiDriversAllTanks) && {(_veh isKindOf "Tank")}) ||
+
+    (str _veh) in GVAR(AiDriversVehicles) ||
+    {(GVAR(AiDriversAllTanks) && {(_veh isKindOf "Tank")})} ||
     {(GVAR(AiDriversAllShips) && {(_veh isKindOf "Ship")})} ||
     {(GVAR(AiDriversAllCars) && {(_veh isKindOf "Car")})} ||
     {(GVAR(AiDriversVehicleClasses) findIf {_veh isKindOf _x}) > -1}

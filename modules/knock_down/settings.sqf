@@ -7,36 +7,36 @@
 // 1) Enable the module in "modules.sqf"
 // 2) Set the variables below (each is explained)
 
-// FRAMEWORK_KNOCKDOWN_TEAMS
+// KNOCKDOWN_TEAMS
 // A list of all teams which can use the knock down action
-FRAMEWORK_KNOCKDOWN_TEAMS = [blufor];
+GVAR(KNOCKDOWN_TEAMS) = [blufor];
 
-// FRAMEWORK_KNOCKDOWN_WEAPONS
+// KNOCKDOWN_WEAPONS
 // A list of all the primary weapons which can be used for the knock down action
 // This stops people being unarmed and still able to knock down for example
-FRAMEWORK_KNOCKDOWN_WEAPONS = [
+GVAR(KNOCKDOWN_WEAPONS) = [
                         "rhs_weap_akm", "UK3CB_BAF_L85A2_RIS_AFG",
                         "UK3CB_BAF_L1A1_Wood", "UK3CB_BAF_L1A1",
                         "rhs_weap_m4_carryhandle"
                         ];
 
-// FRAMEWORK_KNOCKDOWN_REVIVE_ACTION
+// KNOCKDOWN_REVIVE_ACTION
 // Whether or not a scroll wheel action will appear to revive a unit after they're knocked down
-FRAMEWORK_KNOCKDOWN_REVIVE_ACTION = true;
+GVAR(KNOCKDOWN_REVIVE_ACTION) = true;
 
-// FRAMEWORK_KNOCKDOWN_KEY
+// KNOCKDOWN_KEY
 // The key to use to knock down a unit (see DIK codes),
 // this keybind can be overridden by each user in their settings.
-FRAMEWORK_KNOCKDOWN_KEY = DIK_F2;
+GVAR(KNOCKDOWN_KEY) = DIK_F2;
 
-// FRAMEWORK_KNOCKDOWN_KEY_SHIFT
+// KNOCKDOWN_KEY_SHIFT
 // Whether or not the shift key needs to be pressed down in combination with the FRAMEWORK_KNOCKDOWN_KEY
-FRAMEWORK_KNOCKDOWN_KEY_SHIFT = true;
+GVAR(KNOCKDOWN_KEY_SHIFT) = true;
 
-// FRAMEWORK_KNOCKDOWN_KEY_CONTROL
+// KNOCKDOWN_KEY_CONTROL
 // Whether or not the control key needs to be pressed down in combination with the FRAMEWORK_KNOCKDOWN_KEY
-FRAMEWORK_KNOCKDOWN_KEY_CONTROL = false;
+GVAR(KNOCKDOWN_KEY_CONTROL) = false;
 
-// FRAMEWORK_KNOCKDOWN_KEY_ALT
+// KNOCKDOWN_KEY_ALT
 // Whether or not the alt key needs to be pressed down in combination with the FRAMEWORK_KNOCKDOWN_KEY
-FRAMEWORK_KNOCKDOWN_KEY_ALT = false;
+GVAR(KNOCKDOWN_KEY_ALT) = false;
