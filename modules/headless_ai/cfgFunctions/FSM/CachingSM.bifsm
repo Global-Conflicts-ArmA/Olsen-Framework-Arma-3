@@ -1,0 +1,617 @@
+version=1;
+class GraphItems
+{
+	class Item0
+	{
+		Flags=250;
+		BasicText="";
+		Left=-75;
+		Top=-150;
+		Right=25;
+		Bottom=-100;
+		BgColor=255;
+		class ItemInfo
+		{
+			Text="Initial";
+			lStyle=-842150451;
+			Shape=6;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=700;
+			FontUnderline=1;
+			FontCharSet=0;
+			ItemType=0;
+			class ItemInfo
+			{
+				Id=0;
+				InitCode="onStateEntered = """";";
+			};
+		};
+	};
+	class Item1
+	{
+		Flags=250;
+		BasicText="";
+		Left=-75;
+		Top=0;
+		Right=25;
+		Bottom=50;
+		class ItemInfo
+		{
+			Text="Distance Check ";
+			lStyle=-842150451;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=2;
+			class ItemInfo
+			{
+				Id=12;
+				InitCode="onStateEntered = QFUNC(CH_onSEDistanceCheck);";
+			};
+		};
+	};
+	class Item2
+	{
+		Flags=218;
+		BasicText="";
+		Left=-75;
+		Top=-75;
+		Right=25;
+		Bottom=-25;
+		BgColor=8421440;
+		class ItemInfo
+		{
+			Text="isInitialized";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=8;
+			class ItemInfo
+			{
+				Id=4;
+				Condition="true";
+			};
+		};
+	};
+	class Item3
+	{
+		Flags=218;
+		BasicText="";
+		Left=-225;
+		Top=50;
+		Right=-125;
+		Bottom=100;
+		BgColor=65535;
+		class ItemInfo
+		{
+			Text="No Enemy in " \n "Range";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=4;
+			class ItemInfo
+			{
+				Id=13;
+				Priority=1;
+				Condition="(((QGETVAR(_this,CH_enemyInRange,[])) isEqualTo []) && {!((behaviour (leader _this)) isEqualTo QN(COMBAT))})";
+				Action="onTransition = QFUNC(CH_transCacheGroup);";
+			};
+		};
+	};
+	class Item4
+	{
+		Flags=218;
+		BasicText="";
+		Left=50;
+		Top=50;
+		Right=150;
+		Bottom=100;
+		BgColor=8421440;
+		class ItemInfo
+		{
+			Text="Enemy " \n "in Range";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=8;
+			class ItemInfo
+			{
+				Id=14;
+				Condition="true";
+			};
+		};
+	};
+	class Item5
+	{
+		Flags=250;
+		BasicText="";
+		Left=-225;
+		Top=150;
+		Right=-125;
+		Bottom=200;
+		BgColor=16777215;
+		class ItemInfo
+		{
+			Text="Cache" \n "Group";
+			lStyle=-842150451;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=2;
+			class ItemInfo
+			{
+				Id=15;
+				InitCode="onStateEntered = QFUNC(CH_onSEDistanceCheck);";
+			};
+		};
+	};
+	class Item6
+	{
+		Flags=218;
+		BasicText="";
+		Left=-225;
+		Top=225;
+		Right=-125;
+		Bottom=275;
+		BgColor=65535;
+		class ItemInfo
+		{
+			Text="Enemy in " \n "Range";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=4;
+			class ItemInfo
+			{
+				Id=16;
+				Priority=1;
+				Condition="(!((QGETVAR(_this,CH_enemyInRange,[])) isEqualTo []) || ((behaviour (leader _this)) isEqualTo QN(COMBAT)))";
+				Action="onTransition = QFUNC(CH_transUnCacheGroup);";
+				ConditionTab=1;
+			};
+		};
+	};
+	class Item7
+	{
+		Flags=218;
+		BasicText="";
+		Left=-375;
+		Top=100;
+		Right=-275;
+		Bottom=150;
+		BgColor=8421440;
+		class ItemInfo
+		{
+			Text="Can Not See";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=8;
+			class ItemInfo
+			{
+				Id=17;
+				Condition="true";
+				ConditionTab=2;
+			};
+		};
+	};
+	class Item8
+	{
+		Flags=250;
+		BasicText="";
+		Left=-225;
+		Top=300;
+		Right=-125;
+		Bottom=350;
+		BgColor=16777215;
+		class ItemInfo
+		{
+			Text="Uncache" \n "Group Wait";
+			lStyle=-842150451;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=2;
+			class ItemInfo
+			{
+				Id=18;
+				InitCode="onStateEntered = """";";
+			};
+		};
+	};
+	class Item9
+	{
+		Flags=218;
+		BasicText="";
+		Left=-75;
+		Top=300;
+		Right=25;
+		Bottom=350;
+		BgColor=8421440;
+		class ItemInfo
+		{
+			Text="Wait";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=8;
+			class ItemInfo
+			{
+				Id=19;
+				Condition="true";
+				PreCondition="conditionFrequency = 2;";
+				ConditionTab=2;
+			};
+		};
+	};
+	class Item10
+	{
+		Flags=250;
+		BasicText="";
+		Left=-475;
+		Top=150;
+		Right=-375;
+		Bottom=200;
+		BgColor=16777215;
+		class ItemInfo
+		{
+			Text="Wait Cached";
+			lStyle=-842150451;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=2;
+			class ItemInfo
+			{
+				Id=33;
+				InitCode="onStateEntered = QFUNC(onSERemoveCantSeeEnemy);";
+			};
+		};
+	};
+	class Item11
+	{
+		Flags=4314;
+		BasicText="";
+		Left=-375;
+		Top=200;
+		Right=-275;
+		Bottom=250;
+		BgColor=8421440;
+		class ItemInfo
+		{
+			Text="Cached Wait" \n "Completed";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=8;
+			class ItemInfo
+			{
+				Id=34;
+				Condition="true";
+				PreCondition="conditionFrequency = 2;";
+				ConditionTab=2;
+			};
+		};
+	};
+	class Item12
+	{
+		Flags=250;
+		BasicText="";
+		Left=150;
+		Top=0;
+		Right=250;
+		Bottom=50;
+		BgColor=16777215;
+		class ItemInfo
+		{
+			Text="Wait";
+			lStyle=-842150451;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=2;
+			class ItemInfo
+			{
+				Id=36;
+				InitCode="onStateEntered = """";";
+			};
+		};
+	};
+	class Item13
+	{
+		Flags=218;
+		BasicText="";
+		Left=50;
+		Top=-50;
+		Right=150;
+		Bottom=0;
+		BgColor=8421440;
+		class ItemInfo
+		{
+			Text="Wait" \n "Completed";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=8;
+			class ItemInfo
+			{
+				Id=37;
+				Condition="true";
+				PreCondition="conditionFrequency = 2;";
+				ConditionTab=2;
+			};
+		};
+	};
+};
+class GraphLinks
+{
+	class Link0
+	{
+		From=0;
+		To=2;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link1
+	{
+		From=1;
+		To=3;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link2
+	{
+		From=1;
+		To=4;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link3
+	{
+		From=2;
+		To=1;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link4
+	{
+		From=3;
+		To=5;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link5
+	{
+		From=4;
+		To=12;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link6
+	{
+		From=5;
+		To=6;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link7
+	{
+		From=5;
+		To=7;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link8
+	{
+		From=6;
+		To=8;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link9
+	{
+		From=7;
+		To=10;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link10
+	{
+		From=8;
+		To=9;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link11
+	{
+		From=9;
+		To=1;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link12
+	{
+		From=10;
+		To=11;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link13
+	{
+		From=11;
+		To=5;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link14
+	{
+		From=12;
+		To=13;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link15
+	{
+		From=13;
+		To=1;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+};
+class Globals
+{
+	NextGroupID=1;
+	NextID=39;
+	FSMName="GVAR(cachingStateMachine)";
+	CompileConfig="C:\Program Files (x86)\Steam\steamapps\common\Arma 3 Tools\FSMEditor\CBA_FSMEditor.cfg";
+	class Attributes
+	{
+		items=2;
+		class Item0
+		{
+			name="list";
+			value="allGroups select {\" \n "    local (leader _x) && \" \n "    {!isPlayer (leader _x)} &&\" \n "    {!(QGETVAR((leader _x),NOAI,false))} &&\" \n "    {(side (leader _x)) in GVAR(SideBasedExecution)}\" \n "}";
+		};
+		class Item1
+		{
+			name="skipnull";
+			value="1";
+		};
+	};
+	class DefaultLink
+	{
+		ArrowSize=0;
+	};
+	DefaultLinkColor=6316128;
+	DefaultLinkColorFromSelected=6316287;
+	DefaultLinkColorToSelected=6356832;
+	DefaultLinkUseCustom=1;
+	PZoomLeft=-441.58813;
+	PZoomRight=217.29961;
+	PZoomBottom=571.5343;
+	PZoomTop=-222.26257;
+	Clxs=547;
+	Clys=659;
+	Aspect=1;
+};
+class Window
+{
+	Flags=0;
+	MaxPosX=-1;
+	MaxPosY=-1;
+	MinPosX=-1;
+	MinPosY=-1;
+	Left=-1900;
+	Top=176;
+	Right=-959;
+	Bottom=1007;
+	ShowCmd=1;
+	SplitPos=565;
+};

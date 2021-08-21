@@ -1,0 +1,1 @@
+kobld_customLoadingScreen = "_this call kobld_onLoad_fnc_initLoadingScreen";

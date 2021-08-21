@@ -1,0 +1,1 @@
+Settings are located in the OnLoad.sqf file
