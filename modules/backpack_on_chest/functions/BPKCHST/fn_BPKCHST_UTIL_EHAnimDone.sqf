@@ -10,7 +10,7 @@
  * Nothing
  *
  * Example:
- * _this call zade_boc_fnc_EHAnimDone;
+ * _this call FW_fnc_BPKCHST_UTIL_EHAnimDone;
  *
  * Public: No
  */

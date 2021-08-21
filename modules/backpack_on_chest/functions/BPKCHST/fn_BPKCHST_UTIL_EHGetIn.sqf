@@ -12,7 +12,7 @@
  * Nothing
  *
  * Example:
- * _this call zade_boc_fnc_EHGetIn;
+ * _this call FW_fnc_BPKCHST_UTIL_EHGetIn;
  *
  * Public: No
  */

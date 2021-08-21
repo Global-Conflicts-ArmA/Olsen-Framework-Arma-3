@@ -10,7 +10,7 @@
  * Items <ARRAY>
  *
  * Example:
- * [player] call zade_boc_fnc_chestpackItems;
+ * [player] call FW_fnc_BPKCHST_ChestpackItems;
  *
  * Public: No
  */

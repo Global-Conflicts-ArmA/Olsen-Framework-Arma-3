@@ -10,7 +10,7 @@
  * Nothing
  *
  * Example:
- * [player, player getVariable "zade_boc_radioSettings"] call zade_boc_fnc_pasteRadioSettings;
+ * [player, player getVariable "zade_boc_radioSettings"] call FW_fnc_BPKCHST_UTIL_pasteRadioSettings;
  *
  * Public: No
  */

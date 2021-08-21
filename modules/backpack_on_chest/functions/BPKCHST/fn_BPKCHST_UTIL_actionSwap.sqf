@@ -9,7 +9,7 @@
  * Nothing
  *
  * Example:
- * [player] call zade_boc_fnc_actionSwap;
+ * [player] call FW_fnc_BPKCHST_UTIL_actionSwap;
  *
  * Public: No
  */

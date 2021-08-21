@@ -11,7 +11,7 @@
  * Can add item? <BOOL>
  *
  * Example:
- * [player,"FirstAidKit",2] call zade_boc_fnc_canAddItemToChestpack;
+ * [player,"FirstAidKit",2] call FW_fnc_BPKCHST_canAddItemToChestpack;
  *
  * Public: No
  */

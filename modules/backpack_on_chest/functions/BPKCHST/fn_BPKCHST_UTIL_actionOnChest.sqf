@@ -9,7 +9,7 @@
  * Nothing
  *
  * Example:
- * [player] call zade_boc_fnc_actionOnChest;
+ * [player] call FW_fnc_BPKCHST_UTIL_actionOnChest;
  *
  * Public: No
  */

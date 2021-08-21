@@ -12,7 +12,7 @@
  * Nothing
  *
  * Example:
- * [player,"30Rnd_556x45_Stanag",25] call zade_boc_fnc_removeMagFromChestpack;
+ * [player,"30Rnd_556x45_Stanag",25] call FW_fnc_BPKCHST_removeMagFromChestpack;
  *
  * Public: No
  */

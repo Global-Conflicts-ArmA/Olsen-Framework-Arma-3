@@ -10,7 +10,7 @@
  * Cargo container or objNull <OBJECT>
  *
  * Example:
- * [player] call zade_boc_fnc_chestpackContainer;
+ * [player] call FW_fnc_BPKCHST_ChestpackContainer;
  *
  * Public: No
  */

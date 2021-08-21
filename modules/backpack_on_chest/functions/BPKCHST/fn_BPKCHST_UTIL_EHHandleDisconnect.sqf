@@ -10,7 +10,7 @@
  * Nothing
  *
  * Example:
- * _this call zade_boc_fnc_HandleDisconnect;
+ * _this call FW_fnc_BPKCHST_UTIL_HandleDisconnect;
  *
  * Public: Yes
  */

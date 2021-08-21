@@ -10,7 +10,7 @@
  * Nothing
  *
  * Example:
- * [player,"FirstAidKit"] call zade_boc_fnc_removeItemFromChestpack;
+ * [player,"FirstAidKit"] call FW_fnc_BPKCHST_removeItemFromChestpack;
  *
  * Public: No
  */

@@ -9,7 +9,7 @@
  * backpack magazines <ARRAY> [classname,ammo count, amount of mags]
  *
  * Example:
- * [player] call zade_boc_fnc_backpackMagazines;
+ * [player] call FW_fnc_BPKCHST_UTIL_backpackMagazines;
  *
  * Public: No
  */

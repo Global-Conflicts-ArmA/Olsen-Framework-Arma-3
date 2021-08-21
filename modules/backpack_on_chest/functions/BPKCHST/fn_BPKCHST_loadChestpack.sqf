@@ -9,7 +9,7 @@
  * Mass <NUMBER>
  *
  * Example:
- * [player] call zade_boc_fnc_loadChestpack;
+ * [player] call FW_fnc_BPKCHST_loadChestpack;
  *
  * Public: No
  */

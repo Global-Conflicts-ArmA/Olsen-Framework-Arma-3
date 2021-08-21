@@ -1,5 +1,6 @@
 class BPKCHST {
 	file = "modules\backpack_on_chest\functions\BPKCHST";
+	class BPKCHST_clientInit {};
 	class BPKCHST_addChestpack {};
 	class BPKCHST_addItemToChestpack {};
 	class BPKCHST_addMagToChestpack {};

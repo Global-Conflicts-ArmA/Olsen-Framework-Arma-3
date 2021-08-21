@@ -9,7 +9,7 @@
  * Chestpack magazines <ARRAY> [classname,ammo count, amount of mags]
  *
  * Example:
- * [player] call zade_boc_fnc_chestpackMagazines;
+ * [player] call FW_fnc_BPKCHST_ChestpackMagazines;
  *
  * Public: No
  */

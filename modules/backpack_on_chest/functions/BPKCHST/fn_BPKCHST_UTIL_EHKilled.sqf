@@ -9,7 +9,7 @@
  * Nothing
  *
  * Example:
- * _this call zade_boc_fnc_EHKilled;
+ * _this call FW_fnc_BPKCHST_UTIL_EHKilled;
  *
  * Public: No
  */

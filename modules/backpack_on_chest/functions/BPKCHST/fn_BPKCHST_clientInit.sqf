@@ -1,4 +1,10 @@
-#include "..\..\core\script_macros.hpp"
+/*
+ * Author: DerZade and StatusRed
+ *
+ * Example:
+ * [] call FW_fnc_BPKCHST_clientInit;
+ */
+#include "script_component.hpp"
 
 zade_boc_onChest = ["zade_boc_onChest", "Backpack to Chest", "modules\backpack_on_chest\data\actions\onchest_ca.paa", {[_player] call FUNC(BPKCHST_UTIL_actionOnChest)}, {!(missionNamespace getVariable ['zade_boc_disabled',false]) && !(backpack _player isEqualTo '') && ([_player] call FUNC(BPKCHST_Chestpack) isEqualTo '')}] call ace_interact_menu_fnc_createAction;
 [typeOf player, 1, ["ACE_SelfActions", "ACE_Equipment"], zade_boc_onChest] call ace_interact_menu_fnc_addActionToClass;

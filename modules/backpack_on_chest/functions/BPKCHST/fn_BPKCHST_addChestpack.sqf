@@ -10,7 +10,7 @@
  * Nothing
  *
  * Example:
- * [player,"B_Kitbag_rgr"] call zade_boc_fnc_addChestpack;
+ * [player,"B_Kitbag_rgr"] call FW_fnc_BPKCHST_addChestpack; 
  *
  * Public: No
  */

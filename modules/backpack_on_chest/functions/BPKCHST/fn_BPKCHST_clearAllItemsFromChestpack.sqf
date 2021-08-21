@@ -9,7 +9,7 @@
  * Nothing
  *
  * Example:
- * [player] call zade_boc_fnc_clearAllItemsFromChestpack;
+ * [player] call FW_fnc_BPKCHST_clearAllItemsFromChestpack;
  *
  * Public: No
  */

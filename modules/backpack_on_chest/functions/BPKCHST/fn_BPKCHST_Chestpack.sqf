@@ -9,7 +9,7 @@
  * Classname <STRING>
  *
  * Example:
- * [player] call zade_boc_fnc_chestpack;
+ * [player] call FW_fnc_BPKCHST_Chestpack;
  *
  * Public: No
  */
