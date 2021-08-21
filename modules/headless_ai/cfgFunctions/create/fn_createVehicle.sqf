@@ -33,19 +33,11 @@ if (GETMVAR(Debug,false)) then {
 };
 
 private _flying = "NONE";
-if (_fly) then {
-    if (_vehClass isKindOf "Air") then {
-        _flying = "FLY";
-        if (_pos select 2 < _flyInHeight) then {
-            _pos = [_pos select 0, _pos select 1, _flyInHeight];
-        };
-        //_pos = ([_pos select 0, _pos select 1, _flyInHeight] vectorAdd [0,0,150]);
-    };
-} else {
-    if ((_pos select 2) > 100 && {(_vehClass isKindOf "Air")}) then {
-        _flying = "FLY";
-        _flyInHeight = (_pos select 2);
-    };
+if (_fly && {(_vehClass isKindOf "Air")}) then {
+    _flying = "FLY";
+};
+if (_flying isEqualTo "FLY") then {
+    _pos = ([_pos select 0, _pos select 1, _flyInHeight] vectorAdd [0,0,150]);
 };
 private _vehicle = createVehicle [_vehClass, _pos, [], 0, _flying];
 _vehicle setVectorDirAndUp [_vectorDir,_vectorUp];
@@ -57,7 +49,7 @@ if !(_name isEqualTo "") then {
 };
 
 if !(_olsenGearType isEqualTo "") then {
-    [_vehicle, _olsenGearType] call FUNC(VehicleGearScript);
+    [_vehicle, _olsenGearType] call FNC_VehicleGearScript;
 };
 
 if (_fly) then {
@@ -77,11 +69,11 @@ _vehCustomization params ["_vehCustomSkin", "_vehCustomAnimations"];
 [_vehicle,_persistent] call FUNC(setPersistent);
 _vehicle call _vehInit;
 if !(_storedVars isEqualTo []) then {
-    //LOG_1("Setting vars: %1",_storedVars);
+    LOG_1("Setting vars: %1",_storedVars);
     {
         _x params ["_varName", "_varValue"];
         _vehicle setvariable [_varName,_varValue];
-        //LOG_2("Setting _varName: %1 with: %2",_varName,_varValue);
+        LOG_2("Setting _varName: %1 with: %2",_varName,_varValue);
     } forEach _storedVars;
 };
 

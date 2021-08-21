@@ -1,9 +1,5 @@
-#ifdef description_XEH_PreInit
-	class AiDrivers {
-		clientInit = "'' call compile preprocessFileLineNumbers 'modules\ai_drivers\preinitClient.sqf'";
-	};
-#endif
+#ifdef framework
 
-#ifdef description_functions
-	#include "functions\CfgFunctions.hpp"
+	#include "init.sqf"
+
 #endif

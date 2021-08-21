@@ -9,4 +9,7 @@
 
 //Example:
 //ADDAOMARKER(ANY, "entireAO");
-//ADDAOMARKER(east, "Kavala");
+ADDAOMARKER(west, "tower");
+ADDAOMARKER(east, "ao");
+ADDAOMARKER(independent, "bunker");
+ADDAOMARKER(civilian, "car");

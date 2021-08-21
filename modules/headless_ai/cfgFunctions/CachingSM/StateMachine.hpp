@@ -2,17 +2,12 @@
 
 class GVAR(cachingStateMachine) {
     list = QUOTE(allGroups select {\
-        private _leader = leader _x; \
-        local _leader && \
-        {!(isNull _leader)} && \
-        {(alive _leader)} && \
-        {!isPlayer _leader} && \
-        {!(QGETVAR(_leader,NOAI,false))} && \
-        {QGETVAR(_x,Spawned,false)} && \
-        {side _leader in GVAR(SideBasedExecution)} \
+        local (leader _x) && \
+        {!isPlayer (leader _x)} &&\
+        {!(QGETVAR((leader _x),NOAI,false))} &&\
+        {(side (leader _x)) in GVAR(SideBasedExecution)}\
     });
     skipNull = 1;
-    repeatPerFrame = 1;
     class Initial {
         onStateEntered = "";
         class isInitialized {
@@ -26,7 +21,7 @@ class GVAR(cachingStateMachine) {
         class No_Enemy_in__Ran {
             targetState = QUOTE(Cache_Group);
 
-            condition = QUOTE(!(QGETVAR(_this,CH_enemyInRange,false)) && {!((behaviour (leader _this)) in ['COMBAT','STEALTH'])});            onTransition = QFUNC(CH_transCacheGroup);
+            condition = QUOTE((((QGETVAR(_this,CH_enemyInRange,[])) isEqualTo []) && {!((behaviour (leader _this)) isEqualTo QN(COMBAT))}));            onTransition = QFUNC(CH_transCacheGroup);
         };
         class Enemy__in_Range {
             targetState = QUOTE(Wait);
@@ -39,7 +34,7 @@ class GVAR(cachingStateMachine) {
         class Enemy_in__Range {
             targetState = QUOTE(Uncache_Group_Wa);
 
-            condition = QUOTE(QGETVAR(_this,CH_enemyInRange,false) && {!((behaviour (leader _this)) in ['COMBAT','STEALTH'])});            onTransition = QFUNC(CH_transUnCacheGroup);
+            condition = QUOTE((!((QGETVAR(_this,CH_enemyInRange,[])) isEqualTo []) || ((behaviour (leader _this)) isEqualTo QN(COMBAT))));            onTransition = QFUNC(CH_transUnCacheGroup);
         };
         class Can_Not_See {
             targetState = QUOTE(Wait_Cached);
@@ -56,7 +51,7 @@ class GVAR(cachingStateMachine) {
         };
     };
     class Wait_Cached {
-        onStateEntered = "";
+        onStateEntered = QFUNC(onSERemoveCantSeeEnemy);
         class Cached_Wait_Comp {
             targetState = QUOTE(Cache_Group);
             conditionFrequency = 2;

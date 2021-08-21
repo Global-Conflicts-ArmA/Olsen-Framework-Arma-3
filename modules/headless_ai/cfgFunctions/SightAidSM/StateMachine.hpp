@@ -7,7 +7,9 @@ class GVAR(sightAidStateMachine) {
         {alive _x} && \
         {!isPlayer (leader _x)} && \
         {!(QGETVAR(_x,NOAI,false))} && \
-        {QGETVAR(group _x,Spawned,false)} && \
+        {QGETVAR((group _x),Spawned,false)} && \
+        {!((behaviour _x) isEqualTo 'CARELESS')} && \
+        {!((combatMode group _x) in [ARR_3('BLUE', 'GREEN', 'WHITE')])} && \
         {side _x in GVAR(SideBasedExecution)} && \
         {!((QGETVAR(group _x,Mission,'NONE')) isEqualTo 'BUNKER') && {!(QGETVAR(_x,Bunker,false))}} && \
         {(QGETMVAR(SightAidVehicles,true)) || {vehicle _x isEqualTo _x}} \

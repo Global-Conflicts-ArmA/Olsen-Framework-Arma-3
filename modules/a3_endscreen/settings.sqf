@@ -2,24 +2,24 @@
 
 //If you wish to use this EndScreen please use the following syntax to update endConditions.sqf
 
-// FW_fnc_EndMission Syntax:
+// FNC_EndMission Syntax:
 // COOP
-// [string EndType (endTypes.hpp), bool isVictory] call FW_fnc_EndMission;
+// [string EndType (endTypes.hpp), bool isVictory] call FNC_EndMission;
 //
 // TVT
-// [[side/array/unit Target, string EndType, bool isVictory], [side/array/unit Target, string EndType, bool isVictory]] call FW_fnc_EndMission;
+// [[side/array/unit Target, string EndType, bool isVictory], [side/array/unit Target, string EndType, bool isVictory]] call FNC_EndMission;
 //
 // TVT Example:
 // OPFOR Victory
-// [[west, "BLUFOREliminated", false], [east, "BLUFOREliminated", false]] call FW_fnc_EndMission;
+// [[west, "BLUFOREliminated", false], [east, "BLUFOREliminated", false]] call FNC_EndMission;
 //
 // BLUFOR Victory
-// [[west, "OPFOREliminated", true], [east, "OPFOREliminated", false]] call FW_fnc_EndMission;
+// [[west, "OPFOREliminated", true], [east, "OPFOREliminated", false]] call FNC_EndMission;
 //
 // COOP Examples:
-// ["BLUFOREliminated", false] call FW_fnc_EndMission;
-// ["OPFOREliminated", true] call FW_fnc_EndMission;
-// ["TimeLimit", false] call FW_fnc_EndMission;
+// ["BLUFOREliminated", false] call FNC_EndMission;
+// ["OPFOREliminated", true] call FNC_EndMission;
+// ["TimeLimit", false] call FNC_EndMission;
 
 //ENABLE_A3_ENDSCREEN
 //Whether or not to use the ArmA 3 gorgeous EndScreen.

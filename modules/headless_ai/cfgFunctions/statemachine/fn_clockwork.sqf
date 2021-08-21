@@ -101,9 +101,8 @@ private _fnc_repeat = {
     private _list = _stateMachine getVariable QGVAR(list);
     private _skipNull = _stateMachine getVariable QGVAR(skipNull);
     private _id = _stateMachine getVariable QGVAR(ID);
-    private _repeatPerFrame = _stateMachine getVariable QGVAR(repeatPerFrame);
 
-    for "_t" from 0 to _repeatPerFrame step 1 do {
+    for "_t" from 0 to (GETMVAR(StateMachineFrames,1)) step 1 do {
         [_stateMachine, _list, _skipNull, _id] call _fnc_repeat;
     };
 

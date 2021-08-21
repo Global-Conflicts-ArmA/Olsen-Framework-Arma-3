@@ -5,9 +5,9 @@ params [
     "_group"
 ];
 
-(units _group) apply {
-    SETVAR(_x,BUNKER,true);
-};
+{
+    _x setvariable [QGVAR(BUNKER),true];
+} foreach (units _group);
 SETVAR(_group,InitialWPSet,true);
-SETVAR(_group,Task,"BUNKER");
+_group setVariable [QGVAR(Mission),"BUNKER"];
 true

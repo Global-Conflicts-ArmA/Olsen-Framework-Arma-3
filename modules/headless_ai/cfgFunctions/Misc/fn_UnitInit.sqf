@@ -14,3 +14,7 @@ _Unit addEventHandler ["FiredMan",{
 _Unit addEventHandler ["Hit",{
     _this call FUNC(AIHit);
 }];
+
+if (GETMVAR(VerboseDebug,false)) then {
+    LOG_1("%1 completed UnitInit",_unit);
+};

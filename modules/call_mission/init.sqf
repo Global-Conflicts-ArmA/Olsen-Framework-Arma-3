@@ -1,4 +1,4 @@
-["Call Mission", "Adds a new sections to the framework menu that allows COs and admins to call the mission.", "Starfox64"] call FUNC(RegisterModule);
+["Call Mission", "Adds a new sections to the framework menu that allows COs and admins to call the mission.", "Starfox64"] call FNC_RegisterModule;
 
 FW_MissionCalls = [];
 FW_COC = [];

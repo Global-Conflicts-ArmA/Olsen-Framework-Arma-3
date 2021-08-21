@@ -1,12 +1,13 @@
 #include "..\..\script_macros.hpp"
 
 
-params ["_unit", ["_randomSelect", false, [false]]];
+params ["_unit",["_randomSelect",true,[true]]];
 
-private _group = group _unit;
-private _enemyArray = [_group] call FUNC(EnemyArray);
-
-if (_enemyArray isEqualTo []) exitwith {objnull};
+private _UnitSide = (side _unit);
+private _enemyArray = allUnits select {
+	!(_x isKindOf "TargetSoldierBase") && 
+	{[_UnitSide, (side _x)] call BIS_fnc_sideIsEnemy}
+};
 
 private _distanceArray = [];
 

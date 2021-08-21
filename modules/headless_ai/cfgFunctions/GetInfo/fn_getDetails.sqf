@@ -1,5 +1,6 @@
 #include "..\..\script_macros.hpp"
 
+
 params [
     "_classname",
     "_array",

@@ -44,7 +44,7 @@ FNC_SetHostage = {
 		_break = false;
 
 		while {true} do {
-			if (animationState _unit != "acts_aidlpsitmstpssurwnondnon04" && _unit inArea  _marker) then {
+			if (animationState _unit != "acts_aidlpsitmstpssurwnondnon04" && [_unit, _marker] call FNC_InArea) then {
 
 				_unit setVariable ["FW_Rescued", true, true];
 

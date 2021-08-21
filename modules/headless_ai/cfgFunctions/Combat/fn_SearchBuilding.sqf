@@ -5,7 +5,7 @@ params ["_group", "_building"];
 private _otask = SETVAR(_group,Task,"NONE");
 private _leader = leader _group;
 
-SETVAR(_Group,InitialWPSet,true);
+SETVAR(_group,InitialWPSet,true);
 SETVAR(_group,Task,"BLDSEARCH");
 [_group] call FUNC(taskRelease);
 SETVAR(_group,searchingBuilding,true);
@@ -42,7 +42,7 @@ if (count (units _group) > 8) then {
 };
 
 if !(_coverTeam isEqualTo []) then {
-    //set leader and helper to cover 
+    //set leader and helper to cover
     {
         private _unit = _x;
         doStop _unit;
@@ -80,12 +80,12 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
     };
 };
 
-[{
+/* [{
     params ["_args", "_idPFH"];
     _args params [
-        "_group", 
-        "_building", 
-        "_otask", 
+        "_group",
+        "_building",
+        "_otask",
         "_positions",
         "_coverTeam",
         ["_teams", [], [[]]],
@@ -100,14 +100,14 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
         SETVAR(_group,searchingBuilding,false);
         [_idPFH] call CBA_fnc_removePerFrameHandler;
     };
-    
+
     _teams select {
         ({alive _x} count (_x select 1)) == 0
     } apply {
         _positions pushback (_x select 0);
         //LOG_1("pos: %1 readded from dead team",(_x select 0));
     };
-    
+
     private _waitedTime = (CBA_missionTime - _lastTimeChanged);
     //LOG_1("_waitedTime: %1",_waitedTime);
     if ((_waitedTime >= 25) || (_clearedPositions >= _totalPositions) || ((CBA_missionTime - (GETVAR(_building,searched,(CBA_missionTime)))) > 600)) exitWith {
@@ -123,11 +123,11 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
         [_idPFH] call CBA_fnc_removePerFrameHandler;
     };
     //private _leader = leader _group;
-    
+
     private _assaultUnits = _units - _coverTeam;
-    
+
     //LOG_4("group: %1 pos counts: %2 coverteam: %3 team count: %4",_group,(count _positions),_coverTeam,(count _teams));
-    
+
     if (count _assaultUnits <= 1) then {
         _args set [4, []];
         _assaultUnits = _assaultUnits + _units;
@@ -138,9 +138,9 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
         _lastTimeChanged = CBA_missionTime;
         _args set [9, _lastTimeChanged];
     };
-    
+
     private _aliveTeams = _teams select {({alive _x} count (_x select 1)) >= 1};
-    
+
     {
         _x params ["_pos", "_members"];
         _members = _members select {alive _x};
@@ -164,9 +164,9 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
         _x set [0, _pos];
         _x set [1, _members];
     } forEach _aliveTeams;
-    
+
     _args set [3, _positions];
     _args set [5, _aliveTeams];
     _args set [8, _clearedPositions];
 
-}, 5, [_group, _building, _otask, _positions, _coverTeam, _teams, _totalPositions, 0, (CBA_missionTime + 10)]] call CBA_fnc_addPerFrameHandler;
+}, 5, [_group, _building, _otask, _positions, _coverTeam, _teams, _totalPositions, 0, (CBA_missionTime + 10)]] call CBA_fnc_addPerFrameHandler; */

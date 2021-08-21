@@ -28,11 +28,12 @@ _object setDamage _damage;
 _object call _objInit;
 
 if !(_storedVars isEqualTo []) then {
-    //LOG_1("Setting vars: %1",_storedVars);
+    LOG_1("Setting vars: %1",_storedVars);
     {
-        _x params ["_varName", "_varValue"];
+        _x params ["_varName",
+"_varValue"];
         _object setvariable [_varName,_varValue];
-        //LOG_2("Setting _varName: %1 with: %2",_varName,_varValue);
+        LOG_2("Setting _varName: %1 with: %2",_varName,_varValue);
     } forEach _storedVars;
 };
 _object

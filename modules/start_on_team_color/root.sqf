@@ -1,9 +1,11 @@
-#ifdef description_XEH_PreInit
-	class SOTC {
-		clientInit = "'' call compile preprocessFileLineNumbers 'modules\start_on_team_color\preinitClient.sqf'";
-	};
+#ifdef framework
+	
+	#include "init.sqf"
+	
 #endif
 
-#ifdef description_functions
-	#include "functions\CfgFunctions.hpp"
+#ifdef preinit
+	
+	#include "preinit.sqf"
+	
 #endif

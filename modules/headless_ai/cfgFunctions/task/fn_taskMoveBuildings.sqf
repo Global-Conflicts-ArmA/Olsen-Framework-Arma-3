@@ -39,5 +39,5 @@ if (GETMVAR(Debug,false)) then {
 };
 SETVAR(_group,InitialWPSet,true);
 _group setVariable [QGVAR(Mission),"BLDMOVE"];
-[_group] call FUNC(taskRelease);
+[_group] call FUNC(taskForceSpeed);
 true

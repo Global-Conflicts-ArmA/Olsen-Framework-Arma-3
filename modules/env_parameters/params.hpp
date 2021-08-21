@@ -1,5 +1,7 @@
 // Params: https://community.bistudio.com/wiki/Arma_3_Mission_Parameters
 
+//If you want to remove any of the below options to stop users interacting with the factor, simply remove the class.
+
 class TimeOfDay {
 	title = "Time";
 	texts[] = {"Mission default", "0600", "1200", "1800", "0000", "Early dawn", "Dawn", "Early dusk", "Dusk", "Random"};

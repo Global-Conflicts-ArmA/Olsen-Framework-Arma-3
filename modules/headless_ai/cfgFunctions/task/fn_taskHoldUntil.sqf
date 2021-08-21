@@ -24,10 +24,10 @@ _group setFormation _formation;
 private _units = units _group;
 for "_i" from 0 to (count _units) do {
     private _u = _units select _i;
-    _u doWatch ((getPosATL _u) vectorAdd ((vectorDir _u) vectorMultiply 100));
+    _u doWatch ((getPosATL _u) vectorAdd((vectorDir _u) vectorMultiply 100));
     doStop _u;
 };
 SETVAR(_Group,InitialWPSet,true);
 _group setVariable [QGVAR(Mission),"HOLD"];
-[_group] call FUNC(taskRelease);
+[_group] call FUNC(taskForceSpeed);
 true

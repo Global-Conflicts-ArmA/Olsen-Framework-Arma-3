@@ -8,24 +8,11 @@ of reinforcements or subsequent AOs.
 
 // Array objects
 // eg: ["mainEnemy", "patrol_1", "patrol_2", "patrol_3"]
-GVAR(ArrayObjects) = [
-    "infwest_1",
-    "infsoutheast_1",
-    "infsouth_1",
-    "infnortheast_1",
-    "infnorth_1",
-    "infmountain_1",
-    "vehnorthwest_1",
-    "vehsouthwest_1",
-    "vehnortheast_1",
-    "vehnortheast_2",
-    "gunship",
-    "cargoheli"
-];
+GVAR(ArrayObjects) = ["hc_spawn"];
 
 // Initial spawns are spawned upon init, at the start of the mission.
 // eg: ["mainEnemy"]
-GVAR(InitialSpawn) = [];
+GVAR(InitialSpawn) = ["hc_spawn"];
 
 // Initial random spawns are randomly selected upon init, at the start of the mission according to their weight value.
 // Array is structured with array object name and random selection weight.
@@ -41,11 +28,12 @@ GVAR(ForceTimeEnable) = true;
 GVAR(ForceTime) = [12,00];
 
 // Debug message settings
-GVAR(Debug) = true;
+GVAR(Debug) = false;
 GVAR(VerboseDebug) = false;
 GVAR(GroupDebug) = false;
+GVAR(CommanderDebug) = false;
 // Turn on map markers that track AI movement
-GVAR(UseMarkers) = true;
+GVAR(UseMarkers) = false;
 
 // AI system options
 GVAR(Enabled) = true;
@@ -59,8 +47,7 @@ GVAR(HearingDistance) = 2000;
 // How revealed an enemy is from a gunshot report
 GVAR(HearingMinIncrease) = 1;
 // Distance AI will respond to call of help from each other
-GVAR(RadioDistance) = 0;
-GVAR(RadioWait) = 30;
+GVAR(RadioDistance) = 1200;
 // Whether or not AI need ACRE radios to broadcast info to other groups
 GVAR(RadioNeedRadio) = false;
 // Distance the AI will patrol to by default
@@ -77,6 +64,8 @@ GVAR(QRF_Distance) = 2500;
 GVAR(MountStatics) = true;
 // Distance AI will mount empty statics from - maximum of 100m
 GVAR(MountStaticsDistance) = 50;
+// Should we let AI use flanking manuevers? false means they can flank
+GVAR(REINFORCE) = false;
 // Should AI use smoke grenades? Besides default A3 behavior?
 GVAR(USESMOKE) = false;
 // Percentage chance of AI using grenades

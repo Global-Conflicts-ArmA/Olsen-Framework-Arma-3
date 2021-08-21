@@ -5,11 +5,7 @@ params ["_unit", ["_pos",[],[[]]], "_vehicle"];
 private _unitInit = GETVAR(_unit,Init,"");
 if (typename _unitInit isEqualTo "STRING") then {_unitInit = compile _unitInit;};
 private _vehAssigned = !((assignedVehicleRole _unit) isEqualTo []);
-private _stance = if ((GETVAR(_unit,stance,"Auto")) isEqualTo "Auto") then {
-    unitPos _unit
-} else {
-    GETVAR(_unit,stance,"Auto")
-};
+private _stance = GETVAR(_unit,stance,"AUTO");
 if (_pos isEqualTo []) then {
     _pos = (getposATL _unit) apply {parseNumber (_x toFixed 2)};
 };
@@ -26,11 +22,6 @@ private _identity = [
 ];
 private _name = GETVAR(_unit,varName,"");
 private _olsenGearType = GETVAR(_unit,gearType,"");
-private _vehArray = [
-    _vehicle, 
-    typeOf _vehicle,
-    assignedVehicleRole _unit
-];
 
 [true,
 typeOf _unit,
@@ -39,8 +30,9 @@ _vectorDir,
 _vectorUp,
 _damage,
 getUnitLoadout _unit,
+typeOf _vehicle,
+assignedVehicleRole _unit,
 _vehAssigned,
-_vehArray,
 _unit getVariable ["ACE_captives_isHandcuffed",false],
 surfaceIsWater (getposATL _unit),
 GETVAR(_unit,Persistent,true),

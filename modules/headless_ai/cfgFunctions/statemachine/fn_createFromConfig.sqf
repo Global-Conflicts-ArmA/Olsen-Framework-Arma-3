@@ -28,8 +28,7 @@ if (isNull _config) exitWith {};
 
 private _list = compile getText (_config >> "list");
 private _skipNull = (getNumber (_config >> "skipNull")) > 0;
-private _repeatPerFrame = getNumber (_config >> "repeatPerFrame");
-private _stateMachine = [_list, _skipNull, _repeatPerFrame] call FUNC(create);
+private _stateMachine = [_list, _skipNull] call FUNC(create);
 
 {
     private _state = configName _x;

@@ -1,9 +1,11 @@
-#ifdef description_XEH_PreInit
-	class CoverMap {
-		clientInit = "'' call compile preprocessFileLineNumbers 'modules\cover_map\preinitClient.sqf'";
-	};
+#ifdef framework
+	
+	#include "init.sqf"
+	
 #endif
 
 #ifdef description_functions
+	
 	#include "functions\CfgFunctions.hpp"
+	
 #endif

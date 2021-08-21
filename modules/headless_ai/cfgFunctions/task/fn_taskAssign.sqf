@@ -45,7 +45,7 @@ switch (_task) do {
         _taskSet call FUNC(taskPatrol);
     };
     case "ASSAULT": {
-        _taskSet call FUNC(taskAssault);
+        _taskSet call FUNC(taskPatrol);
     };
     case "MOVE": {
         _taskSet call FUNC(taskPatrol);
@@ -76,17 +76,6 @@ switch (_task) do {
     };
     case "BLDSEARCH": {
         _taskSet call FUNC(taskPatrol);
-    };
-    case "PICKUP": {
-        _taskSet call FUNC(taskPickup);
-    };
-    case "CARGO": {
-        SETVAR(_Group,InitialWPSet,true);
-        _group setVariable [QGVAR(Task),"CARGO"];
-        [_group] call FUNC(taskRelease);
-    };
-    case "DROPOFF": {
-        _taskSet call FUNC(taskDropOff);
     };
     default {
         _taskSet call FUNC(taskPatrol);

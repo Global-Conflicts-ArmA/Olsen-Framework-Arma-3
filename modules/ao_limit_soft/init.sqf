@@ -1,4 +1,4 @@
-["Soft AO Limit", "Allows the mission maker to set AO limits to specific sides.", "Olsen &amp; Starfox64"] call FUNC(RegisterModule);
+["Soft AO Limit", "Allows the mission maker to set AO limits to specific sides.", "Olsen &amp; Starfox64"] call FNC_RegisterModule;
 
 #define ANY sideLogic
 
@@ -30,7 +30,7 @@ if (!isDedicated) then {
 				if ((_x select 0) == (side player) || (_x select 0) == ANY) then {
 					_markers set [count _markers, (_x select 1)];	
 					
-					if (_vehicle inArea  (_x select 1)) then {
+					if ([_vehicle, (_x select 1)] call FNC_InArea) then {
 						_allowedOutside = false;
 					};
 				};
@@ -44,7 +44,7 @@ if (!isDedicated) then {
 				_outSide = true;
 			
 				{
-					if (_vehicle inArea  _x) exitWith {
+					if ([_vehicle, _x] call FNC_InArea) exitWith {
 						_outSide = false;
 					};
 				} forEach _markers;

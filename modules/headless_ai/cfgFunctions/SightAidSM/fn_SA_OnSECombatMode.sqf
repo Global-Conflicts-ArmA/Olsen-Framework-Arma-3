@@ -2,11 +2,6 @@
 
 params ["_unit"];
 
-if (GETVAR(group _unit,forcedCombatMode,"AUTO") isEqualTo "AUTO") then {
-	_unit setCombatMode "RED";
-	_unit setBehaviour "COMBAT";
-};
-
 private _enemyTarget = GETVAR(_unit,SA_enemyTarget,objnull);
 if (_enemyTarget isEqualTo objnull) exitwith {};
 private _distance = GETVAR(_unit,SA_enemyDistance,600);
@@ -14,7 +9,13 @@ if (_distance > GETMVAR(SightAidDistance,600)) exitwith {};
 private _knowsabouttarget = _unit knowsabout _enemyTarget;
 if (_knowsabouttarget < 4) then {
 	private _cansee = [objNull, "VIEW"] checkVisibility [eyePos _Unit, eyePos _enemyTarget];
-	if ((_cansee > 0.6) && {(_distance < GETMVAR(SightAidEngageDistance,200))}) exitwith {
+	if (_cansee > 0.6 && 
+		{(_distance < GETMVAR(SightAidEngageDistance,200))} &&
+		{!((combatMode group _unit) in ["BLUE", "GREEN", "WHITE"])} &&
+		{!(behaviour _unit isEqualTo "CARELESS")}
+	) exitwith {
+		_unit setCombatMode "RED";
+		_unit setBehaviour "COMBAT";
 		_unit reveal [_enemyTarget, 4];
 		_unit doSuppressiveFire _enemyTarget;
 	};

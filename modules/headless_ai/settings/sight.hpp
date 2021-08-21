@@ -3,8 +3,8 @@ GVAR(SightAid) = true;
 // Aid to the AI spotting distance and time when in a vehicle
 GVAR(SightAidVehicles) = false;
 // Distance at which the AI will start seeings enemies in LOS of them
-GVAR(SightAidDistance) = 2500;
+GVAR(SightAidDistance) = 900;
 // Minimum reveal value per increase +n reveal value per check every 5 seconds of targets in LOS of enemies.
-GVAR(SightAidMinIncrease) = 2;
+GVAR(SightAidMinIncrease) = 1;
 // Distance at which the AI will force engage the enemies
-GVAR(SightAidEngageDistance) = 800;
+GVAR(SightAidEngageDistance) = 600;

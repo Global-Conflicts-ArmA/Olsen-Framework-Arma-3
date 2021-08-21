@@ -1,4 +1,4 @@
-["Environment / Mission Parameters", "Allows the admin to choose between different weather parameters.", "Starfox64, Olsen"] call FUNC(RegisterModule);
+["Environment / Mission Parameters", "Allows the admin to choose between different weather parameters.", "Starfox64, Olsen"] call FNC_RegisterModule;
 
 #include "settings.sqf"
 

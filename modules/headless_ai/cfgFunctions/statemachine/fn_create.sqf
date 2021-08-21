@@ -27,13 +27,8 @@ Author:
 
 params [
     ["_list", [], [[], {}]],
-    ["_skipNull", false, [true]],
-    ["_repeatPerFrame", 0, [0]]
+    ["_skipNull", false, [true]]
 ];
-
-if (_repeatPerFrame > (GETMVAR(StateMachineFrames,1))) then {
-    _repeatPerFrame = GETMVAR(StateMachineFrames,1);
-};
 
 if (isNil QGVAR(stateMachines)) then {
     GVAR(stateMachines) = [];
@@ -62,7 +57,6 @@ _stateMachine setVariable [QGVAR(tick), 0];                 // List index ticker
 _stateMachine setVariable [QGVAR(states), []];              // State machine states
 _stateMachine setVariable [QGVAR(list), _list];             // List state machine iterates over
 _stateMachine setVariable [QGVAR(skipNull), _skipNull];     // Skip items that are null
-_stateMachine setVariable [QGVAR(repeatPerFrame), _repeatPerFrame];     // Number of times to iterate per frame
 _stateMachine setVariable [QGVAR(updateCode), _updateCode]; // List update code
 _stateMachine setVariable [QGVAR(ID), GVAR(nextUniqueID)];  // Unique state machine ID
 INC(GVAR(nextUniqueID));

@@ -1,4 +1,4 @@
-["Medical Settings", "Setting medical nonsense without modules.", "TinfoilHate"] call FUNC(RegisterModule);
+["Medical Settings", "Setting medical nonsense without modules.", "TinfoilHate"] call FNC_RegisterModule;
 
 #include "settings.sqf"
 

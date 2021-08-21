@@ -1,7 +1,6 @@
 // AI commander options -WIP
 GVAR(CommanderEnabled) = false;
-GVAR(CommanderDebug) = true;
-GVAR(CommanderSide) = east;
+GVAR(CommanderSide) = "EAST";
 //"Random" "Aggressive" "Defensive" "Guerilla" "Probing"
 GVAR(CommanderPersonality) = "Random";
 GVAR(CommanderDelay) = 3;
@@ -9,37 +8,13 @@ GVAR(CommanderSkill) = 5;
 // Objectives/Areas to consider, order in array determines priority of areas. Required elements: marker name, commander mission.
 // Optional array elements: terrain manual define, QRF support for contact encountered in the area, minimum assets to assign for the area, asset threshold for the area (if threshold to assign cannot be met area will not be considered), maximum assets to assign for the area (leftover groups will be assigned to areas that aligns with preferred asset types), preferred asset types.
 // Preferred asset types will be determined from terrain setting if not manually defined.
+// ["_marker","_mission","_min","_max","_threshold","_QRFSupport","_assetSupport","_withdrawalEnabled","_resourceUse","_preferredTypes","_terrainMode"];
 GVAR(CommanderAreas) = [
-    [
-        /* 0 Display Name */ "Kamenyy", 
-        /* 1 Marker */ "area1", 
-        /* 2 Mission */ "Defend", 
-        /* 3 Min Assets */ 2, 
-        /* 4 Max Assets */ 2, 
-        /* 5 Asset Threshold */ 0, 
-        /* 6 QRF Support */ true, 
-        /* 7 Asset Support */ true, 
-        /* 8 Withdrawal Enabled*/ false, 
-        /* 9 Resource Use */ true, 
-        /* 10 Preferred Types (OPTIONAL)*/ ["Infantry", "Snipers"],
-        /* 11 Terrain Mode (OPTIONAL)*/ "AUTO"
-    ],
-    [
-        /* 0 Display Name */ "Kamenyy Outskirts", 
-        /* 1 Marker */ "area0", 
-        /* 2 Mission */ "Patrol", 
-        /* 3 Min Assets */ 0, 
-        /* 4 Max Assets */ 2, 
-        /* 5 Asset Threshold */ 2, 
-        /* 6 QRF Support */ false, 
-        /* 7 Asset Support */ false, 
-        /* 8 Withdrawal Enabled*/ true, 
-        /* 9 Resource Use */ false, 
-        /* 10 Preferred Types (OPTIONAL)*/ ["Infantry"],
-        /* 11 Terrain Mode (OPTIONAL)*/ "AUTO"
-    ]
+    ["area1", "Defend", 2, 2, 0, true, true, false, true, ["Infantry", "Snipers"]],
+    ["area0", "Patrol", 0, 2, 2, false, false, true,  false, ["Infantry"]],
+    ["area2", "Patrol", 0, 4, 2, false, false, true,  false, ["Motorized", "Mechanized", "Armor"]],
+    ["area3", "Recon", 0, 2, 1, false]
 ];
-// 
 GVAR(CommanderQRF) = ["QRF_MotorRifles"];
 // "Spotted", "Threatened", "Combat", "Prolonged Combat"
 GVAR(CommanderQRFThreshold) = "Combat";

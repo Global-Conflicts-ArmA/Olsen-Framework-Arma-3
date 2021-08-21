@@ -8,7 +8,8 @@ params [
     "_startBld",
     "_i",
     "_unitArgs",
-    "_taskRadius"
+    "_taskRadius",
+    ["_currentVeh",objNull,[objNull]]
 ];
 _unitArgs params [
     "_uv",
@@ -18,8 +19,9 @@ _unitArgs params [
     "_unitVectorUp",
     "_damage",
     "_editorGear",
+    "_vehicle",
+    "_vr",
     "_vehicleAssigned",
-    "_vehArray",
     "_handcuffed",
     "_unitOnWater",
     "_unitIsPersistent",
@@ -30,12 +32,6 @@ _unitArgs params [
     "_storedVars",
     ["_varName", "", [""]],
     ["_olsenGearType", "", [""]]
-];
-
-_vehArray params [
-    ["_veh", objNull, [objNull]],
-    ["_vehType", "", [""]],
-    ["_vehRole", [], [[]]]
 ];
 
 if (_occupy) then {
@@ -49,7 +45,7 @@ if (_occupy) then {
 private _unit = _group createUnit [_unitClass,_unitPos,[],0,"CAN_COLLIDE"];
 [_unit] join _group;
 _unit disableAI "Path";
-//_unit forcespeed 0;
+_unit forcespeed 0;
 _unit setPosATL _unitPos;
 //LOG_2("_unit: %1 _unitPos: %2",_unit,_unitPos);
 _unit setUnitLoadout _editorGear;
@@ -67,7 +63,7 @@ if !(_varName isEqualTo "") then {
 };
 
 if !(_olsenGearType isEqualTo "") then {
-    [_unit, _olsenGearType] call EFUNC(FW,gearScript);
+    [_unit, _olsenGearType] call FNC_GearScript;
 };
 
 [{
@@ -95,15 +91,9 @@ if !(_olsenGearType isEqualTo "") then {
 
 [_unit,_unitIsPersistent] call FUNC(setPersistent);
 _unit call _unitInit;
-
-if (_vehicleAssigned) then {
-    if (isNull _veh) then {
-        private _vehSearch = _unitPos nearEntities [_vehType, 5];
-        if !(_vehSearch isEqualTo []) then {
-            _veh = _vehSearch select 0;
-        };
-    };
-    [_unit, _vehRole, _veh, _unitPos, _vehType] call FUNC(setAssignedVehicle);
+_unit call FUNC(setunitskill);
+if (_vehicleAssigned && {!isNull _currentVeh}) then {
+    [_unit, _vr, _currentVeh] call FUNC(setAssignedVehicle);
 };
 
 if !(_storedVars isEqualTo []) then {
@@ -115,12 +105,12 @@ if !(_storedVars isEqualTo []) then {
 
 private _groupStance = GETVAR(_group,Stance,"AUTO");
 
-//["FW_eventSpawned", [_unit]] call CBA_fnc_serverEvent;
+["FW_eventSpawned", [_unit]] call CBA_fnc_serverEvent;
 
-//[_unit, "Killed", {
-//    _thisArgs params ["_unit"];
-//    ["FW_eventKilled", _unit] call CBA_fnc_serverEvent;
-//}, [_unit]] call CBA_fnc_addBISEventHandler;
+[_unit, "Killed", {
+    _thisArgs params ["_unit"];
+    ["FW_eventKilled", _unit] call CBA_fnc_serverEvent;
+}, [_unit]] call CBA_fnc_addBISEventHandler;
 
 [{!isNull (_this select 0)}, {
 	params ["_unit", "_groupStance", "_unitStance"];

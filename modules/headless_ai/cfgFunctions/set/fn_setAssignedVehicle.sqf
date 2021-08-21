@@ -1,39 +1,27 @@
 #include "..\..\script_macros.hpp"
 
-params [
-    ["_unit",objNull,[objNull]],
-    ["_vehRole",[],[[]]],
-    ["_veh",objNull,[objNull]],
-    ["_pos",[],[[]]],
-    ["_vehType","",[""]]
-];
-if (isNull _veh) exitWith {
-    ERROR_2("Vehicle type %2 for %1 not found",_unit,_vehType);
+
+params [["_u",objNull,[objNull]],["_vr",[],[[]]],["_veh",objNull,[objNull]],["_pos",[],[[]]],["_vc","",[""]]];
+if (isNull _veh) then {
+    _veh = _pos nearestObject _vc;
 };
-_vehRole params [
-    ["_role","",[""]],
-    ["_turret",[],[[]]]
-];
-private _group = group _unit;
+_vr params [["_role","",[""]],["_turret",[],[[]]]];
 switch (tolower _role) do {
     case "driver": {
-        _unit assignAsDriver _veh;
-        _unit moveInDriver _veh;
-        if (leader _unit isEqualTo _unit) then {
-            SETVAR(_veh,vehCrew,_group);
-        };
+        _u assignAsDriver _veh;
+        _u moveInDriver _veh;
     };
     case "cargo": {
-        _unit assignAsCargo _veh;
-        _unit moveInCargo _veh;
+        _u assignAsCargo _veh;
+        _u moveInCargo _veh;
     };
     case "turret": {
-        _unit assignAsTurret [_veh,_turret];
-        _unit moveInTurret [_veh,_turret];
+        _u assignAsTurret [_veh,_turret];
+        _u moveInTurret [_veh,_turret];
     };
     case "commander": {
-        _unit assignAsCommander _veh;
-        _unit moveInCommander _veh;
+        _u assignAsCommander _veh;
+        _u moveInCommander _veh;
     };
     default {};
 };

@@ -54,4 +54,3 @@ switch (side player) do { //Checks what team the player is on
 
 	};
 }; //End of switch
-

@@ -26,5 +26,3 @@ if (!isNull _task) then {
     [_group,_task] call FUNC(taskSet);
 };
 true
-
-
