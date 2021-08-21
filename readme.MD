@@ -1,3 +1,9 @@
+**Branch definitions:**  
+Master: Depracated. Has broken code. Do not use it. We will update this in the future.  
+Dev: Upcoming version that will be merged into the Master branch. Experimental use.  
+Stable: Recommended version.  
+
+
 **Olsen Framework** is an efficient and modular mission making framework designed to help create large scale, high quality Arma 3 scenarios. It can be used in different types of communities and servers due to it's modular nature and high flexibility.
 
 To learn more about this framework, visit [our wiki](https://github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3/wiki).
