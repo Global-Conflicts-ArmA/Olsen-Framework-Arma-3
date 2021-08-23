@@ -1,4 +1,4 @@
-
+#include "..\..\..\core\script_macros.hpp"
 
 FNC_DIA_GridSpottingFiremissionOpenDialog =
 {
@@ -36,7 +36,7 @@ FNC_DIA_GridSpottingFiremissionFire =
 	else
 	{
 		private _round =  ((_selectedUnit call FNC_GetArtyAmmo) select _selectedAmmo) select 0;
-		hint (([_selectedUnit,_pos,_selectedAmmo] call FNC_GetGridSpottingFiremissionText)
+		hint (([_selectedUnit,_pos,_selectedAmmo] call FUNC(FIREMIS_GetGridSpottingFiremissionText))
 								+ "Requested by: " + (name player)
 								+ "\nETA: " + str (round ((_selectedUnit call FNC_GetArtyAimTime) + ([_selectedUnit,_pos,_round] call FNC_GetArtyEta))) + " s");
 					["CallGridSpottingFiremission", [player,_selectedUnit,_grid,_selectedAmmo]] call CBA_fnc_serverEvent;
@@ -57,7 +57,7 @@ FNC_DIA_Server_GridSpottingFiremissionFire =
 	private _guns = _requester getVariable [VAR_SART_OBSGUNS,[]];
 
 	[_selectedUnit,_requester] call FNC_SetArtyCaller;
-	[_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_selectedAmmo]   call FNC_GridSpottingFiremission;
+	[_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_selectedAmmo]   call FUNC(FIREMIS_GridSpottingFiremission);
 
 };
 if(isServer) then {_id = ["CallGridSpottingFiremission", {_this call FNC_DIA_Server_GridSpottingFiremissionFire;}] call CBA_fnc_addEventHandler;};

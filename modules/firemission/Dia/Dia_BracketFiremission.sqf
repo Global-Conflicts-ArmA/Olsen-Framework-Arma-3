@@ -1,3 +1,4 @@
+#include "..\..\..\core\script_macros.hpp"
 
 FNC_DIA_BracketFiremissionOpenDialog =
 {
@@ -45,7 +46,7 @@ FNC_DIA_BracketFiremissionFire =
 	if(_inputIsCorrect ) then
 	{
 						private _round =  ((_selectedUnit call FNC_GetArtyAmmo) select _selectedAmmo) select 0;
-						hint (([_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FNC_GetBracketFiremissionText)
+						hint (([_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_GetBracketFiremissionText))
 							+ "Requested by:" + (name player)
 							+ "\nETA: " + str (round ((_selectedUnit call FNC_GetArtyAimTime) + ([_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,_round] call FNC_GetArtyEta))) + " s");
 						["CallBracketFiremission", [player,_selectedUnit,_selectedAmmo,_startGrid,_endGrid,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo]] call CBA_fnc_serverEvent;
@@ -68,7 +69,7 @@ FNC_DIA_Server_BracketFiremissionFire =
 	_spotting =  _this select 8;
 
 	[_selectedUnit,_requester] call FNC_SetArtyCaller;
-	[_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo]   call FNC_BracketFiremission;
+	[_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo]   call FUNC(FIREMIS_BracketFiremission);
 
 
 

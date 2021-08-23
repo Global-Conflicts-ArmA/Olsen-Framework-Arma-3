@@ -1,4 +1,4 @@
-
+#include "..\..\..\core\script_macros.hpp"
 
 FNC_DIA_DonutFiremissionOpenDialog =
 {
@@ -50,7 +50,7 @@ FNC_DIA_DonutFiremissionFire =
 	{
 
 								private _round =  ((_selectedUnit call FNC_GetArtyAmmo) select _selectedAmmo) select 0;
-								hint (([_selectedUnit,_grid call CBA_fnc_mapGridToPos,_innerRadius,_outerRadius,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FNC_GetDonutFiremissionText)
+								hint (([_selectedUnit,_grid call CBA_fnc_mapGridToPos,_innerRadius,_outerRadius,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_GetDonutFiremissionText))
 									+ "Requested by:" + (name player)
 									+ "\nETA: " + str (round ((_selectedUnit call FNC_GetArtyAimTime) + ([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_round] call FNC_GetArtyEta))) + " s");
 									["CallDonutFiremission", [player,_selectedUnit,_selectedAmmo,_grid,_innerRadius,_outerRadius,_burstNumber,_burstRounds,_burstDelay,_spotting]] call CBA_fnc_serverEvent;
@@ -77,7 +77,7 @@ FNC_DIA_Server_DonutFiremissionFire =
 	_spotting =  _this select 9;
 
 	[_selectedUnit,_requester] call FNC_SetArtyCaller;
-	[_selectedUnit ,[_grid,true] call CBA_fnc_mapGridToPos,_innerRadius,_outerRadius,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo]   call FNC_DonutFiremission;
+	[_selectedUnit ,[_grid,true] call CBA_fnc_mapGridToPos,_innerRadius,_outerRadius,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo]   call FUNC(FIREMIS_DonutFiremission);
 
 
 };

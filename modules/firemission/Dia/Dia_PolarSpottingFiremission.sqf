@@ -1,4 +1,4 @@
-
+#include "..\..\..\core\script_macros.hpp"
 
 FNC_DIA_PolarSpottingFiremissionOpenDialog =
 {
@@ -37,7 +37,7 @@ private	_usableGuns = [];
 	else
 	{
 		private _round =  ((_selectedUnit call FNC_GetArtyAmmo) select _selectedAmmo) select 0;
-		hint (([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_mils,_distance,_selectedAmmo] call FNC_GetPolarSpottingFiremissionText)
+		hint (([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_mils,_distance,_selectedAmmo] call FUNC(FIREMIS_GetPolarSpottingFiremissionText))
 								+ "Requested by: " + (name player)
 								+ "\nETA: " + str (round ((_selectedUnit call FNC_GetArtyAimTime) + ([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_round] call FNC_GetArtyEta))) + " s");
 		["CallPolarSpotting", [player,_selectedUnit,_grid,_mils,_distance,_selectedAmmo]] call CBA_fnc_serverEvent;
@@ -61,7 +61,7 @@ FNC_DIA_Server_PolarSpottingFiremissionFire =
 	private _guns = _requester getVariable [VAR_SART_OBSGUNS,[]];
 
 	[_selectedUnit,_requester] call FNC_SetArtyCaller;
-	[_selectedUnit,[_callGrid,true] call CBA_fnc_mapGridToPos,_mils,_distance,_roundType]   call FNC_PolarSpottingFiremission;
+	[_selectedUnit,[_callGrid,true] call CBA_fnc_mapGridToPos,_mils,_distance,_roundType] call FUNC(FIREMIS_PolarSpottingFiremission);
 
 };
 

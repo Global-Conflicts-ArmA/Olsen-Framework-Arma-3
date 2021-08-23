@@ -1,4 +1,4 @@
-
+#include "..\..\..\core\script_macros.hpp"
 
 FNC_DIA_MarkerFiremissionOpenDialog =
 {
@@ -51,7 +51,7 @@ FNC_DIA_MarkerFiremissionFire =
 
 							private _round =  ((_selectedUnit call FNC_GetArtyAmmo) select _selectedAmmo) select 0;
 
-							hint (([_selectedUnit,_name,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FNC_GetMarkerFiremissionText)
+							hint (([_selectedUnit,_name,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_GetMarkerFiremissionText))
 								+ "Requested by:" + (name player)
 								+ "\nETA: " + str (round ((_selectedUnit call FNC_GetArtyAimTime) + ([_selectedUnit,getMarkerPos (_marker),_round] call FNC_GetArtyEta))) + " s");
 							["CallMarkerFiremission",  [player,_selectedUnit,_name,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo]] call CBA_fnc_serverEvent;
@@ -76,7 +76,7 @@ FNC_DIA_Server_MarkerFiremissionFire =
 	private _selectedAmmo = _this select 8;
 
 	[_selectedUnit,_requester] call FNC_SetArtyCaller;
-	[_selectedUnit,_marker,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo]   call FNC_DynamicMarkerFiremission;
+	[_selectedUnit,_marker,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_DynamicMarkerFiremission);
 
 
 };

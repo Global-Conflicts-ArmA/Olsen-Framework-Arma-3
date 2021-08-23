@@ -1,4 +1,4 @@
-
+#include "..\..\..\core\script_macros.hpp"
 
 FNC_DIA_LineFiremissionOpenDialog =
 {
@@ -48,7 +48,7 @@ FNC_DIA_LineFiremissionFire =
 	{
 
 						private _round =  ((_selectedUnit call FNC_GetArtyAmmo) select _selectedAmmo) select 0;
-						hint (([_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FNC_GetLineFiremissionText)
+						hint (([_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_GetLineFiremissionText))
 							+ "Requested by:" + (name player)
 							+ "\nETA: " + str (round ((_selectedUnit call FNC_GetArtyAimTime) + ([_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,_round] call FNC_GetArtyEta))) + " s");
 							["CallLineFiremission", [player,_selectedUnit,_selectedAmmo,_startGrid,_endGrid,_burstNumber,_burstRounds,_burstDelay,_spotting]] call CBA_fnc_serverEvent;
@@ -72,7 +72,7 @@ FNC_DIA_Server_LineFiremissionFire =
 	_spotting =  _this select 8;
 
 	[_unit,_requester] call FNC_SetArtyCaller;
-	[_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo]   call FNC_LineFiremission;
+	[_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_LineFiremission);
 
 
 };

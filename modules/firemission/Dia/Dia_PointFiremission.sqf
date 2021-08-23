@@ -1,4 +1,4 @@
-
+#include "..\..\..\core\script_macros.hpp"
 
 FNC_DIA_PointFiremissionOpenDialog =
 {
@@ -48,7 +48,7 @@ FNC_DIA_PointFiremissionFire =
 	if(_inputIsCorrect) then
 	{
 							private _round =  ((_selectedUnit call FNC_GetArtyAmmo) select _selectedAmmo) select 0;
-							hint (([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FNC_GetPointFiremissionText)
+							hint (([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_GetPointFiremissionText))
 								+ "Requested by: " + (name player)
 								+ "\nETA: " + str (round ((_selectedUnit call FNC_GetArtyAimTime) + ([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_round] call FNC_GetArtyEta)))  + " s");
 
@@ -75,7 +75,7 @@ FNC_DIA_Server_PointFiremissionFire =
 	private _guns = _requester getVariable [VAR_SART_OBSGUNS,[]];
 
 	[_selectedUnit,_requester] call FNC_SetArtyCaller;
-	[_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo]   call FNC_PointFiremission;
+	[_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_PointFiremission);
 
 };
 
