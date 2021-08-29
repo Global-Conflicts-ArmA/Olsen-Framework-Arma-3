@@ -1,6 +1,5 @@
 #include "script_component.hpp"
-
-#include "..\..\Dia\Dia_Global.sqf"
+#include "defs.hpp"
 
 private["_unit","_guns"];
 _guns = _this;
@@ -48,28 +47,28 @@ if(!(player getVariable [VAR_SART_PLAYERRECEIVEDGUNS,false])) then
   _action = ["StopFiremission", "Stop Firemissions", "", {true}, {true}] call ace_interact_menu_fnc_createAction;
   [player, 1, ["ACE_SelfActions","Artillery_Menu"], _action] call ace_interact_menu_fnc_addActionToObject;
   {
-    _artyName =_x call FNC_GetArtyDisplayName;
+    _artyName =_x call FUNC(FIREMIS_Dia_GetArtyDisplayName);
     _text = ("Stop " + _artyName);
-    _action = ["Stop",_text , "", {(_this select 2) call FUNC(FIREMIS_StopArtilleryClient); }, {!(( _this select 2) call FNC_IsArtyAviable)},{},_x] call ace_interact_menu_fnc_createAction;
+    _action = ["Stop",_text , "", {(_this select 2) call FUNC(FIREMIS_StopArtilleryClient); }, {!(( _this select 2) call FUNC(FIREMIS_Dia_IsArtyAvailable))},{},_x] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions","Artillery_Menu","StopFiremission"], _action] call ace_interact_menu_fnc_addActionToObject;
   }forEach _guns;
 
   {
-    _artyName =_x call FNC_GetArtyDisplayName;
+    _artyName =_x call FUNC(FIREMIS_Dia_GetArtyDisplayName);
     _text = ("Info " + _artyName);
-    _action = ["Info",_text , "",{hint ((_this select 2) call FNC_GetCompleteInfoText); }, { !((_this select 2) call FNC_IsArtyAviable)},{},_x] call ace_interact_menu_fnc_createAction;
+    _action = ["Info",_text , "",{hint ((_this select 2) call FUNC(FIREMIS_Dia_GetCompleteInfoText)); }, { !((_this select 2) call FUNC(FIREMIS_Dia_IsArtyAvailable))},{},_x] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions","Artillery_Menu","FiremissionInformation"], _action] call ace_interact_menu_fnc_addActionToObject;
   }forEach _guns;
 
   _id = ["Event_ArtyIsReady",
   {
-    [PFM_DIA_IDC_GUNSELECT] call FNC_ArtLoadAviableArtilleries;
-    [LFM_DIA_IDC_GUNSELECT] call FNC_ArtLoadAviableArtilleries;
-    [BFM_DIA_IDC_GUNSELECT] call FNC_ArtLoadAviableArtilleries;
-    [DFM_DIA_IDC_GUNSELECT] call FNC_ArtLoadAviableArtilleries;
-    [MFM_DIA_IDC_GUNSELECT] call FNC_ArtLoadAviableArtilleries;
-    [PSFM_DIA_IDC_GUNSELECT] call FNC_ArtLoadAviableArtilleries;
-    [GSFM_DIA_IDC_GUNSELECT] call FNC_ArtLoadAviableArtilleries;
+    [PFM_DIA_IDC_GUNSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
+    [LFM_DIA_IDC_GUNSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
+    [BFM_DIA_IDC_GUNSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
+    [DFM_DIA_IDC_GUNSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
+    [MFM_DIA_IDC_GUNSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
+    [PSFM_DIA_IDC_GUNSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
+    [GSFM_DIA_IDC_GUNSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
   }] call CBA_fnc_addEventHandler;
   player setVariable [VAR_SART_PLAYERRECEIVEDGUNS,true,true];
 };

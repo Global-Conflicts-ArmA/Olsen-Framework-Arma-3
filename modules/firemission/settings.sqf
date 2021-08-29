@@ -112,7 +112,7 @@
 	 * 7: roundsPerBurst <int> number of rounds per burst
 	 * 8: burstWaitTime <int> downtime between bursts
 	 * 9: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-	 * 10: roundIndex <int> ammunition index from FNC_GetAmmoDisplayNameAndIndex
+	 * 10: roundIndex <int> ammunition index from FUNC(FIREMIS_Dia_GetAmmoDisplayNameAndIndex)
 	 *
 	 * Return Value:
 	 * none
@@ -182,7 +182,7 @@
 		* 4: roundsPerBurst <int> number of rounds per burst
 		* 5: burstWaitTime <int> downtime between bursts
 		* 6: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-		* 7: roundIndex <int> ammunition index from FNC_GetAmmoDisplayNameAndIndex
+		* 7: roundIndex <int> ammunition index from FUNC(FIREMIS_Dia_GetAmmoDisplayNameAndIndex)
 
 		*
 		* Return Value:
@@ -252,7 +252,7 @@
 		   * 3: roundsPerBurst <int> number of rounds per burst
 		   * 4: burstWaitTime <int> downtime between bursts
 		   * 5: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-		   * 6: roundIndex <int> ammunition index from FNC_GetAmmoDisplayNameAndIndex
+		   * 6: roundIndex <int> ammunition index from FUNC(FIREMIS_Dia_GetAmmoDisplayNameAndIndex)
 
 		   *
 		   * Return Value:
@@ -275,7 +275,7 @@
 			* 4: roundsPerBurst <int> number of rounds per burst
 			* 5: burstWaitTime <int> downtime between bursts
 			* 6: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-			* 7: roundIndex <int> ammunition index from FNC_GetAmmoDisplayNameAndIndex
+			* 7: roundIndex <int> ammunition index from FUNC(FIREMIS_Dia_GetAmmoDisplayNameAndIndex)
 
 			*
 			* Return Value:

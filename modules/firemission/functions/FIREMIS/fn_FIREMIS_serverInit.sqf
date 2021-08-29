@@ -1,7 +1,6 @@
 #include "script_component.hpp"
 #include "..\..\settings.sqf"
 
-#include "..\..\Dia\Dia_Global.sqf"
 #include "..\..\Dia\Dia_PointFiremission.sqf"
 #include "..\..\Dia\Dia_LineFiremission.sqf"
 #include "..\..\Dia\Dia_BracketFiremission.sqf"

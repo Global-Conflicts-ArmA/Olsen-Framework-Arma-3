@@ -1,9 +1,7 @@
 #include "script_component.hpp"
 
-#include "..\..\Dia\Dia_Global.sqf"
-
 private _unit = _this;
-private _ammo = _unit call FNC_GetArtyAmmo;
+private _ammo = _unit call FUNC(FIREMIS_Dia_GetArtyAmmo);
 {_unit removeMagazine _x} forEach (magazines _unit);
 {
   _count  = _x select 1;

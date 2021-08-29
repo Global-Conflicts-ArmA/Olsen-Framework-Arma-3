@@ -1,7 +1,5 @@
 #include "script_component.hpp"
 
-#include "..\..\Dia\Dia_Global.sqf"
-
 if (isServer) then
 {
 _handle = _this spawn
@@ -11,7 +9,7 @@ _handle = _this spawn
 			_tempArray = _this;
 			_tempArray set [0,_x];
 			_x setVariable [VAR_SART_ARTFMTEXT,_tempArray call FUNC(FIREMIS_GetCurtainFiremissionText),true];
-				[_x , true] call FNC_SetArtyReadyStatus;
+				[_x , true] call FUNC(FIREMIS_Dia_SetArtyReadyStatus);
 		} forEach _unit;
 		private _startPoint = _this select 1;
 		private _endPoint = _this select 2;
@@ -22,14 +20,14 @@ _handle = _this spawn
 		private	_minSpottedDistance = _this select 7;
 
 		private	_roundType = _this select 8;
-		private _roundClassName = ((_unit call FNC_GetArtyAmmo) select _roundType) select 0 ;
+		private _roundClassName = ((_unit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _roundType) select 0 ;
 		{
-			[_x , true] call FNC_SetArtyReadyStatus;
+			[_x , true] call FUNC(FIREMIS_Dia_SetArtyReadyStatus);
 			_x setVariable [VAR_SART_ARTFMTEXT,_this call FUNC(FIREMIS_GetPointFiremissionText),true];
-			[_x, 0,_burstCount * _burstSize] call FNC_SetArtyFiremissionRoundsRequired;
+			[_x, 0,_burstCount * _burstSize] call FUNC(FIREMIS_Dia_SetArtyFiremissionRoundsRequired);
 		} forEach _unit;
 		private	_fireRate = [];
-		sleep((_unit call FNC_GetArtyAimTime));
+		sleep((_unit call FUNC(FIREMIS_Dia_GetArtyAimTime)));
 		private	_dis = 1000;
 		private	_tempAcc = ((_unit select 0) getVariable [VAR_SART_ARTSPOTACCURACY,MEANSPOTTINGACCURACY]) + 1;
 		private	_dir = _endPoint vectorDiff  _startPoint;
@@ -56,15 +54,15 @@ _handle = _this spawn
 				_row = 0;
 				{
 						[_unit,(_startingSpots select _row) vectorAdd (_dir vectorMultiply _i),0,_burstSize,_roundClassName] call FUNC(FIREMIS_InternalFiremission);
-						[_x, ((_x getVariable [VAR_SART_ARTROUNDSFIRED,[0,0]]) select 1) + _burstSize,_burstCount * _burstSize] call FNC_SetArtyFiremissionRoundsRequired;
+						[_x, ((_x getVariable [VAR_SART_ARTROUNDSFIRED,[0,0]]) select 1) + _burstSize,_burstCount * _burstSize] call FUNC(FIREMIS_Dia_SetArtyFiremissionRoundsRequired);
 						_row = _row + 1;
 				}forEach _unit;
 					sleep((((_fireRate select 0) * ((_unit select 0) getVariable [VAR_SART_ARTFIRERATE,MEANFIRERATE]) ) * _burstSize) max _burstWait);
 		};
 		{
-				[_x, 0,0] call FNC_SetArtyFiremissionRoundsRequired;
-				[_x , false] call FNC_SetArtyReadyStatus;
-				[_x,objNULL] call FNC_SetArtyCaller;
+				[_x, 0,0] call FUNC(FIREMIS_Dia_SetArtyFiremissionRoundsRequired);
+				[_x , false] call FUNC(FIREMIS_Dia_SetArtyReadyStatus);
+				[_x,objNULL] call FUNC(FIREMIS_Dia_SetArtyCaller);
 		} forEach _unit;
 	};
 	{

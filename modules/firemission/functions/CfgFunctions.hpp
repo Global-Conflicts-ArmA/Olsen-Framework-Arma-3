@@ -9,6 +9,32 @@ class FIREMIS {
 	class FIREMIS_BracketFiremission {};
 	class FIREMIS_ClientAddAceArtilleryOption {};
 	class FIREMIS_CurtainFiremission {};
+
+	class FIREMIS_Dia_ArtLoadAvailableArtilleries {};
+	class FIREMIS_Dia_ArtSetArtillery {};
+	class FIREMIS_Dia_FindMarkerOnMap {};
+	class FIREMIS_Dia_GetAmmoDisplayNameAndIndex {};
+	class FIREMIS_Dia_GetAmmoDisplayNameAndIndexFormatted {};
+	class FIREMIS_Dia_GetArtyAimTime {};
+	class FIREMIS_Dia_GetArtyAmmo {};
+	class FIREMIS_Dia_GetArtyCalcTime {};
+	class FIREMIS_Dia_GetArtyCaller {};
+	class FIREMIS_Dia_GetArtyCallerText {};
+	class FIREMIS_Dia_GetArtyDisplayName {};
+	class FIREMIS_Dia_GetArtyEta {};
+	class FIREMIS_Dia_GetArtyFiremissionRoundsRequired {};
+	class FIREMIS_Dia_GetArtyIndexAmmoClassname {};
+	class FIREMIS_Dia_GetCompleteInfoText {};
+	class FIREMIS_Dia_InputIsNumber {};
+	class FIREMIS_Dia_InputIsUnit {};
+	class FIREMIS_Dia_IsArtyAvailable {};
+	class FIREMIS_Dia_SendArtyHint {};
+	class FIREMIS_Dia_SendArtyHintGlobal {};
+	class FIREMIS_Dia_SetArtyAvailable {};
+	class FIREMIS_Dia_SetArtyCaller {};
+	class FIREMIS_Dia_SetArtyFiremissionRoundsRequired {};
+	class FIREMIS_Dia_SetArtyReadyStatus {};
+
 	class FIREMIS_DonutFiremission {};
 	class FIREMIS_DynamicMarkerFiremission {};
 	class FIREMIS_GetArtillerySkill {};

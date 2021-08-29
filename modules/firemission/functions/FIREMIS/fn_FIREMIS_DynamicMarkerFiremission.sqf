@@ -1,11 +1,9 @@
 #include "script_component.hpp"
 
-#include "..\..\Dia\Dia_Global.sqf"
-
 if (isServer) then
 {
 
-  private _marker = (_this select 1) call FNC_FindMarkerOnMap;
+  private _marker = (_this select 1) call FUNC(FIREMIS_Dia_FindMarkerOnMap);
   if(_marker  != "") then
   {
     _pos = getMarkerPos _marker;

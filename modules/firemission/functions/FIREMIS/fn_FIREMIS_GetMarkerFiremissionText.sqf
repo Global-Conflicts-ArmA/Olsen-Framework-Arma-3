@@ -1,7 +1,5 @@
 #include "script_component.hpp"
 
-#include "..\..\Dia\Dia_Global.sqf"
-
 private _unit = _this select 0;
 private	_target = _this select 1;
 private	_dispersion = _this select 2;
@@ -10,10 +8,10 @@ private	_burstSize = _this select 4;
 private	_burstWait = _this select 5;
 private	_minSpottedDistance = _this select 6;
 private	_roundType = _this select 7;
-private	_rounds = ((_unit call FNC_GetArtyAmmo) select _roundType) select 0;
+private	_rounds = ((_unit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _roundType) select 0;
 private _text =  getText (configfile / "CfgMagazines" / _rounds / "displayName");
 
-_unitName = _unit call FNC_GetArtyDisplayName;
+_unitName = _unit call FUNC(FIREMIS_Dia_GetArtyDisplayName);
 
 
 _ret = 	"Name: " + _unitName +"\n" +

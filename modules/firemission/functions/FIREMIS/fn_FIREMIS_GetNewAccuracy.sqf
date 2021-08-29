@@ -1,7 +1,5 @@
 #include "script_component.hpp"
 
-#include "..\..\Dia\Dia_Global.sqf"
-
 _ret = 0;
 if((_this select 0) > ((_this select 1) * 0.5)) then
 {

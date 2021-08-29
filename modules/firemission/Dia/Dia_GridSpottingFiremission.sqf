@@ -1,14 +1,15 @@
 #include "..\..\..\core\script_macros.hpp"
+#include "..\functions\FIREMIS\defs.hpp"
 
 FNC_DIA_GridSpottingFiremissionOpenDialog =
 {
 	_ok = createDialog "DIA_GridSpottingFiremission";
-	[GSFM_DIA_IDC_GUNSELECT,GSFM_DIA_IDC_SHELLSELECT] call FNC_ArtLoadAviableArtilleries;
+	[GSFM_DIA_IDC_GUNSELECT,GSFM_DIA_IDC_SHELLSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
 };
 
 FNC_DIA_GridSpottingFiremissionSetArtillery =
 {
-	[GSFM_DIA_IDC_SHELLSELECT,_this] call FNC_ArtSetArtillery;
+	[GSFM_DIA_IDC_SHELLSELECT,_this] call FUNC(FIREMIS_Dia_ArtSetArtillery);
 };
 
 FNC_DIA_GridSpottingFiremissionCloseDialog =
@@ -22,7 +23,7 @@ FNC_DIA_GridSpottingFiremissionFire =
 	private _guns = player getVariable [VAR_SART_OBSGUNS,[]];
 	private _usableGuns = [];
 	{
-		if(_x call FNC_IsArtyAviable) then
+		if(_x call FUNC(FIREMIS_Dia_IsArtyAvailable)) then
 		{
 			_usableGuns pushBack _x;
 		};
@@ -35,10 +36,10 @@ FNC_DIA_GridSpottingFiremissionFire =
 	if(_selectedUnit isEqualTo objNull) then  {hint "No Arty selected/aviable";}
 	else
 	{
-		private _round =  ((_selectedUnit call FNC_GetArtyAmmo) select _selectedAmmo) select 0;
+		private _round =  ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _selectedAmmo) select 0;
 		hint (([_selectedUnit,_pos,_selectedAmmo] call FUNC(FIREMIS_GetGridSpottingFiremissionText))
 								+ "Requested by: " + (name player)
-								+ "\nETA: " + str (round ((_selectedUnit call FNC_GetArtyAimTime) + ([_selectedUnit,_pos,_round] call FNC_GetArtyEta))) + " s");
+								+ "\nETA: " + str (round ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAimTime)) + ([_selectedUnit,_pos,_round] call FUNC(FIREMIS_Dia_GetArtyEta)))) + " s");
 					["CallGridSpottingFiremission", [player,_selectedUnit,_grid,_selectedAmmo]] call CBA_fnc_serverEvent;
 		[] call FNC_DIA_GridSpottingFiremissionCloseDialog;
 
@@ -56,7 +57,7 @@ FNC_DIA_Server_GridSpottingFiremissionFire =
 	private _selectedAmmo = _this select 3;
 	private _guns = _requester getVariable [VAR_SART_OBSGUNS,[]];
 
-	[_selectedUnit,_requester] call FNC_SetArtyCaller;
+	[_selectedUnit,_requester] call FUNC(FIREMIS_Dia_SetArtyCaller);
 	[_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_selectedAmmo]   call FUNC(FIREMIS_GridSpottingFiremission);
 
 };

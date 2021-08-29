@@ -1,7 +1,5 @@
 #include "script_component.hpp"
 
-#include "..\..\Dia\Dia_Global.sqf"
-
 _unit = _this select 0;
 skills = [];
 skills pushBack (_unit getVariable [VAR_SART_ARTFIRERATE,MEANFIRERATE]);

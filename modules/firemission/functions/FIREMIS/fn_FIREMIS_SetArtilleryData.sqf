@@ -1,7 +1,5 @@
 #include "script_component.hpp"
 
-#include "..\..\Dia\Dia_Global.sqf"
-
 //TODO do some value checking
 private _unit = _this select 0;
 private _fireRate = if((_this select 1) < 0) then {MEANFIRERATE} else {  _this select 1};;
