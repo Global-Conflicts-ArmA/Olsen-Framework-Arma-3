@@ -1,5 +1,4 @@
 #include "script_component.hpp"
-#include "defs.hpp"
 
 diag_log "INFO: In FIREMIS_Dia_IsArtyAvailable";
 

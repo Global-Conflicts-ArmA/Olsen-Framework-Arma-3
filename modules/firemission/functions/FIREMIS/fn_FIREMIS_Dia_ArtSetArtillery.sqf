@@ -1,5 +1,4 @@
 #include "script_component.hpp"
-#include "defs.hpp"
 
 private _id = _this select 0;
 private _gun = _this select 1;

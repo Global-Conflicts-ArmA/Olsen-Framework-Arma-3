@@ -1,5 +1,4 @@
 #include "script_component.hpp"
-#include "defs.hpp"
 
 private _unit = _this select 0;
 private _roundsFired = _this select 1;

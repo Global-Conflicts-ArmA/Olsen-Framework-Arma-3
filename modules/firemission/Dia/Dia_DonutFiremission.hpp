@@ -2,7 +2,7 @@
 // GUI EDITOR OUTPUT START (by Sacher, v1.063, #Dyroxu)
 ////////////////////////////////////////////////////////
 
-#include "defs.hpp"
+#include "..\functions\FIREMIS\defs.hpp"
 class DIA_DONUTFIREMISSION
 {
 	idd = DFM_DIA_IDD_DISPLAY;

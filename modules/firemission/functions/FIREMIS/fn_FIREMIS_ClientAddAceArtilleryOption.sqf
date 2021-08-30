@@ -1,5 +1,4 @@
 #include "script_component.hpp"
-#include "defs.hpp"
 
 private["_unit","_guns"];
 _guns = _this;

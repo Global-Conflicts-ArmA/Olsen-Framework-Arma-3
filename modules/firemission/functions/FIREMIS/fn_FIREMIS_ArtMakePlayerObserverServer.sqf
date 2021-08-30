@@ -1,7 +1,5 @@
 #include "script_component.hpp"
 
-#include "..\..\Dia\defs.hpp"
-
 private _unit = _this select 0;
 private	_guns = _this select 1;
 if (isServer) then

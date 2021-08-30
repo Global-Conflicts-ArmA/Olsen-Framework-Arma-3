@@ -1,5 +1,4 @@
 #include "script_component.hpp"
-#include "defs.hpp"
 
 private _unit = _this;
 private _caller = _unit call FUNC(FIREMIS_Dia_GetArtyCaller);

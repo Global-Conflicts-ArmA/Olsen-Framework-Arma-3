@@ -1,7 +1,5 @@
 #include "script_component.hpp"
 
-#include "..\..\Dia\defs.hpp"
-
 _this spawn
 {
   while{time <= 0} do
