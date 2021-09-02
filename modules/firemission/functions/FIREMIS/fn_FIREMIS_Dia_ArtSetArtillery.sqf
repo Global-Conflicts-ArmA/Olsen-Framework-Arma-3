@@ -1,7 +1,10 @@
 #include "script_component.hpp"
 
-private _id = _this select 0;
-private _gun = _this select 1;
+params[
+  ["_id", 29379, [29379]],
+  ["_gun", 0, [0]]
+];
+
 if(_gun >= 0) then
 {
   _guns = player getVariable [VAR_SART_OBSGUNS,[]];

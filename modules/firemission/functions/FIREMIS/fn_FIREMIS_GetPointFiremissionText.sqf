@@ -1,19 +1,21 @@
 #include "script_component.hpp"
 
-private _unit = _this select 0;
-private	_target = _this select 1;
-private	_dispersion = _this select 2;
-private	_burstCount = _this select 3;
-private	_burstSize = _this select 4;
-private	_burstWait = _this select 5;
-private	_minSpottedDistance = _this select 6;
-private	_roundType = _this select 7;
+params[
+  ["_unit", objNull, [objNull]],
+  ["_target", objNull, [objNull, []]],
+  ["_dispersion", 100, [100]],
+  ["_burstCount", 0, [0]],
+  ["_burstSize", 0, [0]],
+  ["_burstWait", 0, [0]],
+  ["_minSpottedDistance", 100, [100]],
+  ["_roundType", 0, [0]]
+];
+
 private	_rounds = ((_unit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _roundType);
 
 private _text =  getText (configfile / "CfgMagazines" / (_rounds select 0) / "displayName");
 
 private	_unitName = _unit call FUNC(FIREMIS_Dia_GetArtyDisplayName);
-
 
 private _ret = 	"Name: " + _unitName + "\n" +
     "Firemission type: Point-Firemission \n" +

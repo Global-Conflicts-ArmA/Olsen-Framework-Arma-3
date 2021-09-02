@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-_unit = _this select 0;
+private _unit = _this select 0;
 skills = [];
 skills pushBack (_unit getVariable [VAR_SART_ARTFIRERATE,MEANFIRERATE]);
 skills pushBack (_unit getVariable [VAR_SART_ARTACCURACY,MEANPlOTTEDACCURACY]);

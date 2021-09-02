@@ -31,6 +31,7 @@ FNC_DIA_MarkerFiremissionFire =
 	}forEach _guns;
 	private _selectedUnit = objNull;
 	 if((count _usableGuns) > 0) then { _selectedUnit = (_usableGuns select (lbCurSel MFM_DIA_IDC_GUNSELECT));};
+	/* diag_log format ["INFO: MFM_DIA_IDC_SHELLSELECT = %1", MFM_DIA_IDC_SHELLSELECT]; */
 	private _selectedAmmo = lbCurSel MFM_DIA_IDC_SHELLSELECT;
 	private _name = ctrlText MFM_DIA_IDC_NAME;
 	private _dispersion = (ctrlText MFM_DIA_IDC_DISPERSION) call BIS_fnc_parseNumber;
@@ -50,14 +51,14 @@ FNC_DIA_MarkerFiremissionFire =
 	if(_marker == "") then { _inputIsCorrect = false;hint "marker does not exist";	};
 	if(_inputIsCorrect) then
 	{
+		diag_log format ["INFO: _selectedAmmo = %1", _selectedAmmo];
+		private _round =  ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _selectedAmmo) select 0;
 
-							private _round =  ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _selectedAmmo) select 0;
-
-							hint (([_selectedUnit,_name,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_GetMarkerFiremissionText))
-								+ "Requested by:" + (name player)
-								+ "\nETA: " + str (round ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAimTime)) + ([_selectedUnit,getMarkerPos (_marker),_round] call FUNC(FIREMIS_Dia_GetArtyEta)))) + " s");
-							["CallMarkerFiremission",  [player,_selectedUnit,_name,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo]] call CBA_fnc_serverEvent;
-							[] call FNC_DIA_MarkerFiremissionCloseDialog;
+		hint (([_selectedUnit,_name,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_GetMarkerFiremissionText))
+			+ "Requested by:" + (name player)
+			+ "\nETA: " + str (round ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAimTime)) + ([_selectedUnit,getMarkerPos (_marker),_round] call FUNC(FIREMIS_Dia_GetArtyEta)))) + " s");
+		["CallMarkerFiremission",  [player,_selectedUnit,_name,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo]] call CBA_fnc_serverEvent;
+		[] call FNC_DIA_MarkerFiremissionCloseDialog;
 
 	};
 

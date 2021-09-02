@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-private _unit =_this;
+private _unit = _this;
 private _ammo = magazinesAmmo _unit;
 private _ret = [];
 private _possibleMags = getArray (configfile >> "CfgWeapons">>  (((_unit) weaponsTurret [0]) select 0) >> "magazines");

@@ -8,7 +8,7 @@ _this spawn
   };
   if (local (_this select 0)) exitWith
   {
-    ["Event_ArtPlayerJipped",_this] call CBA_fnc_serverEvent;
+    ["Event_ArtPlayerJipped", _this] call CBA_fnc_serverEvent;
   };
 
 };

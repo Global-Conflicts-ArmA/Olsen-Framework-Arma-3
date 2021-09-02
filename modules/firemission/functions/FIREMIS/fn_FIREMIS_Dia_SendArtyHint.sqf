@@ -1,5 +1,8 @@
 #include "script_component.hpp"
 
-private  _unit = _this select 0;
-private  _text = _this select 1;
+params[
+  ["_unit", objNull, [objNull]],
+  ["_text", "", [""]]
+];
+
 ["Event_ArtyReceiveHint", _text, _unit] call CBA_fnc_targetEvent;

@@ -1,10 +1,13 @@
 #include "script_component.hpp"
 
-private _unit = _this select 0;
-private _callGrid = _this select 1;
-private _mils = _this select 2;
-private _distance = _this select 3;
-private	_roundType = _this select 4;
+params[
+  ["_unit", objNull, [objNull]],
+  ["_callGrid"],
+  ["_mils"],
+  ["_distance"],
+  ["_roundType"]
+];
+
 private	_loc = [_callGrid,true] call CBA_fnc_mapGridToPos;
 private	_degrees = MILSPERROUND / _mils * 360.0;
 private _dir = [cos _degrees,sin _degrees,0];

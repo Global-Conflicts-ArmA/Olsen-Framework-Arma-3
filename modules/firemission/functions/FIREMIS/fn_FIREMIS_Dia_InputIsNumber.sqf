@@ -1,7 +1,10 @@
 #include "script_component.hpp"
 
-private _value = _this select 0;
-private _errorText = _this select 1;
+params[
+  ["_value", -1, [-1]],
+  ["_errorText", "", [""]]
+];
+
 private _ret = true;
 if(_value < 0) then
 {

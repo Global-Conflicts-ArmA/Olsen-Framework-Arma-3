@@ -1,10 +1,13 @@
 #include "script_component.hpp"
 
-private	_unit = _this select 0;
-private	_target = _this select 1;
-private	_dispersion = _this select 2;
-private	_burstSize = _this select 3;
-private	_roundClassName = _this select 4;
+params[
+  ["_unit", objNull, [objNull]],
+  ["_target", objNull, [objNull, []]],
+  ["_dispersion", 100, [100]],
+  ["_burstSize", 0, [0]],
+  ["_roundClassName", "", [""]]
+];
+
 _unit call FUNC(FIREMIS_InternalRepackArtilleryMagazines);
 private _hasAmmunition = false;
 

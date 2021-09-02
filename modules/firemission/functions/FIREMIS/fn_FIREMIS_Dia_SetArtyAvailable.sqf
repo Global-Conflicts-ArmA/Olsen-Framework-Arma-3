@@ -1,3 +1,8 @@
 #include "script_component.hpp"
 
-(_this select 0 ) setVariable [VAR_SART_IsAviable,_this select 1,true];
+params[
+  ["_var1"],
+  ["_var2"]
+];
+
+(_var1) setVariable [VAR_SART_IsAviable, _var2, true];
