@@ -22,8 +22,10 @@ _handle = _this spawn
   _randomPos = [[[_target, _unit getVariable [VAR_SART_ARTSPOTACCURACY,MEANSPOTTINGACCURACY]]],[]] call BIS_fnc_randomPos;
     _eta = [_unit,_randomPos, ((_unit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _roundType) select 0] call FUNC(FIREMIS_Dia_GetArtyEta);
   _unit commandArtilleryFire [_randomPos,  ((_unit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _roundType) select 0, 1];
-  _waitTime = (_fireRate * (_unit getVariable [VAR_SART_ARTFIRERATE,MEANFIRERATE]));
-  sleep(_waitTime);
-  [_unit,objNULL] call FUNC(FIREMIS_Dia_SetArtyCaller);
-  [_unit, false] call FUNC(FIREMIS_Dia_SetArtyReadyStatus);
+  private _waitTime = (_fireRate * (_unit getVariable [VAR_SART_ARTFIRERATE,MEANFIRERATE]));
+
+  [{
+    [_this, objNULL] call FUNC(FIREMIS_Dia_SetArtyCaller);
+    [_this, false] call FUNC(FIREMIS_Dia_SetArtyReadyStatus);
+  }, _unit, _waitTime] call CBA_fnc_waitAndExecute;
 };

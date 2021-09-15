@@ -16,7 +16,11 @@ _handle = _this spawn
   private _eta = [_unit,_randomPos, ((_unit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _roundType) select 0] call FUNC(FIREMIS_Dia_GetArtyEta);
   _unit commandArtilleryFire [_randomPos,  ((_unit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _roundType) select 0, 1];
   private _waitTime = (_fireRate * (_unit getVariable [VAR_SART_ARTFIRERATE,MEANFIRERATE]));
-  sleep(_waitTime);
-  [_unit,objNULL] call FUNC(FIREMIS_Dia_SetArtyCaller);
-  [_unit, false] call FUNC(FIREMIS_Dia_SetArtyReadyStatus);
+
+  [{
+    [_this, objNULL] call FUNC(FIREMIS_Dia_SetArtyCaller);
+    [_this, false] call FUNC(FIREMIS_Dia_SetArtyReadyStatus);
+  },
+  _unit, _waitTime] call CBA_fnc_waitAndExecute;
+
 };
