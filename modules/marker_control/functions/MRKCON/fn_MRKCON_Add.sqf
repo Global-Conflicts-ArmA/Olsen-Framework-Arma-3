@@ -6,10 +6,8 @@ params[
   ["_deleteAfterStart", false, [false]]
 ];
 
-diag_log format ["INFO: Markers: %1", GVAR(Markers)];
-
 if (markerType _name isNotEqualTo "") then {
-	GVAR(Markers) set [count GVAR(Markers), [_side, _name, _deleteAfterStart]];
+  GVAR(Markers) pushBack [_side, _name, _deleteAfterStart];
 } else {
 	_temp = format ["Marker control module:<br></br>Warning marker ""%1"", in file ""modules\marker control\settings.sqf"" does not exist.", _name];
 	_temp call FNC_DebugMessage;
