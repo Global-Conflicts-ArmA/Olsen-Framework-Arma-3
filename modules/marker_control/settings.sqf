@@ -1,10 +1,13 @@
-//This module is for showing or hiding markers based on what side they belong to.
+#include "script_component.hpp"
 
-//ADDMARKER(SIDE, NAME, DELETE_AFTER_START)
-//SIDE is the side of the marker, NAME is the name of the marker.
-//If you dont want anyone to see the marker use SYSTEM.
-//DELETE_AFTER_START set to true will delete marker after briefing
+// This module is for showing or hiding markers based on what side they belong to.
 
-//Example:
-//ADDMARKER(west, "start", true);
-//ADDMARKER(SYSTEM, "objBravo", false);
+// [SIDE, MARKER_NAME, DELETE_AFTER_START] call FUNC(MRKCON_Add)
+// SIDE is the side of the marker, NAME is the name of the marker.
+// If you dont want anyone to see the marker use sideLogic.
+// DELETE_AFTER_START set to true will delete marker after briefing
+
+// Example:
+// [blufor, "markerBlu", true] call FUNC(MRKCON_Add);
+// [blufor, "markerBlu2", false] call FUNC(MRKCON_Add);
+// [opfor, "markerRed", true] call FUNC(MRKCON_Add);
