@@ -33,6 +33,7 @@ Additional modules that can be enabled by removing the //
 //#include "call_mission\root.sqf"
 //#include "capture_zone\root.sqf"
 //#include "cover_map\root.sqf"
+//#include "cvc_check\root.sqf"
 //#include "env_parameters\root.sqf"
 //#include "extract\root.sqf"
 //#include "firemission\root.sqf"
