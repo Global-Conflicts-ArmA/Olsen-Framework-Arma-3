@@ -1,4 +1,4 @@
-["cvcCheck", "Checks if a unit is a crewman in an armored vehicle, adds/removes CVC as appropriate.", "TinfoilHate"] call FUNC(RegisterModule);
+#include "script_component.hpp"
 
 #include "settings.sqf"
 
