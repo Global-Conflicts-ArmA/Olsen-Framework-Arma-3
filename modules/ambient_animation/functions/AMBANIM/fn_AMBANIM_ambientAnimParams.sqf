@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
 	Author: Jiri Wainar
 	Modified: TinfoilHate
@@ -8,16 +10,15 @@
 
 if (_this == "") exitWith {[]};
 
-private["_azimutFix","_attachSnap","_attachOffset","_noBackpack","_noWeapon","_randomGear","_canInterpolate","_anims"];
-
 //defaults
-_azimutFix 	= 0;				//unit direction adjustment; some anims can be wrongly configured
-_attachSnap 	= 0.75;
-_attachOffset 	= 0;
-_noBackpack 	= false;
-_noWeapon 	= false;
-_randomGear 	= ["MEDIUM","MEDIUM","LIGHT"];
-_canInterpolate = false;
+private _azimutFix 	= 0;				//unit direction adjustment; some anims can be wrongly configured
+private _attachSnap 	= 0.75;
+private _attachOffset 	= 0;
+private _noBackpack 	= false;
+private _noWeapon 	= false;
+private _randomGear 	= ["MEDIUM","MEDIUM","LIGHT"];
+private _canInterpolate = false;
+private _anims = [];
 
 //setup ambient animations
 switch (_this) do
@@ -366,15 +367,13 @@ switch (_this) do
 	default
 	{
 		["Animation set not recognized!",_unit,_animset] call BIS_fnc_error;
-
-		_anims = [];
 	};
 };
 
 //convert all anims to lowercase
 {
-	_anims set [_forEachIndex,toLower _x];
+	_anims set [_forEachIndex, toLower _x];
 }
 forEach _anims;
 
-[_anims,_azimutFix,_attachSnap,_attachOffset,_noBackpack,_noWeapon,_randomGear,_canInterpolate]
+[_anims, _azimutFix, _attachSnap, _attachOffset, _noBackpack, _noWeapon, _randomGear, _canInterpolate]

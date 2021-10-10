@@ -1,11 +1,9 @@
-#ifdef preinit
-	
-	#include "preinit.sqf"
-	
+#ifdef description_XEH_PreInit
+	class AMBANIM {
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\ambient_animation\preInitClient.sqf'";
+	};
 #endif
 
-#ifdef framework
-
-	#include "init.sqf"
-
+#ifdef description_functions
+	#include "functions\CfgFunctions.hpp"
 #endif
