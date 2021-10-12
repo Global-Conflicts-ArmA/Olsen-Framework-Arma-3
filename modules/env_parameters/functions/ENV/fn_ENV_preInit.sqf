@@ -11,7 +11,15 @@ if (-1 != _WeatherParam) then {
 	if (-10 == _overcast) then {
 		_overcast = random 10;
 	};
-	0 setOvercast (_overcast / 10);
+	_overcast = (_overcast / 10);
+
+	diag_log format ["INFO: Setting overcast to: %1", _overcast];
+
+	0 setOvercast _overcast;
+	if (_overcast > 0.5) then {
+		0 setRain _overcast;
+	};
+	forceWeatherChange;
 
 };
 
