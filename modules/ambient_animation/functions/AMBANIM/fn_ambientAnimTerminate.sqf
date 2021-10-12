@@ -1,12 +1,12 @@
 #include "script_component.hpp"
 
-if (typeName _this == typeName []) exitWith {
+if (_this isEqualType []) exitWith {
 	_this apply {
-		_x call FUNC(AMBANIM_ambientAnimTerminate);
+		_x call FUNC(ambientAnimTerminate);
 	};
 };
 
-if (typeName _this != typeName objNull) exitWith {};
+if (!(_this isEqualType objNull)) exitWith {};
 
 if (isNull _this) exitWith {};
 

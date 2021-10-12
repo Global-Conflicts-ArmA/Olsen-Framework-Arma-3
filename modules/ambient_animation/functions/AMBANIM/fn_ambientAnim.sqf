@@ -62,7 +62,7 @@
 	-
 
 	Example:
-	[this,"SIT_HIGH2"] call FW_fnc_AMBANIM_ambientAnim;
+	[this,"SIT_HIGH2"] call AMBANIM_fnc_ambientAnim;
 */
 
 #include "script_component.hpp"
@@ -99,7 +99,7 @@ if (primaryWeapon _unit != "") then {_unit setVariable ["ambientAnimMonitor_weap
 detach _unit;
 
 //Animation Paramaters
-private _params = _animset call FUNC(AMBANIM_ambientAnimParams);
+private _params = _animset call FUNC(ambientAnimParams);
 
 _params params ["_anims", "_azimutFix", "_attachSnap", "_attachOffset", "_noBackpack", "_noWeapon", "_randomGear", "_canInterpolate"];
 
@@ -321,7 +321,7 @@ _unit disableCollisionWith _attachObj;
 	private _logic = _group createUnit ["Logic", [_attachPos select 0, _attachPos select 1, 0], [], 0, "NONE"];
 
 	if (isNull _logic) exitWith {
-		_unit call FUNC(AMBANIM_ambientAnimPlay);
+		_unit call FUNC(ambientAnimPlay);
 
 		if (count units _group == 0) then
 		{
@@ -343,7 +343,7 @@ _unit disableCollisionWith _attachObj;
 	};
 
 	//"smart-select" animation that is not played on nearby unit and play it
-	_unit call FUNC(AMBANIM_ambientAnimPlay);
+	_unit call FUNC(ambientAnimPlay);
 
 	//play next anim when previous finishes
 	private _ehAnimDone = _unit addEventHandler
@@ -356,9 +356,9 @@ _unit disableCollisionWith _attachObj;
 			_pool = _unit getVariable ["ambientAnimMonitor_anims",[]];
 
 			if (alive _unit) then {
-				_unit call FUNC(AMBANIM_ambientAnimPlay);
+				_unit call FUNC(ambientAnimPlay);
 			} else {
-				_unit call FUNC(AMBANIM_ambientAnimTerminate);
+				_unit call FUNC(ambientAnimTerminate);
 			};
 		}
 	];
@@ -369,7 +369,7 @@ _unit disableCollisionWith _attachObj;
 	[
 		"Killed",
 		{
-			(_this select 0) call FUNC(AMBANIM_ambientAnimTerminate);
+			(_this select 0) call FUNC(ambientAnimTerminate);
 		}
 	];
 	_unit setVariable ["ambientAnimMonitor_EhKilled", _ehKilled];

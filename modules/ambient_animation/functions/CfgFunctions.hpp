@@ -1,8 +1,11 @@
-class AMBANIM {
-	file = "modules\ambient_animation\functions\AMBANIM";
-	class AMBANIM_ambientAnim {};
-	class AMBANIM_ambientAnimMonitor {};
-	class AMBANIM_ambientAnimParams {};
-	class AMBANIM_ambientAnimPlay {};
-	class AMBANIM_ambientAnimTerminate {};
+class COMPONENT {
+	tag = COMPONENT;
+	class AMBANIM {
+		file = "modules\ambient_animation\functions\AMBANIM";
+		class ambientAnim {};
+		class ambientAnimMonitor {};
+		class ambientAnimParams {};
+		class ambientAnimPlay {};
+		class ambientAnimTerminate {};
+	};
 };
