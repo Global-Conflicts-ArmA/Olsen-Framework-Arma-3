@@ -1,5 +1,7 @@
+#include "script_component.hpp"
+
 params ["_unit","_vehicle",["_seattype","ANY"],["_seatindex",0]];
-	
+
 if (!alive _vehicle) exitwith {diag_log format ["%1 is destroyed! Cannot move %2 into vehicle!",_vehicle,_unit];};
 if (!alive _unit) exitwith {diag_log format ["%2 is dead! Cannot move into vehicle %1!",_vehicle,_unit];};
 

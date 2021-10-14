@@ -1,8 +1,5 @@
 class StartInVehicle {
-	class VehicleStart
-	{
-		file = "modules\start_in_vehicle\functions\VehicleStart";
-		class moveInVehicle {};
-		class startInVehicle {};
-	};
+	file = "modules\start_in_vehicle\functions\StartInVehicle";
+	class StartInVehicle_moveInVehicle {};
+	class StartInVehicle_startInVehicle {};
 };
