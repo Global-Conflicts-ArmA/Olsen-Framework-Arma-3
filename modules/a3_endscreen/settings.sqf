@@ -4,23 +4,23 @@
 
 // FW_fnc_EndMission Syntax:
 // COOP
-// [string EndType (endTypes.hpp), bool isVictory] call FW_fnc_EndMission;
+// [string EndType (endTypes.hpp), bool isVictory] call A3END_fnc_EndMission; OR call EFUNC(A3END,EndMission) from within code
 //
 // TVT
-// [[side/array/unit Target, string EndType, bool isVictory], [side/array/unit Target, string EndType, bool isVictory]] call FW_fnc_EndMission;
+// [[side/array/unit Target, string EndType, bool isVictory], [side/array/unit Target, string EndType, bool isVictory]] call A3END_fnc_EndMission; OR call EFUNC(A3END,EndMission) from within code
 //
 // TVT Example:
 // OPFOR Victory
-// [[west, "BLUFOREliminated", false], [east, "BLUFOREliminated", false]] call FW_fnc_EndMission;
+// [[west, "BLUFOREliminated", false], [east, "BLUFOREliminated", false]] call A3END_fnc_EndMission; OR call EFUNC(A3END,EndMission) from within code
 //
 // BLUFOR Victory
-// [[west, "OPFOREliminated", true], [east, "OPFOREliminated", false]] call FW_fnc_EndMission;
+// [[west, "OPFOREliminated", true], [east, "OPFOREliminated", false]] call A3END_fnc_EndMission; OR call EFUNC(A3END,EndMission) from within code
 //
 // COOP Examples:
-// ["BLUFOREliminated", false] call FW_fnc_EndMission;
-// ["OPFOREliminated", true] call FW_fnc_EndMission;
-// ["TimeLimit", false] call FW_fnc_EndMission;
+// ["BLUFOREliminated", false] call A3END_fnc_EndMission; OR call EFUNC(A3END,EndMission) from within code
+// ["OPFOREliminated", true] call A3END_fnc_EndMission; OR call EFUNC(A3END,EndMission) from within code
+// ["TimeLimit", false] call A3END_fnc_EndMission; OR call EFUNC(A3END,EndMission) from within code
 
 //ENABLE_A3_ENDSCREEN
 //Whether or not to use the ArmA 3 gorgeous EndScreen.
-#define ENABLE_A3_ENDSCREEN false
+#define ENABLE_A3_ENDSCREEN true

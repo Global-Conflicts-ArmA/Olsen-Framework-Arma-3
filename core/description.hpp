@@ -44,13 +44,6 @@
 	// See: https://github.com/CBATeam/CBA_A3/wiki/Target-Debugging
 	enableTargetDebug = 1;
 
-	class CfgDebriefingSections {
-		class acex_killTracker {
-			title = "Acex Killed Events";
-			variable = "acex_killTracker_outputText";
-		};
-	};
-
 	class Extended_DisplayLoad_EventHandlers {
 	    class RscDisplayLoading {
 	        GVAR(customLoadingScreen) = QUOTE(_this call FUNC(initLoadingScreen));
@@ -66,6 +59,13 @@
 	    };
 	};
 
+#endif
+
+#ifdef description_debriefing_sections
+	class acex_killTracker {
+		title = "Acex Killed Events";
+		variable = "acex_killTracker_outputText";
+	};
 #endif
 
 #ifdef description_titles
