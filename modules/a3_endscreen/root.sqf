@@ -7,7 +7,7 @@
 #ifdef description_debriefing_sections
 	class Stats {
 		title = "Mission Stats";
-		variable = "FW_EndStats";
+		variable = QGVAR(FW_EndStats);
 	};
 #endif
 
