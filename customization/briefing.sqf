@@ -162,7 +162,7 @@ ENDTAB;
 
 if (!isNil "uo_fnc_hasGMAccess" && {call uo_fnc_hasGMAccess}) then {
 	NEWTAB("ADMIN NOTES")
-	<font size='10' FNTETK>
+	<font size='10' face='RobotoCondensedBold'>
 		<br/>THIS IS ONLY VISIBLE TO LOGGED-IN ADMINS AND GMS
 	</font>
 	ENDTAB;
