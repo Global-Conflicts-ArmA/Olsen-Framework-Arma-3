@@ -68,11 +68,11 @@ if (GVAR(FW_EndStats) isEqualTo "") then {
 SETMPVAR(MissionEnded,true);
 
 if (_endName isEqualType "STRING") exitWith {
-	[[_endName, _isVictory]] remoteExec ["BIS_fnc_endMission", 0, true];
+	[_endName, _isVictory] remoteExec ["BIS_fnc_endMission", 0, true];
 };
 
 if (_endName isEqualType "ARRAY") exitWith {
 	_this apply {
-		[[_x select 1, _x select 2]] remoteExec ["BIS_fnc_endMission", _x select 0, true];
+		[_x select 1, _x select 2] remoteExec ["BIS_fnc_endMission", _x select 0, true];
 	};
 };
