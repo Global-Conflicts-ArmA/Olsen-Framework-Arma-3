@@ -7,7 +7,7 @@ if (!alive _unit) exitwith {diag_log format ["%2 is dead! Cannot move into vehic
 
 switch (_seattype) do {
 	case "driver": {
-		_check = _unit moveInAny _vehicle;
+		private _check = _unit moveInAny _vehicle;
 		if (!_check) exitwith {diag_log format ["No empty %1 seats in %2!",_seattype,_vehicle];};
 	};
 	case "driver": {
@@ -30,7 +30,7 @@ switch (_seattype) do {
 		_unit moveInCommander _vehicle;
 	};
 	default {
-		_check = _unit moveInAny _vehicle;
+		private _check = _unit moveInAny _vehicle;
 		if (!_check) exitwith {diag_log format ["No empty %1 seats in %2!",_seattype,_vehicle];};
 	};
 };
