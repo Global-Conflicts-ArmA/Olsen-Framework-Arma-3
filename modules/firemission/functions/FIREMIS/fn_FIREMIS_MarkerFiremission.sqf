@@ -2,7 +2,7 @@
 
 if (isServer) then
 {
-  _handle = _this spawn
+  private _handle = _this spawn
   {
       private _unit = _this select 0;
       private	_targetMarker = _this select 1;
@@ -24,7 +24,7 @@ if (isServer) then
         sleep( (_unit getVariable [VAR_SART_ARTCALCSPEED,MEANCALCULATIONTIME]) + 1);
         for "_i" from 0 to _burstCount do
         {
-            _randomPos = [[_targetMarker],[]] call BIS_fnc_randomPos;
+            private _randomPos = [[_targetMarker],[]] call BIS_fnc_randomPos;
             [_unit,_randomPos,0,_burstSize,_roundClassName] call FUNC(FIREMIS_InternalFiremission);
               [_unit, ((_unit getVariable [VAR_SART_ARTROUNDSFIRED,[0,0]]) select 0) + _burstSize,_burstCount * _burstSize] call FUNC(FIREMIS_Dia_SetArtyFiremissionRoundsRequired);
             sleep(((_fireRate * (_unit getVariable [VAR_SART_ARTFIRERATE,MEANFIRERATE]) ) * _burstSize) max _burstWait);

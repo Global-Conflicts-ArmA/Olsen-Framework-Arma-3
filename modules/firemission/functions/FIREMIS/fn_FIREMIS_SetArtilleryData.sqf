@@ -2,13 +2,13 @@
 
 params[
   ["_unit", objNull, [objNull]],
-  ["_var2"],
-  ["_var3"],
-  ["_var4"],
-  ["_var5"],
-  ["_var6"],
-  ["_customName"],
-  ["_unlimitedAmmo"]
+  ["_var2", 0, [0]],
+  ["_var3", 0, [0]],
+  ["_var4", 0, [0]],
+  ["_var5", 0, [0]],
+  ["_var6", 0, [0]],
+  ["_customName", "NoName", ["NoName"]],
+  ["_unlimitedAmmo", false, [false]]
 ];
 
 //TODO do some value checking

@@ -22,7 +22,7 @@ diag_log format ["_unit: %1, _target: %2", _unit, _target];
 }forEach (_unit call FUNC(FIREMIS_Dia_GetArtyAmmo));
 if(_hasAmmunition) then
 {
-  _randomPos = [[[_target, _dispersion]],[]] call BIS_fnc_randomPos;
+  private _randomPos = [[[_target, _dispersion]],[]] call BIS_fnc_randomPos;
   _randomPos =	[[[_randomPos, _unit getVariable[VAR_SART_ARTACCURACY,MEANPlOTTEDACCURACY]]],[]] call BIS_fnc_randomPos;
   _unit commandArtilleryFire [_randomPos,  _roundClassName, _burstSize];
 };

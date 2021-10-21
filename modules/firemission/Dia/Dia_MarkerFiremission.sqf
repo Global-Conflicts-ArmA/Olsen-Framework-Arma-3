@@ -3,8 +3,8 @@
 
 FNC_DIA_MarkerFiremissionOpenDialog =
 {
-	diag_log "INFO: Marker firemission open called.";
-	_ok = createDialog "DIA_MarkerFiremission";
+	INFO("INFO: Marker firemission open called.");
+	createDialog "DIA_MarkerFiremission";
 	[MFM_DIA_IDC_GUNSELECT,MFM_DIA_IDC_SHELLSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
 };
 
@@ -15,14 +15,14 @@ FNC_DIA_MarkerFiremissionSetArtillery =
 
 FNC_DIA_MarkerFiremissionCloseDialog =
 {
-	_ok = closeDialog MFM_DIA_IDD_DISPLAY;
+	closeDialog MFM_DIA_IDD_DISPLAY;
 
 };
 
 FNC_DIA_MarkerFiremissionFire =
 {
-	_guns = player getVariable [VAR_SART_OBSGUNS,[]];
-	_usableGuns = [];
+	private _guns = player getVariable [VAR_SART_OBSGUNS,[]];
+	private _usableGuns = [];
 	{
 		if(_x call FUNC(FIREMIS_Dia_IsArtyAvailable)) then
 		{
@@ -40,7 +40,7 @@ FNC_DIA_MarkerFiremissionFire =
 	private _burstDelay = (ctrlText MFM_DIA_IDC_BURSTDELAY) call BIS_fnc_parseNumber;
 	private _spotting =  (ctrlText MFM_DIA_IDC_SPOTTING) call BIS_fnc_parseNumber;
 
-	_inputIsCorrect = true;
+	private _inputIsCorrect = true;
 	_inputIsCorrect = _inputIsCorrect && [_selectedUnit,"No Arty selected/aviable"] call FUNC(FIREMIS_Dia_InputIsUnit);
 	_inputIsCorrect = _inputIsCorrect && [_dispersion,"Dispersion is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
 	_inputIsCorrect = _inputIsCorrect && [_burstNumber,"Burst number is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
@@ -83,4 +83,4 @@ FNC_DIA_Server_MarkerFiremissionFire =
 
 
 };
-if(isServer) then {_id = ["CallMarkerFiremission", {_this call FNC_DIA_Server_MarkerFiremissionFire;}] call CBA_fnc_addEventHandler;};
+if(isServer) then {["CallMarkerFiremission", {_this call FNC_DIA_Server_MarkerFiremissionFire;}] call CBA_fnc_addEventHandler;};

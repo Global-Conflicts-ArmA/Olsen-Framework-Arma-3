@@ -2,7 +2,7 @@
 
 if (isServer) then
 {
-	_handle = _this spawn
+	private _handle = _this spawn
 	{
 		private _observer = _this select 0;
 		private _batteries = _this select 1;
@@ -17,17 +17,17 @@ if (isServer) then
 		private _standardRound = _this select 10;
 		private _obsSide = side _observer;
 
-		_currentShotTargets = [];
+		private _currentShotTargets = [];
 		while{alive _observer} do
 		{
-				_possibleTargets = _observer nearTargets _range;
+				private _possibleTargets = _observer nearTargets _range;
 				{
 					if([_obsSide, _x select 2] call BIS_fnc_sideIsEnemy) then
 					{
 
 							//found an enemy
-							_target = _x select 4;
-							_distance2DToClosestFiremission = 1000;
+							private _target = _x select 4;
+							private _distance2DToClosestFiremission = 1000;
 							{
 								if( _distance2DToClosestFiremission > _target distance2D (_x select 1)) then
 								{
@@ -39,11 +39,11 @@ if (isServer) then
 							{
 									//we know enough about it
 									//calculate position
-									_pos = [[[_target,(_observer getVariable [VAR_SART_OBSACCURACY,OBSACCURACY]) * (_target distance2D _observer) /  _range ]],[]] call BIS_fnc_randomPos;
+									private _pos = [[[_target,(_observer getVariable [VAR_SART_OBSACCURACY,OBSACCURACY]) * (_target distance2D _observer) /  _range ]],[]] call BIS_fnc_randomPos;
 									sleep(_observer getVariable [VAR_SART_OBSSPEED,OBSSPEED]);
 									if(alive _observer) then
 									{
-										_hasFired = false;
+										private _hasFired = false;
 										//fire a firemission
 										{
 												if((!(_x getVariable [VAR_SART_ARTINFIREMISSION,false])) && !(_hasFired) ) then
@@ -52,7 +52,7 @@ if (isServer) then
 														[_x,_pos,_standardDispersion,_standardRoundCount,_standardRoundBurst,_standardRoundBurstWait,_minSpottedDistance,_standardRound] call FUNC(FIREMIS_PointFiremission);
 														_hasFired = true;
 												};
-													_freeBattery = _batteries ;
+													/* private _freeBattery = _batteries; */
 
 										}forEach _batteries;
 									};
@@ -63,7 +63,7 @@ if (isServer) then
 
 
 			sleep(5);
-			_tempAdd = [];
+			private _tempAdd = [];
 			{
 					if((_x select 0) getVariable [VAR_SART_ARTINFIREMISSION,false]) then
 					{

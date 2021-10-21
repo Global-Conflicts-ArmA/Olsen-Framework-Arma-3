@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-_handle = _this spawn
+private _handle = _this spawn
 {
   private _unit = _this select 0;
 
@@ -9,7 +9,7 @@ _handle = _this spawn
   private	_burstCount = _this select 3;
   private	_burstSize = _this select 4;
   private	_burstWait = _this select 5;
-  private	_minSpottedDistance = _this select 6;
+  /* private	_minSpottedDistance = _this select 6; */
   private	_roundType = _this select 7;
   private	_fireRate = _unit call FUNC(FIREMIS_ArtGetFireRate);
   private _roundClassName = ((_unit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _roundType) select 0 ;

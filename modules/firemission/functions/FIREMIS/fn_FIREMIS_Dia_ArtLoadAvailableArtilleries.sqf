@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 
 params [
-  ["_id", 29378],
-  ["_shellSelect", 29379]
+  ["_id", 29378]
+  /* ,["_shellSelect", 29379] */
 ];
 
 private _guns = player getVariable [VAR_SART_OBSGUNS,[]];

@@ -3,7 +3,7 @@
 
 FNC_DIA_PointFiremissionOpenDialog =
 {
-	_ok = createDialog "DIA_PointFiremission";
+	createDialog "DIA_PointFiremission";
 	[PFM_DIA_IDC_GUNSELECT,PFM_DIA_IDC_SHELLSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
 };
 
@@ -14,31 +14,31 @@ FNC_DIA_PointFiremissionSetArtillery =
 
 FNC_DIA_PointFiremissionCloseDialog =
 {
-	_ok = closeDialog PFM_DIA_IDD_DISPLAY;
+	closeDialog PFM_DIA_IDD_DISPLAY;
 
 };
 
 FNC_DIA_PointFiremissionFire =
 {
-	_guns = player getVariable [VAR_SART_OBSGUNS,[]];
-	_usableGuns = [];
+	private _guns = player getVariable [VAR_SART_OBSGUNS,[]];
+	private _usableGuns = [];
 	{
 		if(_x call FUNC(FIREMIS_Dia_IsArtyAvailable)) then
 		{
 			_usableGuns pushBack _x;
 		};
 	}forEach _guns;
-	_selectedUnit = objNull;
+	private _selectedUnit = objNull;
 	 if((count _usableGuns) > 0) then { _selectedUnit = (_usableGuns select (lbCurSel PFM_DIA_IDC_GUNSELECT));};
-	_selectedAmmo = lbCurSel PFM_DIA_IDC_SHELLSELECT;
-	_grid = 	ctrlText PFM_DIA_IDC_GRID;
-	_dispersion = ( ctrlText PFM_DIA_IDC_DISPERSION) call BIS_fnc_parseNumber;
- 	_burstNumber = (ctrlText PFM_DIA_IDC_BURSTNUMBER) call BIS_fnc_parseNumber;
-	_burstRounds = (ctrlText PFM_DIA_IDC_BURSTROUNDS) call BIS_fnc_parseNumber;
-	_burstDelay = (ctrlText PFM_DIA_IDC_BURSTDELAY) call BIS_fnc_parseNumber;
-	_spotting =  (ctrlText PFM_DIA_IDC_SPOTTING) call BIS_fnc_parseNumber;
+	private _selectedAmmo = lbCurSel PFM_DIA_IDC_SHELLSELECT;
+	private _grid = 	ctrlText PFM_DIA_IDC_GRID;
+	private _dispersion = ( ctrlText PFM_DIA_IDC_DISPERSION) call BIS_fnc_parseNumber;
+ 	private _burstNumber = (ctrlText PFM_DIA_IDC_BURSTNUMBER) call BIS_fnc_parseNumber;
+	private _burstRounds = (ctrlText PFM_DIA_IDC_BURSTROUNDS) call BIS_fnc_parseNumber;
+	private _burstDelay = (ctrlText PFM_DIA_IDC_BURSTDELAY) call BIS_fnc_parseNumber;
+	private _spotting =  (ctrlText PFM_DIA_IDC_SPOTTING) call BIS_fnc_parseNumber;
 
-	_inputIsCorrect = true;
+	private _inputIsCorrect = true;
 	_inputIsCorrect = _inputIsCorrect && [_selectedUnit,"No Arty selected/aviable"] call FUNC(FIREMIS_Dia_InputIsUnit);
 	_inputIsCorrect = _inputIsCorrect && [_dispersion,"Dispersion is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
 	_inputIsCorrect = _inputIsCorrect && [_burstNumber,"Burst number is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
@@ -73,11 +73,10 @@ FNC_DIA_Server_PointFiremissionFire =
 	private _burstRounds = _this select 6;
 	private _burstDelay = _this select 7;
 	private _spotting =  _this select 8;
-	private _guns = _requester getVariable [VAR_SART_OBSGUNS,[]];
 
 	[_selectedUnit,_requester] call FUNC(FIREMIS_Dia_SetArtyCaller);
 	[_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_PointFiremission);
 
 };
 
-if(isServer) then {_id = ["CallPointFiremission", {_this call FNC_DIA_Server_PointFiremissionFire;}] call CBA_fnc_addEventHandler;};
+if(isServer) then {["CallPointFiremission", {_this call FNC_DIA_Server_PointFiremissionFire;}] call CBA_fnc_addEventHandler;};

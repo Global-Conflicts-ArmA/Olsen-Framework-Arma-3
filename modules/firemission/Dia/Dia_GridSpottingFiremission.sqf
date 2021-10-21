@@ -3,7 +3,7 @@
 
 FNC_DIA_GridSpottingFiremissionOpenDialog =
 {
-	_ok = createDialog "DIA_GridSpottingFiremission";
+	createDialog "DIA_GridSpottingFiremission";
 	[GSFM_DIA_IDC_GUNSELECT,GSFM_DIA_IDC_SHELLSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
 };
 
@@ -14,7 +14,7 @@ FNC_DIA_GridSpottingFiremissionSetArtillery =
 
 FNC_DIA_GridSpottingFiremissionCloseDialog =
 {
-	_ok = closeDialog GSFM_DIA_IDD_DISPLAY;
+	closeDialog GSFM_DIA_IDD_DISPLAY;
 
 };
 
@@ -55,10 +55,9 @@ FNC_DIA_Server_GridSpottingFiremissionFire =
 	private	_selectedUnit = _this select 1;
 	private _grid = _this select 2;
 	private _selectedAmmo = _this select 3;
-	private _guns = _requester getVariable [VAR_SART_OBSGUNS,[]];
 
 	[_selectedUnit,_requester] call FUNC(FIREMIS_Dia_SetArtyCaller);
 	[_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_selectedAmmo]   call FUNC(FIREMIS_GridSpottingFiremission);
 
 };
-if(isServer) then {_id = ["CallGridSpottingFiremission", {_this call FNC_DIA_Server_GridSpottingFiremissionFire;}] call CBA_fnc_addEventHandler;};
+if(isServer) then {["CallGridSpottingFiremission", {_this call FNC_DIA_Server_GridSpottingFiremissionFire;}] call CBA_fnc_addEventHandler;};

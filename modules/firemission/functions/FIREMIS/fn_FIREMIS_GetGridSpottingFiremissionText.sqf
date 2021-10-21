@@ -2,8 +2,8 @@
 
 params[
   ["_unit", objNull, [objNull]],
-  ["_target"],
-  ["_roundType"]
+  ["_target", [0,0], [[0,0]]],
+  ["_roundType", 0, [0]]
 ];
 
 private	_rounds = ((_unit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _roundType);

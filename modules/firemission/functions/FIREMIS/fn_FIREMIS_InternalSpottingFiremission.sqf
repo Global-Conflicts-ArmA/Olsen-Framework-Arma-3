@@ -9,6 +9,9 @@ params[
 sleep((_unit call FUNC(FIREMIS_Dia_GetArtyAimTime)));
 private	_dis = 1000;
 private	_tempAcc = (_unit getVariable [VAR_SART_ARTSPOTACCURACY,MEANSPOTTINGACCURACY]) + 1;
+private _minSpottedDistance = 100;
+private	_fireRate = _unit call FUNC(FIREMIS_ArtGetFireRate);
+
 while{(_dis >_minSpottedDistance && SPOTTINGROUNDSREQUIRED)} do
 {
       private _randomPos = [[[_target, _tempAcc]],[]] call BIS_fnc_randomPos;

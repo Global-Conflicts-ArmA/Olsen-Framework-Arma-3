@@ -2,11 +2,11 @@
 
 if (isServer) then
 {
-_handle = _this spawn
+private _handle = _this spawn
 {
 		private _unit = _this select 0;
 		{
-			_tempArray = _this;
+			private _tempArray = _this;
 			_tempArray set [0,_x];
 			_x setVariable [VAR_SART_ARTFMTEXT,_tempArray call FUNC(FIREMIS_GetCurtainFiremissionText),true];
 				[_x , true] call FUNC(FIREMIS_Dia_SetArtyReadyStatus);
@@ -17,7 +17,6 @@ _handle = _this spawn
 		private	_burstCount = _this select 4;
 		private	_burstSize = _this select 5;
 		private	_burstWait = _this select 6;
-		private	_minSpottedDistance = _this select 7;
 
 		private	_roundType = _this select 8;
 		private _roundClassName = ((_unit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _roundType) select 0 ;
@@ -28,8 +27,8 @@ _handle = _this spawn
 		} forEach _unit;
 		private	_fireRate = [];
 		sleep((_unit call FUNC(FIREMIS_Dia_GetArtyAimTime)));
-		private	_dis = 1000;
-		private	_tempAcc = ((_unit select 0) getVariable [VAR_SART_ARTSPOTACCURACY,MEANSPOTTINGACCURACY]) + 1;
+		/* private	_dis = 1000; */
+		/* private	_tempAcc = ((_unit select 0) getVariable [VAR_SART_ARTSPOTACCURACY,MEANSPOTTINGACCURACY]) + 1; */
 		private	_dir = _endPoint vectorDiff  _startPoint;
 		_dir = _dir vectorMultiply (1 /_burstCount);
 
@@ -51,7 +50,7 @@ _handle = _this spawn
 		sleep( (_unit getVariable [VAR_SART_ARTCALCSPEED,MEANCALCULATIONTIME]) + 1);
 		for "_i" from 0 to _burstCount do
 		{
-				_row = 0;
+				private _row = 0;
 				{
 						[_unit,(_startingSpots select _row) vectorAdd (_dir vectorMultiply _i),0,_burstSize,_roundClassName] call FUNC(FIREMIS_InternalFiremission);
 						[_x, ((_x getVariable [VAR_SART_ARTROUNDSFIRED,[0,0]]) select 1) + _burstSize,_burstCount * _burstSize] call FUNC(FIREMIS_Dia_SetArtyFiremissionRoundsRequired);

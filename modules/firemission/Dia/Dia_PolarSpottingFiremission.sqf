@@ -3,7 +3,7 @@
 
 FNC_DIA_PolarSpottingFiremissionOpenDialog =
 {
-	_ok = createDialog "DIA_POLARSPOTTINGFIREMISSION";
+	createDialog "DIA_POLARSPOTTINGFIREMISSION";
 	[PSFM_DIA_IDC_GUNSELECT,PSFM_DIA_IDC_SHELLSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
 };
 
@@ -14,14 +14,14 @@ FNC_DIA_PolarSpottingFiremissionSetArtillery =
 
 FNC_DIA_PolarSpottingFiremissionCloseDialog =
 {
-	_ok = closeDialog PSFM_DIA_IDD_DISPLAY;
+	closeDialog PSFM_DIA_IDD_DISPLAY;
 
 };
 
 FNC_DIA_PolarSpottingFiremissionFire =
 {
 	private _guns = player getVariable [VAR_SART_OBSGUNS,[]];
-private	_usableGuns = [];
+	private	_usableGuns = [];
 	{
 		if(_x call FUNC(FIREMIS_Dia_IsArtyAvailable)) then
 		{
@@ -59,11 +59,9 @@ FNC_DIA_Server_PolarSpottingFiremissionFire =
 	private _distance = _this select 4;
 	private	_roundType = _this select 5;
 
-	private _guns = _requester getVariable [VAR_SART_OBSGUNS,[]];
-
 	[_selectedUnit,_requester] call FUNC(FIREMIS_Dia_SetArtyCaller);
 	[_selectedUnit,[_callGrid,true] call CBA_fnc_mapGridToPos,_mils,_distance,_roundType] call FUNC(FIREMIS_PolarSpottingFiremission);
 
 };
 
-if(isServer) then {_id = ["CallPolarSpotting", {_this call FNC_DIA_Server_PolarSpottingFiremissionFire;}] call CBA_fnc_addEventHandler;};
+if(isServer) then {["CallPolarSpotting", {_this call FNC_DIA_Server_PolarSpottingFiremissionFire;}] call CBA_fnc_addEventHandler;};

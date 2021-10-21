@@ -11,7 +11,7 @@
 #include "..\..\Dia\Dia_PolarFiremission.sqf"
 //expected [paths aviable,units aviable,min ammount of Units spawned, max ammount of units spawned,max ammount of units in the field,delay from mission start,delay between spawns,should clean]
 
-_id = ["Event_ArtPlayerJipped", {_this call FUNC(FIREMIS_ArtMakePlayerObserverServer)}] call CBA_fnc_addEventHandler;
+["Event_ArtPlayerJipped", {_this call FUNC(FIREMIS_ArtMakePlayerObserverServer)}] call CBA_fnc_addEventHandler;
 
-_id = ["Event_ArtyReceiveHint", {hint _this;}] call CBA_fnc_addEventHandler;
-_id = ["Event_ReceiveFoGuns", {_this call FUNC(FIREMIS_ClientAddAceArtilleryOption)}] call CBA_fnc_addEventHandler;
+["Event_ArtyReceiveHint", {hint _this;}] call CBA_fnc_addEventHandler;
+["Event_ReceiveFoGuns", {_this call FUNC(FIREMIS_ClientAddAceArtilleryOption)}] call CBA_fnc_addEventHandler;

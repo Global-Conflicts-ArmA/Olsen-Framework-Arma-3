@@ -2,14 +2,14 @@
 
 params[
   ["_unit", objNull, [objNull]],
-  ["_target"],
-  ["_innerRadius"],
-  ["_outerRadius"],
+  ["_target", [0,0], [[0,0]]],
+  ["_innerRadius", 0, [0]],
+  ["_outerRadius", 0, [0]],
   ["_burstCount", 0, [0]],
   ["_burstSize", 0, [0]],
   ["_burstWait", 0, [0]],
   ["_minSpottedDistance", 100, [100]],
-  ["_roundType"]
+  ["_roundType", 0, [0]]
 ];
 
 private	_rounds = ((_unit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _roundType) select 0;

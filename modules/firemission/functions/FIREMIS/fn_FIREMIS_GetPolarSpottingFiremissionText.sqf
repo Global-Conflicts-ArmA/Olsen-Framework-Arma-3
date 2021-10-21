@@ -2,10 +2,10 @@
 
 params[
   ["_unit", objNull, [objNull]],
-  ["_callGrid"],
-  ["_mils"],
-  ["_distance"],
-  ["_roundType"]
+  ["_callGrid", [0,0], [[0,0]]],
+  ["_mils", 0, [0]],
+  ["_distance", 0, [0]],
+  ["_roundType", 0, [0]]
 ];
 
 private	_loc = [_callGrid,true] call CBA_fnc_mapGridToPos;

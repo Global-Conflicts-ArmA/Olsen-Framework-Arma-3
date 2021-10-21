@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-diag_log "INFO: In FIREMIS_Dia_IsArtyAvailable";
+INFO("INFO: In FIREMIS_Dia_IsArtyAvailable");
 
 params [
   ["_unit", objNull, [objNull]]

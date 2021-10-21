@@ -1,11 +1,11 @@
 #include "script_component.hpp"
 
-private["_unit","_guns"];
+private["_guns"];
 _guns = _this;
 
 if(!(player getVariable [VAR_SART_PLAYERRECEIVEDGUNS,false])) then
 {
-  _action = ["Artillery_Menu", "Artillery Menu", "", {true}, {(count (player getVariable [VAR_SART_OBSGUNS,[]])) > 0}] call ace_interact_menu_fnc_createAction;
+  private _action = ["Artillery_Menu", "Artillery Menu", "", {true}, {(count (player getVariable [VAR_SART_OBSGUNS,[]])) > 0}] call ace_interact_menu_fnc_createAction;
   [player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
 
 
@@ -46,20 +46,20 @@ if(!(player getVariable [VAR_SART_PLAYERRECEIVEDGUNS,false])) then
   _action = ["StopFiremission", "Stop Firemissions", "", {true}, {true}] call ace_interact_menu_fnc_createAction;
   [player, 1, ["ACE_SelfActions","Artillery_Menu"], _action] call ace_interact_menu_fnc_addActionToObject;
   {
-    _artyName =_x call FUNC(FIREMIS_Dia_GetArtyDisplayName);
-    _text = ("Stop " + _artyName);
+    private _artyName =_x call FUNC(FIREMIS_Dia_GetArtyDisplayName);
+    private _text = ("Stop " + _artyName);
     _action = ["Stop",_text , "", {(_this select 2) call FUNC(FIREMIS_StopArtilleryClient); }, {!(( _this select 2) call FUNC(FIREMIS_Dia_IsArtyAvailable))},{},_x] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions","Artillery_Menu","StopFiremission"], _action] call ace_interact_menu_fnc_addActionToObject;
   }forEach _guns;
 
   {
-    _artyName =_x call FUNC(FIREMIS_Dia_GetArtyDisplayName);
-    _text = ("Info " + _artyName);
+    private _artyName =_x call FUNC(FIREMIS_Dia_GetArtyDisplayName);
+    private _text = ("Info " + _artyName);
     _action = ["Info",_text , "",{hint ((_this select 2) call FUNC(FIREMIS_Dia_GetCompleteInfoText)); }, { !((_this select 2) call FUNC(FIREMIS_Dia_IsArtyAvailable))},{},_x] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions","Artillery_Menu","FiremissionInformation"], _action] call ace_interact_menu_fnc_addActionToObject;
   }forEach _guns;
 
-  _id = ["Event_ArtyIsReady",
+  ["Event_ArtyIsReady",
   {
     [PFM_DIA_IDC_GUNSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
     [LFM_DIA_IDC_GUNSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);

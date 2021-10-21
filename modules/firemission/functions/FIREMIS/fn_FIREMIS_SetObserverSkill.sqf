@@ -2,8 +2,8 @@
 
 params[
   ["_unit", objNull, [objNull]],
-  ["_accuracy"],
-  ["_speed"]
+  ["_accuracy", 1, [1]],
+  ["_speed", 1, [1]]
 ];
 
 _unit setVariable [VAR_SART_OBSACCURACY,_accuracy];
