@@ -4,7 +4,7 @@ diag_log format ["INFO: In capture zone, params: %1", _this];
 
 params [
 	["_opts", ["marker_capture",[blufor],[300]], [[]]],
-	["_colors", ["ColorBlue","ColorRed","ColorGreen","ColorYellow","ColorWhite","ColorKhaki"], [[]]],
+	["_colours", ["ColorBlue","ColorRed","ColorGreen","ColorYellow","ColorWhite","ColorKhaki"], [[]]],
 	["_interval", 15, [15]],
 	["_messages", ["Blufor is capturing the zone","Opfor is capturing the zone","Resistance is capturing the zone","Civilian is capturing the zone","The zone is contested","The zone is uncontested"], [[]]]
 ];
@@ -28,14 +28,10 @@ _sides apply {
 	_countforwins = _countforwins + 1;
 };
 //special format [_marker,[[_side,count,win],[_side,count,win]]];
-private _update = true;
-private _updateContested  = true;
-private _updateUncontested = true;
 private _end = CBA_missionTime;
 private _timer = 0;
  //ident,count,win
 private _oldOwner = ["temp",0,9999];
-private _run = true;
 
 	[{
 		diag_log "INFO: Capture zone loop running";
@@ -53,7 +49,7 @@ private _run = true;
 		};
 
 		allUnits apply {
-			_unit = _x;
+			private _unit = _x;
 
 			if ((_unit inArea (_markerCount select 0)) && {_unit call EFUNC(FW,isAlive)}) then
 			{
@@ -90,7 +86,7 @@ private _run = true;
 				case "WEST":
 				{
 
-						_mes = _messages select 0;
+						private _mes = _messages select 0;
 						//this is for ContestedZone so the timer doesn't reset
 						//can probaply be done better
 						if(_contester != "WEST") then
@@ -104,7 +100,7 @@ private _run = true;
 				};
 				case "EAST":
 				{
-						_mes = _messages select 1;
+						private _mes = _messages select 1;
 						//this is for ContestedZone so the timer doesn't reset
 						//can probaply be done better
 						if(_contester != "EAST") then
@@ -118,7 +114,7 @@ private _run = true;
 				};
 				case "GUER":
 				{
-						_mes = _messages select 2;
+						private _mes = _messages select 2;
 						//this is for ContestedZone so the timer doesn't reset
 						//can probaply be done better
 						if(_contester != "GUER") then
@@ -133,7 +129,7 @@ private _run = true;
 				};
 				case "RESISTANCE":
 				{
-						_mes = _messages select 2;
+						private _mes = _messages select 2;
 						//this is for ContestedZone so the timer doesn't reset
 						//can probaply be done better
 						if(_contester != "RESISTANCE") then
@@ -147,7 +143,7 @@ private _run = true;
 				};
 				case "CIVILIAN":
 				{
-						_mes = _messages select 3;
+						private _mes = _messages select 3;
 						//this is for ContestedZone so the timer doesn't reset
 						//can probaply be done better
 						if(_contester != "CIVILIAN") then
@@ -161,7 +157,7 @@ private _run = true;
 				};
 				case "UNCONTESTED":
 				{
-						_mes = _messages select 5;
+						private _mes = _messages select 5;
 						[-1, {hintSilent _this},_mes] call CBA_fnc_globalExecute;
 						[-1, {(_this select 0) setMarkerColor (_this select 1)}, [_marker,_colours select 5]] call CBA_fnc_globalExecute;
 						_timer = CBA_missionTime;
@@ -171,7 +167,7 @@ private _run = true;
 				{
 						if((_currentOwner select 0) != (_oldOwner select 0)) then
 						{
-							_mes = _messages select 4;
+							private _mes = _messages select 4;
 							[-1, {hintSilent _this},_mes] call CBA_fnc_globalExecute;
 							[-1, {(_this select 0) setMarkerColor (_this select 1)}, [_marker,_colours select 4]] call CBA_fnc_globalExecute;
 
@@ -186,7 +182,7 @@ private _run = true;
 			{
 				if((CBA_missionTime - _timer) >= _currentOwner select 2) then
 				{
-					_temp = true;
+					private _temp = true;
 
 					if(_temp) exitWith
 					{
