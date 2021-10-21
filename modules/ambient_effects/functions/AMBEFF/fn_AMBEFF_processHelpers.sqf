@@ -3,7 +3,7 @@
 private _hideArray = [];
 
 (allMissionObjects "Sign_Arrow_Large_Pink_F") apply {	//Large Pink Arrows - Burning Vehicle
-  _delay = random 1;
+  private _delay = random 1;
   [[_x, [
     ["FireSparks", [0 ,-2, 0]],
     ["AmmoSmokeParticles2", [0, -2, -1]],
@@ -17,7 +17,7 @@ private _hideArray = [];
 };
 
 (allMissionObjects "Sign_Arrow_Pink_F") apply {	//Pink Arrows - Small Fire
-  _delay = random 1;
+  private _delay = random 1;
   [[_x, [
     ["FireSparks", [0, 0, 0]],
     ["FuelFire1", [0, 0, 0]],
