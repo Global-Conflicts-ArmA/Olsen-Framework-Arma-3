@@ -9,7 +9,7 @@ if(isServer && {GVAR(ACRE_Enable_AddRacks)}) then {
 		{
 			_x params ["_objString","_rackType","_mountRadio","_radioRemovable","_rackNames","_whitelistedPositions","_blacklistedPositions","_faction"];
 			private ["_mountedRadio"];
-			_object = missionNamespace getVariable [_objString, objNull];
+			private _object = missionNamespace getVariable [_objString, objNull];
 			if((missionNamespace getVariable _objString) isEqualTo objNull) then {
 				(format ["(ACRE_SETUP_MODULE) [ERR]: NFB ERROR ENCOUNTERED"]) call FNC_DebugMessage;
 				(format ["(ACRE_SETUP_MODULE) [ERR]: OBJECT VARIABLE NAME DOES NOT EXIST OR IS INCORRECT"]) call FNC_DebugMessage;
@@ -82,7 +82,7 @@ if(isServer && {GVAR(ACRE_Enable_AddRacks)}) then {
 
 if(isServer && {GVAR(ACRE_Enable_Channel_Names)}) then {
 	{
-		_index = _forEachIndex;
+		private _index = _forEachIndex;
 		{
 			_x params ["_channel", "_label", "_name"];
 			{
