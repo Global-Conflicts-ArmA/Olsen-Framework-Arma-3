@@ -1,8 +1,8 @@
 #include "settings.sqf"
 
 kobld_billboards_textureArray_base = [];
-_vanillaPath = "a3\structures_f_argo\Commercial\Billboards\Data\Advertisements\";
-_modulePath = "modules\kobld_billboards\images\";
+/* private _vanillaPath = "a3\structures_f_argo\Commercial\Billboards\Data\Advertisements\"; */
+private _modulePath = "modules\kobld_billboards\images\";
 
 if (kobld_billboards_vanilla) then {
 	["aan","action","argois","bluking","carrental","cheese","chernarus","chevre2","chevre","duckit","getlost","ionbase","ion","koke","leader","lyfe","mars2","mars","maskrtnik","monte","olives","pate","pills","plane","redstone","supermarket","surreal","winery","wine","ygont"] apply {

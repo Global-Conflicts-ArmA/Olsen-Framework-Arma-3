@@ -17,7 +17,7 @@
 
 #include "script_component.hpp"
 
-params ["_unit","_cvcType"];
+params ["_unit", "_cvcType"];
 
 private _veh = vehicle _unit;
 
@@ -32,11 +32,12 @@ if ([_unit,_veh] call FUNC(CVCCHECK_vehCheck)) then {
 };
 
 _unit addEventHandler ["GetInMan",{
-	private _unit = _this # 0;
-	private _pos = assignedVehicleRole _unit;
-	private _veh = _this # 2;
+	private _unit = _this select 0;
+	/* private _pos = assignedVehicleRole _unit; */
+	private _veh = _this select 2;
 	private _cvcType = _unit getVariable "FW_CVCTYPE";
 	private _hatType = _unit setVariable ["FW_HATTYPE", headgear _unit];
+	_hatType = headgear _unit;
 
 	if ([_unit,_veh] call FUNC(CVCCHECK_vehCheck)) then {
 		if (headgear _unit != _cvcType) then {
@@ -44,14 +45,18 @@ _unit addEventHandler ["GetInMan",{
 			_unit addHeadgear _cvcType;
 		};
 	} else {
-		if (_hatType == "") then {removeHeadgear _unit} else {_unit addHeadgear _hatType};
+		if (_hatType == "") then {
+			removeHeadgear _unit
+		} else {
+			_unit addHeadgear _hatType
+		};
 	};
 }];
 
 _unit addEventHandler ["GetOutMan",{
-	private _unit = _this # 0;
-	private _pos = assignedVehicleRole _unit;
-	private _veh = _this # 2;
+	private _unit = _this select 0;
+	/* private _pos = assignedVehicleRole _unit; */
+	private _veh = _this select 2;
 	private _cvcType = _unit getVariable "FW_CVCTYPE";
 	private _hatType = _unit getVariable "FW_HATTYPE";
 
@@ -61,9 +66,9 @@ _unit addEventHandler ["GetOutMan",{
 }];
 
 _unit addEventHandler ["SeatSwitchedMan",{
-	private _unit = _this # 0;
-	private _pos = assignedVehicleRole _unit;
-	private _veh = _this # 2;
+	private _unit = _this select 0;
+	/* private _pos = assignedVehicleRole _unit; */
+	private _veh = _this select 2;
 	private _cvcType = _unit getVariable "FW_CVCTYPE";
 	private _hatType = _unit getVariable "FW_HATTYPE";
 
