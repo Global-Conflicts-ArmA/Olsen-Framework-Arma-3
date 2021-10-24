@@ -29,6 +29,7 @@
 //#include "start_on_team_color\root.sqf"
 //#include "start_text\root.sqf"
 //#include "task_control\root.sqf"
+//#include "tracking_markers\root.sqf"
 //#include "start_in_vehicle\root.sqf"
 //#include "weapon_helper\root.sqf"
 //#include "auto_track_assets\root.sqf"
@@ -44,5 +45,3 @@
 //#include "random_scenario\root.sqf"
 //#include "shot_count_classic\root.sqf"
 //#include "start_on_safe\root.sqf"
-
-
