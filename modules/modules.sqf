@@ -8,6 +8,7 @@
 //#include "shot_count\root.sqf"
 
 //#include "headless_ai\root.sqf"
+//#include "kobld_snow\root.sqf"
 //#include "kobld_setFace\root.sqf"
 //#include "kobld_onload\root.sqf"
 //#include "kobld_ai_tasks\root.sqf"
