@@ -37,6 +37,7 @@ Additional modules that can be enabled by removing the //
 //#include "extract\root.sqf"
 //#include "firemission\root.sqf"
 //#include "hostage\root.sqf"
+//#include "kobld_ai_tasks\root.sqf"
 //#include "marker_control\root.sqf"
 //#include "grad-fortifications\root.sqf"
 //#include "setup_timer\root.sqf"
