@@ -5,9 +5,11 @@ params[
   ["_name", "", [""]]
 ];
 
-diag_log format ["INFO: Marker type = %1", (markerType _name)];
+private _markerShape = markerShape _name;
 
-if !((markerType _name) isEqualTo "") then {
+//diag_log format ["INFO: Marker shape = %1", _markerShape];
+
+if !(_markerShape isEqualTo "") then {
   GVAR(markers) pushBack [_side, _name];
 } else {
 	private _temp = format ["AO limit module:<br></br>Warning marker ""%1"", in file ""modules\ao_limit\settings.sqf"" does not exist.", _name];
