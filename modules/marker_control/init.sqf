@@ -3,7 +3,7 @@
 #define SYSTEM sideLogic
 
 #define ADDMARKER(SIDE, NAME, DELETE_AFTER_START) \
-if !(markerType NAME == "") then { \
+if (!(markerType NAME == "") || !(markerShape NAME == "")) then { \
 	_markers set [count _markers, [SIDE, NAME, DELETE_AFTER_START]]; \
 } else { \
 	_temp = format ["Marker control module:<br></br>Warning marker ""%1"", in file ""modules\marker control\settings.sqf"" does not exist.", NAME]; \
@@ -11,7 +11,7 @@ if !(markerType NAME == "") then { \
 };
 
 if (!isDedicated) then {
-	
+
 	private ["_markers"];
 
 	_markers = [];
