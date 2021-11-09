@@ -25,12 +25,25 @@ private _playerBriefing = switch (side player) do {
 	case independent: {_indBriefing};
 	case civilian: {_civBriefing};
 };
-	
+
 private _briefing = [];
 #include "..\..\customization\briefings\missionNotes.sqf"
 private _missionNotes = _briefing;
 
+private _briefing = [];
+#include "..\..\customization\briefings\changelog.sqf"
+private _changeLog = _briefing;
+
 _playerBriefing append _missionNotes;
+_playerBriefing append _changeLog;
+
+if (!isNil "uo_fnc_hasGMAccess" && {call uo_fnc_hasGMAccess}) then {
+	private _briefing = [];
+	#include "..\..\customization\briefings\adminNotes.sqf"
+	private _adminNotes = _briefing;
+
+	_playerBriefing append _adminNotes;
+};
 
 reverse _playerBriefing;
 _playerBriefing apply {
