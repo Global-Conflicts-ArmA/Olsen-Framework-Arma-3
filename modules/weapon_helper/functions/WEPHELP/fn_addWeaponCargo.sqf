@@ -26,7 +26,7 @@ private _magazinesBase = [];
 private _item = objNull;
 
 // Sorting input array
-{
+_inputArray apply {
 	_item = toLower(_x);
 
 	if (([(configFile >> "CfgWeapons" >> _item),true] call BIS_fnc_returnParents) findIf {_x == "ItemCore"} != -1) then {
@@ -40,19 +40,19 @@ private _item = objNull;
 			};
 		};
 	};
-} forEach _inputArray;
+};
 
 private _weaponFinal = selectRandom _weaponBase;
 private _magazinesFinal = [];
 
 private _magazinesCompatible = [_weaponFinal] call CBA_fnc_compatibleMagazines;
-{
+_magazinesBase apply {
 	_item = _x;
 
 	if (_magazinesCompatible findIf {_x == _item} != -1) then {
 		_magazinesFinal pushBack _item;
 	};
-} forEach _magazinesBase;
+};
 
 
 private _accOpticCompatible = [_weaponFinal, "optic"] call CBA_fnc_compatibleItems;
@@ -65,14 +65,14 @@ private _accMuzzleFinal = [""];
 private _accPointerFinal = [""];
 private _accBipodFinal = [""];
 
-{
+_accBase apply {
 	switch true do {
 		case ({_accOpticCompatible findIf {_x == _item} != -1}): {_accOpticFinal pushBack _item};
 		case ({_accMuzzleCompatible findIf {_x == _item} != -1}): {_accMuzzleFinal pushBack _item};
 		case ({_accPointerCompatible findIf {_x == _item} != -1}): {_accPointerFinal pushBack _item};
 		case ({_accBipodCompatible findIf {_x == _item} != -1}): {_accBipodFinal pushBack _item};
 	};
-} forEach _accBase;
+};
 
 private _magazineRandom = selectRandom _magazinesFinal;
 
