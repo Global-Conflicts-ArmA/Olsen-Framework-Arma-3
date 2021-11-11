@@ -13,10 +13,12 @@
  * Nil
  *
  * Example:
- * [_unit,_type,["rhs_VOG25"],"vest",12] call kobld_weaponHelper_fnc_addMagazine;
+ * [_unit,_type,["rhs_VOG25"],"vest",12] call EFUNC(WEPHELP,addMagazine);
  *
  * Public: Yes
 */
+
+#include "script_component.hpp"
 
 params ["_unit","_type","_magazineBase","_location","_max"];
 
@@ -29,8 +31,8 @@ if (typeName _magazineBase == "STRING") then {
 	_magazineBase = [_magazineBase];
 };
 
-if (isClass (configFile >> "CfgWeapons" >> (_magazineBase # 0))) then {
-	_magazineBase = getArray (configFile >> "CfgWeapons" >> (_magazineBase # 0) >> "magazines");
+if (isClass (configFile >> "CfgWeapons" >> (_magazineBase select 0))) then {
+	_magazineBase = getArray (configFile >> "CfgWeapons" >> (_magazineBase select 0) >> "magazines");
 };
 
 if (_uniform != "") then {
@@ -39,7 +41,7 @@ if (_uniform != "") then {
 		while {_magazineRandom = selectRandom _magazineBase; _unit canAddItemToUniform _magazineRandom} do {
 			if (_i >= _max) exitWith {};
 
-			[_magazineRandom,1,"uniform"] call FNC_AddItem;
+			[_magazineRandom,1,"uniform"] call EFUNC(FW,AddItem);
 
 			_i = _i + 1;
 		};
@@ -52,7 +54,7 @@ if (_vest != "") then {
 		while {_magazineRandom = selectRandom _magazineBase; _unit canAddItemToVest _magazineRandom} do {
 			if (_i >= _max) exitWith {};
 
-			[_magazineRandom,1,"vest"] call FNC_AddItem;
+			[_magazineRandom,1,"vest"] call EFUNC(FW,AddItem);
 
 			_i = _i + 1;
 		};
@@ -65,7 +67,7 @@ if (_backpack != "") then {
 		while {_magazineRandom = selectRandom _magazineBase; _unit canAddItemToBackpack _magazineRandom} do {
 			if (_i >= _max) exitWith {};
 
-			[_magazineRandom,1,"backpack"] call FNC_AddItem;
+			[_magazineRandom,1,"backpack"] call EFUNC(FW,AddItem);
 
 			_i = _i + 1;
 		};
