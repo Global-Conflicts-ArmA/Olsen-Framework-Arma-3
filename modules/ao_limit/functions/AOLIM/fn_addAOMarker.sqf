@@ -5,7 +5,7 @@ params[
   ["_name", "", [""]]
 ];
 
-private _markerShape = markerShape _name;
+private _markerShape = (markerShape _name);
 
 //diag_log format ["INFO: Marker shape = %1", _markerShape];
 

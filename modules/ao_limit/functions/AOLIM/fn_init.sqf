@@ -4,7 +4,8 @@ private _anySide = sideLogic;
 private _processingMarkers = [];
 private _allowedOutside = true;
 private _vehicle = (vehicle player);
-private _pos = getPosATL _vehicle;
+private _startPos = getPosATL _vehicle;
+player setVariable [QGVAR(pos), _startPos, false];
 
 GVAR(markers) apply {
 	_x params ["_side", "_name"];
@@ -22,8 +23,9 @@ GVAR(markers) apply {
 
 private _delay = 0.1;
 [{
-	(_this select 0) params ["_vehicle1", "_processingMarkers1", "_allowedOutside1", "_pos1"];
+	(_this select 0) params ["_vehicle1", "_processingMarkers1", "_allowedOutside1", "_startPos1"];
 	_vehicle1 = (vehicle player);
+	private _pos = player getVariable [QGVAR(pos), _startPos1];
 
 	if !(_vehicle1 isKindOf "Air") then {
 		private _outSide = true;
@@ -35,14 +37,14 @@ private _delay = 0.1;
 
 		if (_outSide) then {
 			if (!(_allowedOutside1) && (_vehicle1 call EFUNC(FW,isAlive)) && local _vehicle1) then {
-				_vehicle1 setPosATL _pos1;
+				_vehicle1 setPosATL _pos;
 				_vehicle1 setVelocity (velocity _vehicle1 apply {- _x});
 			};
 		} else {
 			_allowedOutside1 = false;
-			_pos1 = getPosATL _vehicle1;
+			player setVariable [QGVAR(pos), (getPosATL _vehicle1), false]
 		};
 	} else {
 		_allowedOutside1 = true;
 	};
-}, _delay, [_vehicle, _processingMarkers, _allowedOutside, _pos]] call CBA_fnc_addPerFrameHandler;
+}, _delay, [_vehicle, _processingMarkers, _allowedOutside, _startPos]] call CBA_fnc_addPerFrameHandler;
