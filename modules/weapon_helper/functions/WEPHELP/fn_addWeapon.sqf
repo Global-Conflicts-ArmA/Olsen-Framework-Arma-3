@@ -4,23 +4,22 @@
  *
  * Arguments:
  * 0: Unit <OBJECT>
- * 1: Unit's Olsen Gear Type <STRING>
- * 2: Array of Weapon/Magazine/Accessory classes <ARRAY>
- * 3: Optional location to fill with magazines ("" or blank is all locations) <STRING>
- * 4: Optional maximum magazines to add <NUMBER>
+ * 1: Array of Weapon/Magazine/Accessory classes <ARRAY>
+ * 2: Optional location to fill with magazines ("" or blank is all locations) <STRING>
+ * 3: Optional maximum magazines to add <NUMBER>
  *
  * Return Value:
  * Nil
  *
  * Example:
- * [_unit, _type, ["rhs_weap_akm", "rhs_30Rnd_762x39mm", "rhs_weap_ak74n", "rhs_30Rnd_545x39_AK"], "vest", 8] call EFUNC(WEPHELP,addWeapon);
+ * [_unit, ["rhs_weap_akm", "rhs_30Rnd_762x39mm", "rhs_weap_ak74n", "rhs_30Rnd_545x39_AK"], "vest", 8] call EFUNC(WEPHELP,addWeapon);
  *
  * Public: Yes
 */
 
 #include "script_component.hpp"
 
-params ["_unit", "_type", "_inputArray", ["_location", ""], "_max"];
+params ["_unit", "_inputArray", ["_location", ""], "_max"];
 
 private _accBase = [];
 private _weaponBase = [];
@@ -65,15 +64,17 @@ private _accBipodCompatible = [_weaponFinal, "bipod"] call CBA_fnc_compatibleIte
 
 private _accRandom = [
 	(random 1 < (missionNamespace getVariable [("WEPHELP_opticChance_" + str(side _unit)),0])),
-	(random 1 < (missionNamespace getVariable [("WEPHELP_weaponHelper_muzzleChance_" + str(side _unit)),0])),
-	(random 1 < (missionNamespace getVariable [("WEPHELP_weaponHelper_pointerChance_" + str(side _unit)),0])),
-	(random 1 < (missionNamespace getVariable [("WEPHELP_weaponHelper_bipodChance_" + str(side _unit)),0]))
+	(random 1 < (missionNamespace getVariable [("WEPHELP_muzzleChance_" + str(side _unit)),0])),
+	(random 1 < (missionNamespace getVariable [("WEPHELP_pointerChance_" + str(side _unit)),0])),
+	(random 1 < (missionNamespace getVariable [("WEPHELP_bipodChance_" + str(side _unit)),0]))
 ];
 
 private _accOpticFinal = [];
 private _accMuzzleFinal = [];
 private _accPointerFinal = [];
 private _accBipodFinal = [];
+
+/* diag_log format ["_accBase = %1", _accBase]; */
 
 _accBase apply {
 	_accRandom params ["_randomOptic","_randomMuzzle","_randomPointer","_randomBipod"];
@@ -98,7 +99,7 @@ if (count _accBipodFinal > 0) then {_itemsFinal pushBack (selectRandom _accBipod
 _itemsFinal apply {[_x] call EFUNC(FW,AddItem)};
 
 if (count _magazinesFinal > 0) then {
-	[_unit,_type,_magazinesFinal,_location,_max] call FUNC(addMagazine);
+	[_unit,_magazinesFinal,_location,_max] call FUNC(addMagazine);
 } else {
-	[_unit,_type,_weaponFinal,_location,_max] call FUNC(addMagazine);
+	[_unit,_weaponFinal,_location,_max] call FUNC(addMagazine);
 };

@@ -4,30 +4,30 @@
  *
  * Arguments:
  * 0: Unit <OBJECT>
- * 1: Unit's Olsen Gear Type <STRING>
- * 2: Array of Magazine classes <ARRAY>
- * 3: Optional location to fill with magazines <STRING>
- * 4: Optional maximum magazines to add <NUMBER>
+ * 1: Array of Magazine classes <ARRAY>
+ * 2: Optional location to fill with magazines <STRING>
+ * 3: Optional maximum magazines to add <NUMBER>
  *
  * Return Value:
  * Nil
  *
  * Example:
- * [_unit,_type,["rhs_VOG25"],"vest",12] call EFUNC(WEPHELP,addMagazine);
+ * [_unit,["rhs_VOG25"],"vest",12] call EFUNC(WEPHELP,addMagazine);
  *
  * Public: Yes
 */
 
 #include "script_component.hpp"
 
-params ["_unit","_type","_magazineBase","_location","_max"];
+params ["_unit","_magazineBase","_location","_max"];
 
 private _uniform = uniform _unit;
 private _vest = vest _unit;
 private _backpack = backpack _unit;
 private _magazineRandom = "";
+private _magazinesAdded = 0;
 
-if (typeName _magazineBase == "STRING") then {
+if (_magazineBase isEqualType "STRING") then {
 	_magazineBase = [_magazineBase];
 };
 
@@ -37,39 +37,36 @@ if (isClass (configFile >> "CfgWeapons" >> (_magazineBase select 0))) then {
 
 if (_uniform != "") then {
 	if (_location == "uniform" || _location == "") then {
-		private _i = 0;
 		while {_magazineRandom = selectRandom _magazineBase; _unit canAddItemToUniform _magazineRandom} do {
-			if (_i >= _max) exitWith {};
+			if (_magazinesAdded >= _max) exitWith {};
 
 			[_magazineRandom,1,"uniform"] call EFUNC(FW,AddItem);
 
-			_i = _i + 1;
+			_magazinesAdded = _magazinesAdded + 1;
 		};
 	};
 };
 
 if (_vest != "") then {
 	if (_location == "vest" || _location == "") then {
-		private _i = 0;
 		while {_magazineRandom = selectRandom _magazineBase; _unit canAddItemToVest _magazineRandom} do {
-			if (_i >= _max) exitWith {};
+			if (_magazinesAdded >= _max) exitWith {};
 
 			[_magazineRandom,1,"vest"] call EFUNC(FW,AddItem);
 
-			_i = _i + 1;
+			_magazinesAdded = _magazinesAdded + 1;
 		};
 	};
 };
 
 if (_backpack != "") then {
 	if (_location == "backpack" || _location == "") then {
-		private _i = 0;
 		while {_magazineRandom = selectRandom _magazineBase; _unit canAddItemToBackpack _magazineRandom} do {
-			if (_i >= _max) exitWith {};
+			if (_magazinesAdded >= _max) exitWith {};
 
 			[_magazineRandom,1,"backpack"] call EFUNC(FW,AddItem);
 
-			_i = _i + 1;
+			_magazinesAdded = _magazinesAdded + 1;
 		};
 	};
 };
