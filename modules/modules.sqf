@@ -48,5 +48,6 @@ Additional modules that can be enabled by removing the //
 //#include "headless_ai\root.sqf"
 //#include "weapon_helper\root.sqf"
 //#include "knock_down\root.sqf"
+//#include "kobld_snow\root.sqf"
 //#include "remove_map\root.sqf"
 //#include "vehicle_boost\root.sqf"
