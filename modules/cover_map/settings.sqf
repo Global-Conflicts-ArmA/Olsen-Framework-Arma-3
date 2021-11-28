@@ -12,6 +12,6 @@ Examples:
 
 // Global Map Marker Array
 private _AOMarkers = [
-  ["AOMarker_1", true, 0.4, "AO"],
-  ["AOMarker_2", true, 0.8, "AO 2"]
+  ["AOMarker_1", true, 0.4, "AO", "ColorGrey"],
+  ["AOMarker_2", true, 0.8, "AO 2", "ColorGrey"]
 ];
