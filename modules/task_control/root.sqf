@@ -1,7 +1,12 @@
 #ifdef description_XEH_PreInit
 	class TASK {
 		clientInit = "call compile preprocessFileLineNumbers 'modules\task_control\preInitClient.sqf'";
-		serverInit = "call compile preprocessFileLineNumbers 'modules\task_control\preInitServer.sqf'";
+	};
+#endif
+
+#ifdef description_XEH_PostInit
+	class TASK {
+		serverInit = "call compile preprocessFileLineNumbers 'modules\task_control\postInitServer.sqf'";
 	};
 #endif
 
