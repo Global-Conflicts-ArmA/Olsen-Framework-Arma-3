@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 
 if (GETVAR(player,Spectating,false)) exitWith {};
-    
+
 SETPVAR(player,Dead,true); //Tells the framework the player is dead
 
 player hideObjectGlobal true;
@@ -62,7 +62,7 @@ private _specGroup = switch _side do {
 
 [true] call acre_api_fnc_setSpectator;
 //If babel is enabled, allowed spectator to hear all languages present in mission.
-if (GETMVAR(enable_babel,false)) then {
+if (GETMVAR(ACRE_Enable_Babel,false)) then {
     private _missionLanguages = [];
     {
         {
@@ -70,7 +70,7 @@ if (GETMVAR(enable_babel,false)) then {
                 _missionLanguages pushback _x;
             };
         } foreach _x;
-    } forEach GVAR(languages_babel);
+    } forEach GVAR(ACRE_Languages_Babel);
     _missionLanguages call acre_api_fnc_babelSetSpokenLanguages;
 };
 
@@ -92,7 +92,7 @@ if (abs(_pos select 0) < 2 && abs(_pos select 1) < 2) then {
     _pos = [2000, 2000, 100];
 };
 
-["Initialize", 
+["Initialize",
     [
         player,
         GVAR(eg_Whitelisted_Sides),
@@ -114,7 +114,7 @@ if !(_cam isEqualTo objNull) then {
             GVAR(eg_keyHandle) = (findDisplay 60492) displayAddEventHandler ["keyDown", {call FUNC(eg_keyHandler);}];
             GVAR(eg_keyHandle2) = (findDisplay 46) displayAddEventHandler ["keyDown", {call FUNC(eg_keyHandler2)}];
     }, []] call CBA_fnc_waitUntilAndExecute;
-    
+
     if (GETMVAR(killcam_active,true)) then {
         SETMVAR(killcam_toggle,false);
         //this cool piece of code adds key handler to spectator display
@@ -122,16 +122,16 @@ if !(_cam isEqualTo objNull) then {
         [{!isNull (findDisplay 60492)}, {
             GVAR(killcam_keyHandle) = (findDisplay 60492) displayAddEventHandler ["keyDown", {call FUNC(killcam_toggleFnc);}];
         }, []] call CBA_fnc_waitUntilAndExecute;
-        
+
         if !((GETMVAR(killcam_killer,objnull)) isEqualTo objnull) then {
             GVAR(killcam_distance) = GVAR(killcam_killer) distance GVAR(killcam_body);
             _pos = _pos getPos [-1.8, (GVAR(killcam_body) getDir GVAR(killcam_killer))];
             _cam setposATL _pos;
-            
+
             //vector magic
             private _temp1 = ([getposASL _cam, getposASL GVAR(killcam_killer)] call BIS_fnc_vectorFromXToY);
             private _temp = (_temp1 call CBA_fnc_vect2Polar);
-            
+
             //we check if camera is not pointing up, just in case
             if (abs(_temp select 2) > 89) then {_temp set [2, 0]};
             [_cam, [_temp select 1, _temp select 2]] call BIS_fnc_setObjectRotation;
@@ -139,13 +139,13 @@ if !(_cam isEqualTo objNull) then {
             _cam setposATL _pos;
             _cam setDir _dir;
         };
-        
+
         GVAR(killcam_texture) = "a3\ui_f\data\gui\cfg\debriefing\enddeath_ca.paa";
-        
+
         GVAR(killcam_drawHandle) = addMissionEventHandler ["Draw3D", {
             //we don't draw hud unless we toggle it by keypress
             if (GETMVAR(killcam_toggle,false)) then {
-            
+
                 if ((GETMVAR(killcam_killer_pos,[ARR_3(0,0,0)])) isEqualTo [0,0,0]) then {
                     cutText ["killer info unavailable", "PLAIN DOWN"];
                     SETMVAR(killcam_toggle,true);
@@ -178,7 +178,7 @@ private _killcam_msg = if (GETMVAR(killcam_active,true)) then {
 } else {""};
 private _text = format ["<t size='0.5' color='#ffffff'>%1
 Close spectator HUD by pressing <t color='#FFA500'>CTRL+H</t>.<br/>
-Press <t color='#FFA500'>SHIFT</t>, <t color='#FFA500'>ALT</t> or <t color='#FFA500'>SHIFT+ALT</t> to modify camera speed. Open map by pressing <t color='#FFA500'>M</t> and click anywhere to move camera to that postion.<br/> 
+Press <t color='#FFA500'>SHIFT</t>, <t color='#FFA500'>ALT</t> or <t color='#FFA500'>SHIFT+ALT</t> to modify camera speed. Open map by pressing <t color='#FFA500'>M</t> and click anywhere to move camera to that postion.<br/>
 Spectator controls can be customized in game <t color='#FFA500'>options->controls->'Camera'</t> tab.</t>", _killcam_msg];
 
 [_text, 0.55, 0.8, 20, 1] spawn BIS_fnc_dynamicText;
