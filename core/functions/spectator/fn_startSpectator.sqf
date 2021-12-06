@@ -4,7 +4,8 @@ if (GETVAR(player,Spectating,false)) exitWith {};
 
 SETPVAR(player,Dead,true); //Tells the framework the player is dead
 
-player hideObjectGlobal true;
+[(player), true] remoteExecCall ["hideObject", 0];
+[(player), true] remoteExecCall ["hideObjectGlobal", 2];
 player setCaptive true;
 player allowDamage false;
 
