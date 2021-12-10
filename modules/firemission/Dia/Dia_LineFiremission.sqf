@@ -50,7 +50,7 @@ FNC_DIA_LineFiremissionFire =
 
 						private _round =  ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _selectedAmmo) select 0;
 						hint (([_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_GetLineFiremissionText))
-							+ "Requested by:" + (name player)
+							+ "Requested by: " + (name player)
 							+ "\nETA: " + str (round ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAimTime)) + ([_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,_round] call FUNC(FIREMIS_Dia_GetArtyEta)))) + " s");
 							["CallLineFiremission", [player,_selectedUnit,_selectedAmmo,_startGrid,_endGrid,_burstNumber,_burstRounds,_burstDelay,_spotting]] call CBA_fnc_serverEvent;
 						[] call FNC_DIA_LineFiremissionCloseDialog;

@@ -19,7 +19,7 @@ private _unitName = _unit call FUNC(FIREMIS_Dia_GetArtyDisplayName);
 private _ret = 	"Name: " + _unitName +"\n" +
     "Firemission type: Marker to Point Firemission \n" +
     "Shell: " + _text +" \n" +
-    "TargetMarker: " + _target + "\n" +
+    "Target Marker: " + _target + "\n" +
     "Dispersion: " + (str _dispersion) +"\n" +
     "Number of Bursts: " + (str _burstCount) +"\n" +
     "Rounds per Burst: " + (str _burstSize) +"\n" +

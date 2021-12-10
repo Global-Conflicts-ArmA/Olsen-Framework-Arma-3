@@ -22,12 +22,12 @@ FNC_DIA_GridSpottingFiremissionFire =
 {
 	private _guns = player getVariable [VAR_SART_OBSGUNS,[]];
 	private _usableGuns = [];
-	{
+	_guns apply {
 		if(_x call FUNC(FIREMIS_Dia_IsArtyAvailable)) then
 		{
 			_usableGuns pushBack _x;
 		};
-	}forEach _guns;
+	};
 	private _selectedUnit = objNull;
 	 if((count _usableGuns) > 0) then { _selectedUnit = (_usableGuns select (lbCurSel GSFM_DIA_IDC_GUNSELECT));};
 	private _selectedAmmo = lbCurSel GSFM_DIA_IDC_SHELLSELECT;
@@ -57,7 +57,7 @@ FNC_DIA_Server_GridSpottingFiremissionFire =
 	private _selectedAmmo = _this select 3;
 
 	[_selectedUnit,_requester] call FUNC(FIREMIS_Dia_SetArtyCaller);
-	[_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_selectedAmmo]   call FUNC(FIREMIS_GridSpottingFiremission);
+	[_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_selectedAmmo] call FUNC(FIREMIS_GridSpottingFiremission);
 
 };
 if(isServer) then {["CallGridSpottingFiremission", {_this call FNC_DIA_Server_GridSpottingFiremissionFire;}] call CBA_fnc_addEventHandler;};

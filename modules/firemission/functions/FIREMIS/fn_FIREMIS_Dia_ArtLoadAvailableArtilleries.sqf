@@ -8,20 +8,20 @@ params [
 private _guns = player getVariable [VAR_SART_OBSGUNS,[]];
 private _usableGuns = [];
 
-diag_log format ["INFO: _guns = %1", _guns];
+/* diag_log format ["INFO: _guns = %1", _guns]; */
 
-{
+_guns apply {
   if(_x call FUNC(FIREMIS_Dia_IsArtyAvailable)) then
   {
     _usableGuns pushBack _x;
   };
-}forEach _guns;
+};
 
-diag_log format ["INFO: _usableGuns = %1", _usableGuns];
+/* diag_log format ["INFO: _usableGuns = %1", _usableGuns]; */
 
 lbClear _id;
-{
+_usableGuns apply {
   lbAdd [_id,_x call FUNC(FIREMIS_Dia_GetArtyDisplayName)];
 
-}forEach _usableGuns;
+};
 lbSetCurSel [_id,0];

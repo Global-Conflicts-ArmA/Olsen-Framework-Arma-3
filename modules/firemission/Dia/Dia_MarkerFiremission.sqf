@@ -23,12 +23,12 @@ FNC_DIA_MarkerFiremissionFire =
 {
 	private _guns = player getVariable [VAR_SART_OBSGUNS,[]];
 	private _usableGuns = [];
-	{
+	_guns apply {
 		if(_x call FUNC(FIREMIS_Dia_IsArtyAvailable)) then
 		{
 			_usableGuns pushBack _x;
 		};
-	}forEach _guns;
+	};
 	private _selectedUnit = objNull;
 	 if((count _usableGuns) > 0) then { _selectedUnit = (_usableGuns select (lbCurSel MFM_DIA_IDC_GUNSELECT));};
 	/* diag_log format ["INFO: MFM_DIA_IDC_SHELLSELECT = %1", MFM_DIA_IDC_SHELLSELECT]; */
@@ -55,7 +55,7 @@ FNC_DIA_MarkerFiremissionFire =
 		private _round =  ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _selectedAmmo) select 0;
 
 		hint (([_selectedUnit,_name,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_GetMarkerFiremissionText))
-			+ "Requested by:" + (name player)
+			+ "Requested by: " + (name player)
 			+ "\nETA: " + str (round ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAimTime)) + ([_selectedUnit,getMarkerPos (_marker),_round] call FUNC(FIREMIS_Dia_GetArtyEta)))) + " s");
 		["CallMarkerFiremission",  [player,_selectedUnit,_name,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo]] call CBA_fnc_serverEvent;
 		[] call FNC_DIA_MarkerFiremissionCloseDialog;

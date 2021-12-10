@@ -17,6 +17,12 @@
 	After it finished its spotting rounds it will wait CALCULATIONTIME to fire the actuall firemission.
 	Example point firemission. It will find a spot within DISPERSION from the TARGETPOS and fire ROUNDSPERBURST at that spot. It will do this BURSTCOUNT times.
 	It will wait BURSTWAITIME or FIRERATE * ROUNDSPERBURST depending on what is greater before the next burst is fired. BURSTWAITIME is the time from first shot of a burst to next burst.
+
+  PLEASE NOTE: Some vehicles are known to be finnicky about obeying the commands to fire,
+  known working crewed artillery units include:
+   - Podnos
+   - M109
+
 */
 
 /*
