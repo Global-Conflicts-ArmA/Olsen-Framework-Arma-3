@@ -18,10 +18,10 @@ private _nBuilding = nearestBuilding _Enemy;
 private _Locations = [_nBuilding] call BIS_fnc_buildingPositions;
 
 //Stop the AI - and then tell them to move to the house
-{
+(units (group _Unit)) apply {
 	//Set variable to true to prevent AI clearing buildings to often
 	//_x spawn FUNC(StanceModifier);
 	if (_Enemy distance _x < 200) then {
 		[_Locations,_x,_InCover,_ActivelyClearing,_Enemy] spawn FUNC(GarrisonClearPatrol);
 	};
-} foreach units (group _Unit);
+};

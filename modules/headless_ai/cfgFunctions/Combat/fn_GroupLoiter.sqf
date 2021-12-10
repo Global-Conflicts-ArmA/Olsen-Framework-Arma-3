@@ -1,6 +1,5 @@
 #include "..\..\script_macros.hpp"
 
-
 //This script will dictate how the loiter WP works for the AI
 params ["_Unit", "_Group","_thisFSM"];
 
@@ -10,7 +9,7 @@ SETVAR(_Group,InitialWPSet,true);
 
 //We need a list of actions that the AI can do for loitering.
 private _UnitArray = units _Group;
-{
+_UnitArray apply {
 	if (_x isEqualTo (vehicle _x)) then
 	{
 		//Each AI will need to join their own group. The plan is to make them re-form when combat starts.
@@ -19,7 +18,7 @@ private _UnitArray = units _Group;
 		SETVAR(_x,LOITERINGACT,0);
 		[_x,_UnitArray] spawn FUNC(LoiterAction);
 	};
-} foreach _UnitArray;
+};
 
 [_Unitleader,_UnitArray,_group] spawn {
 	params ["_Unitleader","_UnitArray","_group"];

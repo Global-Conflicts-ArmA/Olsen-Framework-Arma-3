@@ -44,13 +44,13 @@ while {(_Unit distance _ClosestPos) > 3 && alive _Unit} do
 			//Remove any positions below or above the player.
 			_UnitPosition = getposATL _Enemy;
 			_AcceptableRange = _UnitPosition select 2;
-			{
+			_RefinedBuildingArray apply {
 				if ((_x select 2) < (_AcceptableRange - 1) || (_x select 2) > (_AcceptableRange + 1)) then
 				{
 					_RefinedBuildingArray = _RefinedBuildingArray - [_x];
 				};
 
-			} foreach _RefinedBuildingArray;
+			};
 
 
 			//Define the closest position to be edited

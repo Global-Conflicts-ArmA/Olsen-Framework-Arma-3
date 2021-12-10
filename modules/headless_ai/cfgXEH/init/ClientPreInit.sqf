@@ -2,9 +2,9 @@
 
 LOG("HC Client Pre Init");
 
-private _version = "0.2.4";
+private _version = "0.2.5";
 
-["Headless AI", "Spawns AI via logic sync and provides custom AI system", "PIZZADOX", _version] call FUNC(RegisterModule);
+["Headless AI", "Spawns AI via logic sync and provides custom AI system", "PIZZADOX", _version] call EFUNC(FW,RegisterModule);
 
 //[QGVAR(ClientEvent), {
 //
@@ -23,5 +23,3 @@ if (isMultiplayer) then {
 } else {
 	[] call FUNC(initMain);
 };
-
-

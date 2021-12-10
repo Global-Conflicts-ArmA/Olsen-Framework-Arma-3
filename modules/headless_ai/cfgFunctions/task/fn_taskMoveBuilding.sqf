@@ -29,6 +29,7 @@ if (_patrol) then {
 };
 if (GETMVAR(Debug,false)) then {
     if (_patrol) then {
+        // Where is debugCreateMarker declared?
         [_group,_bpos,"BLDERROR PATROL","ColorOPFOR"] call FUNC(debugCreateMarker);
     } else {
         [_group,_bpos,"rBldP"] call FUNC(debugCreateMarker);

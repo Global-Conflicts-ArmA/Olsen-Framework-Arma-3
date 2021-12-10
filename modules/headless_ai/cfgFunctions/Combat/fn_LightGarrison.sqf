@@ -1,6 +1,5 @@
 #include "..\..\script_macros.hpp"
 
-
 //Created on ???
 // Modified on : 9/7/14 - 8/4/15  - Added a check building distance stat.
 _Unit = _this select 0;
@@ -21,7 +20,7 @@ if (isNil "_ClosestEnemy" || {_ClosestEnemy isEqualTo []}) exitWith {};
 _nBuilding = nearestBuilding _ClosestEnemy;
 _IsEnterable = [_nBuilding] call BIS_fnc_isBuildingEnterable;
 
-{
+_UnitsGroup apply {
 
 
 if (!(_IsEnterable)) exitWith {};
@@ -49,4 +48,4 @@ _LocationArray = _LocationArray - [_AttackPoint];
 //doStop _x;
 _x moveTo _AttackPoint;
 
-} foreach _UnitsGroup;
+};
