@@ -17,7 +17,7 @@ private _nextBeep = _endTime - 10;
 private _delay = 0.08;
 [{
 	_this params ["_args", "_idPFH"];
-	_args params ["_endTime", "_nextBeep", "_ctrlTime"];
+	_args params ["_endTime", "_nextBeep", "_ctrlTime", "_display"];
 	private _break = false;
 	private _shouldDisplay = missionNamespace getVariable ["FW_AOL_Display", false];
 
@@ -52,4 +52,4 @@ private _delay = 0.08;
 		_display closeDisplay 1;
 		[_idPFH] call CBA_fnc_removePerFrameHandler;
 	};
-}, _delay, [_endTime, _nextBeep, _ctrlTime]] call CBA_fnc_addPerFrameHandler;
+}, _delay, [_endTime, _nextBeep, _ctrlTime, _display]] call CBA_fnc_addPerFrameHandler;
