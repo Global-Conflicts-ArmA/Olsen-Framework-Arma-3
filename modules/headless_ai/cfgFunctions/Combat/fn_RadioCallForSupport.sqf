@@ -37,7 +37,7 @@ allGroups select {
 	{!(isNull _leader)} &&
 	{(alive _leader)} &&
 	{!(GETVAR(_leader,NOAI,false))} &&
-	{!(isPlayer _leader)} && 
+	{!(isPlayer _leader)} &&
 	{side _leader in GVAR(SideBasedExecution)} &&
 	{!([_x] call FUNC(isInCombat))}
 } apply {
@@ -54,7 +54,7 @@ allGroups select {
 	private _target = GETVAR(_group,CurrentTarget,objnull);
 	private _distanceToGroup = (leader _groupcaller) distance2d _leader;
     if (
-    	([_sidecaller, _side] call BIS_fnc_sideIsFriendly) && 
+    	([_sidecaller, _side] call BIS_fnc_sideIsFriendly) &&
     	{!_knownEnemy || {_target isEqualTo objnull} || {!(_target in _nearbyEnemy)}} &&
     	{_distanceToGroup <= GVAR(RadioDistance)} &&
     	{!(GETMVAR(RadioNeedRadio,false)) || {_group call FUNC(hasRadioGroup)}}
@@ -70,7 +70,7 @@ allGroups select {
     				_respondingMotorized pushBackUnique _group;
     		    };
     			case "Mechanized": {
-    				_respondingMechanized pushBackUnique _group; 
+    				_respondingMechanized pushBackUnique _group;
     		    };
     			case "Armored": {
     				_respondingArmored pushBackUnique _group;
@@ -90,16 +90,16 @@ if (GVAR(Debug)) then {
 
 // Act on responses
 private _veryCloseGroups = [];
-{
+[_respondingInfantry, _respondingMotorized, _respondingMechanized, _respondingArmored] apply {
 	if !(_x isEqualTo []) then {
-        {
+        _x apply {
             _x params ["_arrayGroup"];
             if ((leader _arrayGroup distance2d _posCaller) <= 250) then {
-    			_veryCloseGroups pushback _arrayGroup;
-    		};
-        } forEach _x;
+    					_veryCloseGroups pushback _arrayGroup;
+    				};
+        };
 	};
-} foreach [_respondingInfantry, _respondingMotorized, _respondingMechanized, _respondingArmored];
+};
 
 //IGNORE_PRIVATE_WARNING ["_x"];
 _respondingInfantry = [_respondingInfantry, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
@@ -122,9 +122,9 @@ private _reinforcingGroup = grpNull;
 
 if (_knownEnemy) then {
 	if !(_veryCloseGroups isEqualTo []) then {
-		{
+		_veryCloseGroups apply {
 		    [_x, _targetPos] call FUNC(CombatAttack);
-		} forEach _veryCloseGroups;
+		};
 	} else {
 		private _enemyCount = count _nearbyEnemy;
 		if (_enemyCount <= 8) then {

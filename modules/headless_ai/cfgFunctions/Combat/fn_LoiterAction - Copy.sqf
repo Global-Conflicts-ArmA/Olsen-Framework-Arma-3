@@ -1,6 +1,5 @@
 #include "..\..\script_macros.hpp"
 
-
 //This script will have the AI perform certain actions.
 private ["_Unit", "_UnitGroup", "_CurrentAction", "_RandomAction", "_rnd", "_dist", "_dir", "_UnitPosition", "_positions", "_RandomAnimationList", "_ClosestUnit", "_positions2", "_Fire", "_Counter", "_SwitchMoveList", "_PlayActionList"];
 _Unit = _this select 0;

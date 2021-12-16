@@ -43,7 +43,7 @@ private _fnc_repeat = {
             _stateMachine setVariable [QGVAR(list), _list];
         };
     };
-    
+
     if !(_list isEqualTo []) then {
         _stateMachine setVariable [QGVAR(tick), _tick + 1];
 
@@ -93,7 +93,7 @@ private _fnc_repeat = {
     };
 };
 
-{
+GVAR(stateMachines) apply {
     #ifdef STATEMACHINE_PERFORMANCE_COUNTERS
     private _perfStartTime = diag_tickTime;
     #endif
@@ -112,4 +112,4 @@ private _fnc_repeat = {
     (GVAR(performanceCounters) select _id) pushBack _perfRunTime;
     #endif
 
-} forEach GVAR(stateMachines);
+};

@@ -3,7 +3,7 @@
 
 //FUNC(CombatResponse)
 
-params ["_Group", ["_radioEnemy", objnull, [objnull]], ["_reinforcement", false, [false]]];
+params ["_group", ["_radioEnemy", objnull, [objnull]], ["_reinforcement", false, [false]]];
 
 private _leader = leader _group;
 private _currentmission = SETVAR(_group,Task,"NONE");

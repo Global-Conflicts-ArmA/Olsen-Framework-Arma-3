@@ -5,6 +5,7 @@ params ["_functions","_delay"];
 [{
     {
         private _logic = _x;
+        // Where is getSyncedModules declared?
         private _posModules = [_logic,[QGVAR(PositionModule)]] call FUNC(getSyncedModules);
         private _spos = [0,0,0];
         if ( count _posModules > 0) then {
