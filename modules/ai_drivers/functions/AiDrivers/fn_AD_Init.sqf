@@ -2,7 +2,6 @@
 
 if (!(hasinterface) || {is3DEN}) exitwith {};
 
-//contains _AOMarkers array
 #include "..\..\settings.sqf"
 
 vehicles select {
@@ -14,5 +13,6 @@ vehicles select {
     {(GVAR(AiDriversAllCars) && {(_veh isKindOf "Car")})} ||
     {(GVAR(AiDriversVehicleClasses) findIf {_veh isKindOf _x}) > -1}
 } apply {
+    /* diag_log format ["INFO: Vehicle eligible for  AI driver: %1", _x]; */
     _x call FUNC(AD_EnableAIDriver)
 };
