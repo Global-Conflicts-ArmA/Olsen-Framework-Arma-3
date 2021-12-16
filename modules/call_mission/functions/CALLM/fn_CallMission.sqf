@@ -14,7 +14,7 @@ GVAR(MissionCalls) apply {
 	};
 
 	if ((_x select 0) == _callID) exitWith {
-		if (_player getVariable ["FW_IsCO", false]) then {
+		if (_player getVariable [QEGVAR(FW,isCO), false]) then {
 			["Calling mission...", "hint", _player] call BIS_fnc_MP;
 			(_x select 2) call EFUNC(FW,EndMission);
 

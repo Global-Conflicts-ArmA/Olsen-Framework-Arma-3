@@ -7,6 +7,12 @@
 	};
 #endif
 
+#ifdef description_XEH_PostInit
+	class COMPONENT {
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\call_mission\postInitClient.sqf'";
+	};
+#endif
+
 #ifdef description_external_functions
 	#include "functions\CfgFunctions.hpp"
 #endif

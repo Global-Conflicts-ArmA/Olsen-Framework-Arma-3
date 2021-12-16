@@ -4,7 +4,6 @@ class COMPONENT {
 		file = "modules\call_mission\functions\CALLM";
 		class CallMission {};
 		class CallMissionReq {};
-		class RegisterCOC {};
 		class RegisterMissionCall {};
 	};
 };
