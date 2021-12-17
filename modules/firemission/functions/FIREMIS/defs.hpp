@@ -1,8 +1,10 @@
 ////////////////////////////////////////////////////////
-// GUI EDITOR OUTPUT START (by Sacher, v1.063, #Dyroxu)
+// GUI EDITOR OUTPUT START (by Sacher & StatusRed, v2.00)
 ////////////////////////////////////////////////////////
 #define MEANCALCULATIONTIME 120
+// #define MEANCALCULATIONTIME 1
 #define MEANAIMTIME 10
+// #define MEANAIMTIME 1
 #define MEANSPOTTINGACCURACY 300
 #define MEANPlOTTEDACCURACY 50
 #define MAXSPOTTINGROUNDS 3
@@ -10,6 +12,7 @@
 #define SPOTTINGROUNDSREQUIRED true
 #define OBSACCURACY 100
 #define OBSSPEED 30
+// #define OBSSPEED 3
 
 #define MILSPERROUND  6400
 
