@@ -6,8 +6,8 @@ private _return = switch (_stance) do {
 	case "STAND": {"UP";};
 	case "CROUCH": {"MIDDLE";};
 	case "PRONE": {"DOWN";};
-	case "AUTO": {"AUTO"};
-	default {"AUTO"};
+	case "Auto": {"Auto"};
+	default {"Auto"};
 };
 
 _return

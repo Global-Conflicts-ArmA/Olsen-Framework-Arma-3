@@ -22,7 +22,7 @@ GVAR(CommanderAreas) = [
         /* 8 Withdrawal Enabled*/ false, 
         /* 9 Resource Use */ true, 
         /* 10 Preferred Types (OPTIONAL)*/ ["Infantry", "Snipers"],
-        /* 11 Terrain Mode (OPTIONAL)*/ "AUTO"
+        /* 11 Terrain Mode (OPTIONAL)*/ "Auto"
     ],
     [
         /* 0 Display Name */ "Kamenyy Outskirts", 
@@ -36,7 +36,7 @@ GVAR(CommanderAreas) = [
         /* 8 Withdrawal Enabled*/ true, 
         /* 9 Resource Use */ false, 
         /* 10 Preferred Types (OPTIONAL)*/ ["Infantry"],
-        /* 11 Terrain Mode (OPTIONAL)*/ "AUTO"
+        /* 11 Terrain Mode (OPTIONAL)*/ "Auto"
     ]
 ];
 // 

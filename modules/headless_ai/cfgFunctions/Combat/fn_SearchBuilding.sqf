@@ -113,7 +113,7 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
     if ((_waitedTime >= 25) || (_clearedPositions >= _totalPositions) || ((CBA_missionTime - (GETVAR(_building,searched,(CBA_missionTime)))) > 600)) exitWith {
         _units apply {
             _x doFollow leader _x;
-            _x setUnitPos "AUTO";
+            _x setUnitPos "Auto";
         };
         _group lockWP false;
         SETVAR(_group,Mission,_otask);

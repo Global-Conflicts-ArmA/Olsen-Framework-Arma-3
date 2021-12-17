@@ -39,7 +39,7 @@ switch _currentmission do {
 		};
 	case "LOITER": {
 			_Group setSpeedMode "FULL";
-			{_x setUnitPos "AUTO";} foreach (units _group);
+			{_x setUnitPos "Auto";} foreach (units _group);
 			if (_reinforcement) then {
 				[_Group,_currenttarget,_enemydir] call FUNC(CombatAttack);
 			} else {

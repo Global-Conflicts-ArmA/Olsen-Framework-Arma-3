@@ -113,7 +113,7 @@ if !(_storedVars isEqualTo []) then {
     } forEach _storedVars;
 };
 
-private _groupStance = GETVAR(_group,Stance,"AUTO");
+private _groupStance = GETVAR(_group,Stance,"Auto");
 
 //["FW_eventSpawned", [_unit]] call CBA_fnc_serverEvent;
 

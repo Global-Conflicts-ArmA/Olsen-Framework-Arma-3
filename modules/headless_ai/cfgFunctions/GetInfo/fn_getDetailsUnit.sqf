@@ -5,10 +5,10 @@ params ["_unit", ["_pos",[],[[]]], "_vehicle"];
 private _unitInit = GETVAR(_unit,Init,"");
 if (typename _unitInit isEqualTo "STRING") then {_unitInit = compile _unitInit;};
 private _vehAssigned = !((assignedVehicleRole _unit) isEqualTo []);
-private _stance = if ((GETVAR(_unit,stance,"Auto")) isEqualTo "Auto") then {
+private _stance = if ((GETVAR(_unit,stance,"Auto")) == "Auto") then {
     unitPos _unit
 } else {
-    GETVAR(_unit,stance,"Auto")
+    (GETVAR(_unit,stance,"Auto"))
 };
 if (_pos isEqualTo []) then {
     _pos = (getposATL _unit) apply {parseNumber (_x toFixed 2)};
@@ -27,7 +27,7 @@ private _identity = [
 private _name = GETVAR(_unit,varName,"");
 private _olsenGearType = GETVAR(_unit,gearType,"");
 private _vehArray = [
-    _vehicle, 
+    _vehicle,
     typeOf _vehicle,
     assignedVehicleRole _unit
 ];

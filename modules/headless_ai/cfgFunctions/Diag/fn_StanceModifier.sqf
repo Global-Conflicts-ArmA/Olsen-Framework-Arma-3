@@ -24,4 +24,4 @@ while {_Counter > 0} do
 	sleep 10;
 };
 
-_this setUnitPos "AUTO";
+_this setUnitPos "Auto";

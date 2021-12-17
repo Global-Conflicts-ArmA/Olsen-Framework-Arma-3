@@ -2,18 +2,18 @@
 
 params [
     ["_unit", objNull, [objNull]],
-    ["_groupStance", "AUTO", [""]],
-    ["_unitStance", "AUTO", [""]]
+    ["_groupStance", "Auto", [""]],
+    ["_unitStance", "Auto", [""]]
 ];
 
-//LOG_1("setstance: %1",_this);
+LOG_1("setstance: %1",_this);
 
-private _stance = if (!(_groupStance isEqualTo "AUTO") && {_unitStance isEqualTo "AUTO"}) then {
+private _stance = if (!(_groupStance isEqualTo "Auto") && {_unitStance isEqualTo "Auto"}) then {
     _groupStance
 } else {
     _unitStance
 };
 
-if !(_stance isEqualTo "AUTO") then {
+if !(_stance isEqualTo "Auto") then {
     _unit setUnitPos _stance;
 };
