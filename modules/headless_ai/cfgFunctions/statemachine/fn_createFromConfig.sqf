@@ -31,14 +31,14 @@ private _skipNull = (getNumber (_config >> "skipNull")) > 0;
 private _repeatPerFrame = getNumber (_config >> "repeatPerFrame");
 private _stateMachine = [_list, _skipNull, _repeatPerFrame] call FUNC(create);
 
-{
+(configProperties [_config, "isClass _x", true]) apply {
     private _state = configName _x;
     GET_FUNCTION(_onState,_x >> "onState");
     GET_FUNCTION(_onStateEntered,_x >> "onStateEntered");
     GET_FUNCTION(_onStateLeaving,_x >> "onStateLeaving");
     [_stateMachine, _onState, _onStateEntered, _onStateLeaving, _state] call FUNC(addState);
 
-} forEach (configProperties [_config, "isClass _x", true]);
+};
 
 // We need to add the transitions in a second loop to make sure the states exist already
 {

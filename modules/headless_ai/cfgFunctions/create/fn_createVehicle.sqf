@@ -57,7 +57,7 @@ if !(_name isEqualTo "") then {
 };
 
 if !(_olsenGearType isEqualTo "") then {
-    [_vehicle, _olsenGearType] call FUNC(VehicleGearScript);
+    [_vehicle, _olsenGearType] call EFUNC(FW,VehGearScript);
 };
 
 if (_fly) then {

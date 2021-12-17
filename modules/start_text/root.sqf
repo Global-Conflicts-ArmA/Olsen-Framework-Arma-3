@@ -6,7 +6,7 @@
 
 #ifdef description_XEH_InitPost_CAManBase
 	class START {
-		clientInit = "'' call compile preprocessFileLineNumbers 'modules\start_text\postInitClient.sqf'";
+		clientInit = "_this call compile preprocessFileLineNumbers 'modules\start_text\postInitClient.sqf'";
 	};
 #endif
 

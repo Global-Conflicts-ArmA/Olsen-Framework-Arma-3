@@ -1,1 +1,2 @@
-#include "..\..\..\..\core\script_macros.hpp"
+#define COMPONENT JIP
+#include "..\..\script_component.hpp"

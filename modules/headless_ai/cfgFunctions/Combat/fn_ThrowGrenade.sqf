@@ -1,6 +1,5 @@
 #include "..\..\script_macros.hpp"
 
-
 private ["_RandomChance", "_myNearestEnemy", "_GRENADETHROWN", "_CheckDistance", "_DirectionSet", "_Directionset"];
 
 params ["_unit"];

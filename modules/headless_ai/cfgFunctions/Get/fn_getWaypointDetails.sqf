@@ -1,8 +1,8 @@
 #include "..\..\script_macros.hpp"
 
-
 params [["_entityWaypoints",[],[[]]],["_waypointDetails",[],[[]]]];
-{
+
+_entityWaypoints apply {
     private _wayPoint = _x;
     _waypointDetails pushBack [
         _wayPoint,
@@ -22,5 +22,6 @@ params [["_entityWaypoints",[],[[]]],["_waypointDetails",[],[[]]]];
         waypointScript _wayPoint,
         waypointStatements _wayPoint
     ];
-} foreach _entityWaypoints;
+};
+
 _waypointDetails
