@@ -13,14 +13,11 @@
 [opfor, "modules\rank_icons\res\chopper.paa"] call FUNC(addSetting);
 /* [blufor, "modules\rank_icons\res\chopper.paa"] call FUNC(addSetting); */
 
-// Multiple groups example
-/* private _groups = [testers, others];
-_groups apply {
-  [_x, "modules\rank_icons\res\chopper.paa"] call FUNC(addSetting);
-}; */
+// Group example
+// [group1, "modules\rank_icons\res\chopper.paa"] call FUNC(addSetting);
+
+// single unit example
+// [unit1, "modules\rank_icons\res\chopper.paa"] call FUNC(addSetting);
 
 // Multiple units example
-/* private _units = [leadUnit, test_unit];
-_units apply {
-  [_x, "modules\rank_icons\res\chopper.paa"] call FUNC(addSetting);
-}; */
+// [[unit1, unit2, unit3], "modules\rank_icons\res\chopper.paa"] call FUNC(addSetting);
