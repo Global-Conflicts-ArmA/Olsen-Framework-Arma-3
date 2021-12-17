@@ -1,6 +1,4 @@
-
-
-//Author:		Sacher
+//Author:		Sacher, ported by StatusRed
 
 //Definition:	[AISKILLSTRING,VALUE,CONDITION,CONDITION,CONDITION....]
 
@@ -18,35 +16,35 @@
 //			  	["Group",GROUP]
 //				["Vehicle"]
 //				["Vehicle",Vehicle]
-//Example: 	["aimingspeed", 1] call FNC_setAISkill;
+//Example: 	["aimingspeed", 1] call FUNC(setAISkill);
 // 			This is the most lightweight Example of setting Skills. It will change the Sub-Skill of all AI in the Mission.
 //			Usecase: Simple change to all AI
 
-//			["aimingspeed", 0.9,["Distance",200,GAMELOGIC1]] call FNC_setAISkill;
+//			["aimingspeed", 0.9,["Distance",200,GAMELOGIC1]] call FUNC(setAISkill);
 //			This Example uses 1 Condition to filter AI. It will only change AI which are withing 200m for GAMELOGIC1.
 //			Usecase:AI defending a certain area will be changed
 
-//			["aimingspeed", 0.9,["Distance",200,GENERAL]] call FNC_setAISkill;
+//			["aimingspeed", 0.9,["Distance",200,GENERAL]] call FUNC(setAISkill);
 //			This Example pretty much works like the one above but this time all Units within 200m of the unit General
 //			Usecase: Bodyguard of General receives different skill
 
-//			["aimingspeed", 0.9,["Side",west]] call FNC_setAISkill;
+//			["aimingspeed", 0.9,["Side",west]] call FUNC(setAISkill);
 //			This example will change all AI which are on side west
 //			Usecase: You have multiple AI sides in your mission andd only want to change Inurgents which are on side resistance
 
-//			["aimingspeed", 0.9,["Group",group General]] call FNC_setAISkill;
+//			["aimingspeed", 0.9,["Group",group General]] call FUNC(setAISkill);
 //			This example will change all AI which are in the group of General
 //			Usecase: Generals Bodyguard is the only one affected and other ai around him are not changed
 
-//			["aimingspeed", 0.9,["Vehicle"]] call FNC_setAISkill;
+//			["aimingspeed", 0.9,["Vehicle"]] call FUNC(setAISkill);
 //			This Example will change all AI which are inside a Vehicle
 //			Usecase: Mechanized mounted forces receive different skills
 
-//			["aimingspeed", 0.9,["Vehicle",Vehicle]] call FNC_setAISkill;
+//			["aimingspeed", 0.9,["Vehicle",Vehicle]] call FUNC(setAISkill);
 //			This Example will change all AI which are inside Vehicle1
 //			Usecase: Certain Vehicle has a squad which has been servin for years and has better skills
 
-//Chaining:	["aimingspeed", 0.9,["Distance",200,GAMELOGIC1],["Side",west],["Vehicle"]] call FNC_setAISkill;
+//Chaining:	["aimingspeed", 0.9,["Distance",200,GAMELOGIC1],["Side",west],["Vehicle"]] call FUNC(setAISkill);
 //			This example will change all which are within 200m of GAMELOGIC1 and are on Side west and are mounted in an Vehicle
 
 
@@ -75,3 +73,5 @@
 
 //"spottime" 				Affects how quick the AI react to death, damage or observing an enemy (Higher value = quicker reaction)
 //
+
+/* ["aimingspeed", 0.9,["Side",civilian]] call FUNC(setAISkill); */
