@@ -5,13 +5,10 @@
 [{
   GVAR(trackedMarkers) apply {
     _x params [
-      ["_markerName", "trackingMarker", ["trackingMarker"]],
-      ["_objectToTrack", objNull, [objNull, player]]
+      ["_markerName", "trackingMarker", [""]],
+      ["_objectToTrack", objNull, [objNull]]
     ];
 
-    private _objPos = getPos _objectToTrack;
-
-    [_markerName, _objPos] remoteExec ["setMarkerPosLocal", 0, true];
-    _markerName setMarkerAlpha 1;
+    _markerName setMarkerPos _objectToTrack;
   };
 }, GVAR(markerUpdateInterval), []] call CBA_fnc_addPerFrameHandler;

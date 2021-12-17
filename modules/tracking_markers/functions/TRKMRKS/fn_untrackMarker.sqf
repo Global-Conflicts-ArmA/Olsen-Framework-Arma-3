@@ -1,18 +1,9 @@
 #include "script_component.hpp"
 
 params[
-  ["_markerName", "trackingMarker", ["trackingMarker"]]
+  ["_markerName", "trackingMarker", [""]]
 ];
 
-private _deleteIndex = -1;
-
-{
-    _x params ["_xMarkerName"];
-
-    if (_xMarkerName == _markerName) then {
-      _deleteIndex = _forEachIndex;
-      GVAR(trackedMarkers) deleteAt _deleteIndex;
-    }
-} forEach GVAR(trackedMarkers);
-
+private _deleteIndex = GVAR(trackedMarkers) findif {_x select 0 == _markerName};
+GVAR(trackedMarkers) deleteAt _deleteIndex;
 _deleteIndex

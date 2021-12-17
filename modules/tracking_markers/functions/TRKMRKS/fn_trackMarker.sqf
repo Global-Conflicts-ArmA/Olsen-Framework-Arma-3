@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 
 params[
-  ["_markerName", "trackingMarker", ["trackingMarker"]],
-  ["_objectToTrack", objNull, [objNull, player]]
+  ["_markerName", "trackingMarker", [""]],
+  ["_objectToTrack", objNull, [objNull]]
 ];
 
-GVAR(trackedMarkers) pushBack [_markerName, _objectToTrack];
+GVAR(trackedMarkers) pushBackUnique [_markerName, _objectToTrack];
