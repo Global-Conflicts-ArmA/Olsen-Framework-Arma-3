@@ -18,7 +18,7 @@ GVAR(CommanderAreasParsed) = [];
         ["_withdrawalEnabled",true,[true]],
         ["_resourceUse",true,[true]],
         ["_preferredTypes",["ALL"],[[]]],
-        ["_terrainMode","AUTO",[""]],
+        ["_terrainMode","Auto",[""]],
         ["_importance",_foreachIndex,[0]],
         ["_assignedAssets",[],[[]]],
         ["_control","Neutral",["Neutral"]]
@@ -55,11 +55,11 @@ GVAR(CommanderAreasParsed) = [];
         ERROR_2("%1 preferredTypes value empty! preferredTypes: %2",_displayName,_preferredTypes);
         _preferredTypes = ["ALL"];
     };
-    if !(_terrainMode in ["URBAN","COAST","FOREST HILL","FOREST","HILL","OPEN","AUTO"]) then {
+    if !(_terrainMode in ["URBAN","COAST","FOREST HILL","FOREST","HILL","OPEN","Auto"]) then {
         ERROR_2("%1 invalid terrainMode: %2",_displayName,_terrainMode);
-        _terrainMode = "AUTO";
+        _terrainMode = "Auto";
     };
-    if (_terrainMode isEqualTo "AUTO") then {
+    if (_terrainMode isEqualTo "Auto") then {
         private _markerPos = getMarkerPos _marker;
         (getMarkerSize _marker) params ["_markerSizeX", "_markerSizeY"];
         private _markerSizeLarge = [_markerSizeX,_markerSizeY] select (_markerSizeY >= _markerSizeX);

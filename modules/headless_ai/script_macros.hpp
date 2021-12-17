@@ -27,7 +27,7 @@ if ((_argUpper isEqualTo "HCONLY") && {(hasInterface || isDedicated)}) exitwith 
         };\
     };\
 };\
-if ((_argUpper isEqualTo "AUTO") && {(!isNil QGVAR(HC_ID))}) then {\
+if ((_argUpper isEqualTo "Auto") && {(!isNil QGVAR(HC_ID))}) then {\
     if (isMultiplayer) exitwith {\
         if !(GVAR(HC_ID) isEqualTo clientowner) then {\
             _this remoteExec [_fnc_scriptName,GVAR(HC_ID)];\

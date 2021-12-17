@@ -52,7 +52,7 @@ GVAR(GroupHandlerPFH) = [{
                 //handle for special loiter task - regroup
                 if (_task isEqualTo "LOITER") then {
                     _group setSpeedMode "FULL";
-        			_units apply {_x setUnitPos "AUTO"; _x doFollow _leader};
+        			_units apply {_x setUnitPos "Auto"; _x doFollow _leader};
                     [_group, _target] call FUNC(CombatDefend);
                 };
                 if (_task in ["PATROL", "PERIMPATROL", "SENTRY", "BLDMOVE"]) then {
@@ -124,7 +124,7 @@ GVAR(GroupHandlerPFH) = [{
                         //private _withdrawalEnabled = GETVAR(_namespace,withdrawalEnabled,true);
                         //private _resourceUse = GETVAR(_namespace,resourceUse,true);
                         private _preferredTypes = GETVAR(_namespace,preferredTypes,"ALL");
-                        //private _terrainMode = GETVAR(_namespace,terrainMode,"AUTO");
+                        //private _terrainMode = GETVAR(_namespace,terrainMode,"Auto");
                         //private _importance = GETVAR(_namespace,importance,_forEachIndex);
                         private _assignedAssets = GETVAR(_namespace,assignedAssets,[]);
                         private _controlStatus = GETVAR(_namespace,control,"Neutral");
@@ -156,7 +156,7 @@ GVAR(GroupHandlerPFH) = [{
                             //private _withdrawalEnabled = GETVAR(_namespace,withdrawalEnabled,true);
                             //private _resourceUse = GETVAR(_namespace,resourceUse,true);
                             //private _preferredTypes = GETVAR(_namespace,preferredTypes,"ALL");
-                            //private _terrainMode = GETVAR(_namespace,terrainMode,"AUTO");
+                            //private _terrainMode = GETVAR(_namespace,terrainMode,"Auto");
                             //private _importance = GETVAR(_namespace,importance,_forEachIndex);
                             private _assignedAssets = GETVAR(_namespace,assignedAssets,[]);
                             private _controlStatus = GETVAR(_namespace,control,"Neutral");

@@ -7,5 +7,5 @@ params ["_unit","_enemy"];
 if (_enemy distance _unit > 250 && {nearestTerrainObjects [_unit, ["WALL","BUILDING","HOUSE","TREE"], 10, false] isEqualTo []}) then {
 	_unit setUnitPosWeak "DOWN";
 } else {
-    _unit setUnitPosWeak "AUTO";
+    _unit setUnitPosWeak "Auto";
 };
