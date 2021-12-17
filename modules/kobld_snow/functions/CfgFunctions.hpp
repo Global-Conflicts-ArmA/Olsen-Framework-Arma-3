@@ -5,7 +5,6 @@ class COMPONENT {
 		class breathEffect {};
 		class posCheck {};
 		class shiver {};
-		class snow_drop {};
 		class snowFX {};
 	};
 };
