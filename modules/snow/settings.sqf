@@ -1,7 +1,8 @@
+GVAR(snowfall) = false;
+GVAR(snowFog) = true;
 GVAR(breath) = true;
 GVAR(shiver) = true;
 GVAR(postProcessing) = false;
-GVAR(snowFog) = true;
 
 //Fog Settings
 GVAR(fog) = true;

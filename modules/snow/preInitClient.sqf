@@ -21,6 +21,8 @@ if !(GVAR(density) isEqualTo 100) then {
 	GVAR(snowTimer) = parseNumber ((0.001 + 0.000070 * (100 - GVAR(density))) toFixed 6);
 };
 
+GVAR(OffOn) = GETMVAR(snowfall,true);
+
 ["CBA_loadingScreenDone", {
 	GVAR(fxType) = "";
 	GVAR(posType) = "";
@@ -33,7 +35,9 @@ if !(GVAR(density) isEqualTo 100) then {
 		GVAR(shiverCheckTime) = CBA_missionTime;
 	};
 	GVAR(fxHandle) = [{
-		call FUNC(posCheck);
+		if (GVAR(snowfall) || GVAR(snowFog)) then {
+			call FUNC(posCheck);
+		};
 		if (GVAR(breath)) then {
 			call FUNC(breathEffect);
 		};
