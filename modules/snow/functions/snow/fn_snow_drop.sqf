@@ -1,0 +1,1 @@
+drop [["\A3\data_f\ParticleEffects\Universal\Universal.p3d",16,12,8,1],"","Billboard",1,12,[_this select 0,_this select 1,_this select 2 + 25],[0,0,0],3,1.7,1,1,[0.05],[[1,1,1,1]],[1],1,1,"","",_this];
