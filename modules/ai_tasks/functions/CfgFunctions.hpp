@@ -1,7 +1,7 @@
 class COMPONENT {
 	tag = COMPONENT;
-	class KBAITSK {
-		file = "modules\kobld_ai_tasks\functions\KBAITSK";
+	class AITSK {
+		file = "modules\ai_tasks\functions\AITSK";
 		class atgm {};
 		class atgmAdjust {};
 		class creepOrders {};

@@ -1,5 +1,5 @@
 //Modified Tracker Script by nkenny
-//[GROUP,RANGE] call KBAITSK_fnc_taskTrack;
+//[GROUP,RANGE] call AITSK_taskTrackFast;
 
 #include "script_component.hpp"
 
@@ -23,13 +23,13 @@ _group setVariable [QGVAR(nextCycleTime), 0, false];
 	_args params ["_group","_range","_cycle"];
 
 	if (simulationEnabled leader _group && {CBA_missionTime > _group getVariable QGVAR(nextCycleTime)} && { {alive _x} count (units _group) > 0 }) then {
-		private _combat = behaviour leader _group isEqualTo "COMBAT";
+		private _combat = behaviour leader _group isEqualTo "AWARE";
 		private _onFoot = (isNull objectParent (leader _group));
 
 		private _target = [_group,_range] call FUNC(findTarget);
 
 		if (!isNull _target) then {
-			_group move (_target getPos [random 200,random 360]);
+			_group move (_target getPos [random 50,random 360]);
 			_group setFormDir (leader _group getDir _target);
 			_group setBehaviour "AWARE";
 			_group setSpeedMode "NORMAL";

@@ -1,5 +1,5 @@
-//[this,"init","_this addEventHandler ['Fired', { _this call KBAITSK_fnc_atgm; }];"] call PZAI_FNC_setInit;
-//this addEventHandler ["Fired", { _this call KBAITSK_fnc_atgm; }];
+//[this,"init","_this addEventHandler ['Fired', { _this call AITSK_fnc_atgm; }];"] call PZAI_FNC_setInit;
+//this addEventHandler ["Fired", { _this call AITSK_fnc_atgm; }];
 
 #include "script_component.hpp"
 

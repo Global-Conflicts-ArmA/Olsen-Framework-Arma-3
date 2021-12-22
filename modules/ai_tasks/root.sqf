@@ -2,7 +2,7 @@
 
 #ifdef description_XEH_PreInit
 	class COMPONENT {
-		clientInit = "'' call compile preprocessFileLineNumbers 'modules\kobld_ai_tasks\preInitClient.sqf'";
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\ai_tasks\preInitClient.sqf'";
 	};
 #endif
 

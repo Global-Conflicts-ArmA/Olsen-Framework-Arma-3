@@ -1,5 +1,5 @@
 //Modified creep script by nKenny
-//[UNIT, DISTANCE] call kobld_ai_tasks_fnc_taskCreep;
+//[UNIT, DISTANCE] call AITSK_fnc_taskCreep;
 
 #include "script_component.hpp"
 
