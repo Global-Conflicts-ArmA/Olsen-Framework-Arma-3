@@ -1,21 +1,21 @@
 #include "..\..\script_macros.hpp"
 
-params ["_group", "_targetPos", ["_compradius", 250, [0]]];
+params ["_group", "_targetPos", ["_compradius", 250, [0]], ["_radius", 50, [0]]];
 LOG_1("combatAssault started _this: %1",_this);
 
 private _leader = leader _group;
-if !(vehicle _leader isEqualTo _leader) exitWith {
+if (INVEHICLE(_leader)) exitWith {
     _this call FUNC(CombatAssaultVehicle);
 };
-private _enemyDir = leader _group getDir _targetPos;
 
+private _enemyDir = leader _group getDir _targetPos;
 private _formation = if (RNG(0.5)) then {"LINE"} else {"WEDGE"};
 _group setFormation _formation;
 _group setFormDir _enemyDir;
 private _units = units _group;
 
 [_group] call CBA_fnc_clearWaypoints;
-[_group, _targetPos, 100, "SAD", "COMBAT", "RED"] call CBA_fnc_addWaypoint;
+[_group, _targetPos, _radius, "MOVE", "CARELESS", "WHITE"] call CBA_fnc_addWaypoint;
 
 private _arrayTest = ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "FSM"];
 _group enableAttack false;
@@ -24,8 +24,10 @@ _units apply {
     _arrayTest apply {
         _unit disableAI _x;
     };
+    doStop _unit;
+    _unit setUnitPos "UP";
 };
-_group setBehaviour "AWARE";
+_group setBehaviourStrong "CARELESS";
 //_group setFormation "DIAMOND";
 _group setCombatMode "BLUE";
 _group setSpeedMode "FULL";
@@ -33,8 +35,9 @@ _group setSpeedMode "FULL";
 // manoeuvre function
 private _assaultTaskPFH = [{
     params ["_args", "_idPFH"];
-    _args params ["_group", "_targetPos", "_units", "_compradius"];
-    _units = _units select {_x call EFUNC(FW,isAlive)};
+    _args params ["_group", "_targetPos", "_compradius"];
+    _units = units _group select {_x call EFUNC(FW,isAlive)};
+    TRACE_2("",_group,count _units);
     private _leader = leader _group;
     if (
         (_units isEqualTo []) ||
@@ -42,12 +45,6 @@ private _assaultTaskPFH = [{
         {(GETVAR(_group,ExitAssault,false))} ||
         {
             (getPosATL _leader distance2D _targetPos) <= _compradius
-        } ||
-        {
-            !(((_group call FUNC(EnemyArray)) findif {
-                ((_leader distance2D _x) <= (GETVAR(_group,AssaultEngageDistance,200))) &&
-                {[_leader, _x] call FUNC(LOSCheck)}
-            }) isEqualTo -1)
         }
     ) exitWith {
         [_idPFH] call CBA_fnc_removePerFrameHandler;
@@ -62,25 +59,85 @@ private _assaultTaskPFH = [{
             _group setBehaviour "COMBAT";
             _group enableAttack true;
         };
-        if (RNG(0.5)) then {
-            [_group, _targetPos] call FUNC(CombatAttack);
-        } else {
-            [_group] call FUNC(CombatDefend);
-        };
+        [_group, _targetPos] call FUNC(CombatAttack);
     };
     _group setCombatMode "BLUE";
-    _group setBehaviour "AWARE";
+    _group setBehaviourStrong "CARELESS";
     _group setSpeedMode "FULL";
-    _units apply {
-        private _unit = _x;
-        _unit doMove _targetPos;
-        //_unit setDestination [_targetPos, "FORMATION PLANNED", false];
-        //_group forgetTarget (_unit findNearestEnemy _unit);
-        _unit setUnitPos "UP";
-        _unit setDestination [_targetPos, "FORMATION PLANNED", false];
-        _unit setSuppression 0;
-        //_unit forceSpeed ([2, 3] select (speedMode _unit isEqualTo "FULL"));
+    private _nearestEnemy = _leader call FUNC(ClosestEnemy);
+    if (
+            _nearestEnemy isNotEqualTo objNull 
+            && {(_leader distance2d _nearestEnemy < (GETVAR(_group,AssaultEngageDistance,200)))}
+            && {count _units > 2}
+        ) then {
+        //sort the members by distance to the objective... find the farthest and make them move, closest do fire support
+        TRACE_2("Enemy Detected and in range",_group,_leader distance2d _nearestEnemy);
+        private _sortArray = _units apply {
+        	private _dis = _x distance2d _nearestEnemy;
+        	[_dis, _x]
+        };
+        _sortArray sort true;
+        private _fireGroup = [_sortArray, 0, count _sortArray / 2] call BIS_fnc_subSelect;
+        private _moveGroup = _sortArray - _fireGroup;
+        
+        _fireGroup apply {
+            _x params ["_distance", "_unit"];
+            _unit setUnitCombatMode "YELLOW";
+            _unit setBehaviour "COMBAT";
+            _unit lookAt _nearestEnemy;
+            _unit forcespeed 0;
+            private _relDir = _unit getDir _nearestEnemy;
+            if (
+                RNG(0.75)
+                && {(_unit call FUNC(hasUGL)) isNotEqualTo ""}
+            ) then {
+                TRACE_1("attempting to fire UGL",_unit);
+                if (stance _unit isEqualTo "PRONE") then {
+                    _unit setUnitPos "MIDDLE";
+                };
+                private _muzzle = _unit call FUNC(hasUGL);
+                [_unit, _muzzle, _targetPos] call FUNC(fireUGL);
+            } else {
+                if (RNG(0.5) && {!(stance _unit isNotEqualTo "PRONE")}) then {
+                    _unit setUnitPos "DOWN";
+                } else {
+                    _unit setUnitPos "MIDDLE";
+                };
+                [_unit, _relDir, 3] call FUNC(SuppressDirection);
+            }
+        };
+        
+        _moveGroup apply {
+            _x params ["_distance", "_unit"];
+            //_unit doFollow _leader;
+            _unit forceSpeed -1;
+            private _relDir = _unit getDir _targetPos;
+            private _relPos = _unit getPos [20, _relDir + (random 30) - (random 30)];
+            _unit doMove _relPos;
+            _unit lookAt _nearestEnemy;
+            //_unit setDestination [_relPos, "FORMATION PLANNED", false];
+            if (RNG(0.75)) then {
+                _unit setUnitPos "UP";
+            } else {
+                _unit setUnitPos "MIDDLE";
+            };
+            _unit setSuppression 0;
+        };
+    } else {
+        _units apply {
+            private _unit = _x;
+            ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "FSM"] apply {
+                _unit disableAI _x;
+            };
+            _unit forceSpeed -1;
+            private _relDir = _unit getDir _targetPos;
+            private _relPos = _unit getPos [20, _relDir + (random 30) - (random 30)];
+            _unit doMove _relPos;
+            //_unit setDestination [_relPos, "FORMATION PLANNED", false];
+            _unit setUnitPos "UP";
+            _unit setSuppression 0;
+        };
     };
-}, 5, [_group, _targetPos, _units, _compradius]] call CBA_fnc_addPerFrameHandler;
+}, 4, [_group, _targetPos, _compradius]] call CBA_fnc_addPerFrameHandler;
 
 SETVAR(_group,Task,"ASSAULT");

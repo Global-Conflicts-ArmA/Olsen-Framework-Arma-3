@@ -50,7 +50,7 @@ AI_EXEC_CHECK(HC);
 //    private _entities = (([_arrayName,GVAR(zoneEntities)] call FUNC(getDetails)) select 1);
 //    LOG_2("SpawnArray _Array: %1 _entities: %2",_arrayName,_entities);
 //
-//    if !(_entities isEqualTo []) then {
+//    if (_entities isNotEqualTo []) then {
 //        LOG_2("Spawning %1 on %2",_logic,clientowner);
 //        [_initial,[_logic,_entities]] call FUNC(createZone);
 //    } else {
@@ -76,7 +76,7 @@ AI_EXEC_CHECK(HC);
     private _entities = (([_arrayName,GVAR(zoneEntities)] call FUNC(getDetails)) select 1);
     LOG_2("SpawnArray _Array: %1 _entities: %2",_arrayName,_entities);
 
-    if !(_entities isEqualTo []) then {
+    if (_entities isNotEqualTo []) then {
         LOG_2("Spawning %1 on %2",_logic,clientowner);
         [_initial, [_logic, _entities], _specialArgs] call FUNC(createZone);
     } else {

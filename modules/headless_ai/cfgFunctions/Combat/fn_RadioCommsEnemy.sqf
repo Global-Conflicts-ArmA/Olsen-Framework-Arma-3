@@ -29,7 +29,7 @@ private _respondingArmored = [];
 	private _distanceToGroup = (leader _groupcaller) distance2d _leader;
 	if (
 		([_sidecaller, _side] call BIS_fnc_sideIsFriendly) && 
-		{!(_enemycaller isEqualTo _target)} &&
+		{(_enemycaller isNotEqualTo _target)} &&
 		{_distanceToGroup <= GVAR(RadioDistance)} &&
 		{!(GETMVAR(RadioNeedRadio,false)) || {_group call FUNC(hasRadioGroup)}}
 	) then {
@@ -56,7 +56,7 @@ private _respondingArmored = [];
 } foreach (allGroups select {
 	private _leader = leader _x;
 	(GETVAR(_x,Spawned,false)) &&
-	{!(_groupcaller isEqualTo _x)} &&
+	{(_groupcaller isNotEqualTo _x)} &&
 	{!(isNull _leader)} &&
 	{(alive _leader)} &&
 	{!(GETVAR(_leader,NOAI,false))} &&

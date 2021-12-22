@@ -1,24 +1,43 @@
 #include "..\..\script_macros.hpp"
 
 
-params ["_group",["_waypoints",[],[[]]]];
-{
+params ["_group", ["_waypoints",[],[[]]]];
+_waypoints apply {
     private _currentWaypoint = _x;
-    private _wp = _group addWaypoint [(_currentWaypoint select 2),5,(_currentWaypoint select 0 select 1),(_currentWaypoint select 1)];
-    _wp setWaypointType (_currentWaypoint select 3);
-    _wp setWaypointBehaviour (_currentWaypoint select 4);
-    _wp setWaypointCombatMode (_currentWaypoint select 5);
-    _wp setWaypointSpeed (_currentWaypoint select 6);
-    _wp setWaypointFormation (_currentWaypoint select 7);
-    _wp setWaypointTimeout (_currentWaypoint select 8);
-    _wp setWaypointCompletionRadius (_currentWaypoint select 9);
-    _wp waypointAttachObject (_currentWaypoint select 10);
-    _wp waypointAttachVehicle (_currentWaypoint select 11);
-    _wp setWaypointHousePosition (_currentWaypoint select 12);
-    _wp setWaypointLoiterRadius (_currentWaypoint select 13);
-    _wp setWaypointScript (_currentWaypoint select 14);
-    _wp setWaypointStatements (_currentWaypoint select 15);
-} foreach _waypoints;
+    _currentWaypoint params [
+        ["_waypoint", [], [[]]],
+        ["_name", "", [""]],
+        ["_pos", [], [[]]],
+        ["_type", "", [""]],
+        ["_behaviour", "", [""]],
+        ["_combatMode", "", [""]],
+        ["_speed", "", [""]],
+        ["_formation", "", [""]],
+        ["_timeout", [], [[]]],
+        ["_compRadius", 0, [0]],
+        ["_attachedObject", objNull, [objNull]],
+        ["_attachedVeh", objNull, [objNull]],
+        ["_buildingPos", 0, [0]],
+        ["_loiterDistance", 0, [0]],
+        ["_script", "", [""]],
+        ["_statements", [], [[]]]
+    ];
+    TRACE_3("",_pos,_statements,_compRadius);
+    private _wp = _group addWaypoint [_pos, 5, _waypoint select 1, _name];
+    _wp setWaypointType _type;
+    _wp setWaypointBehaviour _behaviour;
+    _wp setWaypointCombatMode _combatMode;
+    _wp setWaypointSpeed _speed;
+    _wp setWaypointFormation _formation;
+    _wp setWaypointTimeout _timeout;
+    _wp setWaypointCompletionRadius _compRadius;
+    _wp waypointAttachObject _attachedObject;
+    _wp waypointAttachVehicle _attachedVeh;
+    _wp setWaypointHousePosition _buildingPos;
+    _wp setWaypointLoiterRadius _loiterDistance;
+    _wp setWaypointScript _script;
+    _wp setWaypointStatements _statements;
+};
 //delete initial wp
 deleteWaypoint [_group, 0];
 //_group setCurrentWaypoint [_group, 0];

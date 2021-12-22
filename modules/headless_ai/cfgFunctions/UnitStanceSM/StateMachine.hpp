@@ -6,6 +6,7 @@ class GVAR(unitStanceStateMachine) {
         {!isPlayer _x} &&\
         {!(QGETVAR(_x,NOAI,false))} &&\
         {(side (leader _x)) in GVAR(SideBasedExecution)} &&\
+        {!([group _x] call FUNC(isMoveTask))} &&\
         {(vehicle _x isEqualTo _x)}\
     });
     skipNull = 1;

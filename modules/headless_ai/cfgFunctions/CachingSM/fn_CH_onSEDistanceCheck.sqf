@@ -10,7 +10,7 @@ private _enemyArray = if (GETMVAR(CacheAllPlayers,true)) then {
 	_group call FUNC(EnemyArray);
 };
 
-if !(_enemyArray isEqualTo []) then {
+if (_enemyArray isNotEqualTo []) then {
 	_enemyInRange = !((_enemyArray select {((vehicle _leader) distance2d _x) <= (GETMVAR(CacheDisableDistance,3000))}) isEqualTo []);
 };
 

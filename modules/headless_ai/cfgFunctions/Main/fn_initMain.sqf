@@ -15,8 +15,8 @@ GVAR(bunkerStateMachineHandler) = (missionConfigFile >> QGVAR(bunkerStateMachine
 //GVAR(sightAidStateMachineHandler) = (missionConfigFile >> QGVAR(sightAidStateMachine)) call CBA_statemachine_fnc_createFromConfig;
 LOG("creating cachingStateMachine");
 GVAR(cachingStateMachineHandler) = (missionConfigFile >> QGVAR(cachingStateMachine)) call CBA_statemachine_fnc_createFromConfig;
-//LOG("creating unitStanceStateMachine");
-//GVAR(unitStanceStateMachineHandler) = (missionConfigFile >> QGVAR(unitStanceStateMachine)) call CBA_statemachine_fnc_createFromConfig;
+LOG("creating unitStanceStateMachine");
+GVAR(unitStanceStateMachineHandler) = (missionConfigFile >> QGVAR(unitStanceStateMachine)) call CBA_statemachine_fnc_createFromConfig;
 
 //Commander Functions
 if (GVAR(CommanderEnabled)) then {
@@ -39,7 +39,12 @@ if !(GVAR(InitialSpawn) isEqualTo []) then {
 		[{
 			params ["_InitialSpawn"];
 			{
-				_x call FUNC(spawnArray);
+				private _logic = missionNamespace getVariable [_x, objNull];
+				if (isNull _logic) then {
+					LOG_1("Could not find arrayName %1",_x);
+			    } else {
+					_x call FUNC(spawnArray);
+				};
 			} foreach _InitialSpawn;
 		}, [_InitialSpawn]] call CBA_fnc_execNextFrame;
 	}, [_InitialSpawn]] call CBA_fnc_execNextFrame;
@@ -66,7 +71,12 @@ if ((GVAR(InitialRandomSpawnsCount) > 1) && {!(GVAR(InitialRandomSpawns) isEqual
 			[{
 				params ["_InitialRandomSpawnsSelected"];
 				{
-					_x call FUNC(spawnArray);
+					private _logic = missionNamespace getVariable [_x, objNull];
+					if (isNull _logic) then {
+						LOG_1("Could not find arrayName %1",_x);
+				    } else {
+						_x call FUNC(spawnArray);
+					};
 				} foreach _InitialRandomSpawnsSelected;
 			}, [_InitialRandomSpawnsSelected]] call CBA_fnc_execNextFrame;
 		};

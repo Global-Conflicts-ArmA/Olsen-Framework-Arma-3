@@ -36,7 +36,7 @@ private _dropOffTaskPFH = [{
         TRACE_1("Group exited DropOff PFH",_group);
         SETVAR(_group,ExitTask,false);
         private _cargoGroups = GETVAR(_veh,vehCargoGroups,[]);
-        if !(_cargoGroups isEqualTo []) then {
+        if (_cargoGroups isNotEqualTo []) then {
             _cargoGroups apply {
                 private _group = _x;
                 //_group call FUNC(vehicleEject);

@@ -17,17 +17,16 @@ private _sideUpdateTime = switch (_side) do {
     case civilian: {QGVAR(enemyArrayUpdateTime_Civ)};
     default {QGVAR(enemyArrayUpdateTime_West)};
 };
-private _enemyArray = GETMVAR(_sideEnemies,[]);
-private _enemyUpdateTime = CBA_MissionTime - (GETMVAR(_sideUpdateTime,CBA_MissionTime - (GETMVAR(EnemyUpdateFrequency,5))));
-if (_forced || {_enemyArray isEqualTo []} || {_enemyUpdateTime >= (GETMVAR(EnemyUpdateFrequency,5))}) then {
+private _enemyArray = missionNamespace getVariable [_sideEnemies, []];
+if (_forced || {_enemyArray isEqualTo []} || {CBA_MissionTime >= (missionNamespace getVariable [_sideUpdateTime, CBA_MissionTime - 5]) + (GETMVAR(EnemyUpdateFrequency,5))}) then {
     private _unitSide = side _group;
     _enemyArray = ((allUnits + vehicles) - allCurators) select {
         !(_x isKindOf "TargetSoldierBase") &&
         !(_x isKindOf "HeadlessClient_F") &&
         {[_unitSide, (side _x)] call BIS_fnc_sideIsEnemy}
     };
-    SETMVAR(_sideUpdateTime,CBA_MissionTime);
-    SETMVAR(_sideEnemies,_enemyArray);
+    missionNamespace setVariable [_sideUpdateTime, CBA_MissionTime];
+    missionNamespace setVariable [_sideEnemies, _enemyArray];
 };
 
 _enemyArray

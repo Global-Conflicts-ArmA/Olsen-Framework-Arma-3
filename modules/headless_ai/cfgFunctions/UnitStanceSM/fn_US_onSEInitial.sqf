@@ -9,6 +9,8 @@ private _originalStance = if (_stanceVar isEqualTo "") then {
     _stanceVar
 };
 
+//LOG_2("stanceMachine set: %1 with originalStance: %2",_unit,_originalStance);
+
 SETVAR(_unit,originalStance,_originalStance);
 SETVAR(_unit,US_SetStance,false);
 

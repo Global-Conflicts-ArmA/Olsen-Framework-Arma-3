@@ -16,7 +16,7 @@ for "_i" from 0 to _max step 1 do {
         _i = _i - 1;
         _newPos = [];
     };
-    if (!(_newPos isEqualTo [])) then {
+    if ((_newPos isNotEqualTo [])) then {
         _return pushBack _newPos;
     };
 };

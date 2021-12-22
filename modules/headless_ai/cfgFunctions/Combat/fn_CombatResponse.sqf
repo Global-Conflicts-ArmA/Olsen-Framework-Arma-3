@@ -11,7 +11,7 @@ if (behaviour _leader isEqualTo "SAFE") then {
 	_group setbehaviour "AWARE";
 };
 private _currenttarget = GETVAR(_group,CurrentTarget,objnull);
-if (!(_radioEnemy isEqualTo objnull) && {(_currenttarget isEqualTo objnull)}) then {
+if ((_radioEnemy isNotEqualTo objnull) && {(_currenttarget isEqualTo objnull)}) then {
 	_currenttarget = _radioEnemy;
 	SETVAR(_group,CurrentTarget,_radioEnemy);
 };

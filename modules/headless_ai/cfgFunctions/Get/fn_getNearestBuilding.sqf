@@ -6,7 +6,7 @@ private ["_nbld"];
 private _blds = [_pos,_radius] call FUNC(getBuildings);
 if (_blds isEqualTo []) then {
     _blds = [_pos,(_radius + 500)] call FUNC(getBuildings);
-    if !(_blds isEqualTo []) then {
+    if (_blds isNotEqualTo []) then {
         _nbld = _blds select 0;
     };
 } else {
