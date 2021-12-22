@@ -2,8 +2,10 @@
 
 #include "settings.sqf"
 
-allUnits apply {
-	if (local _x && {!(_x in GVAR(setFace_exclusion))} && {_x isKindOf "MAN"}) then {
-		[_x] call FUNC(setFace);
-	};
+allUnits select {
+    local _x
+    && {!(_x in GVAR(setFace_exclusion))}
+    && {_x isKindOf "MAN"}
+} apply {
+	[_x] call FUNC(setFace);
 };
