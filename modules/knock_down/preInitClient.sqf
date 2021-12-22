@@ -1,5 +1,7 @@
-#include "..\..\core\script_macros.hpp"
+// AUTHOR: StatusRed
+#include "script_component.hpp"
 
-private _version = 0.2;
+private _version = 0.1;
 
-["Knock Down", "Allows melee knocking out of units.", "StatusRed, Krause", _version] call FUNC(RegisterModule);
+// Register this module
+["Knock Down", "Allows melee knocking out of units.", "StatusRed, Krause", _version] call EFUNC(FW,RegisterModule);

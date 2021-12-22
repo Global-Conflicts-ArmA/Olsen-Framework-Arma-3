@@ -2,7 +2,6 @@
 #include "script_component.hpp"
 
 if !(hasinterface) exitwith {};
-	
 params ["_validWeapons", "_reviveAction"];
 
 private _prevAnim = animationState player; // Get the player's current animation
