@@ -12,6 +12,7 @@ class COMPONENT {
 		class suppress {};
 		class taskCreep {};
 		class taskRush {};
+		class taskRushNight {};
 		class taskTrack {};
 		class taskTrackFast {};
 	};
