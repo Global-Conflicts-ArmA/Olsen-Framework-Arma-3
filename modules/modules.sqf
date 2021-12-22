@@ -25,6 +25,7 @@ Additional modules that can be enabled by removing the //
 //#include "ai_behaviour\root.sqf"
 //#include "ai_link\root.sqf"
 //#include "ai_skill\root.sqf"
+//#include "ai_tasks\root.sqf"
 //#include "ambient_animation\root.sqf"
 //#include "ambient_effects\root.sqf"
 //#include "ao_limit\root.sqf"
