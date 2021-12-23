@@ -1,16 +1,6 @@
 #include "..\..\script_macros.hpp"
 
-
-/*
-Snippet of Code from Genesis92x the autor of VCOM, modified by crewt
-*/
-
-if (!isServer) exitWith {};
-private ["_unit "];
-_unit  = _this select 0;
-_UnitGroup = _this select 1;
-if (TypeName _UnitGroup == "GROUP") then { _UnitGroup = units _UnitGroup };
-_debug =  false;
+params [["_unit", objNull, [objNull]], ["_unitsInGroup", [], [[]]]];
 (group _unit) setBehaviour "SAFE";
 (group _unit) setSpeedMode "LIMITED";
 _unit setUnitPos "UP";
@@ -28,7 +18,7 @@ while {((behaviour _unit ) != "COMBAT") && ((behaviour _unit ) != "STEALTH") && 
 		_unit doMove _pos;
 		Waituntil {sleep 4; unitReady _unit;};
 	};
-	_CurrentAction = _unit GETVAR(,LOITERINGACT,0);
+	_CurrentAction = GETVAR(_unit,LOITERINGACT,0);
 	if (((behaviour _unit) == "COMBAT") || ((behaviour _unit) == "AWARE") || ((behaviour _unit) == "STEALTH")) then {  breakOut "SAFE_Loop1";};
 	_RandomAction = selectRandom ([1,3,4] - [_CurrentAction]);
 	switch (_RandomAction) do {
@@ -64,7 +54,7 @@ while {((behaviour _unit ) != "COMBAT") && ((behaviour _unit ) != "STEALTH") && 
 		{
 			if (!(alive _unit ))exitWith {};
 			SETVAR(_unit,LOITERINGACT,3);
-			_ClosestUnit = [(_UnitGroup - [_unit ]),_unit ] call FUNC(ClosestObject);
+			_ClosestUnit = [(_unitsInGroup - [_unit ]), _unit] call FUNC(ClosestObject);
 			SETVAR(_ClosestUnit,LOITERINGACT,3);
 			if (((behaviour _unit) == "COMBAT") || ((behaviour _unit) == "AWARE") || ((behaviour _unit) == "STEALTH")) then {  breakOut "SAFE_Loop1";};
 			_rnd = random 10;

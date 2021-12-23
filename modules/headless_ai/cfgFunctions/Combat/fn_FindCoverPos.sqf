@@ -56,7 +56,7 @@ _Roads = _MovePosition nearRoads 30;
 
 if (_TypeListFinal isEqualTo [] && _WeakListFinal isEqualTo []) exitWith {};
 //_ClosestCover = [_TypeListFinal,_this] call FUNC(ClosestObject);
-if !(_TypeListFinal isEqualTo []) then {_ClosestCover = _TypeListFinal call BIS_fnc_selectRandom;} else {_ClosestCover = _WeakListFinal call BIS_fnc_selectRandom;};
+if (_TypeListFinal isNotEqualTo []) then {_ClosestCover = _TypeListFinal call BIS_fnc_selectRandom;} else {_ClosestCover = _WeakListFinal call BIS_fnc_selectRandom;};
 
 
 if (isNil "_ClosestCover") exitWith {};

@@ -37,5 +37,5 @@ SETVAR(_group,Task,"ASSAULT");
 _compradius = GETVAR(_group,taskCompRadius,150);
 TRACE_2("",_group,_compradius);
 
-[_group, _attackPos, _compradius] call FUNC(combatAssault);
+[_group, _attackPos, _compradius, _radius] call FUNC(combatAssault);
 true

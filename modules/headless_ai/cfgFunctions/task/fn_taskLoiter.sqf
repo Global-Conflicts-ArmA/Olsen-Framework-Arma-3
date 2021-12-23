@@ -13,18 +13,18 @@ params [
 ];
 
 SETVAR(_group,InitialWPSet,true);
-_group setVariable [QGVAR(Mission),"LOITER"];
+_group setVariable [QGVAR(Task),"LOITER"];
 
 //We need a list of actions that the AI can do for loitering.
-private _UnitArray = units _group;
-{
+private _units = units _group;
+_units apply {
     if (_x isEqualTo (vehicle _x)) then {
         //Each AI will need to join their own group. The plan is to make them re-form when combat starts.
         //[_x] joinsilent grpnull;
         //(group _x) setVariable [QGVAR(Mission),"LOITERING"];
         _x setVariable [QGVAR(LOITERINGACT),0];
-        [_x,_UnitArray] spawn FUNC(LoiterAction);
+        [_x, _units] spawn FUNC(LoiterAction);
     };
-} foreach _UnitArray;
+};
 [_group] call FUNC(taskRelease);
 true

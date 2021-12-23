@@ -62,9 +62,3 @@ if ((leader _group) isEqualTo _unit) then {
 	SETVAR(_group,CurrentTarget,objnull);
 	SETVAR(_group,InitialWPSet,true);
 };
-
-//private _otherfriendlies = (units (group _unit));
-//private _Distance = _Unit getvariable ["PZAI_BunkerDistance",(PZAI_BunkerDistance)];
-//private _ReleaseDist = _Unit getvariable ["PZAI_BunkerReleaseDist",(PZAI_BunkerReleaseDist)];
-//private _Release = _Unit getvariable ["PZAI_BunkerRelease",(PZAI_BunkerRelease)];
-

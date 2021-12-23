@@ -15,12 +15,12 @@ while {alive _this} do
 		private _EndSight = _EyePosB vectoradd _WepDir;
 		private _LineInter = lineIntersectsSurfaces [_EyePosB, _EndSight, _this, _this, true, 1];
 
-		if !(_LineInter isEqualTo []) then
+		if (_LineInter isNotEqualTo []) then
 		{
 			private _FinalPos = (_LineInter select 0 select 0);
 			private _Enemies = allUnits select {[_Side,(side _x)] call BIS_fnc_sideIsEnemy && (currentVisionMode _x isEqualTo 1)};
 			private _DirPlayer = getdir Player;
-			if !(_Enemies isEqualTo []) then
+			if (_Enemies isNotEqualTo []) then
 			{
 				private _StartPos = (getpos player);
 				private _ToalDist = _Startpos distance2D _FinalPos;

@@ -30,7 +30,7 @@ _synced apply {
     };
 };
 
-if !(_syncedUnits isEqualTo []) then {
+if (_syncedUnits isNotEqualTo []) then {
     _syncedUnits apply {
         _syncedGroups pushBack (group _x);
     };

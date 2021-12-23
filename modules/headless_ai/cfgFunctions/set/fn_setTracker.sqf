@@ -10,7 +10,7 @@ if (count ((units _grp) select {alive _x}) > 0) then {
     private _playerDistances = allPlayers apply { [_x distance _leader, _x]};
     _playerDistances sort true;
     LOG_1("RETURN _playerDistances | %1",_playerDistances);
-    if !(_playerDistances isEqualTo []) then {
+    if (_playerDistances isNotEqualTo []) then {
         _target = _playerDistances select 0 select 1;
         _grp setVariable[QGVAR(SavedWaypoints),([waypoints _leader] call FUNC(getWaypointDetails))];
         LOG_1("RETURN distance target | %1",_target distanceSqr _leader);

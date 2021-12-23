@@ -42,23 +42,23 @@ private _group = createGroup _side;
 
 SETVAR(_group,Spawned,true);
 
-if !(_name isEqualTo "") then {
+if (_name isNotEqualTo "") then {
     private _uniqueName = [_name] call FUNC(findUniqueName);
     missionNamespace setVariable [_uniqueName, _group, true];
 };
 
-if !(_groupID isEqualTo "") then {
+if (_name isNotEqualTo "") then {
     _group setGroupIdGlobal [_groupID];
 };
 
-if !(_storedVars isEqualTo []) then {
+if (_storedVars isNotEqualTo []) then {
     {
         _x params ["_varName", "_varValue"];
         _group setvariable [_varName, _varValue];
     } forEach _storedVars;
 };
 
-if !(_specialArgs isEqualTo []) then {
+if (_storedVars isNotEqualTo []) then {
     {
         _x params ["_varName", "_varValue"];
         _group setvariable [_varName, _varValue];
@@ -79,7 +79,8 @@ _group call CBA_fnc_clearWaypoints;
 
 if ((GETVAR(leader _group,noAI,false) || {GETVAR(_group,noAI,false)}) || {(count _waypoints > 1) && {_task isEqualTo "NONE"}}) then {
     LOG_2("Setting %1 to manual wp mode with: %2",_group,_waypoints);
-    [_group,_waypoints] call FUNC(createWaypoints);
+    _waypoints deleteAt 0;
+    [_group, _waypoints] call FUNC(createWaypoints);
 } else {
     if (GETVAR(_group,vehCargo,false)) then {
         SETVAR(_group,vehCargoOrigTask,_task);

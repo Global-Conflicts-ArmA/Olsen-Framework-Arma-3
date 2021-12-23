@@ -32,7 +32,7 @@ if !(GVAR(ArrayObjects) isEqualTo []) then {
             private _arrayName = _x;
 			LOG_1("Getting Array data for %1",_arrayName);
             //private _logic = missionNamespace getVariable [_arrayName, objnull];
-            private _logic = call compile _x;
+            private _logic = missionNamespace getVariable [_x, objNull];
 			if (isNull _logic) then {
 				LOG_1("Could not find arrayName %1",_arrayName);
 		    } else {

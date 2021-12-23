@@ -51,12 +51,12 @@ private _vehicle = createVehicle [_vehClass, _pos, [], 0, _flying];
 _vehicle setVectorDirAndUp [_vectorDir,_vectorUp];
 _vehicle setPosATL _pos;
 
-if !(_name isEqualTo "") then {
+if (_name isNotEqualTo "") then {
     private _uniqueName = [_name] call FUNC(findUniqueName);
     missionNamespace setVariable [_uniqueName, _vehicle, true];
 };
 
-if !(_olsenGearType isEqualTo "") then {
+if (_olsenGearType isNotEqualTo "") then {
     [_vehicle, _olsenGearType] call EFUNC(FW,VehGearScript);
 };
 
@@ -76,7 +76,7 @@ _vehCustomization params ["_vehCustomSkin", "_vehCustomAnimations"];
 
 [_vehicle,_persistent] call FUNC(setPersistent);
 _vehicle call _vehInit;
-if !(_storedVars isEqualTo []) then {
+if (_storedVars isNotEqualTo []) then {
     //LOG_1("Setting vars: %1",_storedVars);
     {
         _x params ["_varName", "_varValue"];

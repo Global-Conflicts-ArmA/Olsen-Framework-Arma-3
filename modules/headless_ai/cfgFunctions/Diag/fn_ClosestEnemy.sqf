@@ -8,13 +8,10 @@ private _enemyArray = [_group] call FUNC(EnemyArray);
 
 if (_enemyArray isEqualTo []) exitwith {objnull};
 
-private _distanceArray = [];
-
-{
-	private _enemyUnit = _x;
-	private _enemyDistance = _unit distance2d _enemyUnit;
-	_distanceArray pushback [_enemyDistance,_enemyUnit];
-} foreach _enemyArray;
+private _distanceArray = _enemyArray apply {
+	private _enemyDistance = _unit distance2d _x;
+	[_enemyDistance, _x]
+};
 
 _distanceArray sort true;
 

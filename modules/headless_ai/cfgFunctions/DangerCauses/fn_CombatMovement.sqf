@@ -22,7 +22,7 @@ private ["_Unit", "_MovedRecently", "_VisuallyCanSee", "_NearestEnemy", "_inters
 		//This will tell the AI to regroup if they have wandered too far.
 		_ReturnedFriendly = [units (group _Unit),_Unit] call FUNC(ClosestObject);
 		if (isNil "_ReturnedFriendly") then {_ReturnedFriendly = [0,0,0]};
-		if (_ReturnedFriendly distance _Unit > 30 && !(_ReturnedFriendly isEqualTo [0,0,0])) then
+		if (_ReturnedFriendly distance _Unit > 30 && (_ReturnedFriendly isNotEqualTo [0,0,0])) then
 		{
 			_Unit doMove (getpos _ReturnedFriendly);_Unit forcespeed -1;
 			if (GVAR(Debug)) then

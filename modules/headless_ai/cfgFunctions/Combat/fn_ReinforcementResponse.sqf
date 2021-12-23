@@ -6,13 +6,13 @@ private _return = false;
 private _lastReinforcmentTime = GETVAR(_group,lastReinforcmentTime,-120);
 private _task = GETVAR(_group,task,"Patrol");
 private _assetType = GETVAR(_group,assetType,"Infantry");
-private _knownEnemy = !(_nearbyEnemy isEqualTo []);
+private _knownEnemy = (_nearbyEnemy isNotEqualTo []);
 //if (GETMVAR(CommanderEnabled,false)) then {
 //    private _areaAssigned = GETVAR(_group,areaAssigned,"NONE");
-//    if !(_areaAssigned isEqualTo "NONE") then {
+//    if (_areaAssigned isNotEqualTo "NONE") then {
 //        private _namespaceName = format ["PZAI_Area_%1", _areaAssigned];
 //        private _namespace = missionNamespace getVariable [_namespaceName, locationNull];
-//        if !(_namespace isEqualTo locationNull) then {
+//        if (_namespace isNotEqualTo locationNull) then {
 //            private _mission = GETVAR(_namespace,mission,"Patrol");
 //            private _marker = GETVAR(_namespace,marker,"");
 //            //private _min = GETVAR(_namespace,min,0);

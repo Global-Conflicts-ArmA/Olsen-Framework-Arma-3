@@ -31,7 +31,7 @@ private _fnc_repeat = {
     if (_tick >= count _list) then {
         private _updateCode = _stateMachine getVariable QGVAR(updateCode);
         _tick = 0;
-        if !(_updateCode isEqualTo {}) then {
+        if (_updateCode isNotEqualTo {}) then {
             _list = [] call _updateCode;
 
             // Make sure list contains no null elements in case the code doesn't filter them
@@ -44,7 +44,7 @@ private _fnc_repeat = {
         };
     };
 
-    if !(_list isEqualTo []) then {
+    if (_list isNotEqualTo []) then {
         _stateMachine setVariable [QGVAR(tick), _tick + 1];
 
         private _current = _list select _tick;
