@@ -56,5 +56,6 @@ Additional modules that can be enabled by removing the //
 //#include "weapon_helper\root.sqf"
 //#include "knock_down\root.sqf"
 //#include "snow\root.sqf"
+//#include "clicker\root.sqf"
 //#include "remove_map\root.sqf"
 //#include "vehicle_boost\root.sqf"
