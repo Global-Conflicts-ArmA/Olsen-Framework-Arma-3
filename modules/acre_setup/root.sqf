@@ -1,11 +1,21 @@
-#ifdef framework
-
-	#include "init.sqf"
-
+#ifdef description_XEH_PreInit
+	class ACRES {
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\acre_setup\preInitClient.sqf'";
+	};
 #endif
 
-#ifdef preinit
+#ifdef description_XEH_PostInit
+	class ACRES {
+		serverInit = "'' call compile preprocessFileLineNumbers 'modules\acre_setup\postInitServer.sqf'";
+	};
+#endif
 
-	#include "preinit.sqf"
+#ifdef description_XEH_InitPost_CAManBase
+	class ACRES {
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\acre_setup\postInitClient.sqf'";
+	};
+#endif
 
+#ifdef description_functions
+	#include "functions\CfgFunctions.hpp"
 #endif
