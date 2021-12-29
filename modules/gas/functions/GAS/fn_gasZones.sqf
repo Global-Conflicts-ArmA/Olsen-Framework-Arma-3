@@ -11,8 +11,8 @@ if (!isDedicated && hasInterface) then {
 
 	/* LOG_1("Gas logic = %1", _gasLogic); */
 
-	private _shotArea = _gasLogic getVariable "GAS_SHOTAREA";
-	private _timeOut = _gasLogic getVariable "GAS_TIMEOUT";
+	private _shotArea = _gasLogic getVariable QGVAR(SHOTAREA);
+	private _timeOut = _gasLogic getVariable QGVAR(TIMEOUT);
 
 	/* LOG_1("GAS_SHOTAREA = %1", _shotArea); */
 	/* LOG_1("GAS_TIMEOUT = %1", _timeOut); */

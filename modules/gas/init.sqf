@@ -2,7 +2,7 @@
 //["GAS_FIREMISSION", [position player, 50, 3, 1, 5, 300]] call CBA_fnc_serverEvent;
 #include "script_component.hpp"
 
-player setVariable ["GAS_NEEDSMASK", false];
+player setVariable [QGVAR(NEEDSMASK), false];
 
 if (!isDedicated && hasInterface) then {
 	[{!isNull ACE_player}, {
@@ -34,21 +34,21 @@ if (!isDedicated && hasInterface) then {
 
 		//Vehicle alarm action
 		vehicles apply {
-			_x setVariable ["GAS_VEHALARM_ON", false, true];
+			_x setVariable [QGVAR(VEHALARM_ON), false, true];
 		};
 
 		private _vehAlarm_toggle_off = ["vehAlarm_off_class", "Turn CBRN Alarm Off", "", {
-			_target setVariable ["GAS_VEHALARM_ON", false, true];
+			_target setVariable [QGVAR(VEHALARM_ON), false, true];
 		}, {
-			([_player, _target, []] call ace_common_fnc_canInteractWith) && (commander _target == _player || gunner _target == _player || driver _target == _player) && (_target getVariable "GAS_VEHALARM_ON")
+			([_player, _target, []] call ace_common_fnc_canInteractWith) && (commander _target == _player || gunner _target == _player || driver _target == _player) && (_target getVariable QGVAR(VEHALARM_ON))
 		}] call ace_interact_menu_fnc_createAction;
 		["LandVehicle", 1, ["ACE_SelfActions"], _vehAlarm_toggle_off, true] call ace_interact_menu_fnc_addActionToClass;
 
 		private _vehAlarm_toggle_on = ["vehAlarm_on_class", "Turn CBRN Alarm On", "", {
-			/* _target setVariable ["GAS_VEHALARM_ON", true, true]; */
+			/* _target setVariable [QGVAR(VEHALARM_ON), true, true]; */
 			_target call FUNC(vehicleSiren);
 		}, {
-			([_player, _target, []] call ace_common_fnc_canInteractWith) && (commander _target == _player || gunner _target == _player || driver _target == _player) && !(_target getVariable "GAS_VEHALARM_ON")
+			([_player, _target, []] call ace_common_fnc_canInteractWith) && (commander _target == _player || gunner _target == _player || driver _target == _player) && !(_target getVariable QGVAR(VEHALARM_ON))
 		}] call ace_interact_menu_fnc_createAction;
 		["LandVehicle", 1, ["ACE_SelfActions"], _vehAlarm_toggle_on, true] call ace_interact_menu_fnc_addActionToClass;
 
@@ -82,13 +82,13 @@ if (!isDedicated && hasInterface) then {
 				};
 			};
 		}, {
-			([_player, _target, []] call ace_common_fnc_canInteractWith) && ({_x in items _target} count GVAR(MASKLIST) > 0 || {_x in items _player} count GVAR(MASKLIST) > 0) && !(goggles _target in GVAR(MASKLIST)) && _target getVariable ["GAS_NEEDSMASK",false]
+			([_player, _target, []] call ace_common_fnc_canInteractWith) && ({_x in items _target} count GVAR(MASKLIST) > 0 || {_x in items _player} count GVAR(MASKLIST) > 0) && !(goggles _target in GVAR(MASKLIST)) && _target getVariable [QGVAR(NEEDSMASK),false]
 		}] call ace_interact_menu_fnc_createAction;
 		["MAN", 0, ["ACE_MainActions"], _maskUpFriend, true] call ace_interact_menu_fnc_addActionToClass;
 
 		//JIP Data Sending
 		if (didJIP) then {
-			["GAS_JIPSEND"] spawn CBA_fnc_serverEvent;
+			[QGVAR(JIPSEND)] spawn CBA_fnc_serverEvent;
 		};
 	}, []] call CBA_fnc_waitUntilAndExecute;
 
@@ -128,7 +128,7 @@ if (!isDedicated && hasInterface) then {
 
 		if (GVAR(ACTIVE)) then {
 			if (GVAR(INTENSITY) >= 2 && GVAR(INHOTAREA) && !GVAR(HASMASK)) then {
-				if !(player getVariable "GAS_NEEDSMASK") then {player setVariable ["GAS_NEEDSMASK", true, true]};
+				if !(player getVariable QGVAR(NEEDSMASK)) then {player setVariable [QGVAR(NEEDSMASK), true, true]};
 
 				if (!GVAR(COUGHING)) then {
 					GVAR(COUGHING) = true;
@@ -223,7 +223,7 @@ if (!isDedicated && hasInterface) then {
 					player removeEventHandler ["AnimChanged", GVAR(ANIMEH)];
 					player removeEventHandler ["InventoryOpened", GVAR(GEAREH)];
 
-					player setVariable ["GAS_NEEDSMASK", false, true];
+					player setVariable [QGVAR(NEEDSMASK), false, true];
 				};
 			};
 		};

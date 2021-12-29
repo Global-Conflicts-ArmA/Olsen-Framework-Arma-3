@@ -11,9 +11,9 @@ params [
 private _gasLogic = "Land_HelipadEmpty_F" createVehicle _target;
 _gasLogic setPosATL _target;
 
-_gasLogic setVariable ["GAS_SHOTAREA", _shotArea, true];
-_gasLogic setVariable ["GAS_TIMEOUT", _timeOut, true];
+_gasLogic setVariable [QGVAR(SHOTAREA), _shotArea, true];
+_gasLogic setVariable [QGVAR(TIMEOUT), _timeOut, true];
 
 GVAR(GASLOGICS) pushBack _gasLogic;
 
-["GAS_GASZONES", _gasLogic] spawn CBA_fnc_globalEvent;
+[QGVAR(GASZONES), _gasLogic] spawn CBA_fnc_globalEvent;

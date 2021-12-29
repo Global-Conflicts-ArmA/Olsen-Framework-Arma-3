@@ -40,13 +40,13 @@ GVAR(shotCount) = 0;
 
 		"rhs_rpg7v2_pg7vl" createVehicle _shotPos;
 
-		_gasLogic setVariable ["GAS_SHOTAREA", _shotArea, true];
-		_gasLogic setVariable ["GAS_TIMEOUT", GVAR(timeOut), true];
+		_gasLogic setVariable [QGVAR(SHOTAREA), _shotArea, true];
+		_gasLogic setVariable [QGVAR(TIMEOUT), GVAR(timeOut), true];
 
 		GVAR(GASLOGICS) pushBack _gasLogic;
 
-		["GAS_GASZONES", _gasLogic] spawn CBA_fnc_globalEvent;
-		["GAS_GASPARTICLES", _shotPos] spawn CBA_fnc_globalEvent;
+		[QGVAR(GASZONES), _gasLogic] spawn CBA_fnc_globalEvent;
+		[QGVAR(GASPARTICLES), _shotPos] spawn CBA_fnc_globalEvent;
 
 		GVAR(shotCount) = GVAR(shotCount) + 1;
 	}, [_shotPos, _gasLogic, _shotArea], _delay] call CBA_fnc_waitAndExecute;
