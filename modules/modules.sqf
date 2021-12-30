@@ -37,6 +37,7 @@ Additional modules that can be enabled by removing the //
 //#include "env_parameters\root.sqf"
 //#include "extract\root.sqf"
 //#include "firemission\root.sqf"
+//#include "gas\root.sqf"
 //#include "hostage\root.sqf"
 //#include "in_game_brief\root.sqf"
 //#include "billboards\root.sqf"
