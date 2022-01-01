@@ -6,8 +6,8 @@ SETPVAR(player,Dead,true); //Tells the framework the player is dead
 
 [(player), true] remoteExecCall ["hideObject", 0];
 [(player), true] remoteExecCall ["hideObjectGlobal", 2];
-player setCaptive true;
-player allowDamage false;
+
+[player] call FUNC(freezeUnit);
 
 cutText ["\n","BLACK IN", 5];
 [QGVAR(death), 0, false] call ace_common_fnc_setHearingCapability;
@@ -65,13 +65,13 @@ private _specGroup = switch _side do {
 //If babel is enabled, allowed spectator to hear all languages present in mission.
 if (GETMVAR(ACRE_Enable_Babel,false)) then {
     private _missionLanguages = [];
-    {
-        {
+    GVAR(ACRE_Languages_Babel) apply {
+        _x apply {
             if (!(_x in _missionLanguages)) then {
                 _missionLanguages pushback _x;
             };
-        } foreach _x;
-    } forEach GVAR(ACRE_Languages_Babel);
+        };
+    };
     _missionLanguages call acre_api_fnc_babelSetSpokenLanguages;
 };
 
@@ -187,6 +187,7 @@ Spectator controls can be customized in game <t color='#FFA500'>options->control
 GVAR(SpectatePFH) = [{
     params ["_args", "_idPFH"];
     if !(GETVAR(player,Spectating,false)) exitWith {
+        [player] call FUNC(thawUnit);
         [_idPFH] call CBA_fnc_removePerFrameHandler;
     };
     player setOxygenRemaining 1;

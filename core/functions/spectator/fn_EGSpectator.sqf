@@ -314,27 +314,27 @@ switch _mode do {
 
 			// Vanguard MP: checks if we requested the countdown timer instead of the normal mission time
 			if(missionNamespace getVariable ["BIS_AK_vanguardSpectator", false]) then {
-				if(missionNamespace getVariable ["BIS_device_dropped", false]) then 
+				if(missionNamespace getVariable ["BIS_device_dropped", false]) then
 				{
 					private _timeElapsed = missionNamespace getVariable ["#time",1];
 					private _mins = (floor (((missionNamespace getVariable "BIS_endMatchTimer") - _timeElapsed)/60)) max 0;
 					private _secs = (((missionNamespace getVariable "BIS_endMatchTimer") - _timeElapsed)-(_mins*60)) max 0;
 
 					if (_secs % 1 > 0.5) then {
-						if(_secs < 10) then 
+						if(_secs < 10) then
 						{
 							_ctrlGameTime ctrlSetText (format["%1:0%2", _mins, floor(_secs)]);
 						} else {
 							_ctrlGameTime ctrlSetText (format["%1:%2", _mins, floor(_secs)]);
-						};	
+						};
 					} else {
-						if(_secs < 10) then 
+						if(_secs < 10) then
 						{
 							_ctrlGameTime ctrlSetText (format["%1 0%2", _mins, floor(_secs)]);
 						} else {
 							_ctrlGameTime ctrlSetText (format["%1 %2", _mins, floor(_secs)]);
 						};
-					};	
+					};
 				}
 			} else {
 				private _timeLeft = -1;
@@ -1223,12 +1223,12 @@ switch _mode do {
 		private ["_control", "_key"];
 		_control	= _params select 0;
 		_key 		= _params select 1;
-		
+
 		if (_key == 0) then {
 			private "_cursorObject";
 			_cursorObject = ["GetCursorObject"] call DISPLAY;
 
-			if (!isNull _cursorObject) then {	
+			if (!isNull _cursorObject) then {
 				[_cursorObject] call CAM_PREPARE_TARGET;
 			};
 		};
@@ -1348,7 +1348,7 @@ switch _mode do {
 			else {
 				//AK TANK MODE: checks if the selected position's ID matches the one stored in the variable
 				private _id = _location param [0, "", [""]];
-				
+
 				private "_camera";
 				_camera = missionNamespace getVariable ["BIS_EGSpectator_camera", objNull];
 
@@ -1395,8 +1395,8 @@ switch _mode do {
 
 			//AK TANK MODE: camera also goes to position if we double click an entity
 			if(missionNamespace getVariable ["BIS_AK_vanguardSpectator", false]) then {
-				["GotoLocation", [_object]] call DISPLAY;	
-			};		
+				["GotoLocation", [_object]] call DISPLAY;
+			};
 		}
 		// Location
 		else {
@@ -1933,7 +1933,7 @@ switch _mode do {
 
 		private _count = 0;
 		private _controls = [];
-		
+
 		_controls pushback ["[B]", "Toggle Briefing"];
 		_controls pushback ["[K]", "Toggle Kill Cam"];
 
