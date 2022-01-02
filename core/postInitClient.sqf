@@ -43,7 +43,7 @@
         params ["_unit"];
 
         GVAR(killcam_killer) = _unit getVariable ["ace_medical_lastDamageSource", objNull];
-        if (GVAR(killcam_killer) isEqualTo objNull) then {
+        if (GVAR(killcam_killer) isEqualTo objNull || GVAR(killcam_killer) isEqualTo player) then {
             GVAR(killcam_killer) = _unit getVariable ["ace_medical_lastInstigator", objNull];
         };
         GVAR(killcam_unit_pos) = ASLtoAGL eyePos _unit;
