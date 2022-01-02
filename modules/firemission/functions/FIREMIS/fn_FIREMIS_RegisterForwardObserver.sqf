@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-if (isServer || (!hasInterface && !isServer)) then { // If this is the server or headless client
+if !(hasInterface) then { // If this is the server or headless client
 	private _handle = _this spawn
 	{
 		private _observer = _this select 0;
