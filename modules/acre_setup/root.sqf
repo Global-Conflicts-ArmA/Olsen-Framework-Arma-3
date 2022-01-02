@@ -12,7 +12,7 @@
 
 #ifdef description_XEH_InitPost_CAManBase
 	class ACRES {
-		clientInit = "'' call compile preprocessFileLineNumbers 'modules\acre_setup\postInitClient.sqf'";
+		clientInit = "_this call compile preprocessFileLineNumbers 'modules\acre_setup\postInitClient.sqf'";
 	};
 #endif
 

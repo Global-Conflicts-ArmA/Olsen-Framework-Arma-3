@@ -61,23 +61,21 @@ if(!isDedicated && hasInterface) then {
 		};
 
 		if (GVAR(ACRE_Enable_Babel)) then {
-			{_x call acre_api_fnc_babelAddLanguageType;} foreach GVAR(ACRE_All_Languages);
+			GVAR(ACRE_All_Languages) apply {_x call acre_api_fnc_babelAddLanguageType;};
 
 			(GVAR(ACRE_Languages_Babel) select _side_i) call acre_api_fnc_babelSetSpokenLanguages;
 
 			private _languages = player getVariable ["ACRE_Languages", []];
 
 			if (count _languages > 0) then {
-
 				_languages call acre_api_fnc_babelSetSpokenLanguages;
-
 			};
 		};
 
 		[{[] call acre_api_fnc_isInitialized}, {
 			private _channels = player getVariable ["ACRE_Channels", []];
 
-			{
+			_channels apply {
 				_x params [
 					["_radio", ""],
 					["_channel", 1],
@@ -88,7 +86,7 @@ if(!isDedicated && hasInterface) then {
 					[_radioID, _channel] call acre_api_fnc_setRadioChannel;
 					[_radioID, _spatial] call acre_api_fnc_setRadioSpatial;
 				};
-			} foreach _channels;
+			};
 		}, []] call CBA_fnc_waitUntilAndExecute;
 	}, []] call CBA_fnc_waitUntilAndExecute;
 };
