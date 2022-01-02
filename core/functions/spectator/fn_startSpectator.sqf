@@ -146,10 +146,12 @@ if !(_cam isEqualTo objNull) then {
         GVAR(killcam_drawHandle) = addMissionEventHandler ["Draw3D", {
             //we don't draw hud unless we toggle it by keypress
             if (GETMVAR(killcam_toggle,false)) then {
+              private _killIconColour = [1,0,0,1];
 
                 if ((GETMVAR(killcam_killer_pos,[ARR_3(0,0,0)])) isEqualTo [0,0,0]) then {
                     cutText ["killer info unavailable", "PLAIN DOWN"];
                     SETMVAR(killcam_toggle,true);
+                    drawIcon3D [GVAR(killcam_texture), _killIconColour, GVAR(killcam_unit_pos), 0.7, 0.7, 0, "You", 1, 0.04, "PuristaMedium"];
                 } else {
                     private _u = GVAR(killcam_unit_pos);
                     private _k = GVAR(killcam_killer_pos);
@@ -162,7 +164,7 @@ if !(_cam isEqualTo objNull) then {
                     };
                     if !((GETMVAR(killcam_killer,objnull)) isEqualTo objnull) then {
                         private _killerName = name GVAR(killcam_killer);
-                        drawIcon3D [GVAR(killcam_texture), [1,0,0,1], [eyePos GVAR(killcam_killer) select 0, eyePos GVAR(killcam_killer) select 1, (ASLtoAGL eyePos GVAR(killcam_killer) select 2) + 0.4], 0.7, 0.7, 0, _killerName + ", " + (str round GVAR(killcam_distance)) + "m", 1, 0.04, "PuristaMedium"];
+                        drawIcon3D [GVAR(killcam_texture), _killIconColour, [eyePos GVAR(killcam_killer) select 0, eyePos GVAR(killcam_killer) select 1, (ASLtoAGL eyePos GVAR(killcam_killer) select 2) + 0.4], 0.7, 0.7, 0, _killerName + ", " + (str round GVAR(killcam_distance)) + "m", 1, 0.04, "PuristaMedium"];
                     };
                 };
             };
