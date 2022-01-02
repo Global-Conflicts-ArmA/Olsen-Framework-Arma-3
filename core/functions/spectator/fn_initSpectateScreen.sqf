@@ -70,8 +70,8 @@ _entryList ctrlSetText "#(rgb,8,8,3)color(0.6,0.6,0.6,1)";
 
 private _textControlGroup = _display ctrlCreate ["RscControlsGroup", -1, _controlGroup];
 _textControlGroup ctrlSetPosition [
-    POS_X(0.12 + 0.235 + 0.01),
-    POS_Y(0.1 + 0.00801841 + 0.05),
+    POS_X(0.42),
+    POS_Y(0.25),
     POS_W(0.41),
     POS_H(0.671968)
 ];
@@ -92,7 +92,7 @@ _text ctrlSetBackgroundColor [0, 0, 0, 0.3];
 //75 total
 
 GVAR(allBriefings) params ["_westBriefing", "_eastBriefing", "_indBriefing", "_civBriefing", "_missionNotes"];
-private _playerSide = GETPLVAR(BriefingSide,west);
+/* private _playerSide = GETPLVAR(BriefingSide,west); */
 private _teamSides = GETMVAR(TeamSides,[west]);
 [
     [GETMVAR(TeamName_Blufor,"BLUFOR"), west, "side_west_ca.paa", _westBriefing],
@@ -102,24 +102,28 @@ private _teamSides = GETMVAR(TeamSides,[west]);
 ] apply {
     _x params ["_name", "_side", "_icon", "_briefingArray"];
     if (_side in _teamSides) then {
-        private _lbAdd = _teamCombo lbadd _name;
-        _teamCombo lbSetPicture [_lbAdd, "\a3\3DEN\Data\Displays\Display3DEN\PanelRight\" + _icon];
-        private _active = (_side isEqualTo _playerSide);
-        if (_active) then {
-            _teamCombo lbSetCurSel _lbAdd;
-            _briefingArray apply {
-                _entryList lbAdd (_x select 0);
-            };
-            _entryList lbSetCurSel 0;
-            private _string = ((_briefingArray select 0) select 1);
-            _text ctrlSetStructuredText parseText _string;
-            _text ctrlSetPositionH ((ctrlTextHeight _text + 0.05) max (0.671968 * safezoneH));
-            _text ctrlCommit 0;
-        };
+      private _textHeightModifier = 0.05;
+      private _safeZoneModifier = 0.671968;
+
+      private _lbAdd = _teamCombo lbadd _name;
+      _teamCombo lbSetPicture [_lbAdd, "\a3\3DEN\Data\Displays\Display3DEN\PanelRight\" + _icon];
+      /* private _active = (_side isEqualTo _playerSide); */
+      /* if (_active) then { */
+      _teamCombo lbSetCurSel _lbAdd;
+      _briefingArray apply {
+          _entryList lbAdd (_x select 0);
+      };
+      _entryList lbSetCurSel 0;
+      private _string = ((_briefingArray select 0) select 1);
+      _text ctrlSetStructuredText parseText _string;
+      _text ctrlSetPositionH ((ctrlTextHeight _text + _textHeightModifier) max (_safeZoneModifier * safezoneH));
+      _text ctrlCommit 0;
+      /* }; */
     };
 };
 
-private _lbAdd = _teamCombo lbadd "Mission Notes";
+_teamCombo lbadd "Mission Notes";
+_teamCombo lbadd "Changelog";
 
 [{
     !(_this select 0 isEqualTo controlNull) && {!(_this select 1 isEqualTo controlNull)}
