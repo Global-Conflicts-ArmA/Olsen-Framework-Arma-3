@@ -2,8 +2,8 @@
 
 private _handle = _this spawn
 {
-  INFO("In point firemission!");
-  diag_log format ["INFO: _this = %1", _this];
+  /* INFO("In point firemission!"); */
+  /* diag_log format ["INFO: _this = %1", _this]; */
   private _unit = _this select 0;
   private	_target = _this select 1;
   private	_dispersion = _this select 2;

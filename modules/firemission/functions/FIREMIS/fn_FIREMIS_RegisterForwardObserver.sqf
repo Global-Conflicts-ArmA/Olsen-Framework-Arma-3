@@ -1,7 +1,6 @@
 #include "script_component.hpp"
 
-if (isServer) then
-{
+if (!isMultiplayer || !hasInterface) then { // If this is the server or headless client
 	private _handle = _this spawn
 	{
 		private _observer = _this select 0;
@@ -21,19 +20,19 @@ if (isServer) then
 		while{alive _observer} do
 		{
 				private _possibleTargets = _observer nearTargets _range;
-				{
+				_possibleTargets apply {
 					if([_obsSide, _x select 2] call BIS_fnc_sideIsEnemy) then
 					{
 
 							//found an enemy
 							private _target = _x select 4;
 							private _distance2DToClosestFiremission = 1000;
-							{
+							_currentShotTargets apply {
 								if( _distance2DToClosestFiremission > _target distance2D (_x select 1)) then
 								{
 										_distance2DToClosestFiremission = _target distance2D (_x select 1);
 								};
-							}forEach _currentShotTargets;
+							};
 
 							if((_observer knowsAbout  _target >= _minimumKnowledge) && (_distance2DToClosestFiremission > _minRange) && (((getPosATL _target) select 2) < 10 ) ) then
 							{
@@ -41,35 +40,30 @@ if (isServer) then
 									//calculate position
 									private _pos = [[[_target,(_observer getVariable [VAR_SART_OBSACCURACY,OBSACCURACY]) * (_target distance2D _observer) /  _range ]],[]] call BIS_fnc_randomPos;
 									sleep(_observer getVariable [VAR_SART_OBSSPEED,OBSSPEED]);
-									if(alive _observer) then
-									{
+									if(alive _observer) then {
 										private _hasFired = false;
 										//fire a firemission
-										{
-												if((!(_x getVariable [VAR_SART_ARTINFIREMISSION,false])) && !(_hasFired) ) then
-												{
+										_batteries apply {
+												if((!(_x getVariable [VAR_SART_ARTINFIREMISSION,false])) && !(_hasFired) ) then {
 														_currentShotTargets pushBack [_x,_pos];
 														[_x,_pos,_standardDispersion,_standardRoundCount,_standardRoundBurst,_standardRoundBurstWait,_minSpottedDistance,_standardRound] call FUNC(FIREMIS_PointFiremission);
 														_hasFired = true;
 												};
 													/* private _freeBattery = _batteries; */
-
-										}forEach _batteries;
+										};
 									};
 							};
 					};
-				}forEach _possibleTargets;
-
-
+				};
 
 			sleep(5);
 			private _tempAdd = [];
-			{
+			_currentShotTargets apply {
 					if((_x select 0) getVariable [VAR_SART_ARTINFIREMISSION,false]) then
 					{
 							_tempAdd pushBack (_x);
 					};
-			}forEach _currentShotTargets;
+			};
 			_currentShotTargets = _tempAdd;
 		};
 	};
