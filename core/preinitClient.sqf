@@ -5,10 +5,10 @@
 #include "..\customization\clientSettings.sqf" //DO NOT REMOVE
 
 if (GETMVAR(SpectateBriefing,true)) then {
-	
+
 	#define NEWTAB(NAME) _briefing set [count _briefing, ["Diary",[NAME,"
 	#define ENDTAB "]]];
-	
+
 	GVAR(allBriefings) = [];
 
 	private _briefing = [];
@@ -30,8 +30,12 @@ if (GETMVAR(SpectateBriefing,true)) then {
 	_briefing = [];
 	#include "..\customization\briefings\missionNotes.sqf"
 	private _missionNotes = _briefing;
-	
-	[_westBriefing, _eastBriefing, _indBriefing, _civBriefing, _missionNotes] apply {
+
+	_briefing = [];
+	#include "..\customization\briefings\changelog.sqf"
+	private _changelog = _briefing;
+
+	[_westBriefing, _eastBriefing, _indBriefing, _civBriefing, _missionNotes, _changelog] apply {
 		private _tempEntry = [];
 		_x apply {
 			(_x select 1) params ["_name", "_text"];
@@ -75,7 +79,7 @@ FUNC(eg_keyHandler) = {
             call _action;
         };
     };
-    
+
     if (_code == 35 && {!_shift} && {_control} && {!_alt}) then {
         if !(GETMVAR(eg_keyHandler_display_hidden,false)) then {
             (findDisplay 60492) closedisplay 1;
@@ -92,7 +96,7 @@ FUNC(eg_keyHandler2) = {
     ) then {
         ([] call BIS_fnc_displayMission) createDisplay "RscDisplayEGSpectator";
         SETMVAR(eg_keyHandler_display_hidden,false);
-        
+
         GVAR(eg_keyHandle) = (findDisplay 60492) displayAddEventHandler ["keyDown", {call FUNC(eg_keyHandler);}];
         if (GETMVAR(killcam_active,false)) then {
             GVAR(killcam_keyHandle) = (findDisplay 60492) displayAddEventHandler ["keyDown", {call FUNC(killcam_toggleFnc);}];
@@ -124,7 +128,7 @@ FUNC(eg_keyHandler2) = {
 	if !(_respawnPoint isEqualTo objnull) then {
 		player setPosATL getPosATL _respawnPoint;
 	};
-    
+
     player setVariable [QGVAR(Body), player, true];
 
     switch (_respawnType) do {
