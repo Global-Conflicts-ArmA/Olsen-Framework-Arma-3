@@ -18,9 +18,10 @@ params[
   {
       private _randomPos = [[[_target, GVAR(tempAcc)]],[]] call BIS_fnc_randomPos;
 
-      private _targetPos = _target;
-      if ((_target isEqualType "") && !((markerShape _target) isEqualTo "")) then {
-        _targetPos = (getMarkerPos _target);
+      private _targetPos = if (_target isEqualType "" && {markerShape _target isNotEqualTo ""}) then {
+          getMarkerPos _target
+      } else {
+          _target
       };
 
       _dis = _randomPos distance2D _targetPos;
