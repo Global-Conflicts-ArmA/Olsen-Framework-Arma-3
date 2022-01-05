@@ -19,7 +19,7 @@ params[
       private _randomPos = [[[_target, GVAR(tempAcc)]],[]] call BIS_fnc_randomPos;
 
       private _targetPos = _target;
-      if ((_target isEqualType "") && !((markerShape _target) isEqualTo "")) then {
+      if ((_target isEqualType "") && {markerShape _target isNotEqualTo ""}) then {
         _targetPos = (getMarkerPos _target);
       };
 
