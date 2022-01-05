@@ -29,8 +29,8 @@
     };
 
     [{
-        ((GETMVAR(Time,30)) isEqualTo 0 || {CBA_missionTime >= GETMVAR(Time,30)})
-        && {(GETMVAR(Distance,200)) isEqualTo 0 || {((EGETMVAR(FW,SpawnPos,getpos player)) distance player) >= GETMVAR(Distance,200)}}
+        ((GETMVAR(Time,30)) <= 0 || {CBA_missionTime >= GETMVAR(Time,30)})
+        && {(GETMVAR(Distance,200)) <= 0 || {((EGETMVAR(FW,SpawnPos,getpos player)) distance player) >= GETMVAR(Distance,200)}}
     },{
         params ["_eh"];
         [ACE_player, "DefaultAction", _eh] call ace_common_fnc_removeActionEventHandler;
