@@ -2,7 +2,7 @@
 
 params[
   ["_unit", objNull, [objNull]],
-  ["_target", objNull, [objNull, []]],
+  ["_target", objNull, ["", objNull, []]],
   ["_roundClassName", "", [""]]
 ];
 
@@ -17,7 +17,13 @@ params[
   while{(_dis >_minSpottedDistance && SPOTTINGROUNDSREQUIRED)} do
   {
       private _randomPos = [[[_target, GVAR(tempAcc)]],[]] call BIS_fnc_randomPos;
-      _dis = _randomPos distance2D _target;
+
+      private _targetPos = _target;
+      if ((_target isEqualType "") && !((markerShape _target) isEqualTo "")) then {
+        _targetPos = (getMarkerPos _target);
+      };
+
+      _dis = _randomPos distance2D _targetPos;
       private _eta = [_unit,_randomPos, _roundClassName] call FUNC(FIREMIS_Dia_GetArtyEta);
       _unit commandArtilleryFire [_randomPos, _roundClassName, 1];
 
