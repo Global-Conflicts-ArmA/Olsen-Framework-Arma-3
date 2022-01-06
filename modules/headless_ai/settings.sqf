@@ -9,18 +9,9 @@ of reinforcements or subsequent AOs.
 // Array objects
 // eg: ["mainEnemy", "patrol_1", "patrol_2", "patrol_3"]
 GVAR(ArrayObjects) = [
-    "infwest_1",
-    "infsoutheast_1",
-    "infsouth_1",
-    "infnortheast_1",
-    "infnorth_1",
-    "infmountain_1",
-    "vehnorthwest_1",
-    "vehsouthwest_1",
-    "vehnortheast_1",
-    "vehnortheast_2",
-    "gunship",
-    "cargoheli"
+    "hc1",
+    "hc2",
+    "hc3"
 ];
 
 // Initial spawns are spawned upon init, at the start of the mission.

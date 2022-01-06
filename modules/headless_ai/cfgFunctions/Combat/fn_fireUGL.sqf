@@ -51,7 +51,7 @@ _unit doTarget _invisibleTarget;
     [_unit, _muzzle] call BIS_fnc_fire;
     private _relDir = _unit getDir _invisibleTarget;
     [{
-    	_this params ["_unit", "_invisibleTarget"];
+    	_this params ["_unit", "_invisibleTarget", "_relDir"];
         _invisibleTarget setPosASL [0,0,0];
         _unit doTarget objNull;
         [_unit, _relDir, 2] call FUNC(SuppressDirection);

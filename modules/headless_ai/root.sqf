@@ -23,4 +23,10 @@
 	};
 #endif
 
+#ifdef description_XEH_InitPost_CAManBase
+	class COMPONENT {
+		init = "call compile preprocessFileLineNumbers 'modules\headless_ai\cfgXEH\init\initPostMan.sqf'";
+	};
+#endif
+
 #undef COMPONENT

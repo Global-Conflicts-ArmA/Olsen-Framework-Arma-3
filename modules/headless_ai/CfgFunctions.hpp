@@ -156,7 +156,11 @@ class PZAI {
 	    class createWaypointModified {};
 	    class createWaypoints {};
 	    class createZone {};
+	    class finishGroupSpawn {};
+	    class setAssignedVehicle {};
 	    class spawnArray {};
+	    class spawnGroupPFH {};
+	    class spawnUnitsGroupPFH {};
 	};
 
 	class Diag {
@@ -235,7 +239,6 @@ class PZAI {
 	    class getDetailsVehicleEmpty {};
 	    class getDetailsUnit {};
 	    class getSynced {};
-	    class getSyncedGroups {};
 	    class getSyncedObjects {};
 	};
 

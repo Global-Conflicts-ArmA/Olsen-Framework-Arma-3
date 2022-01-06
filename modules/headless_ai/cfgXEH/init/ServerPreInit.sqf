@@ -2,7 +2,7 @@
 
 LOG("HC Server Pre Init");
 
-GVAR(zoneEntities) = [];
+GVAR(zoneEntities) = createHashMap;
 
 //[QGVAR(ServerEvent), {
 //
@@ -42,9 +42,9 @@ if !(GVAR(ArrayObjects) isEqualTo []) then {
 				} else {
 					LOG_2("synced count for %1: %2", _logic, count _synced);
 					private _entities = [_synced] call FUNC(getSyncedObjects);
-					GVAR(zoneEntities) pushBack [_arrayName, _entities];
+					GVAR(zoneEntities) set [_arrayName, _entities];
 					_entities params ["_groups", "_emptyVehs", "_objects"];
-					LOG_4("Array: %1 Groups: %2 emptyVehs: %3 Objects: %4",_arrayName, count _groups, count _emptyVehs, count _objects);
+					//LOG_4("Array: %1 Groups: %2 emptyVehs: %3 Objects: %4",_arrayName,(count _groups),(count _emptyVehs),(count _objects));
 				};
 			};
 		};

@@ -8,25 +8,25 @@ GVAR(MissionEnded) = false; //Mission has not ended
 
 [QGVAR(spawnedEvent), {
     params ["_unit"];
-    LOG_1("spawnedEvent started: %1",_unit);
+    //LOG_1("spawnedEvent started: %1",_unit);
 	_unit call FUNC(eventSpawned);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(untrackEvent), {
     params ["_unit"];
-    LOG_1("untrackEvent started: %1",_unit);
+    //LOG_1("untrackEvent started: %1",_unit);
 	_unit call FUNC(untrackUnit);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(killedEvent), {
     params [["_unit", objNull, [objNull]], ["_killer", objNull, [objNull]]];
-    LOG_1("killedevent started: %1",_unit);
+    //LOG_1("killedevent started: %1",_unit);
 	[_unit, _killer] call FUNC(EventKilled);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(respawnEvent), {
     params [["_unit", objNull, [objNull]]];
-    LOG_1("respawnEvent started: %1",_unit);
+    //LOG_1("respawnEvent started: %1",_unit);
 	[_unit] call FUNC(EventRespawned);
 }] call CBA_fnc_addEventHandler;
 

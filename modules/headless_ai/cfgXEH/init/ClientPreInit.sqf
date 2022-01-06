@@ -12,6 +12,11 @@ private _version = "0.2.5";
 
 AI_EXEC_CHECK(HC);
 
+GVAR(spawnGroupPFH) = -1;
+GVAR(spawnQueue) = [];
+GVAR(spawnUnitsQueue) = [];
+GVAR(spawnUnitsQueueActiveGroup) = [];
+
 //Ask server for entities data
 if (isMultiplayer) then {
 	[QGVAR(HCRequestArrayDataEvent), clientOwner] call CBA_fnc_serverEvent;

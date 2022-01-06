@@ -1,7 +1,14 @@
 #include "..\..\script_macros.hpp"
 
+params ["_args", "_idPFH"];
 
-params ["_group",["_groupSet",[],[[]]]];
+_args params [
+    "_group",
+    "_groupSet",
+    "_groupMem",
+    ["_groupVeh", [], [[]]],
+    ["_unitIndex", 0, [0]]
+];
 
 _groupSet params [
     /* 0 */  ["_side", west, [west]],
@@ -32,31 +39,23 @@ _groupSet params [
     /* 25 */ ["_assetType", "INFANTRY", [""]]
 ];
 
-SETVAR(_group,Pos,_gpos);
-SETVAR(_group,behaviour,_behaviour);
-SETVAR(_group,combatMode,_combat);
-SETVAR(_group,speed,_speed);
-SETVAR(_group,formation,_formation);
-SETVAR(_group,taskRadius,_taskRadius);
-SETVAR(_group,taskWait,_wait);
-SETVAR(_group,task,_task);
-SETVAR(_group,TaskTimer,_taskTimer);
-SETVAR(_group,occupyOption,_occupyOption);
-SETVAR(_group,Waypoints,_waypoints);
-SETVAR(_group,forceLights,_fl);
-SETVAR(_group,surrender,_surrender);
-SETVAR(_group,vehicleCargo,_vehicleCargo);
-SETVAR(_group,Spawned,true);
-
-//_group call CBA_fnc_clearWaypoints;
-[_group,_behaviour,_combat,_speed,_formation] call FUNC(setGroupBehaviour);
-{
-    if !(isNull (assignedVehicle _x)) then {
-        [_x] orderGetIn true;
+if (_groupVeh isEqualTo []) then {
+    if (_groupMem isEqualTo []) exitWith {
+        [_group, _groupSet] call FUNC(finishGroupSpawn);
+        [_idPFH] call CBA_fnc_removePerFrameHandler;
     };
-} forEach (units _group);
-if (_fl) then {[_group] call FUNC(setFlashlights);};
-if (_surrender) then {[_group] call FUNC(setSurrender);};
-if (_groupInit isEqualType {}) then {
-    _group call _groupinit
+    private _startBld = _occupy isNotEqualTo "Off";
+    private _toSpawn = _groupMem deleteAt 0;
+    _args set [2, _groupMem];
+    TRACE_1("",_toSpawn);
+
+    [false, _group, _groupPos, _startBld, _unitIndex, _toSpawn] call FUNC(createUnit);
+    _unitIndex = _unitIndex + 1;
+    _args set [4, _unitIndex];
+} else {
+    private _toSpawn = _groupVeh deleteAt 0;
+    _args set [3, _groupVeh];
+    TRACE_1("",_toSpawn);
+
+    _toSpawn call FUNC(createVehicle);
 };

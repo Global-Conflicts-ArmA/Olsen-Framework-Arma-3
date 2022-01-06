@@ -1,6 +1,10 @@
 #include "..\..\script_macros.hpp"
 
-params ["_unit", "_direction", ["_timeToSuppress", 3, [3]]];
+params [
+    ["_unit", objNull, [objNull]], 
+    ["_direction", 0, [0]], 
+    ["_timeToSuppress", 3, [3]]
+];
 
 private _invisibleTarget = GETVAR(_unit,InvisibleTarget,objnull);
 if (_invisibleTarget isEqualTo objnull) then {

@@ -1,9 +1,14 @@
 #include "..\..\script_macros.hpp"
 
-
 params ["_veh",["_pos",[],[[]]]];
+
 private _vehInit = (GETVAR(_veh,Init,""));
 if (typename _vehInit isEqualTo "STRING") then {_vehInit = compile _vehInit;};
+if ((_vehInit isEqualType "") && {!(_vehInit isEqualTo "")}) then {
+     _vehInit = compile _vehInit;
+} else {
+     _vehInit = false;
+};
 if (_pos isEqualTo []) then {
     _pos = (getposATL _veh) apply {parseNumber (_x toFixed 2)};
 };
@@ -24,7 +29,6 @@ magazinesAllTurrets _veh,
 locked _veh,
 surfaceIsWater (getposATL _veh),
 (GETVAR(_veh,Name,"")),
-(GETVAR(_veh,Persistent,true)),
 _vehInit,
 (GETVAR(_veh,StoredVars,[])),
 _vehCustomization,
