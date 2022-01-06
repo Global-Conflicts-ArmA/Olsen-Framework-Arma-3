@@ -6,7 +6,7 @@ if (GVAR(spawnQueue) isEqualTo []) exitWith {
 };
 
 private _queueArray = GVAR(spawnQueue) deleteAt 0;
-TRACE_1("",count _queueArray);
+//TRACE_1("",count _queueArray);
 
 _queueArray params [
     ["_toSpawn", [], [[]]]

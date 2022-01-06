@@ -2,7 +2,7 @@
 
 params ["_synced"];
 
-LOG_1("command _synced %1",_synced);
+//LOG_1("command _synced %1",_synced);
 private _uniqueSynced = _synced arrayIntersect _synced;
 
 // Get all Synced units/objects to logic
@@ -123,7 +123,7 @@ _uniqueSynced apply {
     };
 };
 _entities = [_groups,_emptyVehs,_objects];
-LOG_3("Deleting %1 Objects for Logic: %2 Entities: %3",count _synced,_logic,_entities);
-LOG_1("_uniqueSynced %1",_uniqueSynced);
+//LOG_3("Deleting %1 Objects for Logic: %2 Entities: %3",count _synced,_logic,_entities);
+//LOG_1("_uniqueSynced %1",_uniqueSynced);
 [_uniqueSynced] call FUNC(deleteVehicles);
 _entities

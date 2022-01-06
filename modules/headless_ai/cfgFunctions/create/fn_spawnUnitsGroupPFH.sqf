@@ -47,7 +47,7 @@ if (_groupVeh isEqualTo []) then {
     private _startBld = _occupy isNotEqualTo "Off";
     private _toSpawn = _groupMem deleteAt 0;
     _args set [2, _groupMem];
-    TRACE_1("",_toSpawn);
+    //TRACE_1("",_toSpawn);
 
     [false, _group, _groupPos, _startBld, _unitIndex, _toSpawn] call FUNC(createUnit);
     _unitIndex = _unitIndex + 1;
@@ -55,7 +55,7 @@ if (_groupVeh isEqualTo []) then {
 } else {
     private _toSpawn = _groupVeh deleteAt 0;
     _args set [3, _groupVeh];
-    TRACE_1("",_toSpawn);
+    //TRACE_1("",_toSpawn);
 
     _toSpawn call FUNC(createVehicle);
 };

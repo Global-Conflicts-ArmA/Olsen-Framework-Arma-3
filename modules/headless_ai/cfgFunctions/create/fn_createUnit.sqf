@@ -61,17 +61,17 @@ if (_varName isNotEqualTo "") then {
     SETVAR(_unit,customName,_uniqueName);
 };
 
-if !(_storedVars isEqualTo []) then {
+if (_storedVars isNotEqualTo []) then {
     _storedVars apply {
         _x params ["_varName", "_varValue"];
         _unit setvariable [_varName,_varValue];
     };
 };
 
-if !(_stance isEqualTo "AUTO") then {
+if (_stance isNotEqualTo "AUTO") then {
     SETVAR(_unit,unitStance,_stance);
 };
-if !(_identity isEqualTo []) then {
+if (_identity isNotEqualTo []) then {
     SETVAR(_unit,identityArray,_identity);
 };
 if (_init isEqualType {}) then {

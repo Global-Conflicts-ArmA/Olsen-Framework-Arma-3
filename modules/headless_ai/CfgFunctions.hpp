@@ -231,7 +231,6 @@ class PZAI {
 
 	class GetInfo {
 		file = "modules\headless_ai\cfgFunctions\GetInfo";
-	    class getDetails {};
 	    class getDetailsArray {};
 	    class getDetailsGroup {};
 	    class getDetailsThing {};
@@ -252,14 +251,11 @@ class PZAI {
 	    class setGroupVariables {};
 	    class setMarkerPos {};
 	    class setMultiOccupy {};
-	    class setPersistent {};
 	    class setRadial {};
 	    class setRespawn {};
 	    class setStance {};
 	    class setSurrender {};
-	    class setTracker {};
 	    class setVehicle {};
-	    class setZone {};
 	};
 
 	class task {

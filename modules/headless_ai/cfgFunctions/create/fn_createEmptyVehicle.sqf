@@ -1,33 +1,34 @@
 #include "..\..\script_macros.hpp"
 
 params [
-    "_vehClass",
-    "_vehPos",
-    "_vectorDir",
-    "_vectorUp",
-    "_damage",
-    "_fuel",
-    "_turretMags",
-    "_locked",
-    "_vehInWater",
-    "_vehName",
+    ["_vehClass", "", [""]],
+    ["_vehCrew", [], [[]]],
+    ["_pos", [], [[]]],
+    ["_vectorDir", [], [[]]],
+    ["_vectorUp", [], [[]]],
+    ["_damage", 0, [0]],
+    ["_fuel", 100, [100]],
+    ["_turretMags", [], [[]]],
+    ["_locked", 0, [0]],
     ["_init", false, [false,{}]],
+    ["_fly", false, [false]],
+    ["_flyInHeight", 200, [200]],
     ["_storedVars", [], [[]]],
     ["_vehCustomization", [], [[]]],
-    ["_name", "", [""]],
+    ["_varName", "", [""]],
     ["_olsenGearType", "", [""]]
 ];
 
-private _vehicle = createVehicle [_vehClass,_vehPos,[],0,"CAN_COLLIDE"];
+private _vehicle = createVehicle [_vehClass,_pos,[],0,"CAN_COLLIDE"];
 _vehicle setVectorDirAndUp [_vectorDir, _vectorUp];
-_vehicle setPosATL _vehPos;
+_vehicle setPosATL _pos;
 
-if !(_name isEqualTo "") then {
-    private _uniqueName = [_name] call FUNC(findUniqueName);
+if (_varName isNotEqualTo "") then {
+    private _uniqueName = [_varName] call FUNC(findUniqueName);
     missionNamespace setVariable [_uniqueName, _vehicle, true];
 };
 
-if !(_olsenGearType isEqualTo "") then {
+if (_olsenGearType isNotEqualTo "") then {
     [_vehicle, _olsenGearType] call FUNC(VehicleGearScript);
 };
 
@@ -46,7 +47,7 @@ if (_init isEqualType {}) then {
      _vehicle call _init;
  };
 
-if !(_storedVars isEqualTo []) then {
+if (_storedVars isNotEqualTo []) then {
     //LOG_1("Setting vars: %1",_storedVars);
     {
         _x params ["_varName", "_varValue"];

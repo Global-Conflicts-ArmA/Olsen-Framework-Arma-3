@@ -56,12 +56,12 @@ _vehicle setPosATL _pos;
     [_unit, _vehicle, _role, _index] call FUNC(setAssignedVehicle);
 } forEach _vehCrew;
 
-if !(_varName isEqualTo "") then {
+if (_varName isNotEqualTo "") then {
     private _uniqueName = [_varName] call FUNC(findUniqueName);
     missionNamespace setVariable [_uniqueName, _vehicle, true];
 };
 
-if !(_olsenGearType isEqualTo "") then {
+if (_olsenGearType isNotEqualTo "") then {
     [_vehicle, _olsenGearType] call FUNC(VehicleGearScript);
 };
 
@@ -80,7 +80,7 @@ _vehicle lock _locked;
 _vehCustomization params ["_vehCustomSkin", "_vehCustomAnimations"];
 [_vehicle, _vehCustomSkin, _vehCustomAnimations] call BIS_fnc_initVehicle;
 
-if !(_turretMags isEqualTo []) then {
+if (_turretMags isNotEqualTo []) then {
     _turretMags apply {
         _x params [["_class", "", [""]], ["_path", [], [[]]], ["_ammo", 0, [0]]];
         _vehicle setMagazineTurretAmmo [_class,_ammo,_path];
@@ -92,7 +92,7 @@ if (_init isEqualType {}) then {
     _vehicle call _init;
 };
 
-if !(_storedVars isEqualTo []) then {
+if (_storedVars isNotEqualTo []) then {
     //LOG_1("Setting vars: %1",_storedVars);
     _storedVars apply {
         _x params ["_varName", "_varValue"];

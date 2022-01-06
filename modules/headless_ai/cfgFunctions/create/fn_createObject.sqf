@@ -17,7 +17,7 @@ private _object = createVehicle [_objClass,_objpos,[],0,"CAN_COLLIDE"];
 _object setVectorDirAndUp [_vectorDir,_vectorUp];
 _object setPosATL _objpos;
 
-if !(_name isEqualTo "") then {
+if (_name isNotEqualTo "") then {
     private _uniqueName = [_name] call FUNC(findUniqueName);
     missionNamespace setVariable [_uniqueName, _object, true];
 };
@@ -29,7 +29,7 @@ if (_init isEqualType {}) then {
      _object call _init;
  };
 
-if !(_storedVars isEqualTo []) then {
+if (_storedVars isNotEqualTo []) then {
     //LOG_1("Setting vars: %1",_storedVars);
     {
         _x params ["_varName", "_varValue"];
