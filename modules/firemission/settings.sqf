@@ -7,6 +7,7 @@
 	FW_fnc_FIREMIS_PointFiremission; pointfiremission
 	FW_fnc_FIREMIS_RegisterForwardObserver; make ai an observer
 	FW_fnc_FIREMIS_SetObserverSkill; set skill of observer
+  FW_fnc_FIREMIS_DoConstantArtillery; Constantly fire artillery at a marker target
 */
 
 /*
@@ -337,3 +338,16 @@
 			  * Example:
 			  * [[arty6,arty7,arty8,arty9,arty10],getPos gameLogic7,getPos gameLogic8,200,10,5,20,100,0] call FW_fnc_FIREMIS_CurtainFiremission;
 			  */
+
+        /**
+         * FW_fnc_FIREMIS_DoConstantArtillery
+         * Commands a battery to constantly fire artillery at a marker target with unliminted ammo until the battery is destroyed.
+         * Author: StatusRed
+         *
+         * Parameters:
+         * 0: unit <object> - The unit to command fire
+         * 1: target <marker name, object> - The target to fire at
+         * 2: dispersion <int> - How close to the target to fire within
+         * 3: minDelay <int> - The minimum delay between firing (in seconds)
+         * 4: delayModifier <int> - A range from 0 to the delay modifier value (in seconds) is added to the minimum delay
+        */

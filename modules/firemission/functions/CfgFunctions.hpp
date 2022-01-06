@@ -64,4 +64,6 @@ class FIREMIS {
 	class FIREMIS_SetObserverSkill {};
 	class FIREMIS_StopArtillery {};
 	class FIREMIS_StopArtilleryClient {};
+
+	class FIREMIS_DoConstantArtillery {};
 };
