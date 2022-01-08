@@ -11,11 +11,7 @@
 //
 // -----------------------------
 // Settings explained:
-// Name - Full name for the currency
-// Short_Name - Short name for the currency, GBP, USD, CAD, AUD etc..
-// Symbol - Symbol used, £, $ etc..
+// GVAR(Currency) = A currency defined in CfgCurrency.hpp->Currencies, use an existing, modify or add your own.
 // -----------------------------
 
-GVAR(Name) = "Great British Pounds";
-GVAR(Short_Name) = "GBP";
-GVAR(Symbol) = "£";
+GVAR(Currency) = "GBP";

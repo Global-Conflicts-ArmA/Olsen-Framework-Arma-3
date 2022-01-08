@@ -10,4 +10,10 @@
 	#include "functions\CfgFunctions.hpp"
 #endif
 
+#ifdef description
+	class CfgCurrency {
+		#include "CfgCurrency.hpp"
+	};
+#endif
+
 #undef COMPONENT

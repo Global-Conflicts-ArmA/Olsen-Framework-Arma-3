@@ -4,4 +4,4 @@
 
 private _version = 0.1;
 
-["Currency", "Facilitates in game currency.", "StatusRed", _version] call FUNC(RegisterModule);
+["Currency", "Facilitates in game currency.", "StatusRed", _version] call EFUNC(FW,RegisterModule);
