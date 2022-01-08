@@ -2,7 +2,21 @@
 #include "..\..\settings.sqf"
 
 [{(!isNull ACE_player)}, {
-    GVAR(VehiclesAltered)= [];
+    [
+        [false, false, false],
+        [true, false, false],
+        [true, true, false],
+        [true, true, true],
+        [false, true, false],
+        [false, true, true],
+        [false, false, true],
+        [true, false, true]
+    ] apply {
+        private _modifiersKey = _x;
+        [ActionKeys "throw" select 0, _modifiersKey, {
+            true
+        }] call CBA_fnc_addKeyHandler;
+    };
     private _firedEH = [vehicle ACE_player, "DefaultAction", {true}, {
         private _cantFire = (_this select 1) getVariable [QGVAR(Active), false];
         if (_cantFire) exitWith {
