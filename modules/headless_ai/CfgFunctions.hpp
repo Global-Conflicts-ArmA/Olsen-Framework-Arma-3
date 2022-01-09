@@ -16,6 +16,7 @@ class PZAI {
 		class DefaultGroupPatrol {};
 		class DestroyBuilding {};
 		class FindCoverPos {};
+		class FireUGL {};
 		class FlankManeuver {};
 		class FocusedAccuracy {};
 		class ForceHeal {};
@@ -40,6 +41,7 @@ class PZAI {
 		class ReGroup {};
 		class SightAid {};
 		class FireWeapon {};
+		class SuppressDirection {};
 		class SuppressingShots {};
 		class ThrowGrenade {};
 		class WatchEnemy {};
@@ -171,14 +173,18 @@ class PZAI {
 		class getStance {};
 		class hasMine {};
 		class hasAT {};
+		class hasMG {};
+		class hasUGL {};
 		class HasRadioGroup {};
 		class IRCheck {};
 		class isAimed {};
 		class isInCombat {};
+		class isMoveTask {};
 		class LOSCheck {};
 		class StanceModifier {};
 		class UnitCheck {};
 		class VehicleHandle {};
+		class tempRemovePrimaryMags {};
 		class Waypointcheck {};
 		class WepSupCheck {};
 		class nearbyFriendlyEntities {};

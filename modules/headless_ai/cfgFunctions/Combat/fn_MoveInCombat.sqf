@@ -1,6 +1,5 @@
 #include "..\..\script_macros.hpp"
 
-
 private ["_Unit", "_index", "_wPos", "_NearestEnemy", "_unit","_GuessLocation","_MovedRecently","_MovedRecentlyCover","_InCover","_ReturnVariable"];
 _Unit = _this select 0;
 //systemchat format ["%1",((group _Unit) call FUNC(Waypointcheck))];
@@ -35,7 +34,7 @@ if (PZAI_CurrentlyMoving < PZAI_CurrentlyMovingLimit) then
 
 		_WPPosition = getWPPos [_Group,_index];
 		//systemchat format ["_WPPosition: %1",_WPPosition];
-		if !(_WPPosition isEqualTo [0,0,0]) then
+		if (_WPPosition isNotEqualTo [0,0,0]) then
 		{
 			if (_Unit isEqualTo (leader _Unit)) then
 			{

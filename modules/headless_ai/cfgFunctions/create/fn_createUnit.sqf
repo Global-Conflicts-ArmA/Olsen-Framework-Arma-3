@@ -61,12 +61,12 @@ if (_handcuffed) then {
     [_unit,_handcuffed] call ACE_captives_fnc_setHandcuffed;
 };
 
-if !(_varName isEqualTo "") then {
+if (_varName isNotEqualTo "") then {
     private _uniqueName = [_varName] call FUNC(findUniqueName);
     missionNamespace setVariable [_uniqueName, _unit, true];
 };
 
-if !(_olsenGearType isEqualTo "") then {
+if (_olsenGearType isNotEqualTo "") then {
     [_unit, _olsenGearType] call EFUNC(FW,gearScript);
 };
 
@@ -75,19 +75,19 @@ if !(_olsenGearType isEqualTo "") then {
     [[_unit, _identity], {
         params ["_unit", "_identity"];
         _identity params ["_unitName", "_face", "_speaker", "_nameSound", "_pitch"];
-        if !(_unitName isEqualTo "") then {
+        if (_unitName isNotEqualTo "") then {
             _unit setName _unitName;
         };
-        if !(_face isEqualTo "") then {
+        if (_face isNotEqualTo "") then {
             _unit setFace _face;
         };
-        if !(_speaker isEqualTo "") then {
+        if (_speaker isNotEqualTo "") then {
             _unit setSpeaker _speaker;
         };
-        if !(_nameSound isEqualTo "") then {
+        if (_nameSound isNotEqualTo "") then {
             _unit setNameSound _nameSound;
         };
-        if !(_pitch isEqualTo 0.99) then {
+        if (_pitch isNotEqualTo 0.99) then {
             _unit setPitch _pitch;
         };
     }] remoteExec ["BIS_fnc_call", 0, true];
@@ -99,21 +99,21 @@ _unit call _unitInit;
 if (_vehicleAssigned) then {
     if (isNull _veh) then {
         private _vehSearch = _unitPos nearEntities [_vehType, 5];
-        if !(_vehSearch isEqualTo []) then {
+        if (_vehSearch isNotEqualTo []) then {
             _veh = _vehSearch select 0;
         };
     };
     [_unit, _vehRole, _veh, _unitPos, _vehType] call FUNC(setAssignedVehicle);
 };
 
-if !(_storedVars isEqualTo []) then {
+if (_storedVars isNotEqualTo []) then {
     {
         _x params ["_varName", "_varValue"];
         _unit setvariable [_varName,_varValue];
     } forEach _storedVars;
 };
 
-private _groupStance = GETVAR(_group,Stance,"AUTO");
+private _groupStance = GETVAR(_group,Stance,"Auto");
 
 //["FW_eventSpawned", [_unit]] call CBA_fnc_serverEvent;
 

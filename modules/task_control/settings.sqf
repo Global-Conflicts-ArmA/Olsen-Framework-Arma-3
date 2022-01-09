@@ -1,5 +1,5 @@
 /*
-	Task Control Module by Briland
+	Task Control Module by Briland and StatusRed
 
 	This module allows easy control of local ARMA 3 task in a multiplayer environment.
 
@@ -24,7 +24,7 @@
 	TITLE is the same as the title you set when you added the task.
 
 	GET a task's current state with:
-	_state = [TITLE] call FNC_GETTASKSTATE;
+	_state = [TITLE] call FUNC(TASK_GetTaskState);
 
 	Possible states:
 	"Succeeded"
@@ -37,16 +37,16 @@
 	ADDTASK(west, position obj1, "Objective 1", "Go to this point and Destroy Objective #1 with the explosive charges that your engineers have.", "OBJ 1");
 	ASSIGNTASK("Objective 1");							// make objective 1 the active objective
 
-	[] spawn {
-		while {!FW_MissionEnded} do {						// Loops while the mission is not ended
-			sleep 30; 										// sleep for optimisation
-			if (!(alive obj1_building)) exitwith {			// when obj1_building is no longer alive
-				COMPLETETASK("Objective 1");				// Complete the first objective
-				ADDTASK(west, position airfield, "Return to Base", "Good job return to BASE!", "RTB"); // Assigned the RTB objective
-				ASSIGNTASK("Return to Base");				// make the RTB objective the active objective
-			};
-		};
-	};
+  [{CBA_MissionTime > 0}, {
+    private _objectiveCheckTime = 30;
+    [{
+    if (!(alive obj1_building)) exitwith {			// when obj1_building is no longer alive
+      COMPLETETASK("Objective 1");				// Complete the first objective
+      ADDTASK(west, position airfield, "Return to Base", "Good job return to BASE!", "RTB"); // Assigned the RTB objective
+      ASSIGNTASK("Return to Base");				// make the RTB objective the active objective
+    };
+    }, _objectiveCheckTime, []] call CBA_fnc_addPerFrameHandler;
+  }, []] call CBA_fnc_waitUntilAndExecute;
 */
 
 ADDTASK(west, position obj1, "Objective 1", "This objective should be seen by all west", "OBJ 1");

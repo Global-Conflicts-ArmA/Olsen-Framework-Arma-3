@@ -99,7 +99,7 @@ if (!(alive _leader) || {!(local _leader)}) then {
         };
         private _wpArray = waypoints _group;
         private _wppos = [0,0,0];
-        if !(_wpArray isEqualto []) then {
+        if (_wpArray isNotEqualTo []) then {
             private _wpindex = currentWaypoint _group;
             _wppos = waypointPosition [_group,_wpindex];
             _destname setmarkerpos _wppos;

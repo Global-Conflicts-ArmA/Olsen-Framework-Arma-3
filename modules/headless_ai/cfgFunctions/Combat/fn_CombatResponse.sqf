@@ -3,7 +3,7 @@
 
 //FUNC(CombatResponse)
 
-params ["_Group", ["_radioEnemy", objnull, [objnull]], ["_reinforcement", false, [false]]];
+params ["_group", ["_radioEnemy", objnull, [objnull]], ["_reinforcement", false, [false]]];
 
 private _leader = leader _group;
 private _currentmission = SETVAR(_group,Task,"NONE");
@@ -11,7 +11,7 @@ if (behaviour _leader isEqualTo "SAFE") then {
 	_group setbehaviour "AWARE";
 };
 private _currenttarget = GETVAR(_group,CurrentTarget,objnull);
-if (!(_radioEnemy isEqualTo objnull) && {(_currenttarget isEqualTo objnull)}) then {
+if ((_radioEnemy isNotEqualTo objnull) && {(_currenttarget isEqualTo objnull)}) then {
 	_currenttarget = _radioEnemy;
 	SETVAR(_group,CurrentTarget,_radioEnemy);
 };
@@ -39,7 +39,7 @@ switch _currentmission do {
 		};
 	case "LOITER": {
 			_Group setSpeedMode "FULL";
-			{_x setUnitPos "AUTO";} foreach (units _group);
+			{_x setUnitPos "Auto";} foreach (units _group);
 			if (_reinforcement) then {
 				[_Group,_currenttarget,_enemydir] call FUNC(CombatAttack);
 			} else {

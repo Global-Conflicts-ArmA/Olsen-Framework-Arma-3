@@ -47,12 +47,12 @@ GVAR(GroupHandlerPFH) = [{
         if (CBA_missionTime >= _lastTimeChecked + 1) then {
             private _inCombat = (_behaviour in ["COMBAT","STEALTH"]) && {!(GETVAR(_group,taskCombatModeSet,false))};
             //TRACE_2("inCombat check",_group,_inCombat);
-            if (_inCombat || {!(_target isEqualTo objnull)}) then {
+            if (_inCombat || {(_target isNotEqualTo objnull)}) then {
                 //switch tasks on actions
                 //handle for special loiter task - regroup
                 if (_task isEqualTo "LOITER") then {
                     _group setSpeedMode "FULL";
-        			_units apply {_x setUnitPos "AUTO"; _x doFollow _leader};
+        			_units apply {_x setUnitPos "Auto"; _x doFollow _leader};
                     [_group, _target] call FUNC(CombatDefend);
                 };
                 if (_task in ["PATROL", "PERIMPATROL", "SENTRY", "BLDMOVE"]) then {
@@ -85,19 +85,25 @@ GVAR(GroupHandlerPFH) = [{
                     };
                 };
             } else {
-                if (_task in ["PATROL", "PERIMPATROL", "SENTRY", "BLDMOVE", "MOVE", "MANUAL"]) then {
-                    private _lastWaypointTime = GETVAR(_group,lastWaypointTime,CBA_MissionTime - 10);
-                    private _nextWP = [_group, 0];
+                if (_task isEqualTo "MANUAL") then {
+                    private _lastWaypointTime = GETVAR(_group,lastWaypointTime,CBA_MissionTime - 3);
+                    private _currentWaypoint = currentWaypoint _group;
+                    private _waypoints = waypoints _group;
+                    if (_currentWaypoint > (count _waypoints - 1) && {(_group getVariable [QGVAR(Task), "PATROL"]) isEqualTo "MANUAL"}) then {
+                        [_group, _position] call FUNC(taskPatrol);
+                    };
+                    private _nextWP = [_group, _currentWaypoint];
                     private _waypointType = waypointType _nextWP;
-                    if ((_waypointType isEqualTo "MOVE") && {CBA_MissionTime >= _lastWaypointTime + 10}) then {
+                    if ((_waypointType isEqualTo "MOVE") && {CBA_MissionTime >= _lastWaypointTime + 3}) then {
                         //TRACE_1("non combat wp check",_group);
                         SETVAR(_group,lastWaypointTime,CBA_MissionTime);
+                        private _statements = waypointStatements _nextWP;
+                        _statements params ["_condition", "_onAct"];
                         private _waypointPos = waypointPosition _nextWP;
                         private _waypointRadius = waypointCompletionRadius _nextWP;
                         private _distance = _position distance2D _waypointPos;
-                        private _oldPos = GETVAR(_group,oldPos,getposATL _leader);
-                        if (((_oldPos distance2D _position) <= 10) && {_distance <= (_waypointRadius + 50)}) then {
-                            _nextWP setWaypointCompletionRadius (_distance + 50);
+                        if (_condition isEqualTo "true" && {_distance <= _waypointRadius}) then {
+                            _nextWP setWaypointPosition [_position, -1];
                         };
                     };
                 };
@@ -124,7 +130,7 @@ GVAR(GroupHandlerPFH) = [{
                         //private _withdrawalEnabled = GETVAR(_namespace,withdrawalEnabled,true);
                         //private _resourceUse = GETVAR(_namespace,resourceUse,true);
                         private _preferredTypes = GETVAR(_namespace,preferredTypes,"ALL");
-                        //private _terrainMode = GETVAR(_namespace,terrainMode,"AUTO");
+                        //private _terrainMode = GETVAR(_namespace,terrainMode,"Auto");
                         //private _importance = GETVAR(_namespace,importance,_forEachIndex);
                         private _assignedAssets = GETVAR(_namespace,assignedAssets,[]);
                         private _controlStatus = GETVAR(_namespace,control,"Neutral");
@@ -156,7 +162,7 @@ GVAR(GroupHandlerPFH) = [{
                             //private _withdrawalEnabled = GETVAR(_namespace,withdrawalEnabled,true);
                             //private _resourceUse = GETVAR(_namespace,resourceUse,true);
                             //private _preferredTypes = GETVAR(_namespace,preferredTypes,"ALL");
-                            //private _terrainMode = GETVAR(_namespace,terrainMode,"AUTO");
+                            //private _terrainMode = GETVAR(_namespace,terrainMode,"Auto");
                             //private _importance = GETVAR(_namespace,importance,_forEachIndex);
                             private _assignedAssets = GETVAR(_namespace,assignedAssets,[]);
                             private _controlStatus = GETVAR(_namespace,control,"Neutral");

@@ -10,6 +10,7 @@ _display displayAddEventHandler ["KeyDown", {
     params ["_ctrl","_key","_BtnShift","_BtnCtrl","_BtnAlt"];
     if (_key isEqualTo DIK_APOSTROPHE) then {
         TRACE_1("attempting to exit spectator",_this);
+        [player] call FUNC(thawUnit);
         private _terminated = ["Terminate"] call BIS_fnc_EGSpectator;
         [{
             _this select 0
@@ -69,8 +70,8 @@ _entryList ctrlSetText "#(rgb,8,8,3)color(0.6,0.6,0.6,1)";
 
 private _textControlGroup = _display ctrlCreate ["RscControlsGroup", -1, _controlGroup];
 _textControlGroup ctrlSetPosition [
-    POS_X(0.12 + 0.235 + 0.01),
-    POS_Y(0.1 + 0.00801841 + 0.05),
+    POS_X(0.42),
+    POS_Y(0.25),
     POS_W(0.41),
     POS_H(0.671968)
 ];
@@ -88,37 +89,41 @@ _text ctrlSetPosition [
 _text ctrlCommit 0;
 _text ctrlSetText "#(rgb,8,8,3)color(1,1,1,1)";
 _text ctrlSetBackgroundColor [0, 0, 0, 0.3];
-//75 total 
+//75 total
 
 GVAR(allBriefings) params ["_westBriefing", "_eastBriefing", "_indBriefing", "_civBriefing", "_missionNotes"];
-private _playerSide = GETPLVAR(BriefingSide,west);
+/* private _playerSide = GETPLVAR(BriefingSide,west); */
 private _teamSides = GETMVAR(TeamSides,[west]);
-{
-    _x params ["_name", "_side", "_icon", "_briefingArray"];
-    if (_side in _teamSides) then {
-        private _lbAdd = _teamCombo lbadd _name;
-        _teamCombo lbSetPicture [_lbAdd, "\a3\3DEN\Data\Displays\Display3DEN\PanelRight\" + _icon];
-        private _active = (_side isEqualTo _playerSide);
-        if (_active) then {
-            _teamCombo lbSetCurSel _lbAdd;
-            _briefingArray apply {
-                _entryList lbAdd (_x select 0);
-            };
-            _entryList lbSetCurSel 0;
-            private _string = ((_briefingArray select 0) select 1);
-            _text ctrlSetStructuredText parseText _string;
-            _text ctrlSetPositionH ((ctrlTextHeight _text + 0.05) max (0.671968 * safezoneH));
-            _text ctrlCommit 0;
-        };
-    };
-} foreach [
+[
     [GETMVAR(TeamName_Blufor,"BLUFOR"), west, "side_west_ca.paa", _westBriefing],
     [GETMVAR(TeamName_Opfor,"OPFOR"), east, "side_east_ca.paa", _eastBriefing],
     [GETMVAR(TeamName_Indfor,"INDFOR"), independent, "side_guer_ca.paa", _indBriefing],
     [GETMVAR(TeamName_Civ,"CIVILIAN"), civilian, "side_civ_ca.paa", _civBriefing]
-];
+] apply {
+    _x params ["_name", "_side", "_icon", "_briefingArray"];
+    if (_side in _teamSides) then {
+      private _textHeightModifier = 0.05;
+      private _safeZoneModifier = 0.671968;
 
-private _lbAdd = _teamCombo lbadd "Mission Notes";
+      private _lbAdd = _teamCombo lbadd _name;
+      _teamCombo lbSetPicture [_lbAdd, "\a3\3DEN\Data\Displays\Display3DEN\PanelRight\" + _icon];
+      /* private _active = (_side isEqualTo _playerSide); */
+      /* if (_active) then { */
+      _teamCombo lbSetCurSel _lbAdd;
+      _briefingArray apply {
+          _entryList lbAdd (_x select 0);
+      };
+      _entryList lbSetCurSel 0;
+      private _string = ((_briefingArray select 0) select 1);
+      _text ctrlSetStructuredText parseText _string;
+      _text ctrlSetPositionH ((ctrlTextHeight _text + _textHeightModifier) max (_safeZoneModifier * safezoneH));
+      _text ctrlCommit 0;
+      /* }; */
+    };
+};
+
+_teamCombo lbadd "Mission Notes";
+_teamCombo lbadd "Changelog";
 
 [{
     !(_this select 0 isEqualTo controlNull) && {!(_this select 1 isEqualTo controlNull)}
@@ -150,7 +155,7 @@ private _fnc_addControls = {
         ["[K]", "Toggle Kill Cam"],
         ["[']", "Toggle Camera"]
     ];
-    
+
     //for "_i" from 0 to (count _oldCount - 1) step 1 do {
     //    private _left = _help lnbText [_i, 0];
     //    private _right = _help lnbText [_i, 1];
@@ -190,17 +195,17 @@ private _fnc_addControls = {
 		_newHelpArray pushback ["[LALT]", localize "STR_A3_Spectator_Helper_Alt"];
 		_newHelpArray pushback ["[LALT + LSHIFT]", localize "STR_A3_Spectator_Helper_ShiftAlt"];
 	};
-    
-    TRACE_1("Help Controls"_newHelpArray);
-    private _x = uiNamespace getVariable [VAR_DEFAULT_HELP_X, (ctrlPosition _help) select 0];
-	private _y = uiNamespace getVariable [VAR_DEFAULT_HELP_Y, (ctrlPosition _help) select 1];
-	private _w = uiNamespace getVariable [VAR_DEFAULT_HELP_W, (ctrlPosition _help) select 2];
-	private _h = uiNamespace getVariable [VAR_DEFAULT_HELP_H, (ctrlPosition _help) select 3];
-    private _amount = (_h + 0.01) / 12;
-    private _newH = _amount * count _newHelpArray + 0.01;
-    private _newY = safezoneY + safezoneH - _newH;
-	private _newW = _w;
-	private _newX = safezoneX + safezoneW - _newW;
+
+  TRACE_1("Help Controls"_newHelpArray);
+  private _x = uiNamespace getVariable [VAR_DEFAULT_HELP_X, (ctrlPosition _help) select 0];
+  private _y = uiNamespace getVariable [VAR_DEFAULT_HELP_Y, (ctrlPosition _help) select 1];
+  private _w = uiNamespace getVariable [VAR_DEFAULT_HELP_W, (ctrlPosition _help) select 2];
+  private _h = uiNamespace getVariable [VAR_DEFAULT_HELP_H, (ctrlPosition _help) select 3];
+  private _amount = (_h + 0.01) / 12;
+  private _newH = _amount * count _newHelpArray + 0.01;
+  private _newY = safezoneY + safezoneH - _newH;
+  private _newW = _w;
+  private _newX = safezoneX + safezoneW - _newW;
 
     lnbClear _help;
     {
@@ -208,10 +213,10 @@ private _fnc_addControls = {
         _help lnbSetColor [[_forEachIndex, 0], [0.75,0.6,0,1]];
     } forEach _newHelpArray;
 
-    {
+    [_background, _help] apply {
     	_x ctrlSetPosition [_newX, _newY, _newW, _newH];
     	_x ctrlCommit 0;
-    } forEach [_background, _help];
+    };
 };
 
 private _observeHelpControlsPFH = [{

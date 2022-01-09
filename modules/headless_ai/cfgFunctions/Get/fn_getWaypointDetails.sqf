@@ -1,26 +1,26 @@
 #include "..\..\script_macros.hpp"
 
+params [["_entityWaypoints",[],[[]]]];
 
-params [["_entityWaypoints",[],[[]]],["_waypointDetails",[],[[]]]];
-{
-    private _wayPoint = _x;
-    _waypointDetails pushBack [
-        _wayPoint,
-        waypointName _wayPoint,
-        waypointPosition _wayPoint,
-        waypointType _wayPoint,
-        waypointBehaviour _wayPoint,
-        waypointCombatMode _wayPoint,
-        waypointSpeed _wayPoint,
-        waypointFormation _wayPoint,
-        waypointTimeout _wayPoint,
-        waypointCompletionRadius _wayPoint,
-        waypointAttachedObject _wayPoint,
-        waypointAttachedVehicle _wayPoint,
-        waypointHousePosition _wayPoint,
-        waypointLoiterRadius _wayPoint,
-        waypointScript _wayPoint,
-        waypointStatements _wayPoint
+private _waypointDetails = _entityWaypoints apply {
+    [
+        _x,
+        waypointName _x,
+        waypointPosition _x,
+        waypointType _x,
+        waypointBehaviour _x,
+        waypointCombatMode _x,
+        waypointSpeed _x,
+        waypointFormation _x,
+        waypointTimeout _x,
+        waypointCompletionRadius _x,
+        waypointAttachedObject _x,
+        waypointAttachedVehicle _x,
+        waypointHousePosition _x,
+        waypointLoiterRadius _x,
+        waypointScript _x,
+        waypointStatements _x
     ];
-} foreach _entityWaypoints;
+};
+
 _waypointDetails

@@ -8,7 +8,7 @@ if ((GETVAR(_group,CurrentTaskEndTime,0) < CBA_MissionTime) || _init) then {
     if (count _groupTaskOrder > 1) then {_taskOrder = _groupTaskOrder select 1;};
     if (count _taskOrder > 0) then {
         private _tasks = _taskOrder select {!(_x in (_group getVariable[QGVAR(CompletedTasks),[]]))};
-        if !(_tasks isEqualTo []) then {
+        if (_tasks isNotEqualTo []) then {
             _tasks sort (_groupTaskOrder select 0);
             _task = (_tasks select 0 select 2);
             _taskCheck = [_task];
@@ -18,7 +18,7 @@ if ((GETVAR(_group,CurrentTaskEndTime,0) < CBA_MissionTime) || _init) then {
             _group setVariable[QGVAR(CompletedTasks),[]];
             [_group,(_taskOrder select 0 select 2)] call FUNC(setCompletedTasks);
             private _tasks = _taskOrder select {!(_x in (_group getVariable[QGVAR(CompletedTasks),[]]))};
-            if !(_tasks isEqualTo []) then {
+            if (_tasks isNotEqualTo []) then {
                 _task = (_tasks select 0 select 2);
                 _taskCheck = [_task];
                 _group setVariable [QGVAR(groupTaskOrder),[_sort,_taskOrder]];
@@ -51,7 +51,7 @@ if ((GETVAR(_group,CurrentTaskEndTime,0) < CBA_MissionTime) || _init) then {
                     _activeTasks pushback [_taskId,_prior,_task];
                 };
             } foreach _tasks;
-            if (!(_activeTasks isEqualTo [])) then {
+            if ((_activeTasks isNotEqualTo [])) then {
                 _activeTasks sort true;
                 _task = (_activeTasks select 0 select 2);
             };

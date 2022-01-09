@@ -1,32 +1,41 @@
 #include "script_component.hpp"
+#include "..\..\settings.sqf"
 
 [{(!isNull ace_player)}, {
-    private _FiredEh = player addEventHandler ["FiredMan", {
-        params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_vehicle"];
-        deleteVehicle _projectile;
-        if (_magazine call BIS_fnc_isThrowable) then {
-            player addMagazine _magazine;
-        } else {
-            private _curWeapon = currentWeapon player;
-            player setAmmo [_curWeapon, (player ammo _curWeapon) + 1];
-        };
-        private _timeRemaining = round (GVAR(Time) - CBA_missionTime);
-        private _distance = (EGETMVAR(FW,SpawnPos,getpos player)) distance player;
-        if (_distance >= GVAR(Distance)) then {
-            [["Anti-ND protection active!<br/>Time Remaining: %1 seconds.", _timeRemaining]] call EFUNC(FW,parsedTextDisplay);
-        } else {
-            [["Anti-ND protection active!<br/>Distance from Base: %1 out of %2 meters.<br/>Time Remaining: %3 seconds.", _distance, round GVAR(Distance), _timeRemaining]] call EFUNC(FW,parsedTextDisplay);
-        };
-    }];
-    SETPLVAR(EHid,_FiredEh);
-    SETPLVAR(Active,true);
-    
+    private _firedEH = [ACE_player, "DefaultAction", {true}, {
+        private _canFire = (_this select 1) getVariable [QGVAR(Active), false];
+        if (_canFire) exitWith {false};
+        true
+    }] call ace_common_fnc_addActionEventHandler;
+
+    ace_player setVariable ["ace_common_effect_blockThrow", 1];
+    SETPLVAR(EHid, _FiredEh);
+    SETPLVAR(Active, true);
+
+    GVAR(Time) = switch (side ace_player) do {
+        case blufor: {GVAR(BLUFOR_Time)};
+        case opfor: {GVAR(OPFOR_Time)};
+        case independent: {GVAR(INDFOR_Time)};
+        case civilian: {GVAR(CIVFOR_Time)};
+        default {GVAR(BLUFOR_Time)};
+    };
+
+    GVAR(Distance) = switch (side ace_player) do {
+        case blufor: {GVAR(BLUFOR_Distance)};
+        case opfor: {GVAR(OPFOR_Distance)};
+        case independent: {GVAR(INDFOR_Distance)};
+        case civilian: {GVAR(CIVFOR_Distance)};
+        default {GVAR(BLUFOR_Distance)};
+    };
+
     [{
-        ((GETMVAR(Time,30)) isEqualTo 0 || {CBA_missionTime >= GETMVAR(Time,30)})
-        && {((EGETMVAR(FW,SpawnPos,getpos player)) distance player) <= GETMVAR(Distance,200)}
+        ((GETMVAR(Time,30)) <= 0 || {CBA_missionTime >= GETMVAR(Time,30)})
+        && {(GETMVAR(Distance,200)) <= 0 || {((EGETMVAR(FW,SpawnPos,getpos player)) distance player) >= GETMVAR(Distance,200)}}
     },{
-        player removeEventHandler ["FiredMan", _this];
-        SETPLVAR(EHid,"DISABLED");
-        SETPLVAR(Active,false);
-    }, _FiredEh] call CBA_fnc_waitUntilAndExecute;
+        params ["_eh"];
+        [ACE_player, "DefaultAction", _eh] call ace_common_fnc_removeActionEventHandler;
+        ace_player setVariable ["ace_common_effect_blockThrow", 0];
+        SETPLVAR(EHid, "DISABLED");
+        SETPLVAR(Active, false);
+    }, [_FiredEh]] call CBA_fnc_waitUntilAndExecute;
 }] call CBA_fnc_waitUntilAndExecute;

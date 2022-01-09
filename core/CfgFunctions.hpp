@@ -51,6 +51,10 @@ class Spectator {
 	class parseBriefing {};
 	class initCamera {};
 	class cameraHandleKeyDown {};
+	class freezeUnit {};
+	class thawUnit {};
+	class handleComboBoxChange {};
+	class handleListChange {};
 };
 
 class XEH {

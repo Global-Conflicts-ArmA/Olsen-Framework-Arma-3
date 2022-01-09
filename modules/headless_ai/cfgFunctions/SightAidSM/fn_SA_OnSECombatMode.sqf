@@ -2,7 +2,7 @@
 
 params ["_unit"];
 
-if (GETVAR(group _unit,forcedCombatMode,"AUTO") isEqualTo "AUTO") then {
+if (GETVAR(group _unit,forcedCombatMode,"Auto") isEqualTo "Auto") then {
 	_unit setCombatMode "RED";
 	_unit setBehaviour "COMBAT";
 };

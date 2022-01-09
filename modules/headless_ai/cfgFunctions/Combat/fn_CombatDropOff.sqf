@@ -36,7 +36,7 @@ private _dropOffTaskPFH = [{
         TRACE_1("Group exited DropOff PFH",_group);
         SETVAR(_group,ExitTask,false);
         private _cargoGroups = GETVAR(_veh,vehCargoGroups,[]);
-        if !(_cargoGroups isEqualTo []) then {
+        if (_cargoGroups isNotEqualTo []) then {
             _cargoGroups apply {
                 private _group = _x;
                 //_group call FUNC(vehicleEject);
@@ -44,16 +44,16 @@ private _dropOffTaskPFH = [{
                     speed _veh <= 2
                 },{
                     private _group = _this;
-                    {
+                    (units _group) apply {
                         unassignVehicle _x;
                         doGetOut _x;
-                    } forEach units _group;
+                    };
                 }, _group, 3, {
                     private _group = _this;
-                    {
+                    (units _group) apply {
                         unassignVehicle _x;
                         doGetOut _x;
-                    } forEach units _group;
+                    };
                 }] call CBA_fnc_waitUntilAndExecute;
                 private _task = GETVAR(_group,vehCargoOrigTask,"PATROL");
                 private _manualPos = GETVAR(_group,taskPos,[ARR_3(0,0,0)]);

@@ -1,15 +1,15 @@
 //AUTHOR: Gibfender
 //
-//[this, "BAF_PL"] call FUNC(GearScript);
-//[this, "BAF_PSG"] call FUNC(GearScript);
-//[this, "BAF_RTO"] call FUNC(GearScript);
-//[this, "BAF_MED"] call FUNC(GearScript);
-//[this, "BAF_MO"] call FUNC(GearScript);
-//[this, "BAF_CPL"] call FUNC(GearScript);
-//[this, "BAF_LCPL"] call FUNC(GearScript);
-//[this, "BAF_GP"] call FUNC(GearScript);
-//[this, "BAF_DM"] call FUNC(GearScript);
-//[this, "BAF_AR"] call FUNC(GearScript);
+//[this, "BAF_PL"] call FW_fnc_GearScript;
+//[this, "BAF_PSG"] call FW_fnc_GearScript;
+//[this, "BAF_RTO"] call FW_fnc_GearScript;
+//[this, "BAF_MED"] call FW_fnc_GearScript;
+//[this, "BAF_MO"] call FW_fnc_GearScript;
+//[this, "BAF_CPL"] call FW_fnc_GearScript;
+//[this, "BAF_LCPL"] call FW_fnc_GearScript;
+//[this, "BAF_GP"] call FW_fnc_GearScript;
+//[this, "BAF_DM"] call FW_fnc_GearScript;
+//[this, "BAF_AR"] call FW_fnc_GearScript;
 
 #define package "BAF_"
 

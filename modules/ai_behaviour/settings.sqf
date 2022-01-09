@@ -1,10 +1,10 @@
-//This module contains functions to handle AI behaviour, e.g. get up, get down under fire, etc.
-//Written by TinfoilHate
-//Updated: July 19, 2017
+// This module contains functions to handle AI behaviour, e.g. get up, get down under fire, etc.
+// Written by TinfoilHate, ported by StatusRed
+// Updated: 24th October, 2021
 
 //functions:
 /*
- * FNC_aiCover
+ * FUNC(aiCover)
  *
  * Make unit change stance when under morale treshold.
  * Unit will return to original state when over set treshold.

@@ -3,10 +3,10 @@
 
 private _tasks = _this;
 private _zoneTasks = [];
-{
+_tasks apply {
     if (_x getVariable[QGVAR(taskZoneActivated),false]) then {
         _zoneTasks pushBack _x;
     };
-} forEach _tasks;
+};
 _tasks = _tasks - _zoneTasks;
 _tasks

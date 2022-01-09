@@ -15,7 +15,7 @@ if (!isNull _newTask) then {
     };
     _group setVariable[QGVAR(CurrentTask),_newTask];
     _group call CBA_fnc_clearWaypoints;
-    if (!(_stance isEqualTo "unchanged")) then {
+    if ((_stance isNotEqualTo "unchanged")) then {
         {
             _x setUnitPos _stance;
         } forEach (units _group);

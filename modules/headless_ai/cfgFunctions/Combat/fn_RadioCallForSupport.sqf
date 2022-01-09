@@ -15,7 +15,7 @@ private _respondingMotorized = [];
 private _respondingMechanized = [];
 private _respondingArmored = [];
 
-private _knownEnemy = !(_enemycaller isEqualTo objnull);
+private _knownEnemy = (_enemycaller isNotEqualTo objnull);
 private _nearbyEnemy = [];
 private _enemyHasArmored = false;
 private _enemyHasVehicles = false;
@@ -24,8 +24,8 @@ private _reportedLocation = [_posCaller, 30] call CBA_fnc_randPos;
 if (_knownEnemy) then {
 	_nearbyEnemy = [_enemycaller, 50] call FUNC(nearbyFriendlyEntities);
     _nearbyEnemy params [["_nearbyInfantry", [], [[]]], ["_nearbyCars", [], [[]]], ["_nearbyAPCs", [], [[]]], ["_nearbyTanks", [], [[]]]];
-    _enemyHasVehicles = !(_nearbyCars isEqualTo []) || {!(_nearbyAPCs isEqualTo [])} || {!(_nearbyTanks isEqualTo [])};
-    _enemyHasArmored = _enemyHasVehicles && {!(_nearbyAPCs isEqualTo []) || {!(_nearbyTanks isEqualTo [])}};
+    _enemyHasVehicles = (_nearbyCars isNotEqualTo []) || {(_nearbyAPCs isNotEqualTo [])} || {(_nearbyTanks isNotEqualTo [])};
+    _enemyHasArmored = _enemyHasVehicles && {(_nearbyAPCs isNotEqualTo []) || {(_nearbyTanks isNotEqualTo [])}};
 	_reportedLocation = [_nearbyEnemy select 0, 30] call CBA_fnc_randPos;
 };
 
@@ -33,11 +33,11 @@ if (_knownEnemy) then {
 allGroups select {
 	private _leader = leader _x;
 	(GETVAR(_x,Spawned,false)) &&
-	{!(_groupcaller isEqualTo _x)} &&
+	{(_groupcaller isNotEqualTo _x)} &&
 	{!(isNull _leader)} &&
 	{(alive _leader)} &&
 	{!(GETVAR(_leader,NOAI,false))} &&
-	{!(isPlayer _leader)} && 
+	{!(isPlayer _leader)} &&
 	{side _leader in GVAR(SideBasedExecution)} &&
 	{!([_x] call FUNC(isInCombat))}
 } apply {
@@ -54,7 +54,7 @@ allGroups select {
 	private _target = GETVAR(_group,CurrentTarget,objnull);
 	private _distanceToGroup = (leader _groupcaller) distance2d _leader;
     if (
-    	([_sidecaller, _side] call BIS_fnc_sideIsFriendly) && 
+    	([_sidecaller, _side] call BIS_fnc_sideIsFriendly) &&
     	{!_knownEnemy || {_target isEqualTo objnull} || {!(_target in _nearbyEnemy)}} &&
     	{_distanceToGroup <= GVAR(RadioDistance)} &&
     	{!(GETMVAR(RadioNeedRadio,false)) || {_group call FUNC(hasRadioGroup)}}
@@ -70,7 +70,7 @@ allGroups select {
     				_respondingMotorized pushBackUnique _group;
     		    };
     			case "Mechanized": {
-    				_respondingMechanized pushBackUnique _group; 
+    				_respondingMechanized pushBackUnique _group;
     		    };
     			case "Armored": {
     				_respondingArmored pushBackUnique _group;
@@ -90,16 +90,16 @@ if (GVAR(Debug)) then {
 
 // Act on responses
 private _veryCloseGroups = [];
-{
-	if !(_x isEqualTo []) then {
-        {
+[_respondingInfantry, _respondingMotorized, _respondingMechanized, _respondingArmored] apply {
+	if (_x isNotEqualTo []) then {
+        _x apply {
             _x params ["_arrayGroup"];
             if ((leader _arrayGroup distance2d _posCaller) <= 250) then {
-    			_veryCloseGroups pushback _arrayGroup;
-    		};
-        } forEach _x;
+    					_veryCloseGroups pushback _arrayGroup;
+    				};
+        };
 	};
-} foreach [_respondingInfantry, _respondingMotorized, _respondingMechanized, _respondingArmored];
+};
 
 //IGNORE_PRIVATE_WARNING ["_x"];
 _respondingInfantry = [_respondingInfantry, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
@@ -121,23 +121,23 @@ private _targetPos = if (_knownEnemy) then {
 private _reinforcingGroup = grpNull;
 
 if (_knownEnemy) then {
-	if !(_veryCloseGroups isEqualTo []) then {
-		{
+	if (_veryCloseGroups isNotEqualTo []) then {
+		_veryCloseGroups apply {
 		    [_x, _targetPos] call FUNC(CombatAttack);
-		} forEach _veryCloseGroups;
+		};
 	} else {
 		private _enemyCount = count _nearbyEnemy;
 		if (_enemyCount <= 8) then {
-			_reinforcingGroup = if !(_respondingInfantry isEqualTo []) then {
+			_reinforcingGroup = if (_respondingInfantry isNotEqualTo []) then {
 				 _respondingInfantry select 0;
 			} else {
-				if !(_respondingMotorized isEqualTo []) then {
+				if (_respondingMotorized isNotEqualTo []) then {
 					_respondingMotorized select 0;
 				} else {
-					if !(_respondingMechanized isEqualTo []) then {
+					if (_respondingMechanized isNotEqualTo []) then {
 						_respondingMechanized select 0;
 					} else {
-						if !(_respondingArmored isEqualTo []) then {
+						if (_respondingArmored isNotEqualTo []) then {
 							_respondingArmored select 0;
 						} else {
 							grpNull
@@ -146,16 +146,16 @@ if (_knownEnemy) then {
 				};
 			};
 		} else {
-			_reinforcingGroup = if !(_respondingMechanized isEqualTo []) then {
+			_reinforcingGroup = if (_respondingMechanized isNotEqualTo []) then {
 				_respondingMechanized select 0;
 			} else {
-				if !(_respondingMotorized isEqualTo []) then {
+				if (_respondingMotorized isNotEqualTo []) then {
 					_respondingMotorized select 0;
 				} else {
-					if !(_respondingArmored isEqualTo []) then {
+					if (_respondingArmored isNotEqualTo []) then {
 						_respondingArmored select 0;
 					} else {
-						if !(_respondingInfantry isEqualTo []) then {
+						if (_respondingInfantry isNotEqualTo []) then {
 							_respondingInfantry select 0;
 						} else {
 							grpNull
@@ -166,21 +166,21 @@ if (_knownEnemy) then {
 		};
 	};
 } else {
-	if !(_veryCloseGroups isEqualTo []) then {
+	if (_veryCloseGroups isNotEqualTo []) then {
 		{
 		    [_x, _targetPos] call FUNC(CombatAttack);
 		} forEach _veryCloseGroups;
 	} else {
-		_reinforcingGroup = if !(_respondingInfantry isEqualTo []) then {
+		_reinforcingGroup = if (_respondingInfantry isNotEqualTo []) then {
 			_respondingInfantry select 0
 		} else {
-			if !(_respondingMotorized isEqualTo []) then {
+			if (_respondingMotorized isNotEqualTo []) then {
 				_respondingMotorized select 0
 			} else {
-				if !(_respondingMechanized isEqualTo []) then {
+				if (_respondingMechanized isNotEqualTo []) then {
 					_respondingMechanized select 0
 				} else {
-					if !(_respondingArmored isEqualTo []) then {
+					if (_respondingArmored isNotEqualTo []) then {
 						_respondingArmored select 0
 					} else {
 						grpnull

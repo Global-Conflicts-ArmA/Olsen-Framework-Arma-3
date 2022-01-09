@@ -12,7 +12,7 @@ params [
     ["_formation", "NO CHANGE", [""]],
     ["_Type","MOVE",[""]],
     ["_oncomplete","",[""]],
-    ["_compradius",0,[0]]
+    ["_compradius", 0, [0]]
 ];
 
 private _timeout = [_wait*0.5,_wait,_wait*1.5];
