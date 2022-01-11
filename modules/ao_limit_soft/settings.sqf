@@ -7,6 +7,8 @@
 GVAR(AOTimer) = 30;
 // The amount of time in seconds an air based unit is allowed to stay outside the AO (-1 = Infinity)
 GVAR(AOTimerAir) = -1;
+// If there's an audible warning or not when a player leaves the AO, note... this isn't very polite
+GVAR(AudibleWarning) = false;
 
 //[SIDE, NAME] call FUNC(addAOMarker);
 //SIDE is the side of the AO marker, NAME is the name of the AO marker.
