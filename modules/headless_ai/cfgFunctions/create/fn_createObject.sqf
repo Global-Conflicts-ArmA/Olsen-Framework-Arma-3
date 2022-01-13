@@ -31,11 +31,11 @@ if (_init isEqualType {}) then {
 
 if (_storedVars isNotEqualTo []) then {
     //LOG_1("Setting vars: %1",_storedVars);
-    {
+    _storedVars apply {
         _x params ["_varName", "_varValue"];
         _object setvariable [_varName,_varValue];
         //LOG_2("Setting _varName: %1 with: %2",_varName,_varValue);
-    } forEach _storedVars;
+    };
 };
 
 _object

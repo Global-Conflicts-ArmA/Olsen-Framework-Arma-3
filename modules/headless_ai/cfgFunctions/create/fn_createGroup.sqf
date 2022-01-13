@@ -56,23 +56,24 @@ if (_groupID isNotEqualTo "") then {
 };
 
 if (_storedVars isNotEqualTo []) then {
-    {
+    _storedVars apply {
         _x params ["_varName", "_varValue"];
         _group setvariable [_varName, _varValue];
-    } forEach _storedVars;
+    };
 };
 
 if (_specialArgs isNotEqualTo []) then {
-    {
+    _specialArgs apply {
         _x params ["_varName", "_varValue"];
         _group setvariable [_varName, _varValue];
-    } forEach _specialArgs;
+    };
 };
+//using the initial / all group at once members for now
 _initial = true;
 if (_initial) then {
-    {
+    _groupVehs apply {
         [_group, _groupPos, _x] call FUNC(createVehicle);
-    } forEach _groupVehs;
+    };
     {
         [false, _group, _groupPos, _startBuilding, _foreachIndex, _x, _createRadius] call FUNC(createUnit);
     } forEach _groupMem;

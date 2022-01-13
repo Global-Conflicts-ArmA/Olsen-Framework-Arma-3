@@ -34,10 +34,10 @@ if (_olsenGearType isNotEqualTo "") then {
 
 _vehicle setDamage _damage;
 _vehicle setFuel _fuel;
-{
+_turretMags apply {
     _x params [["_class","",[""]],["_path",[],[[]]],["_ammo",0,[0]]];
     _vehicle setMagazineTurretAmmo [_class,_ammo,_path];
-} forEach _turretMags;
+};
 _vehicle lock _locked;
 _vehCustomization params ["_vehCustomSkin", "_vehCustomAnimations"];
 [_vehicle, _vehCustomSkin, _vehCustomAnimations] call BIS_fnc_initVehicle;
@@ -49,11 +49,11 @@ if (_init isEqualType {}) then {
 
 if (_storedVars isNotEqualTo []) then {
     //LOG_1("Setting vars: %1",_storedVars);
-    {
+    _storedVars apply {
         _x params ["_varName", "_varValue"];
         _vehicle setvariable [_varName,_varValue];
         //LOG_2("Setting _varName: %1 with: %2",_varName,_varValue);
-    } forEach _storedVars;
+    };
 };
 
 _vehicle
