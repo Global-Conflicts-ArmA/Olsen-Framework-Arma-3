@@ -1,8 +1,9 @@
 #include "script_component.hpp"
 
-if (GETVAR(player,Spectating,false)) exitWith {};
+if (GETPLVAR(Spectating,false)) exitWith {};
 
-SETPVAR(player,Dead,true); //Tells the framework the player is dead
+SETPLPVAR(Dead,true); //Tells the framework the player is dead
+SETPLPVAR(Spectating,true); //Player is now spectating
 
 [(player), true] remoteExecCall ["hideObject", 0];
 [(player), true] remoteExecCall ["hideObjectGlobal", 2];

@@ -25,9 +25,9 @@ GVAR(MissionEnded) = false; //Mission has not ended
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(respawnEvent), {
-    params [["_unit", objNull, [objNull]]];
-    LOG_1("respawnEvent started: %1",_unit);
-	[_unit] call FUNC(EventRespawned);
+    params [["_unit", objNull, [objNull]], ["_spectator", false, [false]]];
+    LOG_2("respawnEvent started: %1 spectator: %2",_unit,_spectator);
+	[_unit, _spectator] call FUNC(EventRespawned);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(eventCheckRespawnTickets), {
@@ -103,7 +103,6 @@ GVAR(MissionEnded) = false; //Mission has not ended
     };
     LOG_1("eventCheckRespawnTickets_Response called: %1",_unit);
     [QGVAR(eventCheckRespawnTickets_Response), _canRespawn, _unit] call CBA_fnc_targetEvent;
-	[_unit] call FUNC(EventRespawned);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(ShotCountEvent), {
