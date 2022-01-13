@@ -3,6 +3,7 @@
 if (GETVAR(player,Spectating,false)) exitWith {};
 
 SETPVAR(player,Dead,true); //Tells the framework the player is dead
+SETPVAR(player,Spectating,true); //Tells the framework the player is spectating
 
 [(player), true] remoteExecCall ["hideObject", 0];
 [(player), true] remoteExecCall ["hideObjectGlobal", 2];

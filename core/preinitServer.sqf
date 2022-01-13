@@ -103,7 +103,11 @@ GVAR(MissionEnded) = false; //Mission has not ended
     };
     LOG_1("eventCheckRespawnTickets_Response called: %1",_unit);
     [QGVAR(eventCheckRespawnTickets_Response), _canRespawn, _unit] call CBA_fnc_targetEvent;
-	[_unit] call FUNC(EventRespawned);
+
+  // Wait is necessary so that the client has a chance to update the Spectating variable
+  [{
+    [_unit] call FUNC(EventRespawned);
+  }, [_unit], 2] call CBA_fnc_waitAndExecute;
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(ShotCountEvent), {
