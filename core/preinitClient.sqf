@@ -177,7 +177,8 @@ FUNC(eg_keyHandler2) = {
     if (_response) then {
         [QGVAR(eventPlayerRespawned), [1]] call CBA_fnc_localEvent;
     } else {
-        [] call FUNC(StartSpectator);
+        [] call FUNC(StartSpectator); // spectator var is set in this function
+        [QGVAR(respawnEvent), [player, true]] call CBA_fnc_serverEvent;
     };
 }] call CBA_fnc_addEventHandler;
 

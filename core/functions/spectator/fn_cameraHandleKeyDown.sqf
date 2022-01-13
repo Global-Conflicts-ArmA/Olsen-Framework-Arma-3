@@ -23,12 +23,10 @@ disableserialization;
 
 private _key = _this select 1;
 
-if (_key isEqualTo DIK_F1) exitWith {
-    true
-};
-
-if (_key isEqualTo DIK_SPACE) exitWith {
-    true
+if (isMultiplayer && {!([] call CBA_fnc_isDebugConsoleAllowed)}) then {
+    if (_key in [DIK_F1, DIK_SPACE]) exitWith {
+        true
+    };
 };
 
 if (_key in [DIK_APOSTROPHE, DIK_ESCAPE]) exitWith {

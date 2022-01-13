@@ -19,8 +19,8 @@ if !(_groupId isEqualTo "") then {
 	(group _unit) setGroupId [_groupId];
 };
 
-if (GETMVAR(removeAllGear, true)) then {
-	[_unit] call FUNC(removeAllGear);
+if (GETMVAR(removeGear,true)) then {
+	[] call FUNC(removeAllGear);
 };
 
 SETPVAR(_unit,Loadout,_type);
