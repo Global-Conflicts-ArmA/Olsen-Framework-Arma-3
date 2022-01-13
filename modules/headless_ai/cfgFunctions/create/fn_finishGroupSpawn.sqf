@@ -37,7 +37,7 @@ _groupSet params [
 [_group,_groupSet] call FUNC(setGroupVariables);
 _group call CBA_fnc_clearWaypoints;
 
-if ((GETVAR(leader _group,noAI,false) || {GETVAR(_group,noAI,false)}) || {(count _waypoints > 1) && {_task isEqualTo "NONE"}}) then {
+if (_task isEqualTo "MANUAL" || (GETVAR(leader _group,noAI,false)) || (GETVAR(_group,noAI,false)) || {(count _waypoints > 1) && {_task isEqualTo "NONE"}}) then {
     LOG_2("Setting %1 to manual wp mode with: %2",_group,_waypoints);
     _waypoints deleteAt 0;
     [_group, _waypoints] call FUNC(createWaypoints);
