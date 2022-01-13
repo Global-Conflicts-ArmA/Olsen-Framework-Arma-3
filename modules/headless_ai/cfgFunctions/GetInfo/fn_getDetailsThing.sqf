@@ -1,11 +1,13 @@
 #include "..\..\script_macros.hpp"
 
 params ["_obj", ["_pos",[],[[]]]];
- private _objectInit = (GETVAR(_obj,Init,""));
- if ((_objectInit isEqualType "") && {!(_objectInit isEqualTo "")}) then {
-      _objectInit = compile _objectInit;
- } else {
-      _objectInit = false;
+ private _init = (GETVAR(_obj,Init,""));
+ if (_init isEqualType "") then {
+     if !(_init isNotEqualTo "") then {
+          _init = compile _init;
+     } else {
+          _init = false;
+     };
  };
  if (_pos isEqualTo []) then {
      _pos = (getposATL _obj) apply {parseNumber (_x toFixed 2)};
@@ -21,6 +23,6 @@ params ["_obj", ["_pos",[],[[]]]];
  _damage,
  surfaceIsWater (getposATL _obj),
  _obj getVariable [QGVAR(Name),""],
- _objectInit,
+ _init,
  (GETVAR(_obj,StoredVars,[])),
  _name]

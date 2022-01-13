@@ -4,10 +4,12 @@ params ["_veh",["_pos",[],[[]]]];
 
 private _vehInit = (GETVAR(_veh,Init,""));
 if (typename _vehInit isEqualTo "STRING") then {_vehInit = compile _vehInit;};
-if ((_vehInit isEqualType "") && {!(_vehInit isEqualTo "")}) then {
-     _vehInit = compile _vehInit;
-} else {
-     _vehInit = false;
+if (_vehInit isEqualType "") then {
+    if !(_vehInit isNotEqualTo "") then {
+         _vehInit = compile _vehInit;
+    } else {
+         _vehInit = false;
+    };
 };
 if (_pos isEqualTo []) then {
     _pos = (getposATL _veh) apply {parseNumber (_x toFixed 2)};
