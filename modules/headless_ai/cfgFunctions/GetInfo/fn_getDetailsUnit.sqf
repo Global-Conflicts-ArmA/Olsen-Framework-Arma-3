@@ -5,12 +5,12 @@ params [
     ["_pos",[],[[]]]
 ];
 
-private _unitInit = GETVAR(_unit,Init,"");
-if (_unitInit isEqualType "") then {
-    if (_unitInit isNotEqualTo "") then {
-        _unitInit = compile _unitInit;
+private _init = GETVAR(_unit,Init,"");
+if (_init isEqualType "") then {
+    if (_init isNotEqualTo "") then {
+         _init = compile _init;
     } else {
-        _unitInit = false;
+         _init = false;
     };
 };
 private _stance = if ((GETVAR(_unit,stance,"Auto")) isEqualTo "Auto") then {
@@ -46,7 +46,7 @@ _damage,
 _gear,
 _unit getVariable ["ACE_captives_isHandcuffed",false],
 _stance,
-_unitInit,
+_init,
 _identity,
 GETVAR(_unit,storedVars,[]),
 _name]

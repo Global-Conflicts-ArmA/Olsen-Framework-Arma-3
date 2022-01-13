@@ -3,7 +3,7 @@
 params ["_obj", ["_pos",[],[[]]]];
  private _init = (GETVAR(_obj,Init,""));
  if (_init isEqualType "") then {
-     if !(_init isNotEqualTo "") then {
+     if (_init isNotEqualTo "") then {
           _init = compile _init;
      } else {
           _init = false;

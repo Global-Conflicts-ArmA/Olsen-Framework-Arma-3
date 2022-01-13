@@ -5,12 +5,12 @@ params [
     ["_pos",[],[[]]]
 ];
 
-private _vehInit = (GETVAR(_veh,Init,""));
-if (_vehInit isEqualType "") then {
-    if !(_vehInit isNotEqualTo "") then {
-         _vehInit = compile _vehInit;
+private _init = (GETVAR(_veh,Init,""));
+if (_init isEqualType "") then {
+    if (_init isNotEqualTo "") then {
+         _init = compile _init;
     } else {
-         _vehInit = false;
+         _init = false;
     };
 };
 if (_pos isEqualTo []) then {
@@ -44,7 +44,7 @@ _damage,
 _fuel,
 magazinesAllTurrets _veh,
 locked _veh,
-_vehInit,
+_init,
 (GETVAR(_veh,Flying,false)),
 (GETVAR(_veh,FlyInHeight,250)),
 (GETVAR(_veh,StoredVars,[])),

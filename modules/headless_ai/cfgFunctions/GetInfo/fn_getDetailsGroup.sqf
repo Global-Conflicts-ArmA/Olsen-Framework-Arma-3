@@ -8,7 +8,7 @@ params [
 private _group = group _unit;
 private _init = GETVAR(_group,Init,"");
 if (_init isEqualType "") then {
-    if !(_init isNotEqualTo "") then {
+    if (_init isNotEqualTo "") then {
          _init = compile _init;
     } else {
          _init = false;
