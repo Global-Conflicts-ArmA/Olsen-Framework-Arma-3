@@ -8,8 +8,7 @@ params [
     "_damage",
     "_objInWater",
     "_objName",
-    "_persistent",
-    "_objInit",
+    ["_init", false, [false,{}]],
     "_storedVars",
     "_name"
 ];
@@ -24,15 +23,19 @@ if (_name isNotEqualTo "") then {
 };
 
 _object setDamage _damage;
-[_object,_persistent] call FUNC(setPersistent);
-_object call _objInit;
+
+if (_init isEqualType {}) then {
+     //SETVAR(_vehicle,Init,_vehInit);
+     _object call _init;
+ };
 
 if (_storedVars isNotEqualTo []) then {
     //LOG_1("Setting vars: %1",_storedVars);
-    {
+    _storedVars apply {
         _x params ["_varName", "_varValue"];
         _object setvariable [_varName,_varValue];
         //LOG_2("Setting _varName: %1 with: %2",_varName,_varValue);
-    } forEach _storedVars;
+    };
 };
+
 _object

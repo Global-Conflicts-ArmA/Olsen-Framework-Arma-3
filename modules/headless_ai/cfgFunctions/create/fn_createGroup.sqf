@@ -1,40 +1,44 @@
 #include "..\..\script_macros.hpp"
 
-params ["_args", ["_specialArgs", [], [[]]]];
+params ["_args",
+    ["_initial", false, [false]],
+    ["_specialArgs", [], [[]]]
+];
+
 _args params [
     "",
     "_groupSet",
-    "_groupMem"
+    "_groupMem",
+    "_groupVehs"
 ];
 
 _groupSet params [
-    /* 0 */ "_side",
-    /* 1 */ "_groupPos",
-    /* 2 */ "_behaviour",
-    /* 3 */ "_combat",
-    /* 4 */ "_speed",
-    /* 5 */ "_formation",
-    /* 6 */ "_groupStance",
-    /* 7 */ "_groupInit",
-    /* 8 */ "_createRadius",
-    /* 9 */ "_taskRadius",
-    /* 10 */ "_wait",
-    /* 11 */ "_startBld",
-    /* 12 */ "_task",
-    /* 13 */ "_taskTimer",
-    /* 14 */ "_multi",
-    /* 15 */ "_occupyOption",
-    /* 16 */ "_vehAssigned",
-    /* 17 */ "_waypoints",
-    /* 18 */ "_onWater",
-    /* 19 */ "_fl",
-    /* 20 */ "_surrender",
-    /* 21 */ "_tracker",
-    /* 22 */ "_storedVars",
-    /* 23 */ "_name",
-    /* 24 */ "_groupID",
-    /* 25 */ "_areaAssigned",
-    /* 26 */ "_assetType"
+    /* 0 */  ["_side", west, [west]],
+    /* 1 */  ["_groupPos", [], [[]]],
+    /* 2 */  ["_behaviour", "AWARE", [""]],
+    /* 3 */  ["_combat", "YELLOW", [""]],
+    /* 4 */  ["_speed", "normal", [""]],
+    /* 5 */  ["_formation", "wedge", [""]],
+    /* 6 */  ["_groupStance", "AUTO", [""]],
+    /* 7 */  ["_groupInit", false, [false, {}, ""]],
+    /* 8 */  ["_createRadius", 0, [0]],
+    /* 9 */  ["_taskRadius", 30, [0]],
+    /* 10 */ ["_taskWait", 3, [0]],
+    /* 11 */ ["_startBuilding", false, [false]],
+    /* 12 */ ["_task", "PATROL", [""]],
+    /* 13 */ ["_taskTimer", 0, [0]],
+    /* 14 */ ["_multi", 1, [1]],
+    /* 15 */ ["_occupy", "Off", ["", 0]],
+    /* 16 */ ["_vehAssigned", false, [false]],
+    /* 17 */ ["_waypoints", [], [[]]],
+    /* 18 */ ["_surfaceWater", false, [false]],
+    /* 19 */ ["_fl", false, [false]],
+    /* 20 */ ["_surrender", false, [false]],
+    /* 21 */ ["_storedVars", [], [[]]],
+    /* 22 */ ["_name", "", [""]],
+    /* 23 */ ["_groupID", "", [""]],
+    /* 24 */ ["_areaAssigned", "NONE", [""]],
+    /* 25 */ ["_assetType", "INFANTRY", [""]]
 ];
 
 createCenter _side;
@@ -47,61 +51,36 @@ if (_name isNotEqualTo "") then {
     missionNamespace setVariable [_uniqueName, _group, true];
 };
 
-if (_name isNotEqualTo "") then {
+if (_groupID isNotEqualTo "") then {
     _group setGroupIdGlobal [_groupID];
 };
 
 if (_storedVars isNotEqualTo []) then {
-    {
+    _storedVars apply {
         _x params ["_varName", "_varValue"];
         _group setvariable [_varName, _varValue];
-    } forEach _storedVars;
-};
-
-if (_storedVars isNotEqualTo []) then {
-    {
-        _x params ["_varName", "_varValue"];
-        _group setvariable [_varName, _varValue];
-    } forEach _specialArgs;
-};
-
-{
-    if ((_x select 0)) then {
-        private _u = [false, _group, _groupPos, _startBld, _foreachIndex, _x, _taskRadius] call FUNC(createUnit);
-    } else {
-        private _vpos = (_x select 2);
-        private _v = [_vpos, _x, _side] call FUNC(createVehicle);
     };
-} foreach _groupMem;
+};
 
-[_group,_groupSet] call FUNC(setGroupVariables);
-_group call CBA_fnc_clearWaypoints;
-
-if ((GETVAR(leader _group,noAI,false) || {GETVAR(_group,noAI,false)}) || {(count _waypoints > 1) && {_task isEqualTo "NONE"}}) then {
-    LOG_2("Setting %1 to manual wp mode with: %2",_group,_waypoints);
-    _waypoints deleteAt 0;
-    [_group, _waypoints] call FUNC(createWaypoints);
+if (_specialArgs isNotEqualTo []) then {
+    _specialArgs apply {
+        _x params ["_varName", "_varValue"];
+        _group setvariable [_varName, _varValue];
+    };
+};
+//using the initial / all group at once members for now
+if (_initial) then {
+    _groupVehs apply {
+        [_group, _groupPos, _x, true] call FUNC(createVehicle);
+    };
+    {
+        [false, _group, _groupPos, _startBuilding, _foreachIndex, _x, _createRadius] call FUNC(createUnit);
+    } forEach _groupMem;
+    [_group, _groupSet] call FUNC(finishGroupSpawn);
 } else {
-    if (GETVAR(_group,vehCargo,false)) then {
-        SETVAR(_group,vehCargoOrigTask,_task);
-        private _veh = vehicle leader _group;
-        private _cargoGroups = GETVAR(_veh,vehCargoGroups,[]);
-        _cargoGroups pushBackUnique _group;
-        SETVAR(_veh,vehCargoGroups,_cargoGroups);
-        TRACE_2("vehCargoGroups added",_veh,_cargoGroups);
-        _task = "CARGO";
-    };
-    LOG_2("Setting %1 to task: %2",_group,_task);
-    private _manualPos = GETVAR(_group,taskPos,[ARR_3(0,0,0)]);
-    private _taskPos = if (_manualPos isEqualTo [0,0,0]) then {
-        _groupPos
-    } else {
-        _manualPos
-    };
-    TRACE_2("",_group,_taskPos);
-    private _passarray = [_task,_group,_taskPos,_taskRadius,_wait,_behaviour,_combat,_speed,_formation,_occupyOption];
-    [{!((count waypoints (_this select 1)) isEqualTo 0)},{
-        _this call FUNC(taskAssign);
-    },_passarray] call CBA_fnc_waitUntilAndExecute;
+    private _groupArray = [_group, _groupSet, _groupMem, _groupVehs];
+    TRACE_1("sending to spawn units pfh",_groupArray);
+    [FUNC(spawnUnitsGroupPFH), 0.1, _groupArray] call CBA_fnc_addPerFrameHandler;
 };
+
 _group

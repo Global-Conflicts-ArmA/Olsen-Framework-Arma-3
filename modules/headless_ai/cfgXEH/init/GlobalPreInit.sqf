@@ -11,7 +11,7 @@ AI_EXEC_CHECK(HC);
 
 [QGVAR(HCReceiveArrayDataEvent), {
     GVAR(zoneEntities) = _this;
-    LOG_1("Received Array Data: %1",_this);
+    //LOG_1("Received Array Data: %1",_this);
     SETMVAR(receivedArrayData,true);
 }] call CBA_fnc_addEventHandler;
 
@@ -36,27 +36,11 @@ AI_EXEC_CHECK(HC);
             params ["_firer","_groupLeader","_revealValue"];
             _groupLeader reveal [_firer, _revealValue];
             if (GETMVAR(VerboseDebug,false)) then {
-                LOG_5("%1 got revealed to %2\n %3m, %4 seconds, %5 reveal value.",_firer,_groupLeader,_distance,_travelTime,_revealValue);
+                ////LOG_5("%1 got revealed to %2\n %3m, %4 seconds, %5 reveal value.",_firer,_groupLeader,_distance,_travelTime,_revealValue);
             };
         }, [_firer,_leader,_revealValue], _travelTime] call CBA_fnc_waitAndExecute;
     };
 }] call CBA_fnc_addEventHandler;
-
-//[QGVAR(SpawnArrayEvent), {
-//    params ["_arrayName"];
-//    private _initial = if (CBA_MissionTime <= 0) then {true} else {false};
-//    LOG_2("SpawnArray _Array: %1 _initial: %2",_arrayName,_initial);
-//    private _logic = call compile _arrayName;
-//    private _entities = (([_arrayName,GVAR(zoneEntities)] call FUNC(getDetails)) select 1);
-//    LOG_2("SpawnArray _Array: %1 _entities: %2",_arrayName,_entities);
-//
-//    if (_entities isNotEqualTo []) then {
-//        LOG_2("Spawning %1 on %2",_logic,clientowner);
-//        [_initial,[_logic,_entities]] call FUNC(createZone);
-//    } else {
-//        LOG_2("Did not find array %1 on %2",_logic,clientowner);
-//    };
-//}] call CBA_fnc_addEventHandler;
 
 [QGVAR(SpawnArrayEvent), {
     private _arrayName = "";
@@ -68,19 +52,22 @@ AI_EXEC_CHECK(HC);
         _arrayName = _this;
     };
     private _initial = CBA_MissionTime <= 0;
-    LOG_2("SpawnArray _Array: %1 _initial: %2",_arrayName,_initial);
-    private _logic = call compile _arrayName;
+    //LOG_2("SpawnArray _Array: %1 _initial: %2",_arrayName,_initial);
+    private _logic = missionNamespace getVariable [_arrayName, objnull];
     if (_logic isEqualTo objnull) exitwith {
-        LOG_1("Could not find arrayName %1",_arrayName);
+        //LOG_1("Could not find arrayName %1",_arrayName);
     };
-    private _entities = (([_arrayName,GVAR(zoneEntities)] call FUNC(getDetails)) select 1);
-    LOG_2("SpawnArray _Array: %1 _entities: %2",_arrayName,_entities);
+    if !(_arrayName in GVAR(zoneEntities)) exitwith {
+        //LOG_1("Could not find arrayName %1 in module setting",_arrayName);
+    };
+    private _entities = + GVAR(zoneEntities) getOrDefault [_arrayName, []];
 
     if (_entities isNotEqualTo []) then {
-        LOG_2("Spawning %1 on %2",_logic,clientowner);
+        //LOG_2("Spawning %1 on %2",_logic,clientowner);
+        TRACE_2("spawning",_arrayName,_entities);
         [_initial, [_logic, _entities], _specialArgs] call FUNC(createZone);
     } else {
-        LOG_2("Did not find array %1 on %2",_logic,clientowner);
+        //LOG_2("Did not find array %1 on %2",_logic,clientowner);
     };
 }] call CBA_fnc_addEventHandler;
 

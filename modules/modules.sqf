@@ -60,6 +60,13 @@ Additional modules that can be enabled by removing the //
 //#include "start_text\root.sqf"
 //#include "task_control\root.sqf"
 //#include "tracking_markers\root.sqf"
+//#include "start_in_vehicle\root.sqf"
+//#include "headless_ai\root.sqf"
+//#include "weapon_helper\root.sqf"
+//#include "knock_down\root.sqf"
+//#include "snow\root.sqf"
+//#include "clicker\root.sqf"
+//#include "remove_map\root.sqf"
 //#include "vehicle_boost\root.sqf"
 
 /********* EXPERIMENTAL / INCOMPLETE MODULES *********/

@@ -156,7 +156,13 @@ class PZAI {
 	    class createWaypointModified {};
 	    class createWaypoints {};
 	    class createZone {};
+	    class finishGroupSpawn {};
+	    class finishVehicleSpawn {};
+	    class setAssignedVehicle {};
 	    class spawnArray {};
+	    class spawnGroupPFH {};
+	    class spawnUnitsGroupPFH {};
+	    class spawnUnitsVehiclePFH {};
 	};
 
 	class Diag {
@@ -227,7 +233,6 @@ class PZAI {
 
 	class GetInfo {
 		file = "modules\headless_ai\cfgFunctions\GetInfo";
-	    class getDetails {};
 	    class getDetailsArray {};
 	    class getDetailsGroup {};
 	    class getDetailsThing {};
@@ -235,7 +240,6 @@ class PZAI {
 	    class getDetailsVehicleEmpty {};
 	    class getDetailsUnit {};
 	    class getSynced {};
-	    class getSyncedGroups {};
 	    class getSyncedObjects {};
 	};
 
@@ -249,14 +253,11 @@ class PZAI {
 	    class setGroupVariables {};
 	    class setMarkerPos {};
 	    class setMultiOccupy {};
-	    class setPersistent {};
 	    class setRadial {};
 	    class setRespawn {};
 	    class setStance {};
 	    class setSurrender {};
-	    class setTracker {};
 	    class setVehicle {};
-	    class setZone {};
 	};
 
 	class task {
