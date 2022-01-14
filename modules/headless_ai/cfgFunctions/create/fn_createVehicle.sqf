@@ -1,10 +1,10 @@
 #include "..\..\script_macros.hpp"
 
 params [
-    "_group",
-    "_gpos",
-    "_vehArgs",
-    ["_taskRadius", 0, [0]]
+    ["_group", grpNull, [grpNull]],
+    ["_gpos", [0,0,0], [[]]],
+    ["_vehArgs", [], [[]]],
+    ["_initial", false, [false]]
 ];
 
 _vehArgs params [
@@ -27,8 +27,12 @@ _vehArgs params [
 ];
 
 private _placeMode = "NONE";
-if (_pos isEqualTo []) then {
-    _pos = [_gpos, 1, 150, 3, 0, 20, 0] call BIS_fnc_findSafePos;
+if (GETMVAR(SaferVehSpawning,false)) then {
+    private _safePos = [_gpos, 0, 60, ((sizeOf _vehClass) * 2.5) min 10, 0, 10, 0] call BIS_fnc_findSafePos;
+    if (count _safePos isEqualTo 3 && {(_safePos select 2) isEqualTo 0}) exitWith {
+        ERROR_2("Could not find safe position for: %1 group: %2",_vehClass,_group);
+    };
+    _pos = [_safePos select 0, _safePos select 1, 0];
 };
 if (_fly) then {
     if (_vehClass isKindOf "Air") then {
@@ -45,16 +49,13 @@ if (_fly) then {
     };
 };
 
-private _vehicle = createVehicle [_vehClass, _pos, [], 0, _placeMode];
+private _vehicle = if (_placeMode isEqualTo "NONE") then {
+    _vehClass createVehicle _pos
+} else {
+    createVehicle [_vehClass, _pos, [], 0, _placeMode]
+};
 _vehicle setVectorDirAndUp [_vectorDir,_vectorUp];
 _vehicle setPosATL _pos;
-
-{
-    _x params ["_vehRole", "_userInfo"];
-    _vehRole params ["_role", "_index"];
-    private _unit = [false, _group, _gpos, false, _foreachIndex, _userInfo, _taskRadius] call FUNC(createUnit);
-    [_unit, _vehicle, _role, _index] call FUNC(setAssignedVehicle);
-} forEach _vehCrew;
 
 if (_varName isNotEqualTo "") then {
     private _uniqueName = [_varName] call FUNC(findUniqueName);
@@ -77,8 +78,10 @@ if (_fly) then {
 _vehicle setDamage _damage;
 _vehicle setFuel _fuel;
 _vehicle lock _locked;
-_vehCustomization params ["_vehCustomSkin", "_vehCustomAnimations"];
-[_vehicle, _vehCustomSkin, _vehCustomAnimations] call BIS_fnc_initVehicle;
+if (_vehCustomization isNotEqualTo []) then {
+    _vehCustomization params ["_vehCustomSkin", "_vehCustomAnimations"];
+    [_vehicle, _vehCustomSkin, _vehCustomAnimations] call BIS_fnc_initVehicle;
+};
 
 if (_turretMags isNotEqualTo []) then {
     _turretMags apply {
@@ -87,18 +90,20 @@ if (_turretMags isNotEqualTo []) then {
     };
 };
 
-if (_init isEqualType {}) then {
-    //SETVAR(_vehicle,Init,_init);
-    _vehicle call _init;
-};
-
-if (_storedVars isNotEqualTo []) then {
-    //LOG_1("Setting vars: %1",_storedVars);
-    _storedVars apply {
-        _x params ["_varName", "_varValue"];
-        _vehicle setvariable [_varName,_varValue];
-        //LOG_2("Setting _varName: %1 with: %2",_varName,_varValue);
-    };
+if (_initial) then {
+    {
+        _x params ["_vehRole", "_userInfo"];
+        _vehRole params ["_role", "_index"];
+        private _unit = [false, _group, _gpos, false, _foreachIndex, _userInfo] call FUNC(createUnit);
+        [{_this select 0 isNotEqualTo objNull}, {
+            _this call FUNC(setAssignedVehicle);
+        }, [_unit, _vehicle, _role, _index]] call CBA_fnc_waitUntilAndExecute;
+    } forEach _vehCrew;
+    [_vehicle, _init, _storedVars] call FUNC(finishVehicleSpawn);
+} else {
+    private _vehArray = [_group, _gpos, _vehicle, _vehCrew, _init, _storedVars];
+    TRACE_1("sending to spawn veh pfh",_vehArray);
+    [FUNC(spawnUnitsVehiclePFH), 0.1, _vehArray] call CBA_fnc_addPerFrameHandler;
 };
 
 _vehicle

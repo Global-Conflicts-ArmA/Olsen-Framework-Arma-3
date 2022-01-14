@@ -60,11 +60,11 @@ AI_EXEC_CHECK(HC);
     if !(_arrayName in GVAR(zoneEntities)) exitwith {
         //LOG_1("Could not find arrayName %1 in module setting",_arrayName);
     };
-    private _entities = GVAR(zoneEntities) getOrDefault [_arrayName, []];
-    //LOG_2("SpawnArray _Array: %1 _entities: %2",_arrayName,count _entities);
+    private _entities = + GVAR(zoneEntities) getOrDefault [_arrayName, []];
 
     if (_entities isNotEqualTo []) then {
         //LOG_2("Spawning %1 on %2",_logic,clientowner);
+        TRACE_2("spawning",_arrayName,_entities);
         [_initial, [_logic, _entities], _specialArgs] call FUNC(createZone);
     } else {
         //LOG_2("Did not find array %1 on %2",_logic,clientowner);

@@ -69,10 +69,9 @@ if (_specialArgs isNotEqualTo []) then {
     };
 };
 //using the initial / all group at once members for now
-_initial = true;
 if (_initial) then {
     _groupVehs apply {
-        [_group, _groupPos, _x] call FUNC(createVehicle);
+        [_group, _groupPos, _x, true] call FUNC(createVehicle);
     };
     {
         [false, _group, _groupPos, _startBuilding, _foreachIndex, _x, _createRadius] call FUNC(createUnit);
@@ -80,6 +79,7 @@ if (_initial) then {
     [_group, _groupSet] call FUNC(finishGroupSpawn);
 } else {
     private _groupArray = [_group, _groupSet, _groupMem, _groupVehs];
+    TRACE_1("sending to spawn units pfh",_groupArray);
     [FUNC(spawnUnitsGroupPFH), 0.1, _groupArray] call CBA_fnc_addPerFrameHandler;
 };
 

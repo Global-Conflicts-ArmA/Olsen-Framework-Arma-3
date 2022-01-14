@@ -1,14 +1,19 @@
 #include "..\..\script_macros.hpp"
 
-params ["_args", "_idPFH"];
+params [
+    ["_args", [], [[]]], 
+    "_idPFH"
+];
 
 _args params [
-    "_group",
-    "_groupSet",
-    "_groupMem",
+    ["_group", grpNull, [grpNull]],
+    ["_groupSet", [], [[]]],
+    ["_groupMem", [], [[]]],
     ["_groupVeh", [], [[]]],
     ["_unitIndex", 0, [0]]
 ];
+
+TRACE_3("unit spawn PFH",_group, count _groupMem, count _groupVeh);
 
 _groupSet params [
     /* 0 */  ["_side", west, [west]],
@@ -41,13 +46,14 @@ _groupSet params [
 
 if (_groupVeh isEqualTo []) then {
     if (_groupMem isEqualTo []) exitWith {
+        TRACE_1("no more group members! finising group spawn",_groupMem);
         [_group, _groupSet] call FUNC(finishGroupSpawn);
         [_idPFH] call CBA_fnc_removePerFrameHandler;
     };
     private _startBld = _occupy isNotEqualTo "Off";
     private _toSpawn = _groupMem deleteAt 0;
     _args set [2, _groupMem];
-    //TRACE_1("",_toSpawn);
+    TRACE_1("unit spawn",_toSpawn);
 
     [false, _group, _groupPos, _startBld, _unitIndex, _toSpawn] call FUNC(createUnit);
     _unitIndex = _unitIndex + 1;
@@ -55,7 +61,7 @@ if (_groupVeh isEqualTo []) then {
 } else {
     private _toSpawn = _groupVeh deleteAt 0;
     _args set [3, _groupVeh];
-    //TRACE_1("",_toSpawn);
+    TRACE_1("vehicle spawn",_toSpawn);
 
-    _toSpawn call FUNC(createVehicle);
+    [_group, _groupPos, _toSpawn] call FUNC(createVehicle);
 };

@@ -157,10 +157,12 @@ class PZAI {
 	    class createWaypoints {};
 	    class createZone {};
 	    class finishGroupSpawn {};
+	    class finishVehicleSpawn {};
 	    class setAssignedVehicle {};
 	    class spawnArray {};
 	    class spawnGroupPFH {};
 	    class spawnUnitsGroupPFH {};
+	    class spawnUnitsVehiclePFH {};
 	};
 
 	class Diag {

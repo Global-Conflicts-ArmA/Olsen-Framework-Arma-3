@@ -45,6 +45,8 @@ GVAR(CacheDisableDistance) = 3000;
 GVAR(CacheAllPlayers) = true;
 GVAR(EnemyUpdateFrequency) = 5;
 GVAR(StateMachineFrames) = 4;
+//attempts to find a better safe area for a vehicle to spawn in. Should only be used when neccessary. 
+GVAR(SaferVehSpawning) = false;
 // How far can the AI hear gunshots from?
 GVAR(HearingDistance) = 2000;
 // How revealed an enemy is from a gunshot report
