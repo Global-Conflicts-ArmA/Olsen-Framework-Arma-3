@@ -1,7 +1,7 @@
-//Example:["east",[west,east],[300,10]] call FUNC(setCaptureZone);
-//Author:		Sacher
+//Example:["capzone",[west,east],[300,10]] call FUNC(setCaptureZone);
+//Authors: Sacher & StatusRed
 
-//Definition:	[[MARKERNAME,[SIDES],[WINS]]] call FUNC(setCaptureZone);
+//Definition:	[MARKERNAME,[SIDES],[WINS]] call FUNC(setCaptureZone);
 
 //
 //Description: 	This will make a rectangle or eliptical Marker into a capturezone.
@@ -32,8 +32,12 @@
 // will set hints which are displayed when the zone is being captured
 // Default: ["Blufor is capturing the zone","Opfor is capturing the zone","Resistance is capturing the zone","Civilian is capturing the  zone","The zone is contested","The zone is uncontested"]; If a side isn't in the mission just use "" to make it shorter;
 // Example ["Blufor is capturing the zone","Opfor is capturing the zone","Resistance is capturing the zone","Civilian is capturing the zone","The zone is contested","The zone is uncontested"] call FUNC(setMessages);
-
+//
+// ---- IMPORTANT ----
+// If using the modifying functions, such as custom messages or colours, they must come before the line which calls FUNC(setCaptureZone)
 
 //["","","","","",""] call FUNC(setMessages);
 
-/* [["marker_capture", [blufor], [300]]] call FUNC(setCaptureZone); */
+/* ["ColorYellow", "ColorBlue", "ColorGreen", "ColorRed", "ColorWhite", "ColorKhaki"] call FUNC(setColours);
+["Friends are capturing the zone", "Enemies are capturing the zone", "Resistance is capturing the zone", "Civilian is capturing the zone", "The zone is contested", "The zone is uncontested"] call FUNC(setMessages);
+["marker_capture", [blufor], [300]] call FUNC(setCaptureZone); */
