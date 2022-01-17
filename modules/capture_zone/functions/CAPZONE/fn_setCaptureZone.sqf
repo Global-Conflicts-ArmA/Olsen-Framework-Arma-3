@@ -1,7 +1,5 @@
 #include "script_component.hpp"
 
-/* diag_log format ["INFO: In capture zone, params: %1", _this]; */
-
 params [
 	["_marker", "marker_capture", [""]],
 	["_sides", [blufor], [[]]],
@@ -16,19 +14,19 @@ _sides apply {
 	_countforwins = _countforwins + 1;
 };
 //special format [_marker,[[_side,count,win],[_side,count,win]]];
-private _end = CBA_missionTime;
-private _timer = 0;
+GVAR(TIMERS) pushBack [_marker, CBA_missionTime, 0];
+GVAR(OLD_OWNERS_MAP) set [_marker, ["temp", 0, 9999]];
  //ident,count,win
-private _oldOwner = ["temp", 0, 9999];
 
 	[{
-		diag_log "INFO: Capture zone loop running";
+		/* diag_log "INFO: Capture zone loop running"; */
+		/* LOG_1("Timers = %1", GVAR(TIMERS)); */
 
 		_this params ["_args", "_pfhID"];
-		_args params ["_end", "_markerCount", "_oldOwner", "_messages", "_marker", "_colours", "_timer", "_countforwins"];
+		_args params ["_markerCount", "_messages", "_marker", "_colours", "_countforwins"];
 
 		private _start = CBA_missionTime;
-		private _delta = _start - _end;
+		private _delta = _start - (((GVAR(TIMERS) select {(_x select 0) == _marker}) select 0) select 1);
 		private _contester = "NONE";
 		//count all units in area n special format [_marker,[[_side,count,win],[_side,count,win]]];
 
@@ -58,14 +56,16 @@ private _oldOwner = ["temp", 0, 9999];
 			}
 		};
 
-		if(((_currentOwner select 0) != (_oldOwner select 0)) || (_currentOwner select 0 == "CONTESTED")) then {
+		if(((_currentOwner select 0) != ((GVAR(OLD_OWNERS_MAP) get _marker) select 0)) || (_currentOwner select 0 == "CONTESTED")) then {
 			switch(_currentOwner select 0) do {
 				case "WEST": {
 						private _mes = _messages select 0;
 						//this is for ContestedZone so the timer doesn't reset
 						//can probaply be done better
 						if (_contester != "WEST") then {
-							_timer = CBA_missionTime;
+							{
+								GVAR(TIMERS) set [_forEachIndex, [(_x select 0), (_x select 1), CBA_missionTime]];
+							} forEach (GVAR(TIMERS) select {(_x select 0) == _marker});
 							_contester = "WEST";
 						};
 						[-1, {hintSilent _this},_mes] call CBA_fnc_globalExecute;
@@ -74,10 +74,10 @@ private _oldOwner = ["temp", 0, 9999];
 				};
 				case "EAST": {
 						private _mes = _messages select 1;
-						//this is for ContestedZone so the timer doesn't reset
-						//can probaply be done better
 						if (_contester != "EAST") then {
-							_timer = CBA_missionTime;
+							{
+								GVAR(TIMERS) set [_forEachIndex, [(_x select 0), (_x select 1), CBA_missionTime]];
+							} forEach (GVAR(TIMERS) select {(_x select 0) == _marker});
 							_contester = "EAST";
 						};
 						[-1, {hintSilent _this}, _mes] call CBA_fnc_globalExecute;
@@ -86,23 +86,22 @@ private _oldOwner = ["temp", 0, 9999];
 				};
 				case "GUER": {
 						private _mes = _messages select 2;
-						//this is for ContestedZone so the timer doesn't reset
-						//can probaply be done better
 						if (_contester != "GUER") then {
-							_timer = CBA_missionTime;
+							{
+								GVAR(TIMERS) set [_forEachIndex, [(_x select 0), (_x select 1), CBA_missionTime]];
+							} forEach (GVAR(TIMERS) select {(_x select 0) == _marker});
 							_contester = "GUER";
 						};
 						[-1, {hintSilent _this}, _mes] call CBA_fnc_globalExecute;
 						[-1, {(_this select 0) setMarkerColor (_this select 1)}, [_marker, _colours select 2]] call CBA_fnc_globalExecute;
 
-
 				};
 				case "RESISTANCE": {
 						private _mes = _messages select 2;
-						//this is for ContestedZone so the timer doesn't reset
-						//can probaply be done better
 						if (_contester != "RESISTANCE") then {
-							_timer = CBA_missionTime;
+							{
+								GVAR(TIMERS) set [_forEachIndex, [(_x select 0), (_x select 1), CBA_missionTime]];
+							} forEach (GVAR(TIMERS) select {(_x select 0) == _marker});
 							_contester = "RESISTANCE";
 						};
 						[-1, {hintSilent _this}, _mes] call CBA_fnc_globalExecute;
@@ -111,10 +110,10 @@ private _oldOwner = ["temp", 0, 9999];
 				};
 				case "CIVILIAN": {
 						private _mes = _messages select 3;
-						//this is for ContestedZone so the timer doesn't reset
-						//can probaply be done better
 						if (_contester != "CIVILIAN") then {
-							_timer = CBA_missionTime;
+							{
+								GVAR(TIMERS) set [_forEachIndex, [(_x select 0), (_x select 1), CBA_missionTime]];
+							} forEach (GVAR(TIMERS) select {(_x select 0) == _marker});
 							_contester = "CIVILIAN";
 						};
 						[-1, {hintSilent _this}, _mes] call CBA_fnc_globalExecute;
@@ -125,23 +124,34 @@ private _oldOwner = ["temp", 0, 9999];
 						private _mes = _messages select 5;
 						[-1, {hintSilent _this}, _mes] call CBA_fnc_globalExecute;
 						[-1, {(_this select 0) setMarkerColor (_this select 1)}, [_marker, _colours select 5]] call CBA_fnc_globalExecute;
-						_timer = CBA_missionTime;
+
+						{
+							GVAR(TIMERS) set [_forEachIndex, [(_x select 0), (_x select 1), CBA_missionTime]];
+						} forEach (GVAR(TIMERS) select {(_x select 0) == _marker});
 						_contester = "NONE";
 				};
 				case "CONTESTED": {
-						if ((_currentOwner select 0) != (_oldOwner select 0)) then {
+						if ((_currentOwner select 0) != ((GVAR(OLD_OWNERS_MAP) get _marker) select 0)) then {
 							private _mes = _messages select 4;
 							[-1, {hintSilent _this}, _mes] call CBA_fnc_globalExecute;
 							[-1, {(_this select 0) setMarkerColor (_this select 1)}, [_marker, _colours select 4]] call CBA_fnc_globalExecute;
 						};
-						_timer = _timer + _delta;
+
+						{
+							GVAR(TIMERS) set [_forEachIndex, [(_x select 0), (_x select 1), (_x select 2) + _delta]];
+						} forEach (GVAR(TIMERS) select {(_x select 0) == _marker});
 				};
 			};
 		};
+
 		_countforwins = 0;
 		GVAR(CAPZONE_MARKERCOLLECTION) apply {
 			if(_marker == _x select 1) then {
-				if ((CBA_missionTime - _timer) >= _currentOwner select 2) then {
+				private _timerTime = (((GVAR(TIMERS) select {(_x select 0) == _marker}) select 0) select 2);
+				/* LOG_1("Timer time = %1", _timerTime); */
+				private _timeCheck = CBA_missionTime - _timerTime;
+				/* LOG_2("Checking %1 >= %2", _timeCheck, (_currentOwner select 2)); */
+				if (_timeCheck >= _currentOwner select 2) then {
 					private _temp = true;
 
 					if (_temp) exitWith {
@@ -154,6 +164,9 @@ private _oldOwner = ["temp", 0, 9999];
 			};
 			_countforwins = _countforwins + 1;
 		};
-		_oldOwner = _currentOwner;
-		_end = _start;
-}, GVAR(CAPZONE_INTERVAL), [_end, _markerCount, _oldOwner, GVAR(CAPZONE_MESSAGES), _marker, GVAR(CAPZONE_COLOURS), _timer, _countforwins]] call CBA_fnc_addPerFrameHandler;
+
+		GVAR(OLD_OWNERS_MAP) set [_marker, _currentOwner];
+		{
+			GVAR(TIMERS) set [_forEachIndex, [(_x select 0), (_x select 2), (_x select 2)]];
+		} forEach (GVAR(TIMERS) select {(_x select 0) == _marker});
+}, GVAR(CAPZONE_INTERVAL), [_markerCount, GVAR(CAPZONE_MESSAGES), _marker, GVAR(CAPZONE_COLOURS), _countforwins]] call CBA_fnc_addPerFrameHandler;
