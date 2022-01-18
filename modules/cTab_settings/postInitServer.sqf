@@ -2,6 +2,8 @@
 
 #include "settings.sqf"
 
+if !(["cTab"] call ace_common_fnc_isModLoaded) exitWith {};
+
 [{!isNil "cTab_vehicleClass_has_FBCB2"}, {
     if (!(isNil QGVAR(HAS_FBCB2)) && {!(isNil "cTab_vehicleClass_has_FBCB2")}) then {
       cTab_vehicleClass_has_FBCB2 = GVAR(HAS_FBCB2);
