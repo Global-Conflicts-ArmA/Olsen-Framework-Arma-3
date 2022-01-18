@@ -12,8 +12,4 @@
 	};
 #endif
 
-#ifdef description_external_functions
-	#include "functions\CfgFunctions.hpp"
-#endif
-
 #undef COMPONENT
