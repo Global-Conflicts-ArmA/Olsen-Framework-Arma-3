@@ -89,7 +89,8 @@ switch (_task) do {
         _taskSet call FUNC(taskDropOff);
     };
     default {
-        _taskSet call FUNC(taskPatrol);
+        _radius = GETMVAR(PatrolDistance, 200);
+        [_group,_pos,_radius,_wait,_behaviour,_combat,_speed,_formation] call FUNC(taskPatrol);
     };
 };
 true
