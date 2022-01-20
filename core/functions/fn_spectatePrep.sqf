@@ -28,6 +28,29 @@ if (GVAR(RespawnTickets) > 0) then {
     [QGVAR(eventPlayerRespawned), [0]] call CBA_fnc_localEvent;
     [QGVAR(respawnEvent), [_unit]] call CBA_fnc_serverEvent;
 } else {
-    LOG_1("eventCheckRespawnTickets called: %1",_unit);
-    [QGVAR(eventCheckRespawnTickets), _unit] call CBA_fnc_serverEvent;
+    private _indTicketVar = switch (side _unit) do {
+        case west: {
+            GVAR(IndividualRespawnTickets_West)
+        };
+        case east: {
+            GVAR(IndividualRespawnTickets_East)
+        };
+        case independent: {
+            GVAR(IndividualRespawnTickets_Ind)
+        };
+        case civilian: {
+            GVAR(IndividualRespawnTickets_Civ)
+        };
+        default {
+            -1
+        };
+    };
+    if (_indTicketVar isEqualTo -1 || _indTicketVar > 0) then {
+        _indTicketVar = _indTicketVar - 1;
+        LOG_1("eventCheckRespawnTickets called: %1",_unit);
+        [QGVAR(eventCheckRespawnTickets), _unit] call CBA_fnc_serverEvent;
+    } else {
+        [] call FUNC(StartSpectator); // spectator var is set in this function
+        [QGVAR(respawnEvent), [player, true]] call CBA_fnc_serverEvent;
+    };
 };

@@ -146,16 +146,16 @@ FUNC(eg_keyHandler2) = {
         case 1: {
             private _sideTickets = switch (side player) do {
         		case west: {
-        			GVAR(RespawnTicketsWest)
+        			GVAR(RespawnTickets_West)
         		};
         		case east: {
-        			GVAR(RespawnTicketsEast)
+        			GVAR(RespawnTickets_East)
         		};
         		case independent: {
-        			GVAR(RespawnTicketsInd)
+        			GVAR(RespawnTickets_Ind)
         		};
         		case civilian: {
-        			GVAR(RespawnTicketsCiv)
+        			GVAR(RespawnTickets_Civ)
         		};
                 default {
                     0

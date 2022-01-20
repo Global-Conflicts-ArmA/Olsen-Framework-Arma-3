@@ -14,19 +14,14 @@ GVAR(DisconnectBodyCleanupTime) = 2;
 GVAR(DisconnectBodyCleanupSides) = [WEST, EAST, INDEPENDENT, CIVILIAN];
 
 /*
-If respawn is enabled you must create empty game logics, for respawn points, following the name format GVAR(side_respawn). Example: FW_west_respawn
-Ticket pools for different sides
+    If respawn is enabled you must create empty game logics, for respawn points, following the name format GVAR(side_respawn). Example: FW_west_respawn
+    Ticket pools for different sides
+    Set individual tickets for players on a side in clientSettings
 */
 GVAR(RespawnTickets_West) = 0;
 GVAR(RespawnTickets_East) = 0;
 GVAR(RespawnTickets_Ind) = 0;
 GVAR(RespawnTickets_Civ) = 0;
-
-//Individual Tickets for different sides 
-GVAR(IndividualRespawnTickets_West) = 0;
-GVAR(IndividualRespawnTickets_East) = 0;
-GVAR(IndividualRespawnTickets_Ind) = 0;
-GVAR(IndividualRespawnTickets_Civ) = 0;
 
 //wave respawn
 GVAR(WaveSizeWest) = 0; //How many players have to respawn before wave is released
