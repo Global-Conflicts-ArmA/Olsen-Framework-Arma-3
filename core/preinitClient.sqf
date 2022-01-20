@@ -130,6 +130,9 @@ FUNC(eg_keyHandler2) = {
 	};
 
     player setVariable [QGVAR(Body), player, true];
+    player setVariable [QGVAR(HasDied), false, true];
+    player setVariable [QGVAR(Dead), false, true];
+	[QGVAR(respawnEvent), [player]] call CBA_fnc_serverEvent;
 
     switch (_respawnType) do {
         case -1: {
