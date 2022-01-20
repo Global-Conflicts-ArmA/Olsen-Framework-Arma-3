@@ -30,23 +30,22 @@ if (GVAR(RespawnTickets) > 0) then {
 } else {
     private _indTicketVar = switch (side _unit) do {
         case west: {
-            GVAR(IndividualRespawnTickets_West)
+            QGVAR(IndividualRespawnTickets_West)
         };
         case east: {
-            GVAR(IndividualRespawnTickets_East)
+            QGVAR(IndividualRespawnTickets_East)
         };
         case independent: {
-            GVAR(IndividualRespawnTickets_Ind)
+            QGVAR(IndividualRespawnTickets_Ind)
         };
         case civilian: {
-            GVAR(IndividualRespawnTickets_Civ)
-        };
-        default {
-            -1
+            QGVAR(IndividualRespawnTickets_Civ)
         };
     };
-    if (_indTicketVar isEqualTo -1 || _indTicketVar > 0) then {
-        _indTicketVar = _indTicketVar - 1;
+    if ((missionNamespace getVariable [_indTicketVar, -1]) isEqualTo -1 || (missionNamespace getVariable [_indTicketVar, -1]) > 0) then {
+        if ((missionNamespace getVariable [_indTicketVar, -1]) > 0) then {
+            missionNamespace setVariable [_indTicketVar, (missionNamespace getVariable [_indTicketVar, -1]) - 1];
+        };
         LOG_1("eventCheckRespawnTickets called: %1",_unit);
         [QGVAR(eventCheckRespawnTickets), _unit] call CBA_fnc_serverEvent;
     } else {
