@@ -4,12 +4,12 @@
 FNC_DIA_LineFiremissionOpenDialog =
 {
 	createDialog "DIA_LineFiremission";
-	[LFM_DIA_IDC_GUNSELECT,LFM_DIA_IDC_SHELLSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
+	[LFM_DIA_IDC_GUNSELECT,LFM_DIA_IDC_SHELLSELECT] call EFUNC(FIREMIS,Dia_ArtLoadAvailableArtilleries);
 };
 
 FNC_DIA_LineFiremissionSetArtillery =
 {
-	[LFM_DIA_IDC_SHELLSELECT,_this] call FUNC(FIREMIS_Dia_ArtSetArtillery);
+	[LFM_DIA_IDC_SHELLSELECT,_this] call EFUNC(FIREMIS,Dia_ArtSetArtillery);
 };
 
 FNC_DIA_LineFiremissionCloseDialog =
@@ -23,7 +23,7 @@ FNC_DIA_LineFiremissionFire =
 	private _guns = player getVariable [VAR_SART_OBSGUNS,[]];
 	private _usableGuns = [];
 	{
-		if(_x call FUNC(FIREMIS_Dia_IsArtyAvailable)) then
+		if(_x call EFUNC(FIREMIS,Dia_IsArtyAvailable)) then
 		{
 			_usableGuns pushBack _x;
 		};
@@ -39,19 +39,19 @@ FNC_DIA_LineFiremissionFire =
 	private _spotting =  (ctrlText LFM_DIA_IDC_SPOTTING) call BIS_fnc_parseNumber;
 
 	private _inputIsCorrect = true;
-	_inputIsCorrect = _inputIsCorrect && [_selectedUnit,"No Arty selected/aviable"] call FUNC(FIREMIS_Dia_InputIsUnit);
-	_inputIsCorrect = _inputIsCorrect && [_burstNumber,"Burst number is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
-	_inputIsCorrect = _inputIsCorrect && [_burstRounds,"Burst rounds is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
-	_inputIsCorrect = _inputIsCorrect && [_burstDelay,"Burst delay is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
-	_inputIsCorrect = _inputIsCorrect && [_spotting,"Spotting distance is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
+	_inputIsCorrect = _inputIsCorrect && [_selectedUnit,"No Arty selected/aviable"] call EFUNC(FIREMIS,Dia_InputIsUnit);
+	_inputIsCorrect = _inputIsCorrect && [_burstNumber,"Burst number is not a number"] call EFUNC(FIREMIS,Dia_InputIsNumber);
+	_inputIsCorrect = _inputIsCorrect && [_burstRounds,"Burst rounds is not a number"] call EFUNC(FIREMIS,Dia_InputIsNumber);
+	_inputIsCorrect = _inputIsCorrect && [_burstDelay,"Burst delay is not a number"] call EFUNC(FIREMIS,Dia_InputIsNumber);
+	_inputIsCorrect = _inputIsCorrect && [_spotting,"Spotting distance is not a number"] call EFUNC(FIREMIS,Dia_InputIsNumber);
 
 	if(_inputIsCorrect ) then
 	{
 
-						private _round =  ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _selectedAmmo) select 0;
-						hint (([_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_GetLineFiremissionText))
+						private _round =  ((_selectedUnit call EFUNC(FIREMIS,Dia_GetArtyAmmo)) select _selectedAmmo) select 0;
+						hint (([_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call EFUNC(FIREMIS,GetLineFiremissionText))
 							+ "Requested by: " + (name player)
-							+ "\nETA: " + str (round ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAimTime)) + ([_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,_round] call FUNC(FIREMIS_Dia_GetArtyEta)))) + " s");
+							+ "\nETA: " + str (round ((_selectedUnit call EFUNC(FIREMIS,Dia_GetArtyAimTime)) + ([_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,_round] call EFUNC(FIREMIS,Dia_GetArtyEta)))) + " s");
 							["CallLineFiremission", [player,_selectedUnit,_selectedAmmo,_startGrid,_endGrid,_burstNumber,_burstRounds,_burstDelay,_spotting]] call CBA_fnc_serverEvent;
 						[] call FNC_DIA_LineFiremissionCloseDialog;
 	};
@@ -72,8 +72,8 @@ FNC_DIA_Server_LineFiremissionFire =
 	private _burstDelay = _this select 7;
 	private _spotting =  _this select 8;
 
-	[_selectedUnit,_requester] call FUNC(FIREMIS_Dia_SetArtyCaller);
-	[_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_LineFiremission);
+	[_selectedUnit,_requester] call EFUNC(FIREMIS,Dia_SetArtyCaller);
+	[_selectedUnit,[_startGrid,true] call CBA_fnc_mapGridToPos,[_endGrid,true] call CBA_fnc_mapGridToPos,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call EFUNC(FIREMIS,LineFiremission);
 
 
 };

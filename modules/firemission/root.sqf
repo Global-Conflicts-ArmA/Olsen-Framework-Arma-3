@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 #ifdef description
 		#include "Dia\Dia_PointFiremission.hpp"
 		#include "Dia\Dia_LineFiremission.hpp"
@@ -10,18 +12,20 @@
 #endif
 
 #ifdef description_XEH_PreInit
-	class FIREMIS {
+	class COMPONENT {
 		clientInit = "'' call compile preprocessFileLineNumbers 'modules\firemission\preInitClient.sqf'";
 	};
 #endif
 
 #ifdef description_XEH_PostInit
-	class FIREMIS {
+	class COMPONENT {
 		clientInit = "'' call compile preprocessFileLineNumbers 'modules\firemission\postInitClient.sqf'";
 		serverInit = "'' call compile preprocessFileLineNumbers 'modules\firemission\postInitServer.sqf'";
 	};
 #endif
 
-#ifdef description_functions
+#ifdef description_external_functions
 	#include "functions\CfgFunctions.hpp"
 #endif
+
+#undef COMPONENT
