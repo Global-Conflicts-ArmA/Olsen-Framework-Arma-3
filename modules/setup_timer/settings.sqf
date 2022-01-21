@@ -3,4 +3,4 @@
 //Example:
 //["airfield", 60 * 5, west] call FUNC(addSetupMarker);
 
-["airfield", 60 * 5, west] call FUNC(addSetupMarker);
+//["airfield", 60 * 5] call FUNC(addSetupMarker);

@@ -8,7 +8,12 @@ LOG("called Setup init");
     LOG("Starting Setup waituntil");
     GVAR(PFHhandleDisplay)= [{
         params ["_argNested", "_idPFH"];
-        _argNested params ["_endTime","_nextBeep","_colorSet","_display"];
+        _argNested params [
+            "_endTime",
+            "_nextBeep",
+            "_colorSet",
+            "_display"
+        ];
         private _ctrlTime = _display displayCtrl 1003;
         private _timeLeft = (_endTime - CBA_missionTime);
         if (_timeLeft <= 0) exitWith {

@@ -53,7 +53,7 @@ Additional modules that can be enabled by removing the //
 //#include "rank_icons\root.sqf"
 //#include "remove_map\root.sqf"
 //#include "set_face\root.sqf"
-//#include "setup_timer\root.sqf"
+#include "setup_timer\root.sqf"
 //#include "snow\root.sqf"
 //#include "start_in_parachute\root.sqf"
 //#include "start_in_vehicle\root.sqf"
