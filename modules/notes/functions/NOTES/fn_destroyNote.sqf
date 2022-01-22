@@ -4,22 +4,22 @@ params ["_note",["_silent", false]];
 if (isNil "_note") then {_note = player getVariable [QGVAR(activeNote), objNull]};
 
 //ground note
-if (typeName _note == "OBJECT") then {
-    if (isNull _note) exitWith {hint "Jemand ist mir zuvorgekommen."};
+if (_note isEqualType objNull) then {
+    if (isNull _note) exitWith {hint "Cannot find note."};
     deleteVehicle _note;
 };
 
 //inventory note
-if (typeName _note == "SCALAR") then {
+if (_note isEqualType 0) then {
     [_note, "remove"] call FUNC(updateMyNotes);
 };
 
-if (!_silent) then {
-    private _sounds = [
-        QGVAR(sounds_rip1),
-        QGVAR(sounds_rip2),
-        QGVAR(sounds_rip3),
-        QGVAR(sounds_rip4)
+if !(_silent) then {
+    private _sound =  selectRandom [
+        getMissionPath "modules\notes\sounds\rip1.ogg",
+        getMissionPath "modules\notes\sounds\rip2.ogg",
+        getMissionPath "modules\notes\sounds\rip3.ogg",
+        getMissionPath "modules\notes\sounds\rip4.ogg"
     ];
-    [player, selectRandom _sounds] remoteExec ["say3D", 0, false];
+    playSound3D [_sound, player, false];
 };

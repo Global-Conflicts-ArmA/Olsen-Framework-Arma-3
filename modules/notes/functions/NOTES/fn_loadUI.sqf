@@ -32,12 +32,12 @@ switch (_mode) do {
     //_message = "";
     //_note = player getVariable [QGVAR(activeNote), objNull];
 
-    if (typeName _note == "OBJECT") then {
+    if (_note isEqualType objNull) then {
         _button2 ctrlSetText "TAKE";
     };
 
-    if (typeName _note == "SCALAR") then {
-        _nodeName = format ["GVAR(myNotes_)%1", _note];
+    if (_note isEqualType 0) then {
+        private _nodeName = format ["GVAR(myNotes_)%1", _note];
         _button2 ctrlSetText "DROP";
     };
 
@@ -54,5 +54,7 @@ switch (_mode) do {
 
   };
 
-  default {ERROR(format ["%1 is not a valid mode.", _mode])};
+  default {
+      ERROR_1("%1 is not a valid mode.", _mode)
+  };
 };

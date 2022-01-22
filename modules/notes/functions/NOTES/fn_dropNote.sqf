@@ -7,4 +7,4 @@ if (surfaceIsWater getPos player) exitWith {
 };
 
 private _notePos = player getRelPos [GVAR(playerDistance), 0];
-[_notePos, (getDir player)-90, _message, _handwriting] remoteExec [QGVAR(fnc_spawnNote), 2, false];
+[_notePos, (getDir player)-90, _message, _handwriting] remoteExec [QFUNC(spawnNote), 2, false];

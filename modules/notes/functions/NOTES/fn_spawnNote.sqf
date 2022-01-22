@@ -10,4 +10,4 @@ _note setDir _requestedDir;
 _note setVariable ["message", _message, true];
 _note setVariable ["handwriting", _handwriting, true];
 
-[_note] remoteExec [QGVAR(fnc_initNote), 0, true];
+[_note] remoteExec [QFUNC(initNote), 0, true];

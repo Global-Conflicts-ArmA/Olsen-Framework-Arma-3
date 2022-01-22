@@ -1,6 +1,8 @@
 
 #include "script_component.hpp"
 
+if !(hasInterface) exitWith {};
+
 GVAR(playerDistance) = [missionConfigFile >> QGVAR(settings) >> "playerDistance", "number", 1] call CBA_fnc_getConfigEntry;
 GVAR(actOffset) = [missionConfigFile >> QGVAR(settings) >> "actOffset", "array", [0,0,0.1]] call CBA_fnc_getConfigEntry;
 GVAR(actDist) = [missionConfigFile >> QGVAR(settings) >> "actDist", "number", 2] call CBA_fnc_getConfigEntry;
@@ -11,10 +13,6 @@ GVAR(canWriteDefault) = ([missionConfigFile >> QGVAR(settings) >> "canWriteDefau
 GVAR(canInspectDefault) = ([missionConfigFile >> QGVAR(settings) >> "canInspectDefault", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
 GVAR(interactionSleepTime) = 0.1;
-
-GVAR(inheritFromCAManBase) = ("configName _x isKindOf 'Car'" configClasses (configFile / "CfgVehicles")) apply {configName _x};
-
-if (!hasInterface) exitWith {};
 
 //add interaction nodes
 [{!isNull player}, {

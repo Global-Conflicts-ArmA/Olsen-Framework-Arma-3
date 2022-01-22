@@ -2,7 +2,7 @@
 
 #ifdef description
     #include "dialog\diag.hpp"
-    class notes_settings {
+    class GVAR(settings) {
         #include "settings.hpp"
     };
 #endif

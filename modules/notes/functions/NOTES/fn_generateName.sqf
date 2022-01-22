@@ -22,7 +22,7 @@ if (count (_words select 0) < _maxChars) then {
 if (count _name >= _maxChars) exitWith {_name};
 
 //add more words
-for [{_i = 1}, {_i < count _words}, {_i = _i + 1}] do {
+for "_i" from 0 to (count _words - 1) step 1 do {
     private _word = _words select _i;
     if (count _name + count _word < _maxChars) then {
         _name = _name + " " + _word;
@@ -32,4 +32,5 @@ for [{_i = 1}, {_i < count _words}, {_i = _i + 1}] do {
     };
     if (_done) exitWith {};
 };
+
 _name

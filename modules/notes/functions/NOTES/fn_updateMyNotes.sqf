@@ -39,7 +39,7 @@ if (_mode == "add") then {
     //read
     private _readactionName = _nodeName + "_read";
     private _readAction = {(_this select 2) call FUNC(delayedCall)};
-    _action = [_readactionName, "Read Note", getMissionPath "modules\notes\data\read.paa", _readAction, {true}, {}, [[_message, _noteID, _handwriting],GVAR(fnc_readNote)]] call ace_interact_menu_fnc_createAction;
+    _action = [_readactionName, "Read Note", getMissionPath "modules\notes\data\read.paa", _readAction, {true}, {}, [[_message, _noteID, _handwriting],FUNC(readNote)]] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions", "ACE_Equipment", QGVAR(mainAction), _nodeName], _action] call ace_interact_menu_fnc_addActionToObject;
 
     //drop

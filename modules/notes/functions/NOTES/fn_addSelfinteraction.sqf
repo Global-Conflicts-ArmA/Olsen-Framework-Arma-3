@@ -7,5 +7,5 @@ private _action = [QGVAR(mainAction), "Notes", getMissionPath "modules\notes\dat
 
 //add write action
 private _writeCondition = {player getVariable [QGVAR(canWriteNotes), GVAR(canWriteDefault)]};
-private _action = [QGVAR(writeNote), "Write Note", getMissionPath "modules\notes\data\write.paa", {[[],GVAR(fnc_writeNote)] call FUNC(delayedCall)}, _writeCondition] call ace_interact_menu_fnc_createAction;
+private _action = [QGVAR(writeNote), "Write Note", getMissionPath "modules\notes\data\write.paa", {[[],FUNC(writeNote)] call FUNC(delayedCall)}, _writeCondition] call ace_interact_menu_fnc_createAction;
 [player, 1, ["ACE_SelfActions", "ACE_Equipment", QGVAR(mainAction)], _action] call ace_interact_menu_fnc_addActionToObject;

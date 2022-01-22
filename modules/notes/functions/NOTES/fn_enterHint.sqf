@@ -15,7 +15,12 @@ _enterHint = [] spawn {
     private _closeButton = _dialog displayCtrl LN_CLOSEBUTTON;
 
     private _oldText = ctrlText _title;
-    private _oldColor = [profilenamespace getvariable ['GUI_BCG_RGB_R',0],profilenamespace getvariable ['GUI_BCG_RGB_G',0],profilenamespace getvariable ['GUI_BCG_RGB_B',0],1];
+    private _oldColor = [
+        profilenamespace getvariable ['GUI_BCG_RGB_R',0],
+        profilenamespace getvariable ['GUI_BCG_RGB_G',0],
+        profilenamespace getvariable ['GUI_BCG_RGB_B',0],
+        1
+    ];
 
     private _red = [0.9,0.13,0.13,1];
 
