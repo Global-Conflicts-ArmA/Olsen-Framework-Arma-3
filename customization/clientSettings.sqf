@@ -8,6 +8,13 @@ GVAR(StartOnSafe_Unloaded) = false;
 
 GVAR(RespawnTickets) = 0; //Initialize individual client respawn tickets to 0
 
+// Individual Tickets for different sides when team respawn is enabled in serverSettings
+// set to -1 for unlimited individual tickets
+GVAR(IndividualRespawnTickets_West) = -1;
+GVAR(IndividualRespawnTickets_East) = -1;
+GVAR(IndividualRespawnTickets_Ind) = -1;
+GVAR(IndividualRespawnTickets_Civ) = -1;
+
 //call FUNC(forceTerrainGrid); //uncomment this to force high terrain setting. This will prevent faraway objects from appearing as floating. Useful for missions with long sightlines.
 
 // Spectator Settings
