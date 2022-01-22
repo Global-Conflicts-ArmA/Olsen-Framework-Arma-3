@@ -4,12 +4,12 @@
 FNC_DIA_PolarFiremissionOpenDialog =
 {
 	createDialog "DIA_PolarFiremission";
-	[POFM_DIA_IDC_GUNSELECT,POFM_DIA_IDC_SHELLSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
+	[POFM_DIA_IDC_GUNSELECT,POFM_DIA_IDC_SHELLSELECT] call EFUNC(FIREMIS,Dia_ArtLoadAvailableArtilleries);
 };
 
 FNC_DIA_PolarFiremissionSetArtillery =
 {
-	[POFM_DIA_IDC_SHELLSELECT,_this] call FUNC(FIREMIS_Dia_ArtSetArtillery);
+	[POFM_DIA_IDC_SHELLSELECT,_this] call EFUNC(FIREMIS,Dia_ArtSetArtillery);
 };
 
 FNC_DIA_PolarFiremissionCloseDialog =
@@ -23,7 +23,7 @@ FNC_DIA_PolarFiremissionFire =
 	private _guns = player getVariable [VAR_SART_OBSGUNS,[]];
 	private _usableGuns = [];
 	{
-		if(_x call FUNC(FIREMIS_Dia_IsArtyAvailable)) then
+		if(_x call EFUNC(FIREMIS,Dia_IsArtyAvailable)) then
 		{
 			_usableGuns pushBack _x;
 		};
@@ -41,21 +41,21 @@ FNC_DIA_PolarFiremissionFire =
 	private _spotting =  (ctrlText POFM_DIA_IDC_SPOTTING) call BIS_fnc_parseNumber;
 	//this can be made smaller with some bool magic
 	private _inputIsCorrect = true;
-	_inputIsCorrect = _inputIsCorrect && [_selectedUnit,"No Arty selected/aviable"] call FUNC(FIREMIS_Dia_InputIsUnit);
-	_inputIsCorrect = _inputIsCorrect && [_mils,"Mils is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
-	_inputIsCorrect = _inputIsCorrect && [_distance,"Distance is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
-	_inputIsCorrect = _inputIsCorrect && [_dispersion,"Dispersion is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
-	_inputIsCorrect = _inputIsCorrect && [_burstNumber,"Burst number is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
-	_inputIsCorrect = _inputIsCorrect && [_burstRounds,"Burst rounds is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
-	_inputIsCorrect = _inputIsCorrect && [_burstDelay,"Burst delay is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
-	_inputIsCorrect = _inputIsCorrect && [_spotting,"Spotting distance is not a number"] call FUNC(FIREMIS_Dia_InputIsNumber);
+	_inputIsCorrect = _inputIsCorrect && [_selectedUnit,"No Arty selected/aviable"] call EFUNC(FIREMIS,Dia_InputIsUnit);
+	_inputIsCorrect = _inputIsCorrect && [_mils,"Mils is not a number"] call EFUNC(FIREMIS,Dia_InputIsNumber);
+	_inputIsCorrect = _inputIsCorrect && [_distance,"Distance is not a number"] call EFUNC(FIREMIS,Dia_InputIsNumber);
+	_inputIsCorrect = _inputIsCorrect && [_dispersion,"Dispersion is not a number"] call EFUNC(FIREMIS,Dia_InputIsNumber);
+	_inputIsCorrect = _inputIsCorrect && [_burstNumber,"Burst number is not a number"] call EFUNC(FIREMIS,Dia_InputIsNumber);
+	_inputIsCorrect = _inputIsCorrect && [_burstRounds,"Burst rounds is not a number"] call EFUNC(FIREMIS,Dia_InputIsNumber);
+	_inputIsCorrect = _inputIsCorrect && [_burstDelay,"Burst delay is not a number"] call EFUNC(FIREMIS,Dia_InputIsNumber);
+	_inputIsCorrect = _inputIsCorrect && [_spotting,"Spotting distance is not a number"] call EFUNC(FIREMIS,Dia_InputIsNumber);
 
 	if(_inputIsCorrect) then
 	{
-		private _round =  ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _selectedAmmo) select 0;
-		hint (([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_mils,_distance,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_GetPolarFiremissionText))
+		private _round =  ((_selectedUnit call EFUNC(FIREMIS,Dia_GetArtyAmmo)) select _selectedAmmo) select 0;
+		hint (([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_mils,_distance,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call EFUNC(FIREMIS,GetPolarFiremissionText))
 									+ "Requested by: " + (name player)
-									+ "\nETA: " + str (round ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAimTime)) + ([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_round] call FUNC(FIREMIS_Dia_GetArtyEta))))  + " s");
+									+ "\nETA: " + str (round ((_selectedUnit call EFUNC(FIREMIS,Dia_GetArtyAimTime)) + ([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_round] call EFUNC(FIREMIS,Dia_GetArtyEta))))  + " s");
 
 		["CallPolarFiremission", [player,_selectedUnit,_selectedAmmo,_grid,_mils,_distance,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting]] call CBA_fnc_serverEvent;
 		[] call FNC_DIA_PolarFiremissionCloseDialog;
@@ -80,8 +80,8 @@ FNC_DIA_Server_PolarFiremissionFire =
 	private _burstDelay = _this select 9;
 	private _spotting =  _this select 10;
 
-	[_selectedUnit,_requester] call FUNC(FIREMIS_Dia_SetArtyCaller);
-	[_selectedUnit,_grid,_mils,_distance,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call FUNC(FIREMIS_PolarFiremission);
+	[_selectedUnit,_requester] call EFUNC(FIREMIS,Dia_SetArtyCaller);
+	[_selectedUnit,_grid,_mils,_distance,_dispersion,_burstNumber,_burstRounds,_burstDelay,_spotting,_selectedAmmo] call EFUNC(FIREMIS,PolarFiremission);
 
 };
 

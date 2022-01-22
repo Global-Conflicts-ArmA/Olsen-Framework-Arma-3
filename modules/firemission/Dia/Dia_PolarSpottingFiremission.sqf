@@ -4,12 +4,12 @@
 FNC_DIA_PolarSpottingFiremissionOpenDialog =
 {
 	createDialog "DIA_POLARSPOTTINGFIREMISSION";
-	[PSFM_DIA_IDC_GUNSELECT,PSFM_DIA_IDC_SHELLSELECT] call FUNC(FIREMIS_Dia_ArtLoadAvailableArtilleries);
+	[PSFM_DIA_IDC_GUNSELECT,PSFM_DIA_IDC_SHELLSELECT] call EFUNC(FIREMIS,Dia_ArtLoadAvailableArtilleries);
 };
 
 FNC_DIA_PolarSpottingFiremissionSetArtillery =
 {
-	[PSFM_DIA_IDC_SHELLSELECT,_this] call FUNC(FIREMIS_Dia_ArtSetArtillery);
+	[PSFM_DIA_IDC_SHELLSELECT,_this] call EFUNC(FIREMIS,Dia_ArtSetArtillery);
 };
 
 FNC_DIA_PolarSpottingFiremissionCloseDialog =
@@ -23,7 +23,7 @@ FNC_DIA_PolarSpottingFiremissionFire =
 	private _guns = player getVariable [VAR_SART_OBSGUNS,[]];
 	private	_usableGuns = [];
 	{
-		if(_x call FUNC(FIREMIS_Dia_IsArtyAvailable)) then
+		if(_x call EFUNC(FIREMIS,Dia_IsArtyAvailable)) then
 		{
 			_usableGuns pushBack _x;
 		};
@@ -37,10 +37,10 @@ FNC_DIA_PolarSpottingFiremissionFire =
 	if(_selectedUnit isEqualTo objNull) then  {hint "No Arty selected/aviable";}
 	else
 	{
-		private _round =  ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAmmo)) select _selectedAmmo) select 0;
-		hint (([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_mils,_distance,_selectedAmmo] call FUNC(FIREMIS_GetPolarSpottingFiremissionText))
+		private _round =  ((_selectedUnit call EFUNC(FIREMIS,Dia_GetArtyAmmo)) select _selectedAmmo) select 0;
+		hint (([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_mils,_distance,_selectedAmmo] call EFUNC(FIREMIS,GetPolarSpottingFiremissionText))
 								+ "Requested by: " + (name player)
-								+ "\nETA: " + str (round ((_selectedUnit call FUNC(FIREMIS_Dia_GetArtyAimTime)) + ([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_round] call FUNC(FIREMIS_Dia_GetArtyEta)))) + " s");
+								+ "\nETA: " + str (round ((_selectedUnit call EFUNC(FIREMIS,Dia_GetArtyAimTime)) + ([_selectedUnit,[_grid,true] call CBA_fnc_mapGridToPos,_round] call EFUNC(FIREMIS,Dia_GetArtyEta)))) + " s");
 		["CallPolarSpotting", [player,_selectedUnit,_grid,_mils,_distance,_selectedAmmo]] call CBA_fnc_serverEvent;
 		[] call FNC_DIA_PolarSpottingFiremissionCloseDialog;
 
@@ -59,8 +59,8 @@ FNC_DIA_Server_PolarSpottingFiremissionFire =
 	private _distance = _this select 4;
 	private	_roundType = _this select 5;
 
-	[_selectedUnit,_requester] call FUNC(FIREMIS_Dia_SetArtyCaller);
-	[_selectedUnit,[_callGrid,true] call CBA_fnc_mapGridToPos,_mils,_distance,_roundType] call FUNC(FIREMIS_PolarSpottingFiremission);
+	[_selectedUnit,_requester] call EFUNC(FIREMIS,Dia_SetArtyCaller);
+	[_selectedUnit,[_callGrid,true] call CBA_fnc_mapGridToPos,_mils,_distance,_roundType] call EFUNC(FIREMIS,PolarSpottingFiremission);
 
 };
 
