@@ -1,4 +1,4 @@
-class GRAD_leaveNotes_RscUIBack {
+class GVAR(RscUIBack) {
     idc = -1;
     type = CT_STATIC;
     style = ST_HUD_BACKGROUND;
@@ -20,7 +20,7 @@ class GRAD_leaveNotes_RscUIBack {
     };
 };
 
-class GRAD_leaveNotes_RscText {
+class GVAR(RscText) {
     idc = -1;
     access = 0;
     type = CT_STATIC;
@@ -38,7 +38,7 @@ class GRAD_leaveNotes_RscText {
     shadow = 0;
 };
 
-class GRAD_leavNotes_RscEditBox: GRAD_leaveNotes_RscText {
+class GVAR(RscEditBox): GVAR(RscText) {
     type = CT_EDIT;
     colorDisabled[] = {0,0,0,0};
     colorSelection[] = {0,0,0,0.25};
@@ -47,7 +47,7 @@ class GRAD_leavNotes_RscEditBox: GRAD_leaveNotes_RscText {
     size = 0.2;
 };
 
-class GRAD_leaveNotes_RscCloseButton {
+class GVAR(RscCloseButton) {
     access = 0;
     idc = -1;
     type = CT_BUTTON;
@@ -87,7 +87,7 @@ class GRAD_leaveNotes_RscCloseButton {
     borderSize = 0;
 };
 
-class GRAD_leaveNotes_RscButton {
+class GVAR(RscButton) {
     access = 0;
     type = CT_BUTTON;
     text = "";

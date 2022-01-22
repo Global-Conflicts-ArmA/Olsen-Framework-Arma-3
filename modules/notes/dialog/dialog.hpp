@@ -1,4 +1,4 @@
-class GRAD_leaveNotes_UI
+class GVAR(UI)
 {
     idd = LN_DIALOG;
     movingEnable = true;
@@ -6,7 +6,7 @@ class GRAD_leaveNotes_UI
 
     class ControlsBackground
     {
-        class MainBackground: GRAD_leaveNotes_RscUIBack
+        class MainBackground: GVAR(RscUIBack)
         {
             x = lnBG_X;
             y = lnBG_Y;
@@ -14,7 +14,7 @@ class GRAD_leaveNotes_UI
             h = lnBG_H;
         };
 
-        class Notepad: GRAD_leaveNotes_RscUIBack
+        class Notepad: GVAR(RscUIBack)
         {
             idc = LN_NOTEPAD;
 
@@ -26,7 +26,7 @@ class GRAD_leaveNotes_UI
             style = ST_PICTURE;
         };
 
-        class TopBar: GRAD_leaveNotes_RscUIBack
+        class TopBar: GVAR(RscUIBack)
         {
             idc = LN_TITLE;
 
@@ -44,7 +44,7 @@ class GRAD_leaveNotes_UI
 
     class Controls
     {
-        class CloseButton: GRAD_leaveNotes_RscCloseButton
+        class CloseButton: GVAR(RscCloseButton)
         {
             idc = LN_CLOSEBUTTON;
 
@@ -54,7 +54,7 @@ class GRAD_leaveNotes_UI
             h = lnCloseButton_H;
         };
 
-        class Button1: GRAD_leaveNotes_RscButton
+        class Button1: GVAR(RscButton)
         {
             idc = LN_BUTTON1;
 
@@ -64,7 +64,7 @@ class GRAD_leaveNotes_UI
             h = lnButton_H;
         };
 
-        class Button2: GRAD_leaveNotes_RscButton
+        class Button2: GVAR(RscButton)
         {
             idc = LN_BUTTON2;
 
@@ -74,7 +74,7 @@ class GRAD_leaveNotes_UI
             h = lnButton_H;
         };
 
-        class Button3: GRAD_leaveNotes_RscButton
+        class Button3: GVAR(RscButton)
         {
             idc = LN_BUTTON3;
 
@@ -87,7 +87,7 @@ class GRAD_leaveNotes_UI
 };
 
 
-class GRAD_leaveNotes_write: GRAD_leaveNotes_UI
+class GVAR(write): GVAR(UI)
 {
     class ControlsBackground: ControlsBackground
     {
@@ -102,7 +102,7 @@ class GRAD_leaveNotes_write: GRAD_leaveNotes_UI
 
     class Controls: Controls
     {
-        class EditBox: GRAD_leavNotes_RscEditBox
+        class EditBox: GVAR(RscEditBox)
         {
             idc = LN_EDITBOX;
             x = lnTotal_X + lnPadding_X;
@@ -110,7 +110,7 @@ class GRAD_leaveNotes_write: GRAD_leaveNotes_UI
             w = lnTotal_W - lnPadding_X - lnPadding_X;
             h = lnBG_H - 1.14*lnPadding_Y - (2*lnSpacing_Y + 3*lnButton_H);
 
-            onKeyUp = "params ['_ctrl','_key','_shift']; if ((_key isEqualTo 28 || _key isEqualTo 156) and !_shift) then {[] call GRAD_leaveNotes_fnc_enterHint}";
+            onKeyUp = QUOTE(params [ARR_3('_ctrl','_key','_shift')]; if ((_key isEqualTo 28 || _key isEqualTo 156) and !_shift) then {[] call FUNC(enterHint});)
         };
 
         class CloseButton: CloseButton {};
@@ -118,18 +118,18 @@ class GRAD_leaveNotes_write: GRAD_leaveNotes_UI
         class Button1: Button1
         {
             text = "SAVE";
-            action= "[] call GRAD_leaveNotes_fnc_uiSave; closeDialog 0";
+            action= QUOTE([] call FUNC(uiSave); closeDialog 0);
         };
 
         class Button2: Button2
         {
             text = "DROP";
-            action = "[] call GRAD_leaveNotes_fnc_uiDrop; closeDialog 0";
+            action = QUOTE([] call FUNC(uiDrop); closeDialog 0);
         };
     };
 };
 
-class GRAD_leaveNotes_read: GRAD_leaveNotes_UI
+class GVAR(read): GVAR(UI)
 {
     class ControlsBackground: ControlsBackground
     {
@@ -144,7 +144,7 @@ class GRAD_leaveNotes_read: GRAD_leaveNotes_UI
 
     class Controls: Controls
     {
-        class TextBox: GRAD_leaveNotes_RscText
+        class TextBox: GVAR(RscText)
         {
             idc = LN_TEXTBOX;
             x = lnTotal_X + lnPadding_X;
@@ -157,17 +157,17 @@ class GRAD_leaveNotes_read: GRAD_leaveNotes_UI
 
         class Button1: Button1 {
             text = "DESTROY";
-            action = "[] call GRAD_leaveNotes_fnc_destroyNote; closeDialog 0";
+            action = QUOTE([] call FUNC(destroyNote); closeDialog 0);
         };
 
         class Button2: Button2 {
             text = "DROP";
-            action = "[] call GRAD_leaveNotes_fnc_uiTakeDrop; closeDialog 0";
+            action = QUOTE([] call FUNC(uiTakeDrop); closeDialog 0);
         };
 
         class Button3: Button3 {
             text = "INSPECT";
-            action = "[] call GRAD_leaveNotes_fnc_inspectNote";
+            action = QUOTE([] call FUNC(inspectNote));
         };
     };
 };
