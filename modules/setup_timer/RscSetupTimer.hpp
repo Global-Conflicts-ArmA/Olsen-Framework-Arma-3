@@ -1,79 +1,61 @@
-class RscSetupTimer
-{
-	onLoad="_this call FNC_SetupTimerInit;";
-	idd=-1;
-	duration=1200;
-	movingEnable=0;
-	class Controls
-	{
-		class TitleBackground
-		{
-			colorBackground[]=
-			{
-				"(profilenamespace getvariable ['IGUI_BCG_RGB_R',0])",
-				"(profilenamespace getvariable ['IGUI_BCG_RGB_G',1])",
-				"(profilenamespace getvariable ['IGUI_BCG_RGB_B',1])",
-				"(profilenamespace getvariable ['IGUI_BCG_RGB_A',0.8])"
-			};
-			idc=1002;
-			x="13.5 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2))/2)";
-			y="30.7 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w="13 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h="1.5 *((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			style=0;
-			type = 0;
-			shadow=1;
-			colorShadow[]={0,0,0,0.5};
-			text="Setup Timer";
-			font="PuristaMedium";
-			SizeEx="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-			colorText[]={1,1,1,1};
-			linespacing=1;
-			tooltipColorText[]={1,1,1,1};
-			tooltipColorBox[]={1,1,1,1};
-			tooltipColorShade[]={0,0,0,0.64999998};
-		};
-		class Title
-		{
-			idc=1001;
-			x="13.5 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2))/2)";
-			y="30.7 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w="13 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h="1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			colorBackground[]={0,0,0,0.5};
-			style=0;
-			type = 0;
-			shadow=1;
-			colorShadow[]={0,0,0,0.5};
-			text="Setup Timer";
-			font="PuristaMedium";
-			SizeEx="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-			colorText[]={1,1,1,1};
-			linespacing=1;
-			tooltipColorText[]={1,1,1,1};
-			tooltipColorBox[]={1,1,1,1};
-			tooltipColorShade[]={0,0,0,0.64999998};
-		};
-		class SetupTimeLeft
-		{
-			idc=1003;
-			text="  --:--.---";
-			x="19 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2))/2)";
-			y="30.6 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
-			w="7 * (((safezoneW / safezoneH) min 1.2) / 40)";
-			h="1.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			sizeEx="1.7 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			style=0;
-			type = 0;
-			shadow=1;
-			colorShadow[]={0,0,0,0.5};
-			font="PuristaMedium";
-			colorText[]={1,1,1,1};
-			colorBackground[]={0,0,0,0};
-			linespacing=1;
-			tooltipColorText[]={1,1,1,1};
-			tooltipColorBox[]={1,1,1,1};
-			tooltipColorShade[]={0,0,0,0.64999998};
-		};
-	};
+#define GUI_GRID_X	(0)
+#define GUI_GRID_Y	(0)
+#define GUI_GRID_W	(0.025)
+#define GUI_GRID_H	(0.04)
+#define GUI_GRID_WAbs	(1)
+#define GUI_GRID_HAbs	(1)
+
+class GVAR(DisplayRsc) {
+    onLoad = QUOTE([_this] call FUNC(TimerInit););
+    idd = -1;
+    duration = 1200;
+    movingEnable = 0;
+    class Controls {
+        class Background: RscText
+        {
+        	idc = 1001;
+        	font = "PuristaMedium";
+
+        	x = 14 * GUI_GRID_W + GUI_GRID_X;
+        	y = 1 * GUI_GRID_H + GUI_GRID_Y;
+        	w = 14 * GUI_GRID_W;
+        	h = 2 * GUI_GRID_H;
+        	colorBackground[] = {0,0,0,0.5};
+        };
+        class TitleBackground: RscText
+        {
+        	idc = 1002;
+        	font = "PuristaMedium";
+
+        	text = "Setup Time Left:"; //--- ToDo: Localize;
+        	x = 16.4 * GUI_GRID_W + GUI_GRID_X;
+        	y = 1.2 * GUI_GRID_H + GUI_GRID_Y;
+        	w = 6.2 * GUI_GRID_W;
+        	h = 1.6 * GUI_GRID_H;
+        	sizeEx = 0.85 * GUI_GRID_H;
+        };
+        class SetupTimeLeft: RscText
+        {
+        	idc = 1003;
+        	font = "PuristaMedium";
+
+        	text = "  --:--.---"; //--- ToDo: Localize;
+        	x = 23.2 * GUI_GRID_W + GUI_GRID_X;
+        	y = 1.2 * GUI_GRID_H + GUI_GRID_Y;
+        	w = 4.5 * GUI_GRID_W;
+        	h = 1.6 * GUI_GRID_H;
+        	sizeEx = 0.95 * GUI_GRID_H;
+        };
+        class RscPicture_1200: RscPicture
+        {
+        	idc = 1200;
+
+        	text = "modules\setup_timer\resources\setuptimermodule_ca.paa";
+        	x = 14.3 * GUI_GRID_W + GUI_GRID_X;
+        	y = 1.2 * GUI_GRID_H + GUI_GRID_Y;
+        	w = 1.8 * GUI_GRID_W;
+        	h = 1.7 * GUI_GRID_H;
+        	sizeEx = 1 * GUI_GRID_H;
+        };
+    };
 };
