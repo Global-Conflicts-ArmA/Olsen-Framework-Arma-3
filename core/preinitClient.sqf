@@ -107,7 +107,7 @@ FUNC(eg_keyHandler2) = {
 [QGVAR(eventPlayerRespawned), {
     params [["_respawnType", 0, [0]]];
 
-    cutText ["\n","BLACK IN", 5];
+    QGVAR(respawnBlackScreen) cutText ["\n","BLACK IN", 5];
 	[QGVAR(death), 0, false] call ace_common_fnc_setHearingCapability;
 	0 fadeSound 1;
 
@@ -136,7 +136,7 @@ FUNC(eg_keyHandler2) = {
 
     switch (_respawnType) do {
         case -1: {
-            cutText ["You have respawned. This mission has unlimited respawns.", 'PLAIN DOWN'];
+            QGVAR(respawnMessagesLayer) cutText ["You have respawned. This mission has unlimited respawns.", 'PLAIN DOWN'];
         };
         case 0: {
             private _p = "";
@@ -144,7 +144,7 @@ FUNC(eg_keyHandler2) = {
         		_p = "s";
         	};
         	private _message2 = format ["You have %1 individual ticket%2 remaining, you can respawn %1 time%2", GVAR(RespawnTickets), _p];
-            cutText [_message2, 'PLAIN DOWN'];
+            QGVAR(respawnMessagesLayer) cutText [_message2, 'PLAIN DOWN'];
         };
         case 1: {
             private _sideTickets = switch (side player) do {
@@ -165,13 +165,13 @@ FUNC(eg_keyHandler2) = {
                 };
         	};
             if (_sideTickets isEqualTo 0) then {
-                cutText ['Your side has no tickets left, you can not respawn', 'PLAIN DOWN'];
+                QGVAR(respawnMessagesLayer) cutText ['Your side has no tickets left, you can not respawn', 'PLAIN DOWN'];
         	} else {
                 private _p = "";
                 if (_sideTickets != 1) then {
             		_p = "s";
             	};
-                cutText [format ['Your side has %1 ticket%2 left, you can respawn %1 time%2', _sideTickets, _p], 'PLAIN DOWN'];
+                QGVAR(respawnMessagesLayer) cutText [format ['Your side has %1 ticket%2 left, you can respawn %1 time%2', _sideTickets, _p], 'PLAIN DOWN'];
             };
         };
         case 2: {
@@ -210,10 +210,10 @@ FUNC(eg_keyHandler2) = {
                 };
             };
             if (_sideTickets isEqualTo 0) then {
-                cutText ['Your side has no tickets left, you can not respawn', 'PLAIN DOWN'];
+                QGVAR(respawnMessagesLayer) cutText ['Your side has no tickets left, you can not respawn', 'PLAIN DOWN'];
         	} else {
                 if (_indTickets isEqualTo 0) then {
-                    cutText ['You have no individual tickets left, you can not respawn', 'PLAIN DOWN'];
+                    QGVAR(respawnMessagesLayer) cutText ['You have no individual tickets left, you can not respawn', 'PLAIN DOWN'];
             	} else {
                     private _pS = "";
                     if (_sideTickets isNotEqualTo 1) then {
@@ -224,9 +224,9 @@ FUNC(eg_keyHandler2) = {
                 		_pI = "s";
                 	};
                     if (_indTickets >= _sideTickets) then {
-                        cutText [format ['You have %1 individual ticket%2 left and your team has %3 ticket%4 left, you can respawn %3 time%4', _indTickets, _pI, _sideTickets, _pS], 'PLAIN DOWN'];
+                        QGVAR(respawnMessagesLayer) cutText [format ['You have %1 individual ticket%2 left and your team has %3 ticket%4 left, you can respawn %3 time%4', _indTickets, _pI, _sideTickets, _pS], 'PLAIN DOWN'];
                     } else {
-                        cutText [format ['You have %1 individual ticket%2 left and your team has %3 ticket%4 left, you can respawn %1 time%2', _indTickets, _pI, _sideTickets, _pS], 'PLAIN DOWN'];
+                        QGVAR(respawnMessagesLayer) cutText [format ['You have %1 individual ticket%2 left and your team has %3 ticket%4 left, you can respawn %1 time%2', _indTickets, _pI, _sideTickets, _pS], 'PLAIN DOWN'];
                     };
                 };
             };
