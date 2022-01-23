@@ -1,4 +1,4 @@
-class GVAR(TimerEnded) {
+class GVAR(timerEnded) {
     Title = "SETUP TIMER";
     iconPicture = "\a3\Ui_f\data\GUI\Cfg\Notifications\tridentEnemy_ca.paa";
     description = "<t>Setup Timer Over, Fight!</t>";
