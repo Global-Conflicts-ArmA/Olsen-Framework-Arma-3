@@ -1,0 +1,30 @@
+class COMPONENT {
+	tag = COMPONENT;
+    class notes {
+        file = "modules\notes\functions\NOTES";
+        class addSelfinteraction {};
+        class allowInspection {};
+        class allowWriting {};
+        class delayedCall {};
+        class destroyNote {};
+        class dropNote {};
+        class enterHint {};
+        class generateName {};
+        class giveNote {};
+        class initNote {};
+        class inspectNote {};
+        class loadUI {};
+        class playGiveAnimation {};
+        class readNote {};
+        class receiveNote {};
+        class setAmount {};
+        class setHandwriting {};
+        class spawnNote {};
+        class takeNote {};
+        class uiDrop {};
+        class uiSave {};
+        class uiTakeDrop {};
+        class updateMyNotes {};
+        class writeNote {};
+    };
+};

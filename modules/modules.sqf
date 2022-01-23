@@ -49,6 +49,7 @@ Additional modules that can be enabled by removing the //
 //#include "in_game_brief\root.sqf"
 //#include "knock_down\root.sqf"
 //#include "marker_control\root.sqf"
+//#include "notes\root.sqf"
 //#include "paraflare\root.sqf"
 //#include "rank_icons\root.sqf"
 //#include "remove_map\root.sqf"
