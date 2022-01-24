@@ -11,7 +11,7 @@ SETMVAR(Spectating,true); //set local global var to spectating
 
 [player] call FUNC(freezeUnit);
 
-GVAR(respawnBlackScreen) cutText ["\n","BLACK IN", 5];
+QGVAR(respawnBlackScreen) cutText ["\n","BLACK IN", 5];
 [QGVAR(death), 0, false] call ace_common_fnc_setHearingCapability;
 0 fadeSound 1;
 
