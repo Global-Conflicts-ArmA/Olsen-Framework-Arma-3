@@ -8,6 +8,26 @@
 
 // If you want to disable a setting, set it to 0.
 
+class BLUFOR {
+    time = 60;
+    distance = 200;
+};
+
+class OPFOR {
+    time = 60;
+    distance = 200;
+};
+
+class INDFOR {
+    time = 60;
+    distance = 200;
+};
+
+class CIV {
+    time = 60;
+    distance = 200;
+};
+
 // Settings for BLUFOR
 GVAR(BLUFOR_Time) = 30; // Seconds
 GVAR(BLUFOR_Distance) = 200; // Metres

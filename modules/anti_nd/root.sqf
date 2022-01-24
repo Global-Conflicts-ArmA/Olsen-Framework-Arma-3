@@ -6,6 +6,12 @@
 	};
 #endif
 
+#ifdef description
+    class GVAR(settings) {
+        #include "settings.hpp"
+    };
+#endif
+
 #ifdef description_external_functions
 	#include "functions\CfgFunctions.hpp"
 #endif
