@@ -11,7 +11,7 @@ SETMVAR(Spectating,true); //set local global var to spectating
 
 [player] call FUNC(freezeUnit);
 
-cutText ["\n","BLACK IN", 5];
+QGVAR(respawnBlackScreen) cutText ["\n","BLACK IN", 5];
 [QGVAR(death), 0, false] call ace_common_fnc_setHearingCapability;
 0 fadeSound 1;
 
@@ -151,7 +151,7 @@ if !(_cam isEqualTo objNull) then {
               private _killIconColour = [1,0,0,1];
 
                 if ((GETMVAR(killcam_killer_pos,[ARR_3(0,0,0)])) isEqualTo [0,0,0]) then {
-                    cutText ["killer info unavailable", "PLAIN DOWN"];
+                    QGVAR(respawnMessagesLayer) cutText ["killer info unavailable", "PLAIN DOWN"];
                     SETMVAR(killcam_toggle,true);
                     drawIcon3D [GVAR(killcam_texture), _killIconColour, GVAR(killcam_unit_pos), 0.7, 0.7, 0, "You", 1, 0.04, "PuristaMedium"];
                 } else {
