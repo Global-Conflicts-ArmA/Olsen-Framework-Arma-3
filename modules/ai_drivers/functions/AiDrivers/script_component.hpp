@@ -1,1 +1,2 @@
-#include "..\..\..\..\core\script_macros.hpp"
+#define COMPONENT AIDVR
+#include "..\..\script_component.hpp"
