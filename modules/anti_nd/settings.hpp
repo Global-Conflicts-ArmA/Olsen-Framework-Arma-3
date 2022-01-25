@@ -8,18 +8,22 @@
 
 // If you want to disable a setting, set it to 0.
 
-// Settings for BLUFOR
-GVAR(BLUFOR_Time) = 30; // Seconds
-GVAR(BLUFOR_Distance) = 200; // Metres
+class BLUFOR {
+    time = 60;
+    distance = 200;
+};
 
-// Settings for OPFOR
-GVAR(OPFOR_Time) = 30;
-GVAR(OPFOR_Distance) = 200;
+class OPFOR {
+    time = 60;
+    distance = 200;
+};
 
-// Settings for INDFOR
-GVAR(INDFOR_Time) = 30;
-GVAR(INDFOR_Distance) = 200;
+class INDFOR {
+    time = 60;
+    distance = 200;
+};
 
-// Settings for CIVFOR
-GVAR(CIVFOR_Time) = 30;
-GVAR(CIVFOR_Distance) = 200;
+class CIV {
+    time = 60;
+    distance = 200;
+};
