@@ -55,10 +55,10 @@ GVAR(LastTimeIn) = CBA_missionTime;
             GVAR(LastTimeIn) = CBA_missionTime;
         };
         if (
-            vehicle _caller isEqualTo vehicle _unit &&
-            {effectiveCommander vehicle _caller isNotEqualTo _caller}
+            vehicle _caller isEqualTo _target &&
+            {effectiveCommander _target isNotEqualTo _caller}
         ) then {
-            vehicle _caller setEffectiveCommander _caller
+            [_target, _caller] remoteExec ["setEffectiveCommander", 0];
         };
         if ((CBA_missionTime > 30 + (GETMVAR(LastTimeIn,CBA_missionTime)))
             || !alive _target
@@ -71,7 +71,7 @@ GVAR(LastTimeIn) = CBA_missionTime;
             [_target, _caller] call FUNC(removeDriver);
             [_pfhID] call CBA_fnc_removePerFrameHandler;
         };
-    }, 1, _this] call CBA_fnc_addPerFrameHandler;
+    }, 0.1, _this] call CBA_fnc_addPerFrameHandler;
     SETPVAR((_this select 1),pfhID,[ARR_2((_this select 2), _pfhHandle)]);
 }, [_unit, _target, _caller]] call CBA_fnc_WaitUntilAndExecute;
 
