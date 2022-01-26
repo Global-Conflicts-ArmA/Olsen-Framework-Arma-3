@@ -79,9 +79,9 @@ if (GETMVAR(AllShips, false)) then {
 };
 
 if (_selectVehicles isNotEqualTo []) then {
-    GVAR(SelectVehicles) select {
+    _selectVehicles select {
         private _veh = _x;
-        ((GETMVAR(VehicleClasses, [])) findIf {_veh isKindOf _x}) isEqualTo -1
+        (_vehClasses findIf {_veh isKindOf _x}) isEqualTo -1
     } apply {
         [{!isNull _x},{
             private _veh = _x;
@@ -101,7 +101,7 @@ if (_selectVehicles isNotEqualTo []) then {
 };
 
 if (_vehClasses isNotEqualTo []) then {
-    GVAR(VehicleClasses) apply {
+    _vehClasses apply {
         private _class = _x;
         [_class, 1, ["ACE_SelfActions"], _addAction, true] call ace_interact_menu_fnc_addActionToClass;
         [_class, 1, ["ACE_SelfActions"], _removeAction, true] call ace_interact_menu_fnc_addActionToClass;
