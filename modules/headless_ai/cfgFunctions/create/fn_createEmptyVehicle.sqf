@@ -2,7 +2,6 @@
 
 params [
     ["_vehClass", "", [""]],
-    ["_vehCrew", [], [[]]],
     ["_pos", [], [[]]],
     ["_vectorDir", [], [[]]],
     ["_vectorUp", [], [[]]],
