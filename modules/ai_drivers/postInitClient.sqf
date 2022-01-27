@@ -57,22 +57,31 @@ private _pipNvAction = ["ai_driver_pip_nv","Enable/Disable NV in driver's view",
     {!isNil QGVAR(DriverCam) && {!isNull GVAR(DriverCam)}}
 }] call ace_interact_menu_fnc_createAction;
 
+private _vehClasses = GETMVAR(VehicleClasses, []);
+private _selectVehicles = GETMVAR(SelectVehicles, []);
+
 if (GETMVAR(AllCars, false)) then {
-    GVAR(VehicleClasses) pushBackUnique "Car"
+    GVAR(VehicleClasses) pushBackUnique "Car";
+    _vehClasses = _vehClasses select {!(_x isKindOf "Car")};
+    _selectVehicles = _selectVehicles select {!(_x isKindOf "Car")};
 };
 
 if (GETMVAR(AllTanks, false)) then {
-    GVAR(VehicleClasses) pushBackUnique "Tank"
+    GVAR(VehicleClasses) pushBackUnique "Tank";
+    _vehClasses = _vehClasses select {!(_x isKindOf "Tank")};
+    _selectVehicles = _selectVehicles select {!(_x isKindOf "Tank")};
 };
 
 if (GETMVAR(AllShips, false)) then {
-    GVAR(VehicleClasses) pushBackUnique "Ship"
+    GVAR(VehicleClasses) pushBackUnique "Ship";
+    _vehClasses = _vehClasses select {!(_x isKindOf "Ship")};
+    _selectVehicles = _selectVehicles select {!(_x isKindOf "Ship")};
 };
 
-if (GETMVAR(SelectVehicles, []) isNotEqualTo []) then {
-    GVAR(SelectVehicles) select {
+if (_selectVehicles isNotEqualTo []) then {
+    _selectVehicles select {
         private _veh = _x;
-        ((GETMVAR(VehicleClasses, [])) findIf {_veh isKindOf _x}) isEqualTo -1
+        (_vehClasses findIf {_veh isKindOf _x}) isEqualTo -1
     } apply {
         [{!isNull _x},{
             private _veh = _x;
@@ -91,8 +100,8 @@ if (GETMVAR(SelectVehicles, []) isNotEqualTo []) then {
     };
 };
 
-if (GETMVAR(VehicleClasses, []) isNotEqualTo []) then {
-    GVAR(VehicleClasses) apply {
+if (_vehClasses isNotEqualTo []) then {
+    _vehClasses apply {
         private _class = _x;
         [_class, 1, ["ACE_SelfActions"], _addAction, true] call ace_interact_menu_fnc_addActionToClass;
         [_class, 1, ["ACE_SelfActions"], _removeAction, true] call ace_interact_menu_fnc_addActionToClass;
