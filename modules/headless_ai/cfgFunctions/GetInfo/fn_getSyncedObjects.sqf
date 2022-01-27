@@ -16,7 +16,7 @@ _uniqueSynced apply {
     if (_obj isKindOf "Logic") then {
     } else {
         if (_obj isKindOf "Thing") then {
-            _objects pushBack ([_obj] call FUNC(getDetailsThing));
+            _objects pushBackUnique ([_obj] call FUNC(getDetailsThing));
         } else {
             if (_obj isKindOf "Man") then {
                 private _group = group _obj;
@@ -62,7 +62,7 @@ _uniqueSynced apply {
                             };
                         } else {
                             private _unitArray = [_unit,_unitpos] call FUNC(getDetailsUnit);
-                            (_groupArray select 2) pushBack _unitArray;
+                            (_groupArray select 2) pushBackUnique _unitArray;
                         };
                     };
                     private _occupy = ((_groupArray select 1) select 15);
@@ -71,7 +71,7 @@ _uniqueSynced apply {
                     private _currentPos = ((_groupArray select 1) select 1);
                     for "_g" from 0 to _gx step 1 do {
                         if (_newOccupy isEqualTo 0 && {_gx isEqualTo 0}) then {
-                            _groups pushBack _groupArray;
+                            _groups pushBackUnique _groupArray;
                         } else {
                             if (_gx > 0) then {
                                 if (!(_groupPosArray isEqualTo [])) then {
@@ -115,7 +115,7 @@ _uniqueSynced apply {
                     {_obj isKindOf "Static"}}}}
                 ) then {
                     if (crew _obj isEqualTo []) then {
-                        _emptyVehs pushBack ([_obj] call FUNC(getDetailsVehicleEmpty));
+                        _emptyVehs pushBackUnique ([_obj] call FUNC(getDetailsVehicleEmpty));
                     };
                 };
             };

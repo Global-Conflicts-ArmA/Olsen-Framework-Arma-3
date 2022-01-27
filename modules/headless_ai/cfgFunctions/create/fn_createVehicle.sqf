@@ -63,7 +63,7 @@ if (_varName isNotEqualTo "") then {
 };
 
 if (_olsenGearType isNotEqualTo "") then {
-    [_vehicle, _olsenGearType] call FUNC(VehicleGearScript);
+    [_vehicle, _olsenGearType] call FUNC(VehGearScript);
 };
 
 if (_fly) then {

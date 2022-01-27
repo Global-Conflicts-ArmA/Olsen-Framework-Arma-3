@@ -20,6 +20,7 @@ private _fuel = parseNumber (fuel _veh toFixed 2);
 private _vehCustomization = _veh call BIS_fnc_getVehicleCustomization;
 private _name = GETVAR(_veh,varName,"");
 private _olsenGearType = GETVAR(_veh,gearType,"");
+
 [typeOf _veh,
 _pos,
 _vectorDir,
@@ -29,7 +30,6 @@ _fuel,
 magazinesAllTurrets _veh,
 locked _veh,
 surfaceIsWater (getposATL _veh),
-(GETVAR(_veh,Name,"")),
 _init,
 (GETVAR(_veh,StoredVars,[])),
 _vehCustomization,

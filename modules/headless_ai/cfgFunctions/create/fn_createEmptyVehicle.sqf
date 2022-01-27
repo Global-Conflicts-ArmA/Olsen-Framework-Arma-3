@@ -2,7 +2,6 @@
 
 params [
     ["_vehClass", "", [""]],
-    ["_vehCrew", [], [[]]],
     ["_pos", [], [[]]],
     ["_vectorDir", [], [[]]],
     ["_vectorUp", [], [[]]],
@@ -10,9 +9,8 @@ params [
     ["_fuel", 100, [100]],
     ["_turretMags", [], [[]]],
     ["_locked", 0, [0]],
+    ["_surfaceIsWater", false, [false]],
     ["_init", false, [false,{}]],
-    ["_fly", false, [false]],
-    ["_flyInHeight", 200, [200]],
     ["_storedVars", [], [[]]],
     ["_vehCustomization", [], [[]]],
     ["_varName", "", [""]],
@@ -29,7 +27,7 @@ if (_varName isNotEqualTo "") then {
 };
 
 if (_olsenGearType isNotEqualTo "") then {
-    [_vehicle, _olsenGearType] call FUNC(VehicleGearScript);
+    [_vehicle, _olsenGearType] call EFUNC(FW,VehGearScript);
 };
 
 _vehicle setDamage _damage;
