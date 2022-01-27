@@ -1,8 +1,11 @@
 #include "script_macros.hpp"
 
 #ifdef description
-	#include "StateMachines.hpp"
 	#include "CfgRemoteExec.hpp"
+#endif
+
+#ifdef description_other
+    #include "StateMachines.hpp"
 #endif
 
 #ifdef description_external_functions

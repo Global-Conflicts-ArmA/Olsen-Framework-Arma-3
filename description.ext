@@ -9,6 +9,11 @@
 #undef false
 #undef description
 
+#define description_other
+#include "core\description.hpp" //DO NOT REMOVE
+#include "modules\modules.sqf" //DO NOT REMOVE
+#undef description_other
+
 class CfgFunctions {
 	class FW {
 		tag = "FW";
