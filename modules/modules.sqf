@@ -42,6 +42,7 @@ Additional modules that can be enabled by removing the //
 //#include "env_parameters\root.sqf"
 //#include "extract\root.sqf"
 //#include "firemission\root.sqf"
+//#include "firemission_virtual\root.sqf"
 //#include "gas\root.sqf"
 //#include "grad-fortifications\root.sqf"
 //#include "headless_ai\root.sqf"
