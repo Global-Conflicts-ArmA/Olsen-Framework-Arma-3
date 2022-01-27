@@ -1,8 +1,13 @@
 #include "script_component.hpp"
 
 ["tin_var_artyObservers", [	//[OBJECT,"STRING",side]
-[test_unit, "Test Unit", blufor]
+
 ]] call FUNC(publicVariable);
+
+// Example
+/* ["tin_var_artyObservers", [	//[OBJECT,"STRING",side]
+	[test_unit, "Test Unit", blufor]
+]] call FUNC(publicVariable); */
 
 ["tin_var_artyFreq_west", 1] call FUNC(publicVariable);
 ["tin_var_artyFreq_east", 0] call FUNC(publicVariable);
