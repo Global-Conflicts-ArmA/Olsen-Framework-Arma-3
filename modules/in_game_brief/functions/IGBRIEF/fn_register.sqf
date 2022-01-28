@@ -34,13 +34,13 @@ if (hasInterface) then {
 	private _rSin = sin(_theta * -1);
 
 	[{!isNull player}, {
-		_this params ["_pos", "_xDistance", "_yDistance", "_cos", "_sin", "_rCos", "_rSin", "_id"];
+		_this params ["_text", "_pos", "_xDistance", "_yDistance", "_cos", "_sin", "_rCos", "_rSin", "_id"];
 
 		GVAR(loopSleep) = 10;
 
 		[{
 			_this params ["_args", "_idPFH"];
-			_args params ["_pos", "_xDistance", "_yDistance", "_cos", "_sin", "_rCos", "_rSin", "_id"];
+			_args params ["_text", "_pos", "_xDistance", "_yDistance", "_cos", "_sin", "_rCos", "_rSin", "_id"];
 
 			private _disabled = false;
 			if (!isNil QGVAR(sandi_barrier_disabled)) then {
@@ -100,7 +100,7 @@ if (hasInterface) then {
 				/* diag_log format ["INFO: x2 = %1, y2 = %2, _move = %3", _x2, _y2, _move]; */
 
 				if (_move) then {
-					if (_playerVeh distance barrierChecker < 5) then {} else {
+					if (_playerVeh distance _pos < 5) then {} else {
 						hintSilent _text;
 						private _newX = (_rCos * _newX2) - (_rSin * _newY2);
 						private _newY = (_rSin * _newX2) + (_rCos * _newY2);
@@ -129,7 +129,7 @@ if (hasInterface) then {
 					_idPFH call CBA_fnc_removePerFrameHandler;
 				};
 			};
-		}, GVAR(loopSleep), [_pos, _xDistance, _yDistance, _cos, _sin, _rCos, _rSin, _id]] call CBA_fnc_addPerFrameHandler;
-	}, [_pos, _xDistance, _yDistance, _cos, _sin, _rCos, _rSin, _id]] call CBA_fnc_waitUntilAndExecute;
+		}, GVAR(loopSleep), [_text, _pos, _xDistance, _yDistance, _cos, _sin, _rCos, _rSin, _id]] call CBA_fnc_addPerFrameHandler;
+	}, [_text, _pos, _xDistance, _yDistance, _cos, _sin, _rCos, _rSin, _id]] call CBA_fnc_waitUntilAndExecute;
 	_id // return
 };
