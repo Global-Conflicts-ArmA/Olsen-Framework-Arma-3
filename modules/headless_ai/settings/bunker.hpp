@@ -1,16 +1,16 @@
 // Distance a bunker enemy can see/engage the enemy
-GVAR(BunkerDistance) = 10;
+distance = 1200;
 // Bunker Aiming Settings
-GVAR(AimDistAdjust) = 0.00024;
-GVAR(AimConeAdjust) = 0.975;
-GVAR(AimedAdjust) = 0.999;
-GVAR(AimTargetHeightAdjust) = 2;
+aimDistAdjust = 0.00024;
+aimConeAdjust = 0.975;
+aimedAdjust = 0.999;
+aimTargetHeightAdjust = 2;
 // Bunker AI performance setting for evaluating potential targets
-GVAR(BunkerEnemyLOSChecks) = 20;
+enemyLOSChecks = 20;
 // Whether Bunker AI get released and act normally/free to move if enemies get too close
-GVAR(BunkerRelease) = true;
+release = true;
 // Sensitivity/Sightlevel needed for Bunker AI to engage - lower is more sensitive.
-GVAR(BunkerSightlevel) = 0.15;
+sightlevel = 0.15;
 // Distance at which AI are released from bunker
-GVAR(BunkerReleaseDist) = 25;
-GVAR(MaxBurstResetCount) = 3;
+releaseDist = 25;
+maxBurstResetCount = 3;
