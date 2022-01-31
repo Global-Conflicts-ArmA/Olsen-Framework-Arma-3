@@ -112,8 +112,29 @@ GVAR(MissionEnded) = false; //Mission has not ended
     } else {
         [_magazine] call FUNC(getDisplayName);
     };
-    TRACE_3("count event",_magName,(_magazine),_projectile);
     [_side, _magName] call FUNC(shotCount);
+}] call CBA_fnc_addEventHandler;
+
+[QGVAR(requestCOEvent), {
+    params [["_side", west, [west]], ["_requestingUnit", objNull, [objNull]]];
+	private _co = _side call FUNC(getCO);
+    private _var = switch (_side) do {
+        case west: {
+            QGVAR(CO_Blufor)
+        };
+        case east: {
+            QGVAR(CO_Opfor)
+        };
+        case independent: {
+            QGVAR(CO_Indfor)
+        };
+        case civilian: {
+            QGVAR(CO_Civfor)
+        };
+    };
+    missionNamespace setVariable [_var, _co, true];
+    TRACE_2("",_co,_requestingUnit);
+    [QGVAR(responseCOEvent), [_co, _var], _requestingUnit] call CBA_fnc_targetEvent;
 }] call CBA_fnc_addEventHandler;
 
 GVAR(CurrentWaveUnlockedWest) = false;

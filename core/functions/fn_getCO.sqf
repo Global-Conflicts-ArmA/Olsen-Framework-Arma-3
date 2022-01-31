@@ -34,12 +34,14 @@ private _manualOverride = switch (_side) do {
   case civilian: {GVAR(CoC_ManualOverride_Civfor)};
 };
 
-private _oldCO = switch (_side) do {
-  case blufor: {GVAR(CO_Blufor)};
-  case opfor: {GVAR(CO_Opfor)};
-  case independent: {GVAR(CO_Indfor)};
-  case civilian: {GVAR(CO_Civfor)};
+private _coVar = switch (_side) do {
+  case blufor: {QGVAR(CO_Blufor)};
+  case opfor: {QGVAR(CO_Opfor)};
+  case independent: {QGVAR(CO_Indfor)};
+  case civilian: {QGVAR(CO_Civfor)};
 };
+
+private _oldCO = missionNamespace getVariable [_coVar, objNull];
 
 private _co = false;
 
@@ -79,6 +81,7 @@ if (_filteredManualOverride isEqualTo []) then { // Default behaviour
 
 if (_oldCO isNotEqualTo _co) then { // If the CO has changed
   TRACE_3("Triggering %1 event to %2 old CO = %3!", QGVAR(CoC_Changed), _co, _oldCO);
+  missionNamespace setVariable [_coVar, _co, true];
   [QGVAR(CoC_Changed), [_oldCo], _co] call CBA_fnc_targetEvent;
 };
 
