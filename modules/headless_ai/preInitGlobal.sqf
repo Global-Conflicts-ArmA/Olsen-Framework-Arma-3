@@ -17,11 +17,15 @@ GVAR(forceTimeEnable) = ([missionConfigFile >> QGVAR(settings) >> "forceTimeEnab
 GVAR(forceTime) = [missionConfigFile >> QGVAR(settings) >> "forceTime", "array", []] call CBA_fnc_getConfigEntry;
 
 GVAR(feature) = ([missionConfigFile >> QGVAR(settings) >> "feature", "number", 1] call CBA_fnc_getConfigEntry) == 1;
-GVAR(cacheDisableDistance) = [missionConfigFile >> QGVAR(settings) >> "cacheDisableDistance", "number", 3000] call CBA_fnc_getConfigEntry;
-GVAR(cacheAllPlayers) = ([missionConfigFile >> QGVAR(settings) >> "cacheAllPlayers", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 GVAR(enemyUpdateFrequency) = [missionConfigFile >> QGVAR(settings) >> "enemyUpdateFrequency", "number", 5] call CBA_fnc_getConfigEntry;
 GVAR(stateMachineFrames) = [missionConfigFile >> QGVAR(settings) >> "stateMachineFrames", "number", 4] call CBA_fnc_getConfigEntry;
 GVAR(saferVehSpawning) = ([missionConfigFile >> QGVAR(settings) >> "cacheAllPlayers", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+
+GVAR(cacheFeature) = ([missionConfigFile >> QGVAR(settings) >> "cacheFeature", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(cacheDisableDistance) = [missionConfigFile >> QGVAR(settings) >> "cacheDisableDistance", "number", 3000] call CBA_fnc_getConfigEntry;
+GVAR(cacheAllPlayers) = ([missionConfigFile >> QGVAR(settings) >> "cacheAllPlayers", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+
+GVAR(stanceFeature) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeature", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
 GVAR(hearingDistance) = [missionConfigFile >> QGVAR(settings) >> "hearingDistance", "number", 2000] call CBA_fnc_getConfigEntry;
 GVAR(hearingMinIncrease) = [missionConfigFile >> QGVAR(settings) >> "hearingMinIncrease", "number", 1] call CBA_fnc_getConfigEntry;

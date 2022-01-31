@@ -15,7 +15,7 @@ initialSpawn[] = {};
 
 // Initial random spawns are randomly selected upon init, at the start of the mission according to their weight value.
 // Array is structured with array object name and random selection weight.
-// eg: [["patrol_1", 2], ["patrol_2", 1], ["patrol_3", 1]]
+// eg: {"patrol_1", 2, "patrol_2", 1, "patrol_3", 1}
 initialRandomSpawns[] = {};
 // Amount of random spawns to choose upon init.
 initialRandomSpawnsCount = 0;
@@ -35,13 +35,17 @@ forceTime[] = {12,00};
 
 // AI system options
 feature = true;
-// The distance a unit needs to be away for PZAI scripts to temporary disable itself upon the unit? The AI unit will also need to be out of combat.
-cacheDisableDistance = 3000;
-cacheAllPlayers = true;
 enemyUpdateFrequency = 5;
 stateMachineFrames = 2;
 //attempts to find a better safe area for a vehicle to spawn in. Should only be used when neccessary.
 saferVehSpawning = false;
+
+cacheFeature = true;
+// The distance a unit needs to be away for PZAI scripts to temporary disable itself upon the unit? The AI unit will also need to be out of combat.
+cacheDisableDistance = 3000;
+cacheAllPlayers = true;
+
+stanceFeature = true;
 
 // How far can the AI hear gunshots from?
 hearingDistance = 2000;

@@ -15,10 +15,14 @@ if (GVAR(SightAidFeature)) then {
     LOG("creating sightAidStateMachine");
     GVAR(sightAidStateMachineHandler) = (missionConfigFile >> QGVAR(sightAidStateMachine)) call CBA_statemachine_fnc_createFromConfig;
 };
-LOG("creating cachingStateMachine");
-GVAR(cachingStateMachineHandler) = (missionConfigFile >> QGVAR(cachingStateMachine)) call CBA_statemachine_fnc_createFromConfig;
-LOG("creating unitStanceStateMachine");
-GVAR(unitStanceStateMachineHandler) = (missionConfigFile >> QGVAR(unitStanceStateMachine)) call CBA_statemachine_fnc_createFromConfig;
+if (GVAR(cacheFeature)) then {
+    LOG("creating cachingStateMachine");
+    GVAR(cachingStateMachineHandler) = (missionConfigFile >> QGVAR(cachingStateMachine)) call CBA_statemachine_fnc_createFromConfig;
+};
+if (GVAR(stanceFeature)) then {
+    LOG("creating unitStanceStateMachine");
+    GVAR(unitStanceStateMachineHandler) = (missionConfigFile >> QGVAR(unitStanceStateMachine)) call CBA_statemachine_fnc_createFromConfig;
+};
 
 //Commander Functions
 if (GVAR(CommanderEnabled)) then {
