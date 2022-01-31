@@ -50,8 +50,6 @@ GVAR(adrenaline) = ([missionConfigFile >> QGVAR(settings) >> "adrenaline", "numb
 GVAR(adrenalineVar) = [missionConfigFile >> QGVAR(settings) >> "adrenalineVar", "number", 1.35] call CBA_fnc_getConfigEntry;
 GVAR(IRLaser) = ([missionConfigFile >> QGVAR(settings) >> "IRLaser", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 GVAR(increasingAccuracy) = ([missionConfigFile >> QGVAR(settings) >> "increasingAccuracy", "number", 1] call CBA_fnc_getConfigEntry) == 1;
-GVAR(sideBasedMovement) = [missionConfigFile >> QGVAR(settings) >> "sideBasedMovement", "array", [EAST,INDEPENDENT,CIVILIAN,BLUFOR]] call CBA_fnc_getConfigEntry;
-GVAR(sideBasedExecution) = [missionConfigFile >> QGVAR(settings) >> "sideBasedExecution", "array", [EAST,INDEPENDENT,CIVILIAN,BLUFOR]] call CBA_fnc_getConfigEntry;
 GVAR(campfires) = ([missionConfigFile >> QGVAR(settings) >> "campfires", "number", 0] call CBA_fnc_getConfigEntry) == 1;
 GVAR(waypointDistance) = [missionConfigFile >> QGVAR(settings) >> "waypointDistance", "number", 300] call CBA_fnc_getConfigEntry;
 
@@ -87,6 +85,58 @@ GVAR(CustomSkill_commanding) = [missionConfigFile >> QGVAR(settings) >> "CustomS
 GVAR(CustomSkill_general) = [missionConfigFile >> QGVAR(settings) >> "CustomSkill" >> "general", "number", 1] call CBA_fnc_getConfigEntry;
 GVAR(CustomSkill_courage) = [missionConfigFile >> QGVAR(settings) >> "CustomSkill" >> "courage", "number", 1] call CBA_fnc_getConfigEntry;
 
+GVAR(CommanderEnabled) = ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "feature", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+GVAR(CommanderDebug) = ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "feature", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(CommanderSide) = switch (tolower ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "feature", "side", "east"] call CBA_fnc_getConfigEntry)) do {
+    case "west": {west};
+    case "east": {east};
+    case "independent": {independent};
+    case "civilian": {civilian};
+};
+GVAR(CommanderPersonality) = tolower ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "personality", "string", "random"] call CBA_fnc_getConfigEntry);
+GVAR(CommanderDelay) = [missionConfigFile >> QGVAR(settings) >> "Commander" >> "delay", "number", 3] call CBA_fnc_getConfigEntry;
+GVAR(CommanderSkill) = [missionConfigFile >> QGVAR(settings) >> "Commander" >> "skill", "number", 3] call CBA_fnc_getConfigEntry;
+GVAR(CommanderQRF) = [missionConfigFile >> QGVAR(settings) >> "qrf", "array", []] call CBA_fnc_getConfigEntry;
+GVAR(CommanderQRFThreshold) = tolower ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "QRFThreshold", "string", "Combat"] call CBA_fnc_getConfigEntry);
+GVAR(CommanderRoam) = ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "roam", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(CommanderWithdrawal) = ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "withdrawal", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(CommanderArty) = [missionConfigFile >> QGVAR(settings) >> "arty", "array", []] call CBA_fnc_getConfigEntry;
+GVAR(CommanderAirStrikesF) = [missionConfigFile >> QGVAR(settings) >> "airStrikes", "array", []] call CBA_fnc_getConfigEntry;
+GVAR(CommanderParadrops) = [missionConfigFile >> QGVAR(settings) >> "paradrops", "array", []] call CBA_fnc_getConfigEntry;
+GVAR(CommanderAssignStartZone) = ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "assignStartZone", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(CommanderAreas) = [];
+private _configAreas = "true" configClasses (missionConfigFile >> QGVAR(settings) >> "Commander" >> "areas");
+TRACE_1("",_configAreas);
+_configAreas apply {
+    private _name = configName _x;
+    private _marker = [_x >> "marker", "string", ""] call CBA_fnc_getConfigEntry;
+    private _mission = [_x >> "mission", "string", "Patrol"] call CBA_fnc_getConfigEntry;
+    private _min = [_x >> "minAssets", "number", 2] call CBA_fnc_getConfigEntry;
+    private _max = [_x >> "maxAssets", "number", 2] call CBA_fnc_getConfigEntry;
+    private _threshold = [_x >> "threshold", "number", 0] call CBA_fnc_getConfigEntry;
+    private _qrfSupport = ([_x >> "qrfSupport", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+    private _assetSupport = ([_x >> "assetSupport", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+    private _withdrawal = ([_x >> "withdrawal", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+    private _resourceUse = ([_x >> "resourceUse", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+    private _preferedTypes = [_x >> "preferedTypes", "array", ["infantry"]] call CBA_fnc_getConfigEntry;
+    private _terrainMode = [_x >> "terainMode", "string", "Auto"] call CBA_fnc_getConfigEntry;
+    GVAR(CommanderAreas) pushBackUnique [
+        _name,
+        _marker,
+        _mission,
+        _min,
+        _max,
+        _threshold,
+        _qrfSupport,
+        _assetSupport,
+        _withdrawal,
+        _resourceUse,
+        _preferedTypes,
+        _terrainMode
+    ];
+};
+TRACE_1("",GVAR(CommanderAreas));
+
 [] call FUNC(checkifHC);
 
 //exit clients
@@ -108,7 +158,6 @@ AI_EXEC_CHECK(HC);
         {!isPlayer _leader} &&
         {!(GETVAR(_leader,NOAI,false))} &&
         {GETVAR(_x,Spawned,false)} &&
-        {side _leader in GVAR(SideBasedExecution)} &&
         {_leader distance _firer <= GVAR(HearingDistance)}
     } apply {
         private _leader = leader _x;

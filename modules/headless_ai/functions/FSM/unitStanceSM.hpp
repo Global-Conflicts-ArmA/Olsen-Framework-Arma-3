@@ -1,10 +1,9 @@
 class GVAR(unitStanceStateMachine) {
     list = QUOTE(allUnits select {\
         local _x && \
-        {!isPlayer _x} &&\
-        {!(QGETVAR(_x,NOAI,false))} &&\
-        {(side (leader _x)) in GVAR(SideBasedExecution)} &&\
-        {(vehicle _x isEqualTo _x)}\
+        {!isPlayer _x} && \
+        {!(QGETVAR(_x,NOAI,false))} && \
+        {(vehicle _x isEqualTo _x)} \
     });
     skipNull = 1;
     class Initial {

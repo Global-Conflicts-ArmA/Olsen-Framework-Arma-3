@@ -1,7 +1,7 @@
 // AI commander options -WIP
 feature = false;
 debug = true;
-side = east;
+side = "east";
 //"Random" "Aggressive" "Defensive" "Guerilla" "Probing"
 personality = "Random";
 delay = 3;
@@ -12,9 +12,9 @@ QRF[] = {"QRF_MotorRifles"};
 QRFThreshold = "Combat";
 roam = false;
 withdrawal = false;
-resourcesArty = [];
-resourcesAirStrikes = [];
-resourcesParadrops = [];
+arty[] = {};
+airStrikes[] = {};
+paradrops[] = {[]};
 // Commander fills zones to maximum asset values then starts assigning to next zone, or commander assigns evenly to zones in order of precedent until max values filled
 // "FILL" or "EVEN"
 fillAssignMode = "FILL";
@@ -28,14 +28,14 @@ class Areas {
     class Kamenyy {
         marker = "area1";
         mission = "defend";
-        minAssets = 2;
+        minAssets = 1;
         maxAssets = 2;
-        assetThreshold = 0;
+        threshold = 0;
         qrfSupport = true;
         assetSupport = true;
         withdrawal = true;
         resourceUse = true;
         preferedTypes[] = {"Infantry", "Snipers"};
-        terainMode = "Auto";
+        terrainMode = "Auto";
     };
 };

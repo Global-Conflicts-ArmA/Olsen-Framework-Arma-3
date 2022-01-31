@@ -8,8 +8,7 @@ class GVAR(cachingStateMachine) {
         {(alive _leader)} && \
         {!isPlayer _leader} && \
         {!(QGETVAR(_leader,NOAI,false))} && \
-        {QGETVAR(_x,Spawned,false)} && \
-        {side _leader in GVAR(SideBasedExecution)} \
+        {QGETVAR(_x,Spawned,false)} \
     });
     skipNull = 1;
     repeatPerFrame = 1;

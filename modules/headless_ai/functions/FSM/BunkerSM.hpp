@@ -6,7 +6,6 @@ class GVAR(bunkerStateMachine) {
         {!isPlayer (leader _x)} && \
         {!(QGETVAR(_x,NOAI,false))} && \
         {QGETVAR(group _x,Spawned,false)} && \
-        {side _x in GVAR(SideBasedExecution)} && \
         {((QGETVAR(group _x,Mission,'NONE')) isEqualTo 'BUNKER') || {(QGETVAR(_x,Bunker,false))}} \
     });
     skipNull = 1;

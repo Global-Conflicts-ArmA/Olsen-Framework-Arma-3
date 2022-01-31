@@ -34,10 +34,10 @@ if (GVAR(CommanderEnabled)) then {
 //Main Functions
 [{
 	[] call FUNC(GroupHandler);
-}, [], 1] call CBA_fnc_waitAndExecute;
+}, []] call CBA_fnc_execNextFrame;
 
 //Spawns initial HC arrays
-if !(GVAR(InitialSpawn) isEqualTo []) then {
+if (GVAR(InitialSpawn) isNotEqualTo []) then {
 	private _InitialSpawn = GVAR(InitialSpawn);
 	LOG_1("InitialSpawn %1",_InitialSpawn);
 	[{
@@ -56,7 +56,7 @@ if !(GVAR(InitialSpawn) isEqualTo []) then {
 	}, [_InitialSpawn]] call CBA_fnc_execNextFrame;
 };
 
-if ((GVAR(InitialRandomSpawnsCount) > 1) && {!(GVAR(InitialRandomSpawns) isEqualTo [])}) then {
+if ((GVAR(InitialRandomSpawnsCount) > 1) && {(GVAR(InitialRandomSpawns) isNotEqualTo [])}) then {
 	//construct InitialRandomSpawns array
 	private _InitialRandomSpawns = [];
 	{
@@ -73,7 +73,7 @@ if ((GVAR(InitialRandomSpawnsCount) > 1) && {!(GVAR(InitialRandomSpawns) isEqual
 			_InitialRandomSpawnsSelected pushBack _selected;
 			_InitialRandomSpawns - [_selected];
 		};
-		if !(GVAR(_InitialRandomSpawnsSelected) isEqualTo []) then {
+		if (GVAR(_InitialRandomSpawnsSelected) isNotEqualTo []) then {
 			[{
 				params ["_InitialRandomSpawnsSelected"];
 				{

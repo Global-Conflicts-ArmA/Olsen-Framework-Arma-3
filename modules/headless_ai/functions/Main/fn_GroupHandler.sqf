@@ -9,8 +9,7 @@ GVAR(GroupHandlerPFH) = [{
         {alive leader _x} &&
         {!(GETVAR(leader _x,NOAI,false))} &&
         {!(GETVAR(_x,NOAI,false))} &&
-        {!(isPlayer leader _x)} && 
-        {side leader _x in GVAR(SideBasedExecution)}
+        {!(isPlayer leader _x)}
     } apply {
         private _group = _x;
         private _lastTimeChecked = GETVAR(_group,lastTimeChecked,-1);
@@ -58,7 +57,7 @@ GVAR(GroupHandlerPFH) = [{
                 if (_task in ["PATROL", "PERIMPATROL", "SENTRY", "BLDMOVE"]) then {
                     //TRACE_2("non combat task check",_group,_task);
                     [_group, _target] call FUNC(CombatDefend);
-                    
+
                     //"GARRISON"
                     //"ATTACK"
                     //"BUNKER"
@@ -110,7 +109,7 @@ GVAR(GroupHandlerPFH) = [{
             };
             //commander handling
             if (
-                (GETMVAR(CommanderEnabled,false)) && 
+                (GETMVAR(CommanderEnabled,false)) &&
                 {!(GETVAR(_group,CommanderExempt,false))} &&
                 {side _group isEqualTo (GETMVAR(CommanderSide,east))}
             ) then {
@@ -188,4 +187,4 @@ GVAR(GroupHandlerPFH) = [{
             SETVAR(_group,lastTimeChecked,CBA_missionTime);
         };
     };
-}, 0.25] call CBA_fnc_addPerFrameHandler;
+}, 1] call CBA_fnc_addPerFrameHandler;

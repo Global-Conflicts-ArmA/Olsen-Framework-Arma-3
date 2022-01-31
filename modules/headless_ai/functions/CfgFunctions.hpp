@@ -1,7 +1,7 @@
 class COMPONENT {
 	tag = COMPONENT;
 	class Combat {
-		file = "modules\headless_ai\cfgFunctions\Combat";
+		file = "modules\headless_ai\functions\Combat";
 		class ArmEmptyStatic {};
 		class CombatAttack {};
 		class CombatAssault {};
@@ -49,14 +49,14 @@ class COMPONENT {
 	};
 
 	class Commander {
-		file = "modules\headless_ai\cfgFunctions\Commander";
+		file = "modules\headless_ai\functions\Commander";
 		class assignToArea {};
 		class CommanderHandler {};
 		class CommanderInit {};
 	};
 
 	class StateMachine {
-		file = "modules\headless_ai\cfgFunctions\statemachine";
+		file = "modules\headless_ai\functions\statemachine";
 		class addEventTransition {};
 		class addState {};
 		class addTransition {};
@@ -72,12 +72,12 @@ class COMPONENT {
 	};
 
 	class CommanderSM {
-		file = "modules\headless_ai\cfgFunctions\CommanderSM";
+		file = "modules\headless_ai\functions\CommanderSM";
 		class CM_OnStateInitial {};
 	};
 
 	class SightAidSM {
-		file = "modules\headless_ai\cfgFunctions\SightAidSM";
+		file = "modules\headless_ai\functions\SightAidSM";
 		class SA_OnSECheckNearbyEnemies {};
 		class SA_OnSECombatMode {};
 		class SA_onSEEnemyInRange {};
@@ -85,7 +85,7 @@ class COMPONENT {
 	};
 
 	class UnitStanceSM {
-		file = "modules\headless_ai\cfgFunctions\UnitStanceSM";
+		file = "modules\headless_ai\functions\UnitStanceSM";
 		class US_onSEInitial {};
 		class US_onSEResetStance {};
 		class US_onSEStanceCheck {};
@@ -93,27 +93,27 @@ class COMPONENT {
 	};
 
 	//class UnitCombatSM {
-	//	file = "modules\headless_ai\cfgFunctions\UnitCombatSM";
+	//	file = "modules\headless_ai\functions\UnitCombatSM";
 	//	class UC_onSECheckNearbyEnemies {};
 	//	class UC_onSEUnitChecks {};
 	//};
 
     class CachingSM {
-		file = "modules\headless_ai\cfgFunctions\CachingSM";
+		file = "modules\headless_ai\functions\CachingSM";
 		class CH_onSEDistanceCheck {};
 		class CH_transCacheGroup {};
 		class CH_transUnCacheGroup {};
 	};
 
 	class Main {
-		file = "modules\headless_ai\cfgFunctions\Main";
+		file = "modules\headless_ai\functions\Main";
 		class GroupHandler {};
 		class initMain {};
 		class MapMarkers {};
 	};
 
 	class Misc {
-		file = "modules\headless_ai\cfgFunctions\Misc";
+		file = "modules\headless_ai\functions\Misc";
 		class checkifHC {};
 		class setunitskill {};
 		class UnitInit {};
@@ -125,7 +125,7 @@ class COMPONENT {
 	};
 
 	class BunkerSM {
-		file = "modules\headless_ai\cfgFunctions\BunkerSM";
+		file = "modules\headless_ai\functions\BunkerSM";
 		class OnSEInitial {};
 		class OnSECheckNearbyEnemies {};
 		class OnSERemoveCantSeeEnemy {};
@@ -140,12 +140,12 @@ class COMPONENT {
 	};
 
 	class Eventhandlers {
-		file = "modules\headless_ai\cfgFunctions\Eventhandlers";
+		file = "modules\headless_ai\functions\Eventhandlers";
 		class onFiredMan {};
 	};
 
 	class create {
-		file = "modules\headless_ai\cfgFunctions\create";
+		file = "modules\headless_ai\functions\create";
 	    class createFunctions {};
 	    class createGroup {};
 	    class createUnit {};
@@ -166,7 +166,7 @@ class COMPONENT {
 	};
 
 	class Diag {
-		file = "modules\headless_ai\cfgFunctions\Diag";
+		file = "modules\headless_ai\functions\Diag";
 		class AttachPosition {};
 		class BuildingCheck {};
 		class BuildingSpawnCheck {};
@@ -197,7 +197,7 @@ class COMPONENT {
 	};
 
 	class DangerCauses {
-		file = "modules\headless_ai\cfgFunctions\DangerCauses";
+		file = "modules\headless_ai\functions\DangerCauses";
 		class CombatMovement {};
 		class CurrentStance {};
 		class DeadBodyDetection {};
@@ -210,7 +210,7 @@ class COMPONENT {
 	};
 
 	class get {
-		file = "modules\headless_ai\cfgFunctions\get";
+		file = "modules\headless_ai\functions\get";
 	    class getBuildingList {};
 	    class getBuildings {};
 	    class getGroupVariables {};
@@ -232,7 +232,7 @@ class COMPONENT {
 	};
 
 	class GetInfo {
-		file = "modules\headless_ai\cfgFunctions\GetInfo";
+		file = "modules\headless_ai\functions\GetInfo";
 	    class getDetailsArray {};
 	    class getDetailsGroup {};
 	    class getDetailsThing {};
@@ -244,7 +244,7 @@ class COMPONENT {
 	};
 
 	class set {
-		file = "modules\headless_ai\cfgFunctions\set";
+		file = "modules\headless_ai\functions\set";
 	    class setAssignedVehicle {};
 	    class setBuildingPos {};
 	    class setCompletedTasks {};
@@ -261,7 +261,7 @@ class COMPONENT {
 	};
 
 	class task {
-		file = "modules\headless_ai\cfgFunctions\task";
+		file = "modules\headless_ai\functions\task";
 	    class taskActivate {};
 	    class taskAssign {};
 	    class taskAssault {};

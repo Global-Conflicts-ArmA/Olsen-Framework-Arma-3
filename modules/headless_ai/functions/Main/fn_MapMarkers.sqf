@@ -54,12 +54,12 @@ if (!(alive _leader) || {!(local _leader)}) then {
             case "Motorized": {"b_motor_inf"};
             default {"b_inf"};
         };
-        _trackername setMarkerShape "ICON";
-        _trackername setMarkerSize [0.5, 0.5];
-        _trackername setMarkerType _drawicon;
-        _trackername setmarkercolor _markercolour;
+        _trackername setMarkerShapeLocal "ICON";
+        _trackername setMarkerSizeLocal [0.5, 0.5];
+        _trackername setMarkerTypeLocal _drawicon;
+        _trackername setMarkerColor _markercolour;
     };
-    _trackername setmarkerpos [getpos _leader select 0, getpos _leader select 1];
+    _trackername setMarkerPos [getpos _leader select 0, getpos _leader select 1];
     private _usedest = if (_mission in [
         "PATROL",
         "PERIMPATROL",

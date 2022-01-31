@@ -122,8 +122,8 @@ GVAR(CommanderAreasParsed) = [];
 
 [{
     !(GVAR(CommanderAreasParsed) isEqualTo []) &&
-    {!((missionNamespace getVariable (GVAR(CommanderAreasParsed) select 0)) isEqualTo locationNull)} &&
-    {!(((missionNamespace getVariable (GVAR(CommanderAreasParsed) select 0)) getVariable [QGVAR(marker), ""]) isEqualTo "")}
+    {((missionNamespace getVariable [(GVAR(CommanderAreasParsed) select 0), locationNull]) isNotEqualTo locationNull)} &&
+    {(((missionNamespace getVariable (GVAR(CommanderAreasParsed) select 0)) getVariable [QGVAR(marker), ""]) isNotEqualTo "")}
 },{
     [] call FUNC(CommanderHandler);
 }, []] call CBA_fnc_waitUntilAndExecute;

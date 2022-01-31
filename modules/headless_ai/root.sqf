@@ -7,9 +7,9 @@
         class Bunker {
             #include "settings\bunker.hpp"
         };
-        //class Commander {
-        //    #include "settings\commander.hpp"
-        //};
+        class Commander {
+            #include "settings\commander.hpp"
+        };
         class SightAid {
             #include "settings\sight.hpp"
         };

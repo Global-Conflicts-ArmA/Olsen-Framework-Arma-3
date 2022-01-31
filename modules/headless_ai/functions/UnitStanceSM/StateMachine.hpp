@@ -1,13 +1,12 @@
 #include "script_component.hpp"
 
 class GVAR(unitStanceStateMachine) {
-    list = QUOTE(allUnits select {\
+    list = QUOTE(allUnits select { \
         local _x && \
-        {!isPlayer _x} &&\
-        {!(QGETVAR(_x,NOAI,false))} &&\
-        {(side (leader _x)) in GVAR(SideBasedExecution)} &&\
-        {!([group _x] call FUNC(isMoveTask))} &&\
-        {(vehicle _x isEqualTo _x)}\
+        {!isPlayer _x} && \
+        {!(QGETVAR(_x,NOAI,false))} && \
+        {!([group _x] call FUNC(isMoveTask))} && \
+        {(vehicle _x isEqualTo _x)} \
     });
     skipNull = 1;
     class Initial {

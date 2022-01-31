@@ -38,7 +38,6 @@ allGroups select {
 	{(alive _leader)} &&
 	{!(GETVAR(_leader,NOAI,false))} &&
 	{!(isPlayer _leader)} &&
-	{side _leader in GVAR(SideBasedExecution)} &&
 	{!([_x] call FUNC(isInCombat))}
 } apply {
 	private _group = _x;

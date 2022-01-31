@@ -66,8 +66,7 @@ GVAR(CommanderAreasHandlerPFH) = [{
             _debugMarkerIconName setMarkerShape "ICON";
             _debugMarkerIconName setMarkerType "hd_dot";
             _debugMarkerIconName setMarkerPos (getmarkerpos _marker);
-            _debugMarkerIconName setMarkerText (format ["Area: %1 Mission: %2 Assigned: %3 Control: %4 Importance: %5",_displayName,_mission,(count _assignedAssets),_controlStatus,_importance]);
+            _debugMarkerIconName setMarkerText (format ["Area: %1 Mission: %2 Assigned: %3 Control: %4 Importance: %5 Terrain: %6",_displayName,_mission,(count _assignedAssets),_controlStatus,_importance,_terrainMode]);
         };
     } foreach GVAR(CommanderAreasParsed);
 }, 3] call CBA_fnc_addPerFrameHandler;
-

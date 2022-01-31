@@ -7,7 +7,7 @@ of reinforcements or subsequent AOs.
 
 // Array objects
 // eg: ["mainEnemy", "patrol_1", "patrol_2", "patrol_3"]
-arrayObjects[] = {"hc2"};
+arrayObjects[] = {};
 
 // Initial spawns are spawned upon init, at the start of the mission.
 // eg: ["mainEnemy"]
@@ -94,10 +94,6 @@ adrenalineVar = 1.35;
 IRLaser = true;
 // The longer an AI's target stays in 1 location, the more accurate and aware of the target the AI becomes.
 increasingAccuracy = true;
-// GVAR(SideBasedMovement)- Remove sides from the array below to exclude that AI side to not execute any advance movement code. (I.E. Moving to reinforce allies, being alerted by distant gunshots and etc). AI with this will still react normally in combat.
-sideBasedMovement[] = {EAST,INDEPENDENT,CIVILIAN,BLUFOR};
-// GVAR(SideBasedExecution)- Remove sides from the array below to exclude that AI side from executing any of the AI scripts. DEFAULT = [WEST,EAST,CIVILIAN,RESISTANCE];
-sideBasedExecution[] = {EAST,INDEPENDENT,CIVILIAN,BLUFOR};
 // Whether the AI will set up campfires at night if they are set to the Loiter task
 campfires = false;
 // Distance the AI will attempt to flank around the enemy. I.E. How far off a waypoint, or around the enemy squad, the AI are willing to go in combat.

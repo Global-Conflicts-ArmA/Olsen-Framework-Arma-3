@@ -28,7 +28,7 @@ private _respondingArmored = [];
 	private _target = GETVAR(_group,CurrentTarget,objnull);
 	private _distanceToGroup = (leader _groupcaller) distance2d _leader;
 	if (
-		([_sidecaller, _side] call BIS_fnc_sideIsFriendly) && 
+		([_sidecaller, _side] call BIS_fnc_sideIsFriendly) &&
 		{(_enemycaller isNotEqualTo _target)} &&
 		{_distanceToGroup <= GVAR(RadioDistance)} &&
 		{!(GETMVAR(RadioNeedRadio,false)) || {_group call FUNC(hasRadioGroup)}}
@@ -36,19 +36,19 @@ private _respondingArmored = [];
 		if ([_groupcaller,_enemycaller,CBA_MissionTime,_group] call FUNC(ReinforcementResponse)) then {
 			switch _assetType do {
 			    case "Infantry": {
-					_respondingInfantry pushBackUnique _group; 
+					_respondingInfantry pushBackUnique _group;
 			    };
 				case "Motorized": {
-					_respondingMotorized pushBackUnique _group; 
+					_respondingMotorized pushBackUnique _group;
 			    };
 				case "Mechanized": {
-					_respondingMechanized pushBackUnique _group; 
+					_respondingMechanized pushBackUnique _group;
 			    };
 				case "Armored": {
-					_respondingArmored pushBackUnique _group; 
+					_respondingArmored pushBackUnique _group;
 			    };
 			    default {
-					_respondingInfantry pushBackUnique _group; 
+					_respondingInfantry pushBackUnique _group;
 			    };
 			};
 		};
@@ -60,8 +60,7 @@ private _respondingArmored = [];
 	{!(isNull _leader)} &&
 	{(alive _leader)} &&
 	{!(GETVAR(_leader,NOAI,false))} &&
-	{!(isPlayer _leader)} && 
-	{side _leader in GVAR(SideBasedExecution)}
+	{!(isPlayer _leader)}
 });
 
 // Act on responses

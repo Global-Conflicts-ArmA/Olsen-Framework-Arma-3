@@ -27,5 +27,5 @@ private _stationaryTasks = [
     "HOLD"
 ];
 
-private _return = _task in _moveTasks;
+private _return = !(_task in _stationaryTasks);
 _return
