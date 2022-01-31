@@ -35,8 +35,9 @@ class Core {
 	class trackUnit {};
 	class untrackUnit {};
 	class briefing {};
-	class gearScript {};
 	class gearExport {};
+	class gearScript {};
+	class getCO {};
 	class vehGearScript {};
 	class postChecks {};
 	class initLoadingScreen {};

@@ -4,6 +4,12 @@ GVAR(TimeLimit) = 30; //Time limit in minutes, to disable the time limit set it 
 GVAR(TimeLimitMessage) = "TIME LIMIT REACHED!"; //The message displayed when the time runs out
 GVAR(EndConditionFrequency) = 60; // Frequency in seconds that the end conditions are checked
 
+GVAR(CoC_CheckFrequency) = 30; // Frequency in seconds that the Chain of Command is checked to determine the current Commanding Officer
+GVAR(CoC_ManualOverride_Blufor) = []; // List, in order (left to right) of which units are the CO in a mission
+GVAR(CoC_ManualOverride_Opfor) = []; // List, in order (left to right) of which units are the CO in a mission
+GVAR(CoC_ManualOverride_Indfor) = []; // List, in order (left to right) of which units are the CO in a mission
+GVAR(CoC_ManualOverride_Civfor) = []; // List, in order (left to right) of which units are the CO in a mission
+
 /*
 Time for how long disconnected players should be deleted since mission start (in minutes)
 Set this to 0 or a negative number to disable behaviour
