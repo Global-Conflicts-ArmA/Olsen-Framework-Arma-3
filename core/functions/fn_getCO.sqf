@@ -43,7 +43,7 @@ private _coVar = switch (_side) do {
 
 private _oldCO = missionNamespace getVariable [_coVar, objNull];
 
-private _co = false;
+private _co = objNull;
 
 private _filteredManualOverride = _manualOverride select {
   !(isNull _x) &&
