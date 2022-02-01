@@ -82,7 +82,9 @@ if (_filteredManualOverride isEqualTo []) then { // Default behaviour
 if (_oldCO isNotEqualTo _co) then { // If the CO has changed
   TRACE_3("Triggering %1 event to %2 old CO = %3!", QGVAR(CoC_Changed), _co, _oldCO);
   missionNamespace setVariable [_coVar, _co, true];
-  [QGVAR(CoC_Changed), [_oldCo], _co] call CBA_fnc_targetEvent;
+  if (GETMVAR(CoC_Changed_Message,true)) then {
+      [QGVAR(CoC_Changed), [_oldCo], _co] call CBA_fnc_targetEvent;
+  };
 };
 
 _co

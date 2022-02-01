@@ -9,6 +9,7 @@ GVAR(CoC_ManualOverride_Blufor) = []; // List, in order (left to right) of which
 GVAR(CoC_ManualOverride_Opfor) = []; // List, in order (left to right) of which units are the CO in a mission
 GVAR(CoC_ManualOverride_Indfor) = []; // List, in order (left to right) of which units are the CO in a mission
 GVAR(CoC_ManualOverride_Civfor) = []; // List, in order (left to right) of which units are the CO in a mission
+GVAR(CoC_Changed_Message) = true;
 
 /*
 Time for how long disconnected players should be deleted since mission start (in minutes)
