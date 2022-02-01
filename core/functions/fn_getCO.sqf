@@ -24,7 +24,7 @@ private _units = playableUnits select {
 };
 
 if (_units isEqualTo []) exitWith {
-  false
+  objNull
 };
 
 private _manualOverride = switch (_side) do {
