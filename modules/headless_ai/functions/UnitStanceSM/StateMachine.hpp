@@ -4,6 +4,7 @@ class GVAR(unitStanceStateMachine) {
     list = QUOTE(allUnits select { \
         local _x && \
         {!isPlayer _x} && \
+        {QGETVAR(_x,spawned,false)} && \
         {!(QGETVAR(_x,NOAI,false))} && \
         {!([group _x] call FUNC(isMoveTask))} && \
         {(vehicle _x isEqualTo _x)} \
