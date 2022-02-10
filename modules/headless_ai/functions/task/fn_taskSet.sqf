@@ -24,8 +24,8 @@ if (!isNull _newTask) then {
     private _newCombat = if (_combat isEqualTo "unchanged") then {(combatMode _group)} else {_combat};
     private _newSpeed = if (_speed isEqualTo "unchanged") then {(speedMode _group)} else {_speed};
     private _newForm = if (_form isEqualTo "unchanged") then {(formation _group)} else {_form};
-    private _passarray = [_task,_group,(getPosATL _newTask),_radius,_wait,_newBehave,_newCombat,_newSpeed,_newForm,_occupy];
-    [{!((count waypoints (_this select 1)) isEqualTo 0)},{
+    private _passarray = [_group,_task,(getPosATL _newTask),_radius,_wait,_newBehave,_newCombat,_newSpeed,_newForm,_occupy];
+    [{!((count waypoints (_this select 0)) isEqualTo 0)},{
         _this call FUNC(taskAssign);
     },_passarray] call CBA_fnc_waitUntilAndExecute;
 };

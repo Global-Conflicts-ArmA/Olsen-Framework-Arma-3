@@ -63,7 +63,7 @@ private _dropOffTaskPFH = [{
                     _manualPos
                 };
                 TRACE_2("",_group,_taskPos);
-                [_task,_group,_taskPos] call FUNC(taskAssign);
+                [_group,_task,_taskPos] call FUNC(taskAssign);
             };
         };
         if (RNG(0.5)) then {

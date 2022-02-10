@@ -18,13 +18,15 @@ GVAR(spawnUnitsQueue) = [];
 GVAR(spawnUnitsQueueActiveGroup) = [];
 
 //Ask server for entities data
-if (isMultiplayer) then {
-	[QGVAR(HCRequestArrayDataEvent), clientOwner] call CBA_fnc_serverEvent;
-	[{
-	    (GETMVAR(receivedArrayData,false))
-	},{
-	    [] call FUNC(initMain);
-	}] call CBA_fnc_waitUntilAndExecute;
-} else {
-	[] call FUNC(initMain);
-};
+//if (isMultiplayer) then {
+    [{
+        [QGVAR(HCRequestArrayDataEvent), clientOwner] call CBA_fnc_serverEvent;
+    	[{
+    	    (GETMVAR(receivedArrayData,false))
+    	},{
+    	    [] call FUNC(initMain);
+    	}] call CBA_fnc_waitUntilAndExecute;
+    }] call CBA_fnc_execNextFrame
+//} else {
+//	[] call FUNC(initMain);
+//};

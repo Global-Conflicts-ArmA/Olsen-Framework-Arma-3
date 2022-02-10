@@ -4,20 +4,12 @@ LOG("HC Server Pre Init");
 
 GVAR(zoneEntities) = createHashMap;
 
-//[QGVAR(ServerEvent), {
-//
-//}] call CBA_fnc_addEventHandler;
-
-//[QEGVAR(Core,SettingsLoaded), {
-//
-//}] call CBA_fnc_addEventHandler;
-
 [QGVAR(HCRequestArrayDataEvent), {
 	params ["_clientOwner"];
 	LOG_1("got arrayinfo request from client: %1",_clientOwner);
 	[{GETMVAR(ArrayDataChecked,false)}, {
 		params ["_clientOwner"];
-		LOG_1("sending arrayinfo to client: %1",_clientOwner);
+		LOG_2("sending arrayinfo to client: %1 with: %2",_clientOwner,GVAR(zoneEntities));
 		[QGVAR(HCReceiveArrayDataEvent), GVAR(zoneEntities), _clientOwner] call CBA_fnc_ownerEvent;
 	}, [_clientOwner]] call CBA_fnc_waitUntilAndExecute;
 }] call CBA_fnc_addEventHandler;

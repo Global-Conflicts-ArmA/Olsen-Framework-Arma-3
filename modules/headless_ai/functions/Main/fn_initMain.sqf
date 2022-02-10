@@ -4,6 +4,7 @@
 GVAR(BasicCheckCurrent) = 0;
 GVAR(LeaderExecuteCurrent) = 0;
 GVAR(MarkerArray) = [];
+GVAR(markerTrackedGroups) = createHashMap;
 
 
 //StateMachines
@@ -24,16 +25,17 @@ if (GVAR(stanceFeature)) then {
     GVAR(unitStanceStateMachineHandler) = (missionConfigFile >> QGVAR(unitStanceStateMachine)) call CBA_statemachine_fnc_createFromConfig;
 };
 
-//Commander Functions
-if (GVAR(CommanderEnabled)) then {
-	[{
-		[] call FUNC(CommanderInit);
-	}, []] call CBA_fnc_execNextFrame;
-};
 
 //Main Functions
 [{
 	[] call FUNC(GroupHandler);
+    if (GETMVAR(UseMarkers,false)) then {
+        [] call FUNC(MapMarkers);
+    };
+    //Commander Functions
+    if (GVAR(CommanderEnabled)) then {
+    	[] call FUNC(CommanderInit);
+    };
 }, []] call CBA_fnc_execNextFrame;
 
 //Spawns initial HC arrays

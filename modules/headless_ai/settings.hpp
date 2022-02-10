@@ -52,7 +52,7 @@ hearingDistance = 2000;
 // How revealed an enemy is from a gunshot report
 hearingMinIncrease = 1;
 // Distance AI will respond to call of help from each other
-radioDistance = 0;
+radioDistance = 2000;
 radioWait = 30;
 // Whether or not AI need ACRE radios to broadcast info to other groups
 radioNeedRadio = false;

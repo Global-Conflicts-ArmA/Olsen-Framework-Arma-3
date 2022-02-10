@@ -23,16 +23,49 @@ GVAR(GroupHandlerPFH) = [{
         private _assetType = GETVAR(_group,assetType,"Infantry");
         private _groupcount = count _aliveUnits;
         private _behaviour = behaviour _leader;
-        private _target = GETVAR(_group,CurrentTarget,objnull);
-        if ((_target isEqualTo objnull || {!alive _target}) && {!(assignedTarget _leader isEqualTo objnull)}) then {
+        private _target = GETVAR(_group,CurrentTarget,objNull);
+        if (
+            _target isNotEqualTo objNull &&
+            {
+                assignedTarget _leader isEqualTo objNull ||
+                {!alive _target}
+            }
+        ) then {
+            _target = objNull;
+            SETVAR(_group,CurrentTarget,objNull);
+        };
+        if (_target isEqualTo objNull && {assignedTarget _leader isNotEqualTo objNull}) then {
+            TRACE_2("set target on active group",_group,_target);
             _target = leader (assignedTarget _leader);
-            SETVAR(_group,CurrentTarget,_target);
+            if (_target isEqualTo objNull) then {
+                private _targetCounter = GETVAR(_group,NullTargetCounter,0);
+                if (_targetCounter >= 5) then {
+                    TRACE_1("no longer in combat, exiting and resetting",_group);
+                    SETVAR(_group,NullTargetCounter,0);
+                    private _originalBeh = GETVAR(_group,behaviour,"AWARE");
+                    private _originalCM = GETVAR(_group,combatMode,"YELLOW");
+                    private _originalSpeed = GETVAR(_group,speed,"normal");
+                    private _originalForm = GETVAR(_group,formation,"wedge");
+                    [_group,_originalBeh,_originalCM,_originalSpeed,_originalForm] call FUNC(setGroupBehaviour);
+                    private _originalTask = GETVAR(_group,OriginalTask,"PATROL");
+                    private _originalPos = GETVAR(_group,Pos,getPos leader _group);
+                    private _originalRadius = GETVAR(_group,taskRadius,30);
+                    [_group,_originalTask,_originalPos,_originalRadius] call FUNC(taskAssign);
+                } else {
+                    _targetCounter = _targetCounter + 1;
+                    SETVAR(_group,NullTargetCounter,_targetCounter);
+                };
+            } else {
+                SETVAR(_group,CurrentTarget,_target);
+            };
+        } else {
+            SETVAR(_group,NullTargetCounter,0);
         };
         if (GETMVAR(UseMarkers,false)) then {
-            [
+            //TRACE_2("",GVAR(markerTrackedGroups),str _group);
+            GVAR(markerTrackedGroups) set [str _group, [
                 _group,
                 _side,
-                _group,
                 _leader,
                 _groupcount,
                 _task,
@@ -41,9 +74,9 @@ GVAR(GroupHandlerPFH) = [{
                 _position,
                 _areaAssigned,
                 _assetType
-            ] call FUNC(MapMarkers);
+            ]]
         };
-        if (CBA_missionTime >= _lastTimeChecked + 1) then {
+        if (CBA_missionTime >= _lastTimeChecked + 3) then {
             private _inCombat = (_behaviour in ["COMBAT","STEALTH"]) && {!(GETVAR(_group,taskCombatModeSet,false))};
             //TRACE_2("inCombat check",_group,_inCombat);
             if (_inCombat || {(_target isNotEqualTo objnull)}) then {
@@ -57,23 +90,14 @@ GVAR(GroupHandlerPFH) = [{
                 if (_task in ["PATROL", "PERIMPATROL", "SENTRY", "BLDMOVE"]) then {
                     //TRACE_2("non combat task check",_group,_task);
                     [_group, _target] call FUNC(CombatDefend);
-
-                    //"GARRISON"
-                    //"ATTACK"
-                    //"BUNKER"
-                    //"ASSAULT"
-                    //"FLANK"
-                    //"MOVE"
-                    //"MANUAL"
-                    //"BLDSEARCH"
                 };
                 //radio for help
                 if ((GETMVAR(RadioDistance,2000)) > 0) then {
                     if (!(GETMVAR(RadioNeedRadio,false)) || {_group call FUNC(hasRadioGroup)}) then {
-                        //TRACE_1("radio check",_group);
                         private _radioWait = GETMVAR(RadioWait,30);
                         private _lastCallTime = GETVAR(_group,LastCallTime,(CBA_MissionTime - _radioWait));
-                        if (CBA_MissionTime >= (_LastCallTime + _radioWait)) then {
+                        if (CBA_MissionTime >= (_LastCallTime + _radioWait) && {!(GETVAR(_group,Reinforcing,false))}) then {
+                            TRACE_1("radio call for support",_group);
                             SETVAR(_group,LastCallTime,CBA_MissionTime);
                             //if (GVAR(CommanderEnabled)) then {
                             //    [_group,_target,_side] call FUNC(RadioReportThreat);

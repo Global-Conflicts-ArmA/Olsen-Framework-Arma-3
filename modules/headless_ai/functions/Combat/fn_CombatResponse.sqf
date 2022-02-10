@@ -25,15 +25,15 @@ switch _currentmission do {
 	case "PATROL": {
 			if (_enemydist <= 150) then {
 				if (_reinforcement) then {
-					[_Group,_currenttarget,_enemydir] call FUNC(CombatAttack);
+					[_Group, _currenttarget] call FUNC(CombatAttack);
 				} else {
-					[_Group,_currenttarget,_enemydir] call FUNC(CombatDefend);
+					[_Group, _currenttarget] call FUNC(CombatDefend);
 				};
 			} else {
 				if (_reinforcement) then {
-					[_Group,_currenttarget,_enemydir] call FUNC(CombatMoveTo);
+					[_Group, _currenttarget] call FUNC(CombatMoveTo);
 				} else {
-					[_Group,_currenttarget,_enemydir] call FUNC(CombatDefend);
+					[_Group, _currenttarget] call FUNC(CombatDefend);
 				};
 			};
 		};
@@ -41,17 +41,17 @@ switch _currentmission do {
 			_Group setSpeedMode "FULL";
 			{_x setUnitPos "Auto";} foreach (units _group);
 			if (_reinforcement) then {
-				[_Group,_currenttarget,_enemydir] call FUNC(CombatAttack);
+				[_Group, _currenttarget] call FUNC(CombatAttack);
 			} else {
-				[_Group,_currenttarget,_enemydir] call FUNC(CombatDefend);
+				[_Group, _currenttarget] call FUNC(CombatDefend);
 			};
 		}; //regroups unit via a different function
 	case "IDLE": {
 			if (_enemydist < 150) then {
 				if (_reinforcement) then {
-					[_Group,_currenttarget,_enemydir] call FUNC(CombatAttack);
+					[_Group, _currenttarget] call FUNC(CombatAttack);
 				} else {
-					[_Group,_currenttarget,_enemydir] call FUNC(CombatDefend);
+					[_Group, _currenttarget] call FUNC(CombatDefend);
 				};
 			} else {
 				if (_reinforcement) then {
@@ -64,30 +64,30 @@ switch _currentmission do {
 	case "NONE": {
 			if (_enemydist < 150) then {
 				if (_reinforcement) then {
-					[_Group,_currenttarget,_enemydir] call FUNC(CombatAttack);
+					[_Group, _currenttarget] call FUNC(CombatAttack);
 				} else {
-					[_Group,_currenttarget,_enemydir] call FUNC(CombatDefend);
+					[_Group, _currenttarget] call FUNC(CombatDefend);
 				};
 			} else {
 				if (_reinforcement) then {
-					[_Group,_currenttarget,_enemydir] call FUNC(CombatMoveTo);
+					[_Group, _currenttarget] call FUNC(CombatMoveTo);
 				} else {
-					[_Group,_currenttarget,_enemydir] call FUNC(CombatDefend);
+					[_Group, _currenttarget] call FUNC(CombatDefend);
 				};
 			};
 		};
 	default {
 		if (_enemydist < 150) then {
 			if (_reinforcement) then {
-				[_Group,_currenttarget,_enemydir] call FUNC(CombatAttack);
+				[_Group, _currenttarget] call FUNC(CombatAttack);
 			} else {
-				[_Group,_currenttarget,_enemydir] call FUNC(CombatDefend);
+				[_Group, _currenttarget] call FUNC(CombatDefend);
 			};
 		} else {
 			if (_reinforcement) then {
-				[_Group,_currenttarget,_enemydir] call FUNC(CombatMoveTo);
+				[_Group, _currenttarget] call FUNC(CombatMoveTo);
 			} else {
-				[_Group,_currenttarget,_enemydir] call FUNC(CombatDefend);
+				[_Group, _currenttarget] call FUNC(CombatDefend);
 			};
 		};
 	};

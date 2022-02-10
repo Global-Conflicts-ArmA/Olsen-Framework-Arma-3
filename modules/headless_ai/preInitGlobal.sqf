@@ -143,8 +143,9 @@ TRACE_1("",GVAR(CommanderAreas));
 AI_EXEC_CHECK(HC);
 
 [QGVAR(HCReceiveArrayDataEvent), {
+    LOG_1("Received Array Data: %1",_this);
+    GVAR(zoneEntities) = createHashMap;
     GVAR(zoneEntities) = _this;
-    //LOG_1("Received Array Data: %1",_this);
     SETMVAR(receivedArrayData,true);
 }] call CBA_fnc_addEventHandler;
 

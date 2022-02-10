@@ -48,6 +48,8 @@ SETVAR(_group,surrender,_surrender);
 SETVAR(_group,vehicleCargo,_vehicleCargo);
 SETVAR(_group,Spawned,true);
 
+SETVAR(_group,OriginalTask,_task);
+
 //_group call CBA_fnc_clearWaypoints;
 [_group,_behaviour,_combat,_speed,_formation] call FUNC(setGroupBehaviour);
 {

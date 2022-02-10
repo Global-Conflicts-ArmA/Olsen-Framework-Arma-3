@@ -25,7 +25,7 @@ assignStartZone = true;
 // Optional array elements: terrain manual define, QRF support for contact encountered in the area, minimum assets to assign for the area, asset threshold for the area (if threshold to assign cannot be met area will not be considered), maximum assets to assign for the area (leftover groups will be assigned to areas that aligns with preferred asset types), preferred asset types.
 // Preferred asset types will be determined from terrain setting if not manually defined.
 class Areas {
-    class Kamenyy {
+    class Hangars {
         marker = "area1";
         mission = "defend";
         minAssets = 1;
@@ -37,5 +37,9 @@ class Areas {
         resourceUse = true;
         preferedTypes[] = {"Infantry", "Snipers"};
         terrainMode = "Auto";
+    };
+    class Runway: Hangars {
+        marker = "area2";
+        mission = "patrol";
     };
 };

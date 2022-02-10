@@ -38,7 +38,8 @@ allGroups select {
 	{(alive _leader)} &&
 	{!(GETVAR(_leader,NOAI,false))} &&
 	{!(isPlayer _leader)} &&
-	{!([_x] call FUNC(isInCombat))}
+	{!([_x] call FUNC(isInCombat))} &&
+    {!(GETVAR(_x,Reinforcing,false))}
 } apply {
 	private _group = _x;
 	//private _aliveUnits = units _group select {alive _x};
@@ -90,22 +91,13 @@ if (GVAR(Debug)) then {
 // Act on responses
 private _veryCloseGroups = [];
 [_respondingInfantry, _respondingMotorized, _respondingMechanized, _respondingArmored] apply {
-	if (_x isNotEqualTo []) then {
-        _x apply {
-            _x params ["_arrayGroup"];
-            if ((leader _arrayGroup distance2d _posCaller) <= 250) then {
-    					_veryCloseGroups pushback _arrayGroup;
-    				};
-        };
-	};
+    _x select {
+        _x isNotEqualTo [] &&
+        {(leader _x distance2d _posCaller) <= 250}
+    } apply {
+    	_veryCloseGroups pushBackUnique _x;
+    };
 };
-
-//IGNORE_PRIVATE_WARNING ["_x"];
-_respondingInfantry = [_respondingInfantry, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
-_respondingMotorized = [_respondingMotorized, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
-_respondingMechanized = [_respondingMechanized, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
-_respondingArmored = [_respondingArmored, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
-//private _sortedResponding = [_respondingInfantry, _respondingMotorized, _respondingMechanized, _respondingArmored];
 
 if (GVAR(Debug)) then {
 	TRACE_2("verclosegroups for call",_groupcaller,_veryCloseGroups);
@@ -122,9 +114,15 @@ private _reinforcingGroup = grpNull;
 if (_knownEnemy) then {
 	if (_veryCloseGroups isNotEqualTo []) then {
 		_veryCloseGroups apply {
+            TRACE_2("set to reinforce CombatAttack",_x,_targetPos);
 		    [_x, _targetPos] call FUNC(CombatAttack);
 		};
 	} else {
+        //IGNORE_PRIVATE_WARNING ["_x"];
+        _respondingInfantry = [_respondingInfantry, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
+        _respondingMotorized = [_respondingMotorized, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
+        _respondingMechanized = [_respondingMechanized, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
+        _respondingArmored = [_respondingArmored, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
 		private _enemyCount = count _nearbyEnemy;
 		if (_enemyCount <= 8) then {
 			_reinforcingGroup = if (_respondingInfantry isNotEqualTo []) then {
@@ -167,9 +165,25 @@ if (_knownEnemy) then {
 } else {
 	if (_veryCloseGroups isNotEqualTo []) then {
 		{
+            TRACE_2("set to reinforce CombatAttack",_x,_targetPos);
 		    [_x, _targetPos] call FUNC(CombatAttack);
+            SETVAR(_x,Reinforcing,true);
+            [{
+                _this params ["_group", "_pos"];
+                leader _group distance2D _pos <= 100
+        	},{
+                _this params ["_group", "_pos"];
+                private _distance = leader _group distance2D _pos;
+                TRACE_2("set reinforcing to false",_group,_distance);
+        	    SETVAR(_group,Reinforcing,false);
+        	}, [_x, _targetPos]] call CBA_fnc_waitUntilAndExecute;
 		} forEach _veryCloseGroups;
 	} else {
+        //IGNORE_PRIVATE_WARNING ["_x"];
+        _respondingInfantry = [_respondingInfantry, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
+        _respondingMotorized = [_respondingMotorized, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
+        _respondingMechanized = [_respondingMechanized, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
+        _respondingArmored = [_respondingArmored, [], {(leader _x distance2d _posCaller)}, "ASCEND"] call BIS_fnc_sortBy;
 		_reinforcingGroup = if (_respondingInfantry isNotEqualTo []) then {
 			_respondingInfantry select 0
 		} else {
@@ -195,5 +209,21 @@ if (_reinforcingGroup isEqualTo grpNull) then {
 		TRACE_1("no successful calls for",_groupcaller);
 	};
 } else {
-	[_reinforcingGroup, _targetPos] call FUNC(CombatAttack);
+    TRACE_2("set to reinforce CombatAttack",_reinforcingGroup,_targetPos);
+    private _distance = leader _reinforcingGroup distance2D _targetPos;
+    if (_distance >= 300) then {
+        [_reinforcingGroup, _targetPos, "ATTACK"] call FUNC(CombatMoveTo);
+    } else {
+        [_reinforcingGroup, _targetPos] call FUNC(CombatAttack);
+    };
+    SETVAR(_reinforcingGroup,Reinforcing,true);
+    [{
+        _this params ["_group", "_pos"];
+        leader _group distance2D _pos <= 100
+	},{
+        _this params ["_group", "_pos"];
+        private _distance = leader _group distance2D _pos;
+        TRACE_2("set reinforcing to false",_group,_distance);
+	    SETVAR(_group,Reinforcing,false);
+	}, [_reinforcingGroup, _targetPos]] call CBA_fnc_waitUntilAndExecute;
 };

@@ -21,14 +21,14 @@ if (_occupyOption > 0 && _task < 6) then {
         {_x setvariable[QGVAR(Occupy),true]} forEach (units _group);
         _group setVariable[QGVAR(CompletedTasks),[]];
         _group setVariable[QGVAR(CurrentTaskEndTime),(CBA_MissionTime + _taskTimer)];
-        [{!((count waypoints (_this select 1)) isEqualTo 0)}, {
+        [{!((count waypoints (_this select 0)) isEqualTo 0)}, {
             _this call FUNC(taskAssign);
-        },[_task,_group,_pos,_taskRadius,_wait,_behaviour,_combat,_speed,_formation,_occupyOption]] call CBA_fnc_waitUntilAndExecute;
+        },[_group,_task,_pos,_taskRadius,_wait,_behaviour,_combat,_speed,_formation,_occupyOption]] call CBA_fnc_waitUntilAndExecute;
     };
 } else {
     _group setVariable[QGVAR(CompletedTasks),[]];
     _group setVariable[QGVAR(CurrentTaskEndTime),(CBA_MissionTime + _taskTimer)];
     [{!((count waypoints (_this select 1)) isEqualTo 0)},{
         _this call FUNC(taskAssign);
-    },[_task,_group,_pos,_taskRadius,_wait,_behaviour,_combat,_speed,_formation,_occupyOption]] call CBA_fnc_waitUntilAndExecute;
+    },[_group,_task,_pos,_taskRadius,_wait,_behaviour,_combat,_speed,_formation,_occupyOption]] call CBA_fnc_waitUntilAndExecute;
 };
