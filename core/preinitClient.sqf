@@ -2,7 +2,39 @@
 
 #define preInitClient
 
-#include "..\customization\clientSettings.sqf" //DO NOT REMOVE
+// Debug settings
+GVAR(debugMessagesEnabled) = ([missionConfigFile >> QGVAR(debugSettings) >> "debugMessagesEnabled", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+
+// Start on Safe settings
+GVAR(StartOnSafe) = ([missionConfigFile >> QGVAR(clientSettings) >> "StartOnSafe" >> "enabled", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(StartOnSafe_Lowered) = ([missionConfigFile >> QGVAR(clientSettings) >> "StartOnSafe" >> "lowered", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+GVAR(StartOnSafe_Unloaded) = ([missionConfigFile >> QGVAR(clientSettings) >> "StartOnSafe" >> "unloaded", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+
+// General Settings
+GVAR(clientViewDistance) = [missionConfigFile >> QGVAR(clientSettings) >> "viewDistance", "number", 2500] call CBA_fnc_getConfigEntry;
+GVAR(respawnTickets) = [missionConfigFile >> QGVAR(clientSettings) >> "respawnTickets", "number", 0] call CBA_fnc_getConfigEntry;
+
+if (([missionConfigFile >> QGVAR(clientSettings) >> "forceTerrainGrid", "number", 0] call CBA_fnc_getConfigEntry) == 1) then {
+    [] call FUNC(forceTerrainGrid);
+};
+
+GVAR(eg_whitelisted_sides) = if (([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "viewAllSides", "number", 1] call CBA_fnc_getConfigEntry) == 1) then {
+    [west, east, independent, civilian]
+} else {
+    []
+};
+GVAR(eg_ai_viewed_by_spectator) = ([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "viewAI", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(eg_free_camera_mode_available) = ([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "freeCamera", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(eg_third_person_perspective_camera_mode_available) = ([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "thirdPersonCamera", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(Show_Focus_Info_widget) = ([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "showInfo", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(eg_show_camera_buttons_widget) = ([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "showCameraButtons", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(eg_show_controls_helper_widget) = ([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "showControls", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(eg_show_header_widget) = ([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "showHeader", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(eg_show_Entities_and_locations_lists) = ([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "showEntitiesList", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(eg_spectator_marker) = [missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "showEntitiesList", "string", ""] call CBA_fnc_getConfigEntry;
+GVAR(killcam_active) = ([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "killCam", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(eg_instant_death) = ([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "instantDeath", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+
 
 if (GETMVAR(SpectateBriefing,true)) then {
 

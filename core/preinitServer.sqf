@@ -104,6 +104,60 @@ GVAR(MissionEnded) = false; //Mission has not ended
     [_side, _magName] call FUNC(shotCount);
 }] call CBA_fnc_addEventHandler;
 
+GVAR(serverViewDistance) = [missionConfigFile >> QGVAR(serverSettings) >> "viewDistance", "number", 2500] call CBA_fnc_getConfigEntry;
+
+GVAR(timeLimit) = [missionConfigFile >> QGVAR(serverSettings) >> "timeLimit", "number", 30] call CBA_fnc_getConfigEntry;
+GVAR(timeLimitMessage) = [missionConfigFile >> QGVAR(serverSettings) >> "timeLimitMessage", "string", "TIME LIMIT REACHED!"] call CBA_fnc_getConfigEntry;
+GVAR(endConditionFrequency) = [missionConfigFile >> QGVAR(endConditionFrequency) >> "timeLimit", "number", 30] call CBA_fnc_getConfigEntry;
+
+GVAR(disconnectBodyCleanupTime) = [missionConfigFile >> QGVAR(serverSettings) >> "disconnectBodyCleanupTime", "number", 2] call CBA_fnc_getConfigEntry;
+GVAR(disconnectBodyCleanupSides) = [];
+if (([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "disconnectBodyCleanUp", "number", 1] call CBA_fnc_getConfigEntry) == 1) then {GVAR(disconnectBodyCleanupSides) pushBackUnique west};
+if (([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "disconnectBodyCleanUp", "number", 1] call CBA_fnc_getConfigEntry) == 1) then {GVAR(disconnectBodyCleanupSides) pushBackUnique east};
+if (([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "disconnectBodyCleanUp", "number", 1] call CBA_fnc_getConfigEntry) == 1) then {GVAR(disconnectBodyCleanupSides) pushBackUnique independent};
+if (([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "disconnectBodyCleanUp", "number", 1] call CBA_fnc_getConfigEntry) == 1) then {GVAR(disconnectBodyCleanupSides) pushBackUnique civilian};
+
+GVAR(respawnTickets_West) = [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "respawnTickets", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(waveSize_West) =  [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "waveSize", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(respawnPenGate_West) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "respawnPenGate", "array", ["objNull"]] call CBA_fnc_getConfigEntry) apply {missionNamespace getVariable [_x, objNull]};
+
+GVAR(respawnTickets_East) = [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "respawnTickets", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(waveSize_East) =  [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "waveSize", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(respawnPenGate_East) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "respawnPenGate", "array", ["objNull"]] call CBA_fnc_getConfigEntry) apply {missionNamespace getVariable [_x, objNull]};
+
+GVAR(respawnTickets_Ind) = [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "respawnTickets", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(waveSize_Ind) =  [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "waveSize", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(respawnPenGate_Ind) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "respawnPenGate", "array", ["objNull"]] call CBA_fnc_getConfigEntry) apply {missionNamespace getVariable [_x, objNull]};
+
+GVAR(respawnTickets_Civ) = [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "respawnTickets", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(waveSize_Civ) =  [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "waveSize", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(respawnPenGate_Civ) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "respawnPenGate", "array", ["objNull"]] call CBA_fnc_getConfigEntry) apply {missionNamespace getVariable [_x, objNull]};
+
+private _westTeam = [
+    west,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "name", "string", "USMC"] call CBA_fnc_getConfigEntry,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "type", "string", "player"] call CBA_fnc_getConfigEntry
+];
+_westTeam call FUNC(AddTeam);
+private _eastTeam = [
+    east,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "name", "string", "VDV"] call CBA_fnc_getConfigEntry,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
+];
+_eastTeam call FUNC(AddTeam);
+private _indTeam = [
+    independent,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "name", "string", "Local Militia"] call CBA_fnc_getConfigEntry,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
+];
+_indTeam call FUNC(AddTeam);
+private _civTeam = [
+    civilian,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "name", "string", "Local Civilians"] call CBA_fnc_getConfigEntry,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
+];
+_civTeam call FUNC(AddTeam);
+
 GVAR(CurrentWaveUnlockedWest) = false;
 GVAR(CurrentWaveUnlockedEast) = false;
 GVAR(CurrentWaveUnlockedInd) = false;
@@ -120,6 +174,5 @@ GVAR(ind_ExpendedAmmo) = [];
 GVAR(civ_ExpendedAmmo) = [];
 GVAR(shotClassNames) = [];
 
-#include "..\customization\serverSettings.sqf" //DO NOT REMOVE
 #include "..\customization\inits\PreInitServer.sqf" //DO NOT REMOVE
 #include "..\modules\modules.sqf" //DO NOT REMOVE
