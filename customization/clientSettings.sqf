@@ -6,14 +6,13 @@ GVAR(StartOnSafe) = false;
 GVAR(StartOnSafe_Lowered) = false;
 GVAR(StartOnSafe_Unloaded) = false;
 
-GVAR(RespawnTickets) = 0; //Initialize individual client respawn tickets to 0
-
-// Individual Tickets for different sides when team respawn is enabled in serverSettings
-// set to -1 for unlimited individual tickets
-GVAR(IndividualRespawnTickets_West) = -1;
-GVAR(IndividualRespawnTickets_East) = -1;
-GVAR(IndividualRespawnTickets_Ind) = -1;
-GVAR(IndividualRespawnTickets_Civ) = -1;
+/*
+    Respawn works by setting either the RespawnTickets to -1, giving the players unlimited individual respawn,
+    Disabling respawn entirely by setting the RespawnTickets to 0, or by limiting the respawn tickets by either
+    Setting a finite number of RespawnTickets (ie. RespawnTickets = 5) or by limiting the team respawn tickets in
+    the serverSettings file. Set a team ticket setting to -1 for unlimited team tickets (only restricted by the client setting)
+*/
+GVAR(RespawnTickets) = -1; //Initialize individual client respawn tickets to 0
 
 //call FUNC(forceTerrainGrid); //uncomment this to force high terrain setting. This will prevent faraway objects from appearing as floating. Useful for missions with long sightlines.
 

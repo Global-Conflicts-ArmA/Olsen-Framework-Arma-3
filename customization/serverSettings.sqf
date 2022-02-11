@@ -18,25 +18,25 @@ GVAR(DisconnectBodyCleanupSides) = [WEST, EAST, INDEPENDENT, CIVILIAN];
     Ticket pools for different sides
     Set individual tickets for players on a side in clientSettings
 */
-GVAR(RespawnTickets_West) = 0;
-GVAR(RespawnTickets_East) = 0;
-GVAR(RespawnTickets_Ind) = 0;
-GVAR(RespawnTickets_Civ) = 0;
+GVAR(RespawnTickets_West) = 5;
+GVAR(RespawnTickets_East) = 5;
+GVAR(RespawnTickets_Ind) = 5;
+GVAR(RespawnTickets_Civ) = 5;
 
 //wave respawn
-GVAR(WaveSizeWest) = 0; //How many players have to respawn before wave is released
-GVAR(WaveSizeEast) = 0;
-GVAR(WaveSizeInd) = 0;
-GVAR(WaveSizeCiv) = 0;
+GVAR(WaveSize_West) = 0; //How many players have to respawn before wave is released
+GVAR(WaveSize_East) = 0;
+GVAR(WaveSize_Ind) = 0;
+GVAR(WaveSize_Civ) = 0;
 
 /*
 Players should be put in enclosed space, when their number reaches treshold, the defined "gate" will disappear for 30 seconds
 it has to be defined for wave respawn to work
 */
-GVAR(RespawnPenGateWest) = objnull;
-GVAR(RespawnPenGateEast) = objnull;
-GVAR(RespawnPenGateInd) = objnull;
-GVAR(RespawnPenGateCiv) = objnull;
+GVAR(RespawnPenGate_West) = objnull;
+GVAR(RespawnPenGate_East) = objnull;
+GVAR(RespawnPenGate_Ind) = objnull;
+GVAR(RespawnPenGate_Civ) = objnull;
 
 [west, "USMC", "player"] call FUNC(AddTeam); //Adds a player team called USMC on side west
 [east, "VDV", "ai"] call FUNC(AddTeam); //Adds a ai team called VDV on side east
