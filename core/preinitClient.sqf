@@ -147,7 +147,7 @@ FUNC(eg_keyHandler2) = {
         case "C_UNLIMITED": {
             private _message = "You have unlimited respawns.";
             [{
-                _this call FUNC(parsedTextDisplay);
+                [_this, true, 5, 100] call ace_common_fnc_displayText
             }, _message, 1] call CBA_fnc_waitAndExecute;
             [QGVAR(eventPlayerRespawned)] call CBA_fnc_localEvent;
         };
@@ -167,7 +167,7 @@ FUNC(eg_keyHandler2) = {
                 };
             };
             [{
-                _this call FUNC(parsedTextDisplay);
+                [_this, true, 5, 100] call ace_common_fnc_displayText
             }, _message, 1] call CBA_fnc_waitAndExecute;
             [QGVAR(eventPlayerRespawned)] call CBA_fnc_localEvent;
         };
@@ -190,7 +190,7 @@ FUNC(eg_keyHandler2) = {
                 };
             };
             [{
-                _this call FUNC(parsedTextDisplay);
+                [_this, true, 5, 100] call ace_common_fnc_displayText
             }, _message, 1] call CBA_fnc_waitAndExecute;
             [QGVAR(eventPlayerRespawned)] call CBA_fnc_localEvent;
         };
@@ -209,13 +209,15 @@ FUNC(eg_keyHandler2) = {
                         "Your side has 1 ticket left, you can respawn one more time";
                     };
                     default {
-                        private _return = switch (GVAR(RespawnTickets)) do {
-                            case 1: {
-                                format ['You have 1 individual ticket left and your team has %1 tickets left, you can respawn one more time', _teamTickets]
-                            };
-                            default {
+                        private _return = if (_newValue isEqualTo 1) then {
+                            format ['You have 1 individual ticket left and your team has %1 tickets left, you can respawn one more time', _teamTickets]
+                        } else {
+                            private _return2 = if (_newValue >= _teamTickets) then {
+                                format ['You have %1 individual tickets left and your team has %2 tickets left, you can respawn %2 times', _newValue, _teamTickets]
+                            } else {
                                 format ['You have %1 individual tickets left and your team has %2 tickets left, you can respawn %1 times', _newValue, _teamTickets]
                             };
+                            _return2
                         };
                         _return
                     };
@@ -223,7 +225,7 @@ FUNC(eg_keyHandler2) = {
                 _returnMain
             };
             [{
-                _this call FUNC(parsedTextDisplay);
+                [_this, true, 5, 100] call ace_common_fnc_displayText
             }, _message, 1] call CBA_fnc_waitAndExecute;
             [QGVAR(eventPlayerRespawned)] call CBA_fnc_localEvent;
         };
