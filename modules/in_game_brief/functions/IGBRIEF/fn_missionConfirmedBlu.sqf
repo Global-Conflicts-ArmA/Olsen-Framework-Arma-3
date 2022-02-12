@@ -5,6 +5,6 @@ BlueBoard removeAction GVAR(canceledBlu);
 
 [-2, {hint "Blufor has signaled they are ready to begin!";}] call CBA_fnc_globalExecute;
 
-GVAR(bluforIsReady) = True;
+SETMVAR(bluforIsReady, True);
 BlueBoard hideObjectGlobal true;
-deleteVehicle BlueBoard;
+[Blueboard] remoteExec ["deleteVehicle", 2];

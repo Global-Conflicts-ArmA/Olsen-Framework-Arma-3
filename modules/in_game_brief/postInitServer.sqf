@@ -1,10 +1,10 @@
 #include "script_component.hpp"
 
 // Ingame Brief Variable Defines
-GVAR(bluforIsReady) = false;
-GVAR(opforIsReady) = false;
-GVAR(missionStarter) = false;
+SETMVAR(bluforIsReady, false);
+SETMVAR(opforIsReady, false);
+SETMVAR(missionStarter, false);
 
-[] call FUNC(missionStarter);
+[] call FUNC(beginTheMission);
 
 #include "settings.sqf"

@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-/* diag_log format ["INFO: In register.."]; */
+/* LOG("In register.."); */
 
 if (hasInterface) then {
 
@@ -33,7 +33,7 @@ if (hasInterface) then {
 	private _rCos = cos(_theta * -1);
 	private _rSin = sin(_theta * -1);
 
-	[{!isNull player}, {
+	[{!isNull ACE_player}, {
 		_this params ["_text", "_pos", "_xDistance", "_yDistance", "_cos", "_sin", "_rCos", "_rSin", "_id"];
 
 		GVAR(loopSleep) = 10;

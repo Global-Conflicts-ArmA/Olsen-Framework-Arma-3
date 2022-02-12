@@ -5,6 +5,6 @@ RedBoard removeAction GVAR(canceledRed);
 
 [-2, {hint "Opfor has signaled they are ready to begin!";}] call CBA_fnc_globalExecute;
 
-GVAR(opforIsReady) = True;
+SETMVAR(opforIsReady, True);
 RedBoard hideObjectGlobal true;
-deleteVehicle RedBoard;
+[RedBoard] remoteExec ["deleteVehicle", 2];
