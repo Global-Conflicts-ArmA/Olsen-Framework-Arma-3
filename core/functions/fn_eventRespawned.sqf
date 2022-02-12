@@ -17,7 +17,7 @@ params ["_unit", ["_spectator", false, [false]]];
 
 LOG("Server Event Respawned called");
 if (_spectator || GETVAR(_unit,Spectating,false)) then {
-    _unit call FUNC(UntrackUnit);
+    //_unit call FUNC(UntrackUnit);
 } else {
     SETPVAR(_unit,Dead,false);
     SETPVAR(_unit,Spectating,false);
