@@ -8,8 +8,8 @@
 			[{[-2, {
 				hint "Mission begins in:\n 5 seconds";
 				[{[-2, {
-					SETMVAR(missionStarter, True);
-					[-2, {hint "Mission is LIVE";}] call CBA_fnc_globalExecute;
+					SETMPVAR(missionStarter, True);
+					["Mission is LIVE"] remoteExec ["hint"];
 				}] call CBA_fnc_globalExecute;}, [], 5] call CBA_fnc_waitAndExecute;
 			}] call CBA_fnc_globalExecute;}, [], 5] call CBA_fnc_waitAndExecute;
 		}] call CBA_fnc_globalExecute;}, [], 5] call CBA_fnc_waitAndExecute;

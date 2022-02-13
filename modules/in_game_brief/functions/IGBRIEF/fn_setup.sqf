@@ -11,13 +11,13 @@ private _pos = getMarkerPos _marker;
 private _dir = markerDir _marker;
 private _size = getMarkerSize _marker;
 private _startedVarName = "sandi_setup_done_" + (str _side);
-SETMVAR(_startedVarName, false);
+SETMPVAR(_startedVarName, false);
 
 if (isServer) then { // server
   [{GETMVAR(missionStarter, false)}, {
     _this params ["_startedVarName"];
 
-    SETMVAR(_startedVarName, true);
+    SETMPVAR(_startedVarName, true);
     }, [_startedVarName]] call CBA_fnc_waitUntilAndExecute;
 };
 
