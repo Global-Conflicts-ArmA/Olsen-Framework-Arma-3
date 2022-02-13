@@ -3,8 +3,8 @@
 RedBoard removeAction GVAR(confirmedRed);
 RedBoard removeAction GVAR(canceledRed);
 
-[-2, {hint "Opfor has signaled they are ready to begin!";}] call CBA_fnc_globalExecute;
+["Opfor has signaled they are ready to begin!"] remoteExec ["hint"];
 
-GVAR(opforIsReady) = True;
-RedBoard hideObjectGlobal true;
-deleteVehicle RedBoard;
+SETMPVAR(opforIsReady, True);
+[RedBoard, true] remoteExec ["hideObjectGlobal", 2];
+[RedBoard] remoteExec ["deleteVehicle", 2];

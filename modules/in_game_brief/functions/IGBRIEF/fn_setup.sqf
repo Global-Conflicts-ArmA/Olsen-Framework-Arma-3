@@ -11,12 +11,13 @@ private _pos = getMarkerPos _marker;
 private _dir = markerDir _marker;
 private _size = getMarkerSize _marker;
 private _startedVarName = "sandi_setup_done_" + (str _side);
+SETMPVAR(_startedVarName, false);
 
 if (isServer) then { // server
-  [{GVAR(missionStarter)}, {
+  [{GETMVAR(missionStarter, false)}, {
     _this params ["_startedVarName"];
 
-    GVAR(_startedVarName) = true;
+    SETMPVAR(_startedVarName, true);
     }, [_startedVarName]] call CBA_fnc_waitUntilAndExecute;
 };
 
@@ -27,12 +28,12 @@ if (hasInterface) then { // player
 
     /* diag_log format ["INFO: side player = %1, _side = %2", (side player), _side]; */
     if (side player == _side) then {
-      /* diag_log format ["INFO: Side setting up..."]; */
-      if (isNil QGVAR(_startedVarName)) then { // setup
+      /* LOG("Side setting up..."); */
+      if !(GETMVAR(_startedVarName, false)) then { // setup
         // make barrier
         private _barrierHandle = [_pos, (_size select 0), (_size select 1), _dir, "rectangle", "The setup area ends here"] call FUNC(register);
 
-        [{!isNil QGVAR(_startedVarName)},
+        [{GETMVAR(_startedVarName, false)},
         {
           _this params ["_barrierHandle", "_marker"];
           GVAR(sandi_barrier_barriers) set [_barrierHandle, 0]; // Set barrier state to false

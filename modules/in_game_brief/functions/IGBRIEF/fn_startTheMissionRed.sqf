@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-[-2, {hint "OPFOR Confirm mission start?";}] call CBA_fnc_globalExecute;
+["OPFOR Confirm mission start?"] remoteExec ["hint"];
 
 RedBoard removeAction GVAR(opforStarter);
 
