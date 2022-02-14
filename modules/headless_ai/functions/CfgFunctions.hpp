@@ -61,7 +61,6 @@ class COMPONENT {
 		class RearmSelf {};
 		class ReinforcementResponse {};
 		class ReGroup {};
-		class SightAid {};
 		class FireWeapon {};
 		class SuppressDirection {};
 		class SuppressingShots {};
