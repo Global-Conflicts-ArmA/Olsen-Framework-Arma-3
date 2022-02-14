@@ -57,10 +57,7 @@ class COMPONENT {
 		class RadioCallForSupport {};
 		class RadioCommsEnemy {};
 		class RadioReportThreat {};
-		class RearmGo {};
-		class RearmSelf {};
 		class ReinforcementResponse {};
-		class ReGroup {};
 		class FireWeapon {};
 		class SuppressDirection {};
 		class SuppressingShots {};
