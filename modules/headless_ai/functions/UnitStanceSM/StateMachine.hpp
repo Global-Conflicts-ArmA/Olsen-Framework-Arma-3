@@ -5,7 +5,7 @@ class GVAR(unitStanceStateMachine) {
         local _x && \
         {!isPlayer _x} && \
         {QGETVAR(_x,spawned,false)} && \
-        {QGETVAR(_x,stance,'') isEqualTo ''} && \
+        {(QGETVAR(_x,stance,'') isEqualTo '') && {(QGETVAR(group _x,stance,'') isEqualTo '')}} && \
         {!(QGETVAR(_x,NOAI,false))} && \
         {!([group _x] call FUNC(isMoveTask))} && \
         {(vehicle _x isEqualTo _x)} \

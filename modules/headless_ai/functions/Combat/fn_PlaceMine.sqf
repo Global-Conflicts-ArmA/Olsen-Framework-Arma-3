@@ -14,7 +14,7 @@ if (_MineArray isEqualTo []) exitWith {};
 _Unit removeMagazine _MagazineName;
 
 //systemchat format ["I %1",_Unit];
-private _NearestEnemy = _Unit call FUNC(ClosestEnemy);
+private _NearestEnemy = _Unit call FUNC(closestEnemy);
 if (_NearestEnemy isEqualTo [] || {isNil "_NearestEnemy"}) exitWith {};
 
 private _mine = "";
@@ -59,10 +59,10 @@ if (_mine isEqualTo "") exitWith {};
 	while {alive _mine && _NotSafe} do
 	{
 
-		private _Array1 = (allUnits select {!(side _x isEqualTo _UnitSide)});
-		private _ClosestEnemy = [0,0,0];
-		_ClosestEnemy = [_Array1,_Mine] call FUNC(ClosestObject);
-		if (_ClosestEnemy distance _Mine < 2.5) then {_NotSafe = false;};
+		private _Array1 = (allUnits select {side _x isNotEqualTo _UnitSide});
+		private _closestEnemy = [0,0,0];
+		_closestEnemy = [_Array1,_Mine] call FUNC(ClosestObject);
+		if (_closestEnemy distance _Mine < 2.5) then {_NotSafe = false;};
 		sleep 0.15;
 	};
 	_Mine setdamage 1;

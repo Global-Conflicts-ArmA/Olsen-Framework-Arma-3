@@ -11,7 +11,7 @@ if (_RandomChance > PZAI_GRENADECHANCE) exitwith {};
 if (isNil "_Unit" || {isNull _Unit}) exitWith {};
 
 //systemchat format ["K %1",_Array1];
-_myNearestEnemy = _Unit call FUNC(ClosestEnemy);
+_myNearestEnemy = _Unit call FUNC(closestEnemy);
 if (isNil "_myNearestEnemy") exitWith {};
 if (typeName _myNearestEnemy isEqualTo "ARRAY") exitWith {};
 

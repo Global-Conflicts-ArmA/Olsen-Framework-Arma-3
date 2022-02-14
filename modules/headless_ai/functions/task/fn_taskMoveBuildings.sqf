@@ -64,7 +64,4 @@ if (GETMVAR(Debug,false)) then {
         } forEach [_blds];
     };
 };
-SETVAR(_group,InitialWPSet,true);
 _group setVariable [QGVAR(Mission),"BLDMOVE"];
-[_group] call FUNC(taskRelease);
-true

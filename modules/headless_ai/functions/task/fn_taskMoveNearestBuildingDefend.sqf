@@ -27,5 +27,3 @@ if (_patrol) then {
 if (GETMVAR(Debug,false)) then {
     [_group,(getposatl _bld),"nBldD"] call FUNC(debugCreateMarker);
 };
-SETVAR(_Group,InitialWPSet,true);
-true

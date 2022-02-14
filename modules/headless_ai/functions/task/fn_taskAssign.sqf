@@ -42,7 +42,7 @@ switch (_task) do {
         _taskSet call FUNC(taskSentry);
     };
     case "ATTACK": {
-        _taskSet call FUNC(taskPatrol);
+        _taskSet call FUNC(taskAttack);
     };
     case "ASSAULT": {
         _taskSet call FUNC(taskAssault);
@@ -51,16 +51,16 @@ switch (_task) do {
         _taskSet call FUNC(taskPatrol);
     };
     case "DEFEND": {
-        _taskSet call FUNC(taskPatrol);
+        _taskSet call FUNC(taskDefend);
     };
     case "BUNKER": {
-        _taskSet call FUNC(taskSetBunker);
+        _taskSet call FUNC(taskBunker);
     };
     case "LOITER": {
         _taskSet call FUNC(taskLoiter);
     };
     case "STATIONARY": {
-        _taskSet call FUNC(taskPlacement);
+        _taskSet call FUNC(taskStationary);
     };
     case "HOLD": {
         _taskSet call FUNC(taskPatrol);
@@ -81,9 +81,7 @@ switch (_task) do {
         _taskSet call FUNC(taskPickup);
     };
     case "CARGO": {
-        SETVAR(_Group,InitialWPSet,true);
         _group setVariable [QGVAR(Task),"CARGO"];
-        [_group] call FUNC(taskRelease);
     };
     case "DROPOFF": {
         _taskSet call FUNC(taskDropOff);
@@ -93,4 +91,3 @@ switch (_task) do {
         [_group,_pos,_radius,_wait,_behaviour,_combat,_speed,_formation] call FUNC(taskPatrol);
     };
 };
-true

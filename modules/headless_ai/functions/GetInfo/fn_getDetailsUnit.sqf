@@ -13,10 +13,9 @@ if (_init isEqualType "") then {
          _init = false;
     };
 };
-private _stance = if ((GETVAR(_unit,stance,"Auto")) isEqualTo "Auto") then {
-     unitPos _unit
-} else {
-     GETVAR(_unit,unitStance,"Auto")
+private _stance = GETVAR(_unit,stance,"Auto");
+if (_stance isEqualTo "Auto") then {
+     _stance = unitPos _unit
 };
 if (_pos isEqualTo []) then {
      _pos = (getposATL _unit) apply {parseNumber (_x toFixed 2)};

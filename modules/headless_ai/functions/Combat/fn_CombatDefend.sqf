@@ -1,11 +1,13 @@
 #include "script_component.hpp"
 
-params ["_group", ["_currenttarget", objnull, [objnull]]];
+params [["_group", grpNull, [grpNull]]];
 
-if (_currenttarget isEqualTo objnull) then {_currenttarget = [leader _group] call FUNC(ClosestEnemy)};
-private _enemydir = leader _group getdir _currenttarget;
+private _currentTarget = GETVAR(_group,CurrentTarget,objNull);
+if (_currentTarget isEqualTo objNull) then {
+    _currentTarget =  [leader _group] call FUNC(closestEnemy);
+};
+private _enemydir = leader _group getdir _currentTarget;
 [_group] call CBA_fnc_clearWaypoints;
 private _formation = if (RNG(0.5)) then {"LINE"} else {"WEDGE"};
 _group setformation _formation;
 _group setformdir _enemydir;
-SETVAR(_group,Task,"DEFEND");

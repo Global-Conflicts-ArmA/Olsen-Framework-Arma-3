@@ -16,6 +16,9 @@
         class CustomSkill {
             #include "settings\skill.hpp"
         };
+        class Tasks {
+            #include "config\tasks.hpp"
+        };
     };
 #endif
 

@@ -28,7 +28,4 @@ while {alive _unit && !_error && ((getPosATL _unit) distance _pos) > 2 && (_unit
 doStop _unit;
 _unit disableAI "Path";
 private _group = (group _unit);
-SETVAR(_group,InitialWPSet,true);
 SETVAR(_group,Task,"BLDDEFEND");
-[_group] call FUNC(taskRelease);
-true

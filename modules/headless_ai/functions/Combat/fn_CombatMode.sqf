@@ -5,7 +5,7 @@
 
 params ["_unit","_LastCStance"];
 
-private _NearestEnemy = _unit call FUNC(ClosestEnemy);
+private _NearestEnemy = _unit call FUNC(closestEnemy);
 if (isNil "_NearestEnemy") exitwith {};
 if (_NearestEnemy isEqualTo [0,0,0]) exitwith {};
 

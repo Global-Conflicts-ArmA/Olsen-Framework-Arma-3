@@ -34,5 +34,3 @@ if (GETMVAR(Debug,false)) then {
         [_group,_bpos,"rBldP"] call FUNC(debugCreateMarker);
     };
 };
-SETVAR(_Group,InitialWPSet,true);
-true

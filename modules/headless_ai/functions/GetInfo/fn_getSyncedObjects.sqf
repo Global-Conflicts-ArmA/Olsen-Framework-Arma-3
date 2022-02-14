@@ -31,7 +31,7 @@ _uniqueSynced apply {
                     private _groupPosNew = _groupPos;
                     if ((GETVAR(_group,createRadius,0)) > 1) then {
                         _groupPosArray = [_groupPos,0,(GETVAR(_group,createRadius,0)),(_gx * 5)] call FUNC(getRandomPositionCircle);
-                        if (!(_groupPosArray isEqualTo [])) then {
+                        if (_groupPosArray isNotEqualTo []) then {
                             private _index = floor random (count _groupPosArray);
                             _groupPosNew = _groupPosArray select _index;
                             _groupPosArray deleteAt _index;
@@ -45,14 +45,14 @@ _uniqueSynced apply {
                             private _groupDetails = [_unit,_groupPosNew] call FUNC(getDetailsGroup);
                             (_groupArray select 1) append _groupDetails;
                         };
-                        if (!(_groupPosNew isEqualTo _groupPos)) then {
+                        if (_groupPosNew isNotEqualTo _groupPos) then {
                             _unitpos = [_groupPosNew,_groupldr,_unit] call FUNC(getNewPos);
                             //LOG_3("GroupPos not equal to groupPosNew, getting new unit pos for: %1 OldPos: %2 NewPos: %3",_unit,(getPosATL _unit),_unitpos);
                         };
                         private _veh = vehicle _unit;
-                        if !(_veh isEqualTo _unit) then {
+                        if (_veh isNotEqualTo _unit) then {
                             private _vehPos = getposATL _veh;
-                            if !(_groupPosNew isEqualTo _groupPos) then {
+                            if (_groupPosNew isNotEqualTo _groupPos) then {
                                 _vehPos = _groupPosNew;
                             };
                             if !(_veh in _vehLog) then {
@@ -74,7 +74,7 @@ _uniqueSynced apply {
                             _groups pushBackUnique _groupArray;
                         } else {
                             if (_gx > 0) then {
-                                if (!(_groupPosArray isEqualTo [])) then {
+                                if (_groupPosArray isNotEqualTo []) then {
                                     private _index = (floor random (count _groupPosArray));
                                     _currentPos = _groupPosArray select _index;
                                     _groupPosArray deleteAt _index;

@@ -29,9 +29,7 @@ _dropOffPos = _dropOffPos call CBA_fnc_getPos;
 // Clear existing waypoints first
 [_group] call CBA_fnc_clearWaypoints;
 
-SETVAR(_group,InitialWPSet,true);
 SETVAR(_group,Task,"DROPOFF");
-[_group] call FUNC(taskRelease);
 
 _compradius = GETVAR(_group,taskCompRadius,100);
 if (_compradius < 100) then {
@@ -39,4 +37,3 @@ if (_compradius < 100) then {
 };
 
 [_group, _dropOffPos, _compradius] call FUNC(combatDropOff);
-true

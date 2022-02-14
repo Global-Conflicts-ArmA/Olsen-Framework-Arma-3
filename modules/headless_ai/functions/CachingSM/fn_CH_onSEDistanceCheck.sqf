@@ -11,7 +11,7 @@ private _enemyArray = if (GETMVAR(CacheAllPlayers,true)) then {
 };
 
 if (_enemyArray isNotEqualTo []) then {
-	_enemyInRange = !((_enemyArray select {((vehicle _leader) distance2d _x) <= (GETMVAR(CacheDisableDistance,3000))}) isEqualTo []);
+	_enemyInRange = ((_enemyArray select {((vehicle _leader) distance2d _x) <= (GETMVAR(CacheDisableDistance,3000))}) isNotEqualTo []);
 };
 
 SETVAR(_group,CH_enemyInRange,_enemyInRange);

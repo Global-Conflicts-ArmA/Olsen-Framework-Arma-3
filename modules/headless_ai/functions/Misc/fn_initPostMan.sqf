@@ -6,29 +6,29 @@ if !(local _unit) exitwith {};
 if !(GETVAR(_unit,spawned,false)) exitwith {};
 
 private _group = group _unit;
-private _groupStance = GETVAR(_group,Stance,"AUTO");
-private _unitStance = GETVAR(_unit,unitStance,"AUTO");
+private _groupStance = GETVAR(_group,stance,"AUTO");
+private _unitStance = GETVAR(_unit,stance,"AUTO");
 
 [_unit, _groupStance, _unitStance] call FUNC(setStance);
 
 private _identity = GETVAR(_unit,identityArray,[]);
-if !(_identity isEqualTo []) then {
+if (_identity isNotEqualTo []) then {
     [[_unit, _identity], {
         params ["_unit", "_identity"];
         _identity params ["_unitName", "_face", "_speaker", "_nameSound", "_pitch"];
-        if !(_unitName isEqualTo "") then {
+        if (_unitName isNotEqualTo "") then {
             _unit setName _unitName;
         };
-        if !(_face isEqualTo "") then {
+        if (_face isNotEqualTo "") then {
             _unit setFace _face;
         };
-        if !(_speaker isEqualTo "") then {
+        if (_speaker isNotEqualTo "") then {
             _unit setSpeaker _speaker;
         };
-        if !(_nameSound isEqualTo "") then {
+        if (_nameSound isNotEqualTo "") then {
             _unit setNameSound _nameSound;
         };
-        if !(_pitch isEqualTo 0.99) then {
+        if (_pitch isNotEqualTo 0.99) then {
             _unit setPitch _pitch;
         };
     }] remoteExec ["BIS_fnc_call", 0, true];

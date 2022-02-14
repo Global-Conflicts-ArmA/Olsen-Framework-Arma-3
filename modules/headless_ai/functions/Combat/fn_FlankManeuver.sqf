@@ -8,7 +8,7 @@ params ["_group",["_Flanking",false]];
 _Unit = leader _group;
 
 //Exit this script if the group has many active waypoints and the leader is currently moving. Check again in 30 seconds.
-//if ((count (waypoints (group _Unit))) >= 3 && !(((velocityModelSpace _Unit) select 1) isEqualTo 0) ) exitWith {};
+//if ((count (waypoints (group _Unit))) >= 3 && (((velocityModelSpace _Unit) select 1) isNotEqualTo 0) ) exitWith {};
 if ((count (waypoints (group _Unit))) >= 3) exitWith {};
 
 _WaypointCheck = _group call FUNC(Waypointcheck);
@@ -17,7 +17,7 @@ if (count _WaypointCheck > 0) exitWith {};
 _NoFlanking = GETVAR(_group,REINFORCE,false);
 if (_NoFlanking) exitWith {};
 
-//_myNearestEnemy = _Unit call FUNC(ClosestEnemy);
+//_myNearestEnemy = _Unit call FUNC(closestEnemy);
 _myNearestEnemy = _Unit findNearestEnemy _Unit;
 
 if (isNull _myNearestEnemy) exitWith

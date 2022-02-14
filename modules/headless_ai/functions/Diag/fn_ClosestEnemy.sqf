@@ -21,6 +21,6 @@ private _selectIndex = if (_randomSelect) then {
 	0
 };
 
-private _ClosestEnemy = ((_distanceArray select _selectIndex) select 1);
+private _closestEnemy = ((_distanceArray select _selectIndex) select 1);
 
-_ClosestEnemy
+_closestEnemy

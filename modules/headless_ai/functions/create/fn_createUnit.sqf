@@ -69,7 +69,7 @@ if (_storedVars isNotEqualTo []) then {
 };
 
 if (_stance isNotEqualTo "AUTO") then {
-    SETVAR(_unit,unitStance,_stance);
+    SETVAR(_unit,stance,_stance);
 };
 if (_identity isNotEqualTo []) then {
     SETVAR(_unit,identityArray,_identity);

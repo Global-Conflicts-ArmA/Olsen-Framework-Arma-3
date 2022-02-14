@@ -9,7 +9,6 @@ _wpPos = position _unit;
 
 //mission var
 SETVAR(_group,Task,"PATROL");
-SETVAR(_Group,InitialWPSet,true);
 
 //CBA backup
 //[_Unitleader, _wpPos, PZAI_PatrolDistance] call CBA_fnc_taskPatrol;

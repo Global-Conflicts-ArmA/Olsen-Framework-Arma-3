@@ -9,14 +9,14 @@ _DiagLastCheck = CBA_MissionTime;
 if (_TargetPosition isEqualTo [0,0,0]) then
 {
 	//_target = assignedTarget _unit;
-	private _target = _Unit call FUNC(ClosestEnemy);
+	private _target = _Unit call FUNC(closestEnemy);
 	if (_target isEqualTo [0,0,0]) exitwith {};
 	_TargetPosition = getpos _target;
 }
 else
 {
 	//_target = assignedTarget _unit;
-	private _target = _Unit call FUNC(ClosestEnemy);if (_target isEqualTo [0,0,0]) exitwith {};
+	private _target = _Unit call FUNC(closestEnemy);if (_target isEqualTo [0,0,0]) exitwith {};
 	_NewPosition = getpos _Target;
 
 

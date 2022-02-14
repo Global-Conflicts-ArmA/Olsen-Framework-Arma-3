@@ -8,7 +8,7 @@ params [
 
 
 //private _position = GETVAR(_group,position,getposATL leader _group);
-//private _hasradio = _group call FUNC(hasRadioGroup);
+//private _hasRadio = (_group call FUNC(hasRadioGroup)) select 0;
 //private _areaAssigned = GETVAR(_group,areaAssigned,"NONE");
 //private _assetType = GETVAR(_group,assetType,"Infantry");
 

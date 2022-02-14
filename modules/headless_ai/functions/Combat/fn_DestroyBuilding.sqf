@@ -7,7 +7,7 @@ params ["_Unit","_SatchelArray"];
 private _SatchelObj = _SatchelArray select 0;
 private _SatchelMag = _SatchelArray select 1;
 
-private _Point = _Unit call FUNC(ClosestEnemy);
+private _Point = _Unit call FUNC(closestEnemy);
 if (_Point isEqualTo [] || isNil "_Point" || _Point isEqualTo [0,0,0]) exitWith {};
 
 if ((_Unit distance _Point) < 200) then {

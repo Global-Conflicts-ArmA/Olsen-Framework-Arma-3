@@ -41,7 +41,7 @@ private _assaultTaskPFH = [{
     private _leader = leader _group;
     if (
         (_units isEqualTo []) ||
-        {!((GETVAR(_group,Task,"PATROL")) isEqualTo "ASSAULT")} ||
+        {(GETVAR(_group,Task,"PATROL")) isNotEqualTo "ASSAULT"} ||
         {(GETVAR(_group,ExitAssault,false))} ||
         {
             (getPosATL _leader distance2D _targetPos) <= _compradius
@@ -64,12 +64,12 @@ private _assaultTaskPFH = [{
     _group setCombatMode "BLUE";
     _group setBehaviourStrong "CARELESS";
     _group setSpeedMode "FULL";
-    private _nearestEnemy = _leader call FUNC(ClosestEnemy);
+    private _nearestEnemy = _leader call FUNC(closestEnemy);
     if (
-            _nearestEnemy isNotEqualTo objNull 
+            _nearestEnemy isNotEqualTo objNull
             && {(_leader distance2d _nearestEnemy < (GETVAR(_group,AssaultEngageDistance,200)))}
             && {count _units > 2}
-        ) then {
+    ) then {
         //sort the members by distance to the objective... find the farthest and make them move, closest do fire support
         TRACE_2("Enemy Detected and in range",_group,_leader distance2d _nearestEnemy);
         private _sortArray = _units apply {
@@ -79,7 +79,7 @@ private _assaultTaskPFH = [{
         _sortArray sort true;
         private _fireGroup = [_sortArray, 0, count _sortArray / 2] call BIS_fnc_subSelect;
         private _moveGroup = _sortArray - _fireGroup;
-        
+
         _fireGroup apply {
             _x params ["_distance", "_unit"];
             _unit setUnitCombatMode "YELLOW";
@@ -106,7 +106,7 @@ private _assaultTaskPFH = [{
                 [_unit, _relDir, 3] call FUNC(SuppressDirection);
             }
         };
-        
+
         _moveGroup apply {
             _x params ["_distance", "_unit"];
             //_unit doFollow _leader;

@@ -32,7 +32,7 @@ private _assaultTaskPFH = [{
     if (
         (_units isEqualTo []) ||
         {_veh isEqualTo _leader} ||
-        {!((GETVAR(_group,Task,"PATROL")) isEqualTo "ASSAULT")} ||
+        {(GETVAR(_group,Task,"PATROL")) isNotEqualTo "ASSAULT"} ||
         {(GETVAR(_group,ExitAssault,false))} ||
         {
             (getPosATL _leader distance2D _targetPos) <= _compradius

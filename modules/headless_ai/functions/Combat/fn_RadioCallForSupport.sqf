@@ -57,7 +57,7 @@ allGroups select {
     	([_sidecaller, _side] call BIS_fnc_sideIsFriendly) &&
     	{!_knownEnemy || {_target isEqualTo objnull} || {!(_target in _nearbyEnemy)}} &&
     	{_distanceToGroup <= GVAR(RadioDistance)} &&
-    	{!(GETMVAR(RadioNeedRadio,false)) || {_group call FUNC(hasRadioGroup)}}
+    	{!(GETMVAR(RadioNeedRadio,false)) || {(_group call FUNC(hasRadioGroup)) select 0}}
     ) then {
     	private _response = [_group, _groupcaller, _distanceToGroup, _reportedLocation, CBA_MissionTime, _nearbyEnemy, _enemyHasArmored] call FUNC(ReinforcementResponse);
     	TRACE_3("reinforcement response",_groupcaller,_group,_response);

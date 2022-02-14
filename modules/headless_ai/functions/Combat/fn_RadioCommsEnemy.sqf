@@ -31,7 +31,7 @@ private _respondingArmored = [];
 		([_sidecaller, _side] call BIS_fnc_sideIsFriendly) &&
 		{(_enemycaller isNotEqualTo _target)} &&
 		{_distanceToGroup <= GVAR(RadioDistance)} &&
-		{!(GETMVAR(RadioNeedRadio,false)) || {_group call FUNC(hasRadioGroup)}}
+		{!(GETMVAR(RadioNeedRadio,false)) || {(_group call FUNC(hasRadioGroup)) select 0}}
 	) then {
 		if ([_groupcaller,_enemycaller,CBA_MissionTime,_group] call FUNC(ReinforcementResponse)) then {
 			switch _assetType do {

@@ -42,7 +42,4 @@ _waypoints apply {
 deleteWaypoint [_group, 0];
 //_group setCurrentWaypoint [_group, 0];
 //set manual waypoint mission mode
-SETVAR(_group,InitialWPSet,true);
 SETVAR(_group,Task,"MANUAL");
-[_group] call FUNC(taskRelease);
-true

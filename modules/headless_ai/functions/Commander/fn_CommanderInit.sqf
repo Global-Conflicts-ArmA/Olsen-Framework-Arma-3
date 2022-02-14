@@ -121,7 +121,7 @@ GVAR(CommanderAreasParsed) = [];
 } foreach GVAR(CommanderAreas);
 
 [{
-    !(GVAR(CommanderAreasParsed) isEqualTo []) &&
+    (GVAR(CommanderAreasParsed) isNotEqualTo []) &&
     {((missionNamespace getVariable [(GVAR(CommanderAreasParsed) select 0), locationNull]) isNotEqualTo locationNull)} &&
     {(((missionNamespace getVariable (GVAR(CommanderAreasParsed) select 0)) getVariable [QGVAR(marker), ""]) isNotEqualTo "")}
 },{

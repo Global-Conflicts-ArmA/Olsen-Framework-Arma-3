@@ -25,7 +25,6 @@ _landPos = _landPos call CBA_fnc_getPos;
 // Clear existing waypoints first
 [_group] call CBA_fnc_clearWaypoints;
 
-SETVAR(_group,InitialWPSet,true);
 SETVAR(_group,Task,"PICKUP");
 [_group] call FUNC(taskRelease);
 
@@ -33,4 +32,3 @@ _compradius = GETVAR(_group,taskCompRadius,150);
 TRACE_2("",_group,_compradius);
 
 [_group, _landPos, _compradius] call FUNC(combatLand);
-true

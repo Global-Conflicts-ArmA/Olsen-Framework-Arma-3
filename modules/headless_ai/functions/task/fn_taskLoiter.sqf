@@ -12,8 +12,8 @@ params [
     ["_formation", "NO CHANGE", [""]]
 ];
 
-SETVAR(_group,InitialWPSet,true);
 _group setVariable [QGVAR(Task),"LOITER"];
+[_group] call FUNC(taskRelease);
 
 //We need a list of actions that the AI can do for loitering.
 private _units = units _group;
@@ -26,5 +26,4 @@ _units apply {
         [_x, _units] spawn FUNC(LoiterAction);
     };
 };
-[_group] call FUNC(taskRelease);
 true

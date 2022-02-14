@@ -63,7 +63,4 @@ if (GETMVAR(Debug,false)) then {
         [_group,_bpos,"rBldP"] call FUNC(debugCreateMarker);
     };
 };
-SETVAR(_group,InitialWPSet,true);
 _group setVariable [QGVAR(Mission),"BLDMOVE"];
-[_group] call FUNC(taskRelease);
-true

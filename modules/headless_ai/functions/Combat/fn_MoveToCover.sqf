@@ -4,7 +4,7 @@
 private ["_Unit", "_coverObjects", "_startingdistance", "_class", "_return", "_parents", "_BoundingArray", "_p1", "_p2", "_maxWidth", "_maxLength", "_GroupLeader", "_unit", "_NearestEnemy", "_GuessLocation", "_coverObjectsClosest", "_Closestobject", "_coverObjectspos", "_arrow", "_UnitGroup", "_OriginalSpeed", "_WaitTime","_WeakListFinal"];
 
 _Unit = _this select 0;
-if !((vehicle _Unit) isEqualTo _Unit) exitWith {};
+if ((vehicle _Unit) isNotEqualTo _Unit) exitWith {};
 
 waitUntil {PZAI_CurrentlyMoving < PZAI_CurrentlyMovingLimit};
 
@@ -16,7 +16,7 @@ waitUntil {PZAI_CurrentlyMoving < PZAI_CurrentlyMovingLimit};
 	_StartedInside = _this select 4;
 
 	//Let's find the nearest enemy to his unit.
-	_NearestEnemy = _Unit call FUNC(ClosestEnemy);
+	_NearestEnemy = _Unit call FUNC(closestEnemy);
 	_DistanceCheck = _NearestEnemy distance _Unit;
 	if (isNil "_NearestEnemy" || {(typeName _NearestEnemy isEqualTo "ARRAY")} || {isNil "_Unit"} || {!(alive _NearestEnemy)} || {(_DistanceCheck) > 2000}) exitWith {_Unit forcespeed -1;PZAI_CurrentlyMoving = PZAI_CurrentlyMoving - 1;};
 

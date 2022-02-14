@@ -1,5 +1,28 @@
 class COMPONENT {
 	tag = COMPONENT;
+
+    class BunkerSM {
+		file = "modules\headless_ai\functions\BunkerSM";
+		class OnSEInitial {};
+		class OnSECheckNearbyEnemies {};
+		class OnSERemoveCantSeeEnemy {};
+		class OnSEEnemyInRange {};
+		class OnSECombatMode {};
+		class OnSETarget {};
+		class OnSEFire {};
+		class OnSEAimed {};
+		class OnSETimeOutReset {};
+		class OnSEBurstReset {};
+		class CondBurstCount {};
+	};
+
+    class CachingSM {
+    	file = "modules\headless_ai\functions\CachingSM";
+    	class CH_onSEDistanceCheck {};
+    	class CH_transCacheGroup {};
+    	class CH_transUnCacheGroup {};
+    };
+
 	class Combat {
 		file = "modules\headless_ai\functions\Combat";
 		class ArmEmptyStatic {};
@@ -55,57 +78,98 @@ class COMPONENT {
 		class CommanderInit {};
 	};
 
-	class StateMachine {
-		file = "modules\headless_ai\functions\statemachine";
-		class addEventTransition {};
-		class addState {};
-		class addTransition {};
-		class clockwork {};
-		class create {};
-		class createFromConfig {};
-		class delete {};
-		class getCurrentState {};
-		class manualTransition {};
-		class toString {};
-		class updateList {};
-		class dumpPerformanceCounters {};
+    class create {
+    	file = "modules\headless_ai\functions\create";
+        class createFunctions {};
+        class createGroup {};
+        class createUnit {};
+        class createVehicle {};
+        class createEmptyVehicle {};
+        class createObject {};
+        class createWaypoint {};
+        class createWaypointModified {};
+        class createWaypoints {};
+        class createZone {};
+        class finishGroupSpawn {};
+        class finishVehicleSpawn {};
+        class setAssignedVehicle {};
+        class spawnArray {};
+        class spawnGroupPFH {};
+        class spawnUnitsGroupPFH {};
+        class spawnUnitsVehiclePFH {};
+    };
+
+    class DangerCauses {
+    	file = "modules\headless_ai\functions\DangerCauses";
+    	class CombatMovement {};
+    	class CurrentStance {};
+    	class DeadBodyDetection {};
+    	class ExplosionDetection {};
+    	class MoveToCoverGroup {};
+    	class RecentEnemyDetected {};
+    	class SetCombatStance {};
+    	class stopToShoot {};
+    	class VehicleHandleDanger {};
+    };
+
+    class Diag {
+    	file = "modules\headless_ai\functions\Diag";
+    	class checkView {};
+    	class closestEnemy {};
+    	class ClosestObject {};
+    	class DriverCheck {};
+    	class EnemyArray {};
+    	class getStance {};
+    	class hasMine {};
+    	class hasAT {};
+    	class hasMG {};
+    	class hasUGL {};
+    	class HasRadioGroup {};
+    	class IRCheck {};
+    	class isAimed {};
+    	class isInCombat {};
+    	class isMoveTask {};
+    	class LOSCheck {};
+    	class tempRemovePrimaryMags {};
+    	class nearbyFriendlyEntities {};
+    };
+
+    class Eventhandlers {
+		file = "modules\headless_ai\functions\Eventhandlers";
+		class onFiredMan {};
 	};
 
-	class CommanderSM {
-		file = "modules\headless_ai\functions\CommanderSM";
-		class CM_OnStateInitial {};
+    class get {
+		file = "modules\headless_ai\functions\get";
+	    class getBuildingList {};
+	    class getBuildings {};
+	    class getGroupVariables {};
+	    class getNearestBuilding {};
+	    class getNearestBuildings {};
+	    class getNearestGroupBuildings {};
+	    class getNewPos {};
+	    class getRandomBuilding {};
+	    class getRandomBuildings {};
+	    class getRandomGroupBuildings {};
+	    class getRandomPositionCircle {};
+	    class getStartBuilding {};
+	    class getTurrets {};
+	    class getWaypointDetails {};
+	    class getVehicleRoles {};
 	};
 
-	class SightAidSM {
-		file = "modules\headless_ai\functions\SightAidSM";
-		class SA_OnSECheckNearbyEnemies {};
-		class SA_OnSECombatMode {};
-		class SA_onSEEnemyInRange {};
-		class SA_OnSERemoveCantSeeEnemy {};
+	class GetInfo {
+		file = "modules\headless_ai\functions\GetInfo";
+	    class getDetailsGroup {};
+	    class getDetailsThing {};
+	    class getDetailsVehicle {};
+	    class getDetailsVehicleEmpty {};
+	    class getDetailsUnit {};
+	    class getSynced {};
+	    class getSyncedObjects {};
 	};
 
-	class UnitStanceSM {
-		file = "modules\headless_ai\functions\UnitStanceSM";
-		class US_onSEInitial {};
-		class US_onSEResetStance {};
-		class US_onSEStanceCheck {};
-		class US_onSEUnitChecks {};
-	};
-
-	//class UnitCombatSM {
-	//	file = "modules\headless_ai\functions\UnitCombatSM";
-	//	class UC_onSECheckNearbyEnemies {};
-	//	class UC_onSEUnitChecks {};
-	//};
-
-    class CachingSM {
-		file = "modules\headless_ai\functions\CachingSM";
-		class CH_onSEDistanceCheck {};
-		class CH_transCacheGroup {};
-		class CH_transUnCacheGroup {};
-	};
-
-	class Main {
+    class Main {
 		file = "modules\headless_ai\functions\Main";
 		class GroupHandler {};
 		class initMain {};
@@ -124,159 +188,54 @@ class COMPONENT {
 		class searchNestedArray {};
 	};
 
-	class BunkerSM {
-		file = "modules\headless_ai\functions\BunkerSM";
-		class OnSEInitial {};
-		class OnSECheckNearbyEnemies {};
-		class OnSERemoveCantSeeEnemy {};
-		class OnSEEnemyInRange {};
-		class OnSECombatMode {};
-		class OnSETarget {};
-		class OnSEFire {};
-		class OnSEAimed {};
-		class OnSETimeOutReset {};
-		class OnSEBurstReset {};
-		class CondBurstCount {};
-	};
-
-	class Eventhandlers {
-		file = "modules\headless_ai\functions\Eventhandlers";
-		class onFiredMan {};
-	};
-
-	class create {
-		file = "modules\headless_ai\functions\create";
-	    class createFunctions {};
-	    class createGroup {};
-	    class createUnit {};
-	    class createVehicle {};
-	    class createEmptyVehicle {};
-	    class createObject {};
-	    class createWaypoint {};
-	    class createWaypointModified {};
-	    class createWaypoints {};
-	    class createZone {};
-	    class finishGroupSpawn {};
-	    class finishVehicleSpawn {};
-	    class setAssignedVehicle {};
-	    class spawnArray {};
-	    class spawnGroupPFH {};
-	    class spawnUnitsGroupPFH {};
-	    class spawnUnitsVehiclePFH {};
-	};
-
-	class Diag {
-		file = "modules\headless_ai\functions\Diag";
-		class AttachPosition {};
-		class BuildingCheck {};
-		class BuildingSpawnCheck {};
-		class checkView {};
-		class Classvehicle {};
-		class ClosestEnemy {};
-		class ClosestObject {};
-		class DriverCheck {};
-		class EnemyArray {};
-		class getStance {};
-		class hasMine {};
-		class hasAT {};
-		class hasMG {};
-		class hasUGL {};
-		class HasRadioGroup {};
-		class IRCheck {};
-		class isAimed {};
-		class isInCombat {};
-		class isMoveTask {};
-		class LOSCheck {};
-		class StanceModifier {};
-		class UnitCheck {};
-		class VehicleHandle {};
-		class tempRemovePrimaryMags {};
-		class Waypointcheck {};
-		class WepSupCheck {};
-		class nearbyFriendlyEntities {};
-	};
-
-	class DangerCauses {
-		file = "modules\headless_ai\functions\DangerCauses";
-		class CombatMovement {};
-		class CurrentStance {};
-		class DeadBodyDetection {};
-		class ExplosionDetection {};
-		class MoveToCoverGroup {};
-		class RecentEnemyDetected {};
-		class SetCombatStance {};
-		class stopToShoot {};
-		class VehicleHandleDanger {};
-	};
-
-	class get {
-		file = "modules\headless_ai\functions\get";
-	    class getBuildingList {};
-	    class getBuildings {};
-	    class getGroupVariables {};
-	    class getNearestBuilding {};
-	    class getNearestBuildings {};
-	    class getNearestGroupBuildings {};
-	    class getNewPos {};
-	    class getRandomBuilding {};
-	    class getRandomBuildings {};
-	    class getRandomGroupBuildings {};
-	    class getRandomPositionCircle {};
-	    class getSide {};
-	    class getStartBuilding {};
-	    class getTasks {};
-	    class getTaskParams {};
-	    class getTurrets {};
-	    class getWaypointDetails {};
-	    class getVehicleRoles {};
-	};
-
-	class GetInfo {
-		file = "modules\headless_ai\functions\GetInfo";
-	    class getDetailsArray {};
-	    class getDetailsGroup {};
-	    class getDetailsThing {};
-	    class getDetailsVehicle {};
-	    class getDetailsVehicleEmpty {};
-	    class getDetailsUnit {};
-	    class getSynced {};
-	    class getSyncedObjects {};
-	};
-
-	class set {
+    class set {
 		file = "modules\headless_ai\functions\set";
 	    class setAssignedVehicle {};
 	    class setBuildingPos {};
-	    class setCompletedTasks {};
 	    class setFlashlights {};
 	    class setGroupBehaviour {};
 	    class setGroupVariables {};
-	    class setMarkerPos {};
-	    class setMultiOccupy {};
-	    class setRadial {};
+        class setMultiOccupy {};
 	    class setRespawn {};
 	    class setStance {};
 	    class setSurrender {};
 	    class setVehicle {};
 	};
 
+    class SightAidSM {
+		file = "modules\headless_ai\functions\SightAidSM";
+		class SA_OnSECheckNearbyEnemies {};
+		class SA_OnSECombatMode {};
+		class SA_onSEEnemyInRange {};
+		class SA_OnSERemoveCantSeeEnemy {};
+	};
+
+	class StateMachine {
+		file = "modules\headless_ai\functions\statemachine";
+		class addEventTransition {};
+		class addState {};
+		class addTransition {};
+		class clockwork {};
+		class create {};
+		class createFromConfig {};
+		class delete {};
+		class getCurrentState {};
+		class manualTransition {};
+		class toString {};
+		class updateList {};
+		class dumpPerformanceCounters {};
+	};
+
 	class task {
 		file = "modules\headless_ai\functions\task";
-	    class taskActivate {};
 	    class taskAssign {};
 	    class taskAssault {};
-	    class taskCheck {};
-	    class taskComplete {};
 	    class taskDropOff {};
-	    class taskForceFire {};
-	    class taskGroup {};
 	    class taskLoiter {};
 	    class taskHoldUntil {};
-	    class taskInit {};
 	    class taskRelease {};
 	    class taskBuildingPatrol {};
 	    class taskBuildingDefend {};
-	    class taskMonitor {};
 	    class taskMoveBuilding {};
 	    class taskMoveBuildings {};
 	    class taskMoveGroupBuildingsDefend {};
@@ -291,15 +250,22 @@ class COMPONENT {
 	    class taskMoveRandomGroupBuildingsPatrol {};
 	    class taskMoveRandomMultipleBuildingsDefend {};
 	    class taskMoveRandomMultipleBuildingsPatrol {};
-	    class taskRegister {};
-	    class taskRemoveZoneActivated {};
 	    class taskSearchNearby {};
-	    class taskSet {};
 	    class taskPickup {};
-	    class taskSetBunker {};
+	    class taskBunker {};
+        class taskDefend {};
+        class taskAttack {};
 	    class taskSentry {};
-	    class taskPlacement {};
+	    class taskStationary {};
 	    class taskPatrol {};
 	    class taskPatrolPerimeter {};
+	};
+
+    class UnitStanceSM {
+		file = "modules\headless_ai\functions\UnitStanceSM";
+		class US_onSEInitial {};
+		class US_onSEResetStance {};
+		class US_onSEStanceCheck {};
+		class US_onSEUnitChecks {};
 	};
 };

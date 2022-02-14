@@ -26,7 +26,7 @@ private _dropOffTaskPFH = [{
         _units isEqualTo [] ||
         {_veh isEqualTo _leader} ||
         {!canMove _veh} ||
-        {!((GETVAR(_group,Task,"PATROL")) isEqualTo "DROPOFF")} ||
+        {(GETVAR(_group,Task,"PATROL")) isNotEqualTo "DROPOFF"} ||
         {(GETVAR(_group,ExitTask,false))} ||
         {
             _distance <= _compradius

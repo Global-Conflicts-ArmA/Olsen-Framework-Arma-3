@@ -26,7 +26,7 @@ if (GVAR(CurrentlySuppressing) < GVAR(CurrentlySuppressingLimit)) then {
 			_pos = getPosATL _pos;
 		};
 
-		_Point = _Unit call GVAR(fnc_ClosestEnemy);
+		_Point = _Unit call GVAR(fnc_closestEnemy);
 		if (_Point isEqualTo [] || {isNil "_Point"}) exitWith {};
 
 		_ArrayCheck = typeName _Point;

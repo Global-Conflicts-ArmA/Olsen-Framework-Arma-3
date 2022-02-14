@@ -7,6 +7,7 @@ params [
 ];
 
 //LOG_1("setstance: %1",_this);
+TRACE_3("setstance",_unit,_groupStance,_unitStance);
 
 private _stance = if ((_groupStance != "Auto") && {_unitStance == "Auto"}) then {
     _groupStance
@@ -15,5 +16,6 @@ private _stance = if ((_groupStance != "Auto") && {_unitStance == "Auto"}) then 
 };
 
 if (_stance != "Auto") then {
+    TRACE_2("setstance",_unit,_stance);
     _unit setUnitPos _stance;
 };

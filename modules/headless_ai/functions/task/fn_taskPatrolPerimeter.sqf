@@ -38,7 +38,5 @@ _this2 set [2,0];
 _this2 set [8, "CYCLE"];
 _this2 call FUNC(createWaypoint);
 deleteWaypoint ((waypoints _group) select 0);
-SETVAR(_group,InitialWPSet,true);
 _group setVariable [QGVAR(Mission),"PERIMPATROL"];
 [_group] call FUNC(taskRelease);
-true

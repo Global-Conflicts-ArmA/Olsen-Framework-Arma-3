@@ -37,5 +37,3 @@ if (GETMVAR(Debug,false)) then {
         } forEach _blds;
     };
 };
-SETVAR(_Group,InitialWPSet,true);
-true

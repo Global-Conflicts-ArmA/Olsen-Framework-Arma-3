@@ -12,7 +12,7 @@ private ["_Unit", "_MovedRecently", "_VisuallyCanSee", "_NearestEnemy", "_inters
 	_MovedRecentlyCover = _this select 3;
 
 	////systemchat format ["M %1",_Unit];
-	//_NearestEnemy = _Unit call FUNC(ClosestEnemy);
+	//_NearestEnemy = _Unit call FUNC(closestEnemy);
 	_NearestEnemy = _Unit findNearestEnemy _Unit;
 	_DistanceCheck = _NearestEnemy distance _Unit;
 	//if (isNil "_NearestEnemy" || {_MovedRecentlyCover} || {(typeName _NearestEnemy isEqualTo "ARRAY")} || {isNil "_Unit"} || {!(alive _NearestEnemy)} || {(_NearestEnemy distance _Unit) > 5000}) exitWith {};

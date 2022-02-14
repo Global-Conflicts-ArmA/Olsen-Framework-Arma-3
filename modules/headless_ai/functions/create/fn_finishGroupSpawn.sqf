@@ -60,7 +60,7 @@ if (_task isEqualTo "MANUAL" || (GETVAR(leader _group,noAI,false)) || (GETVAR(_g
     };
     TRACE_2("",_group,_taskPos);
     private _passarray = [_group,_task,_taskPos,_taskRadius,_wait,_behaviour,_combat,_speed,_formation,_occupyOption];
-    [{!((count waypoints (_this select 0)) isEqualTo 0)},{
+    [{(count waypoints (_this select 0)) isNotEqualTo 0},{
         _this call FUNC(taskAssign);
     },_passarray] call CBA_fnc_waitUntilAndExecute;
 };

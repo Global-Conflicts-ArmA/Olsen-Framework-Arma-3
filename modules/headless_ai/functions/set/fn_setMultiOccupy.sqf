@@ -1,7 +1,6 @@
 #include "script_component.hpp"
 
-
-params ["_multiOccupy","_gx"];
+params ["_multiOccupy", "_gx"];
 private _return = switch (_multiOccupy) do {
     case 1: {floor(_gx*0.25);};
     case 2: {floor(_gx*0.5);};

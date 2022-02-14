@@ -10,5 +10,4 @@ private _radius = 100;
 _group setFormDir _enemyDir;
 
 [_group] call CBA_fnc_clearWaypoints;
-SETVAR(_group,Task,"ATTACK");
 [_group, _targetPos, _radius, "SAD", "COMBAT", "RED"] call CBA_fnc_addWaypoint;

@@ -39,7 +39,7 @@ if (PZAI_CurrentlyMoving < PZAI_CurrentlyMovingLimit) then
 			if (_Unit isEqualTo (leader _Unit)) then
 			{
 				_GroupDudes = units (group _Unit);
-				_NearestEnemy = _Unit call FUNC(ClosestEnemy);
+				_NearestEnemy = _Unit call FUNC(closestEnemy);
 				if (isNil "_NearestEnemy" || _NearestEnemy isEqualTo [0,0,0]) then {_NearestEnemy = _WPPosition;};
 				//systemchat format ["_NearestEnemy: %1",_NearestEnemy];
 				_MovedRecentlyRETURN = true;
@@ -50,7 +50,7 @@ if (PZAI_CurrentlyMoving < PZAI_CurrentlyMovingLimit) then
 					[_x,_WPPosition,_GARRISONED,_MovedRecentlyCover,_ActivelyClearing,_StartedInside,_NearestEnemy] spawn
 					{
 						_Unit = _this select 0;
-						if !((vehicle _Unit) isEqualTo _Unit) exitWith {};
+						if ((vehicle _Unit) isNotEqualTo _Unit) exitWith {};
 						waitUntil {PZAI_CurrentlyMoving < PZAI_CurrentlyMovingLimit};
 						PZAI_CurrentlyMoving = PZAI_CurrentlyMoving + 1;
 						sleep (random 10);
@@ -64,7 +64,7 @@ if (PZAI_CurrentlyMoving < PZAI_CurrentlyMovingLimit) then
 
 						_MoveToPos = [_Unit,_Pos,_NearestEnemy] call FUNC(FragmentMove);
 						//systemchat format ["_MoveToPos: %1",_MoveToPos];
-						if !((vehicle _Unit) isEqualTo _Unit) exitWith
+						if ((vehicle _Unit) isNotEqualTo _Unit) exitWith
 						{
 							_Unit forceSpeed -1;
 							_Unit doMove _Pos;

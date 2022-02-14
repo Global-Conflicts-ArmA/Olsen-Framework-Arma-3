@@ -8,7 +8,7 @@ if (_MovedRecentlyCover || {_ActivelyClearing} || {_StartedInside} || {_GARRISON
 //Find the closest enemy (This should be the one that is in a building
 
 //systemchat format ["F %1",_Unit];
-private _Enemy = _Unit call FUNC(ClosestEnemy);
+private _Enemy = _Unit call FUNC(closestEnemy);
 if (isNil "_Enemy" || {(typeName _Enemy) isEqualTo "ARRAY"}) exitWith {};
 
 //Find nearest building to the enemy

@@ -6,7 +6,7 @@ params ["_unit"];
 //exit if sightaid for vehicles disabled
 if (!(GETMVAR(SightAidVehicles,false)) && {vehicle _unit != _unit}) exitwith {};
 
-private _closestEnemy = _Unit call FUNC(ClosestEnemy);
+private _closestEnemy = _Unit call FUNC(closestEnemy);
 private _distance = _unit distance _closestEnemy;
 if (_distance > GVAR(SightAidDistance)) exitwith {};
 private _knowsabouttarget = _unit knowsabout _closestEnemy;

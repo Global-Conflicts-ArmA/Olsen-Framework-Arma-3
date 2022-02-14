@@ -16,3 +16,4 @@ if (_screenedBuildings isEqualTo []) exitWith {};
 private _building = _screenedBuildings select 0;
 
 [_group, _building] call FUNC(searchBuilding);
+[_group] call FUNC(taskRelease);

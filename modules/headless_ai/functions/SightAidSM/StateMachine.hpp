@@ -8,7 +8,7 @@ class GVAR(sightAidStateMachine) {
         {!isPlayer (leader _x)} && \
         {!(QGETVAR(_x,NOAI,false))} && \
         {QGETVAR(group _x,Spawned,false)} && \
-        {!((QGETVAR(group _x,Mission,'NONE')) isEqualTo 'BUNKER') && {!(QGETVAR(_x,Bunker,false))}} && \
+        {((QGETVAR(group _x,Mission,'NONE')) isNotEqualTo 'BUNKER') && {!(QGETVAR(_x,Bunker,false))}} && \
         {(QGETMVAR(SightAidVehicles,true)) || {vehicle _x isEqualTo _x}} \
     });
     skipNull = 1;
@@ -26,7 +26,7 @@ class GVAR(sightAidStateMachine) {
         class Enemy_in__Range {
             targetState = QUOTE(Check_Nearby_Ene);
 
-            condition = QUOTE(!((QGETVAR(_this,SA_enemyInRange,[])) isEqualTo []));
+            condition = QUOTE((QGETVAR(_this,SA_enemyInRange,[])) isNotEqualTo []);
         };
         class No_Enemy__in_Ran {
             targetState = QUOTE(Wait);
@@ -65,7 +65,7 @@ class GVAR(sightAidStateMachine) {
         class Check_Next_Enemy {
             targetState = QUOTE(Check_Nearby_Ene);
 
-            condition = QUOTE(!((QGETVAR(_this,SA_enemyInRange,[])) isEqualTo []));
+            condition = QUOTE((QGETVAR(_this,SA_enemyInRange,[])) isNotEqualTo []);
         };
         class No_Enemy__in_Ran {
             targetState = QUOTE(Wait);

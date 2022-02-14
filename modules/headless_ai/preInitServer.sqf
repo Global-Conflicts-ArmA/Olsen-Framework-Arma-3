@@ -15,7 +15,7 @@ GVAR(zoneEntities) = createHashMap;
 }] call CBA_fnc_addEventHandler;
 
 //Gathers HC Arrays
-if !(GVAR(ArrayObjects) isEqualTo []) then {
+if (GVAR(ArrayObjects) isNotEqualTo []) then {
 	private _ArrayObjects = GVAR(ArrayObjects);
 	LOG_1("ArrayObjects %1",_ArrayObjects);
 	[{

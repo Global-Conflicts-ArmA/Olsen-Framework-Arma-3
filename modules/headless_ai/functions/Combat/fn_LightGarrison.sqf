@@ -14,10 +14,10 @@ _SpecificUnit = _UnitsGroup select 0;
 
 
 //systemchat format ["G %1",_Unit];
-_ClosestEnemy = _Unit call FUNC(ClosestEnemy);
-if (isNil "_ClosestEnemy" || {_ClosestEnemy isEqualTo []}) exitWith {};
+_closestEnemy = _Unit call FUNC(closestEnemy);
+if (isNil "_closestEnemy" || {_closestEnemy isEqualTo []}) exitWith {};
 
-_nBuilding = nearestBuilding _ClosestEnemy;
+_nBuilding = nearestBuilding _closestEnemy;
 _IsEnterable = [_nBuilding] call BIS_fnc_isBuildingEnterable;
 
 _UnitsGroup apply {

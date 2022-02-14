@@ -28,12 +28,13 @@ _units apply {
 SETVAR(_group,Task,"MOVE");
 [_group, _targetPos, _radius, "MOVE", "AWARE", "RED"] call CBA_fnc_addWaypoint;
 
-[{
+private _moveToTaskPFH = [{
     params ["_argNested", "_idPFH"];
     _argNested params ["_group", "_targetPos", "_nextTask"];
-    if (leader _group distance2D _targetPos <= 50) exitWith {
+    private _leader = leader _group;
+    private _units = units _group select {_x call EFUNC(FW,isAlive)};
+    if (_leader distance2D _targetPos <= 50) exitWith {
         TRACE_3("moveTo done, setting to new task",_group,_targetPos,_nextTask);
-        private _units = units _group;
         _units apply {
             private _unit = _x;
             _unit enableAI "AUTOCOMBAT";
@@ -49,8 +50,24 @@ SETVAR(_group,Task,"MOVE");
         };
         [_idPFH] call CBA_fnc_removePerFrameHandler;
     };
-    [_group] call CBA_fnc_clearWaypoints;
-    [_group, _targetPos, _radius, "MOVE", "AWARE", "RED"] call CBA_fnc_addWaypoint;
+    private _nearestEnemy = _leader call FUNC(closestEnemy);
+    private _engageDistance = GETVAR(_group,engageDistance,200);
+    if (
+            _nearestEnemy isNotEqualTo objNull
+            && {_leader distance2d _nearestEnemy < _engageDistance}
+            && {count _units > 2}
+    ) then {
+        _units apply {
+            private _unit = _x;
+            _unit enableAI "AUTOCOMBAT";
+            _unit setUnitPos "Auto";
+        };
+        [_group, getPos _nearestEnemy] call FUNC(CombatAttack);
+        [_idPFH] call CBA_fnc_removePerFrameHandler;
+    } else {
+        [_group] call CBA_fnc_clearWaypoints;
+        [_group, _targetPos, _radius, "MOVE", "AWARE", "RED"] call CBA_fnc_addWaypoint;
+    };
 }, 5, [_group, _targetPos, _nextTask]] call CBA_fnc_addPerFrameHandler;
 
 

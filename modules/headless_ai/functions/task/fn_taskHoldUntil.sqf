@@ -27,7 +27,5 @@ for "_i" from 0 to (count _units) do {
     _u doWatch ((getPosATL _u) vectorAdd ((vectorDir _u) vectorMultiply 100));
     doStop _u;
 };
-SETVAR(_Group,InitialWPSet,true);
 _group setVariable [QGVAR(Mission),"HOLD"];
-[_group] call FUNC(taskRelease);
 true

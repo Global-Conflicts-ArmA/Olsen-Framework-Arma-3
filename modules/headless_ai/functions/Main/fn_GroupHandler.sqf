@@ -93,7 +93,7 @@ GVAR(GroupHandlerPFH) = [{
                 };
                 //radio for help
                 if ((GETMVAR(RadioDistance,2000)) > 0) then {
-                    if (!(GETMVAR(RadioNeedRadio,false)) || {_group call FUNC(hasRadioGroup)}) then {
+                    if (!(GETMVAR(RadioNeedRadio,false)) || {(_group call FUNC(hasRadioGroup)) select 0}) then {
                         private _radioWait = GETMVAR(RadioWait,30);
                         private _lastCallTime = GETVAR(_group,LastCallTime,(CBA_MissionTime - _radioWait));
                         if (CBA_MissionTime >= (_LastCallTime + _radioWait) && {!(GETVAR(_group,Reinforcing,false))}) then {
