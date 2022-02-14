@@ -16,6 +16,8 @@
         class CustomSkill {
             #include "settings\skill.hpp"
         };
+    };
+    class GVAR(Config) {
         class Tasks {
             #include "config\tasks.hpp"
         };
