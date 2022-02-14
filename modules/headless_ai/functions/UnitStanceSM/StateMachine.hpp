@@ -5,6 +5,7 @@ class GVAR(unitStanceStateMachine) {
         local _x && \
         {!isPlayer _x} && \
         {QGETVAR(_x,spawned,false)} && \
+        {QGETVAR(_x,stance,'') isEqualTo ''} && \
         {!(QGETVAR(_x,NOAI,false))} && \
         {!([group _x] call FUNC(isMoveTask))} && \
         {(vehicle _x isEqualTo _x)} \
@@ -24,7 +25,7 @@ class GVAR(unitStanceStateMachine) {
             targetState = QUOTE(Check_Stance);
 
             condition = QUOTE(((behaviour _this) in [ARR_2(QN(COMBAT),QN(STEALTH))])\
-            && {!((_this targets []) isEqualTo [])}\
+            && {(_this targets []) isNotEqualTo []}\
             && {!(QGETVAR(_this,reloading,false))});
         };
         class No_target {
