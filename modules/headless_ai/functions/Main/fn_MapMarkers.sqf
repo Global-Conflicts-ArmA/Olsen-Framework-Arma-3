@@ -132,17 +132,24 @@ GVAR(GroupMarkersPFH) = [{
                 };
             };
             if (_usetarget) then {
-                if (_targetMarker isEqualTo "") then {
-                    _targetMarker = format["target_%1_%2",_side,_group];
-                    createMarker [_targetMarker,[0,0]];
-                    private _targettext = format ["%1",_group];
-                    _targetMarker setMarkerShapeLocal "ICON";
-                    _targetMarker setMarkerTypeLocal "mil_objective";
-                    _targetMarker setMarkerSizeLocal [0.5,0.5];
-                    _targetMarker setmarkercolorLocal _markercolour;
-                    _targetMarker setMarkerTextLocal _targettext;
+                if (_target isEqualTo objNull) then {
+                    if (_targetMarker isNotEqualTo "") then {
+                        deletemarker _targetMarker;
+                        _targetMarker = "";
+                    };
+                } else {
+                    if (_targetMarker isEqualTo "") then {
+                        _targetMarker = format["target_%1_%2",_side,_group];
+                        createMarker [_targetMarker,[0,0]];
+                        private _targettext = format ["%1",_group];
+                        _targetMarker setMarkerShapeLocal "ICON";
+                        _targetMarker setMarkerTypeLocal "mil_objective";
+                        _targetMarker setMarkerSizeLocal [0.5,0.5];
+                        _targetMarker setmarkercolorLocal _markercolour;
+                        _targetMarker setMarkerTextLocal _targettext;
+                    };
+                    _targetMarker setMarkerPos [(getpos _target select 0),(getpos _target select 1)];
                 };
-                _targetMarker setMarkerPos [(getpos _target select 0),(getpos _target select 1)];
             } else {
                 if (_targetMarker isNotEqualTo "") then {
                     deletemarker _targetMarker;

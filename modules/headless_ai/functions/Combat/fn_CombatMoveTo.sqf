@@ -69,14 +69,3 @@ private _moveToTaskPFH = [{
         [_group, _targetPos, _radius, "MOVE", "AWARE", "RED"] call CBA_fnc_addWaypoint;
     };
 }, 5, [_group, _targetPos, _nextTask]] call CBA_fnc_addPerFrameHandler;
-
-
-//_NoFlanking = GETVAR(_Group,REINFORCE,false);
-//if (_NoFlanking) then {
-//	[_Group] call CBA_fnc_clearWaypoints;
-//	SETVAR(_group,Task,"ATTACK");
-//	[_group, _position, _radius, "SAD", "COMBAT", "RED"] call CBA_fnc_addWaypoint;
-//} else {
-//	SETVAR(_group,Task,"FLANK");
-//	[_Group,false] spawn FUNC(FlankManeuver);
-//};
