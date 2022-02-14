@@ -29,3 +29,4 @@ doStop _unit;
 _unit disableAI "Path";
 private _group = (group _unit);
 SETVAR(_group,Task,"BLDDEFEND");
+[_group] call FUNC(taskRelease);

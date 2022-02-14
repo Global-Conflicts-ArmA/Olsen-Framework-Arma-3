@@ -30,6 +30,7 @@ _dropOffPos = _dropOffPos call CBA_fnc_getPos;
 [_group] call CBA_fnc_clearWaypoints;
 
 SETVAR(_group,Task,"DROPOFF");
+[_group] call FUNC(taskRelease);
 
 _compradius = GETVAR(_group,taskCompRadius,100);
 if (_compradius < 100) then {

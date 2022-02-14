@@ -28,4 +28,5 @@ for "_i" from 0 to (count _units) do {
     doStop _u;
 };
 _group setVariable [QGVAR(Mission),"HOLD"];
+[_group] call FUNC(taskRelease);
 true

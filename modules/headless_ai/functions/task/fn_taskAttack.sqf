@@ -24,6 +24,4 @@ if !(local _group) exitWith {}; // Don't create waypoints on each machine
 
 _attackPos = _attackPos call CBA_fnc_getPos;
 
-SETVAR(_group,Task,"ASSAULT");
-
 [_group, _attackPos] call FUNC(combatAttack);
