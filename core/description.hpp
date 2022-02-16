@@ -58,7 +58,21 @@
 	        GVAR(startedCamera) = QUOTE(_this call FUNC(initCamera));
 	    };
 	};
-
+    class GVAR(serverSettings) {
+        #include "..\customization\serverSettings.hpp"
+    };
+    class GVAR(debugSettings) {
+        #include "..\customization\debugSettings.hpp"
+    };
+    class GVAR(gearSettings) {
+        #include "..\customization\gearSettings.hpp"
+    };
+    class GVAR(settings) {
+        #include "..\customization\settings.hpp"
+    };
+    class GVAR(clientSettings) {
+        #include "..\customization\clientSettings.hpp"
+    };
 #endif
 
 #ifdef description_debriefing_sections

@@ -1,9 +1,9 @@
 <p align="center">
-    <img src="https://github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3/blob/master/core/logo.jpg">
+    <img src="https://content.globalconflicts.net/ArtAssets/logo_black_text.png" width="1024">
 </p>
 <p align="center">
     <a href="https://github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3/releases/latest">
-        <img src="https://img.shields.io/badge/Version-0.1.1-blue.svg" alt="Global Conflicts Framework Version">
+        <img src="https://img.shields.io/badge/Version-1.1.0-blue.svg" alt="Global Conflicts Framework Version">
     </a>
     <a href="https://github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3/issues">
         <img src="https://img.shields.io/github/issues-raw/Global-Conflicts-ArmA/Olsen-Framework-Arma-3.svg?label=Issues" alt="Global Conflicts Framework Issues">
@@ -23,3 +23,4 @@ For help in writing your own module, visit [functions documentation](https://git
 You can aid in development of this project by contributing custom [gearscript](https://github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3/wiki/Making-your-first-mission#now-we-will-set-up-gear-script-first-navigate-to-customizationloadouts-folder-create-new-file-and-name-it-with-your-faction-name) files.
 
 ### To aid in keeping mission size small, remove all unused modules.
+

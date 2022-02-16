@@ -31,78 +31,67 @@ GVAR(MissionEnded) = false; //Mission has not ended
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(eventCheckRespawnTickets), {
-    params [["_unit", objNull, [objNull]]];
-    private _side = side _unit;
-    LOG_1("eventCheckRespawnTickets started: %1",_unit);
-    private _canRespawn = false;
-    switch (_side) do {
-        case west: {
-            if (GVAR(RespawnTickets_West) > 0) then {
-                GVAR(RespawnTickets_West) = GVAR(RespawnTickets_West) - 1;
-                GVAR(CurrentWaveCountWest) = GVAR(CurrentWaveCountWest) + 1;
-                if (GVAR(CurrentWaveCountWest) >= GVAR(WaveSizeWest) && {!(GVAR(RespawnPenGateWest) isEqualTo objnull)}) then {
-                    GVAR(CurrentWaveUnlockedWest) = true;
-                    GVAR(RespawnPenGateWest) hideObjectGlobal true;
-                    [{
-                        GVAR(RespawnPenGateWest) hideObjectGlobal false;
-                        GVAR(CurrentWaveCountWest) = 0;
-                        GVAR(CurrentWaveUnlockedWest) = false;
-                    }, [], 30] call CBA_fnc_waitAndExecute;
-                };
-                _canRespawn = true;
-            };
-        };
+    params [
+        ["_unit", objNull, [objNull]],
+        ["_side", west, [sideEmpty]],
+        ["_localTickets", 0, [0]]
+    ];
+    TRACE_2("eventCheckRespawnTickets started",_unit,_side);
+    // First get appropriate variable names for unit side
+    private _teamTicketVar = QGVAR(RespawnTickets_West);
+    //private _waveCountVar = QGVAR(CurrentWaveCount_West);
+    //private _waveSizeVar = QGVAR(WaveSize_West);
+    //private _waveUnlockedVar = QGVAR(CurrentWaveUnlocked_West);
+    //private _respawnPenVar = QGVAR(RespawnPenGate_West);
+    switch _side do {
         case east: {
-            if (GVAR(RespawnTickets_East) > 0) then {
-                GVAR(RespawnTickets_East) = GVAR(RespawnTickets_East) - 1;
-                GVAR(CurrentWaveCountEast) = GVAR(CurrentWaveCountEast) + 1;
-                if (GVAR(CurrentWaveCountEast) >= GVAR(WaveSizeEast) && {!(GVAR(RespawnPenGateEast) isEqualTo objnull)}) then {
-                    GVAR(CurrentWaveUnlockedEast) = true;
-                    GVAR(RespawnPenGateEast) hideObjectGlobal true;
-                    [{
-                        GVAR(RespawnPenGateEast) hideObjectGlobal false;
-                        GVAR(CurrentWaveCountEast) = 0;
-                        GVAR(CurrentWaveUnlockedEast) = false;
-                    }, [], 30] call CBA_fnc_waitAndExecute;
-                };
-                _canRespawn = true;
-            };
+            _teamTicketVar = QGVAR(RespawnTickets_East);
+            //_waveCountVar = QGVAR(CurrentWaveCount_East);
+            //_waveSizeVar = QGVAR(WaveSize_East);
+            //_waveUnlockedVar = QGVAR(CurrentWaveUnlocked_East);
+            //_respawnPenVar = QGVAR(RespawnPenGate_East);
         };
         case independent: {
-            if (GVAR(RespawnTickets_Ind) > 0) then {
-                GVAR(RespawnTickets_Ind) = GVAR(RespawnTickets_Ind) - 1;
-                GVAR(CurrentWaveCountInd) = GVAR(CurrentWaveCountInd) + 1;
-                if (GVAR(CurrentWaveCountInd) >= GVAR(WaveSizeInd) && {!(GVAR(RespawnPenGateInd) isEqualTo objnull)}) then {
-                    GVAR(CurrentWaveUnlockedInd) = true;
-                    GVAR(RespawnPenGateInd) hideObjectGlobal true;
-                    [{
-                        GVAR(RespawnPenGateInd) hideObjectGlobal false;
-                        GVAR(CurrentWaveCountInd) = 0;
-                        GVAR(CurrentWaveUnlockedInd) = false;
-                    }, [], 30] call CBA_fnc_waitAndExecute;
-                };
-                _canRespawn = true;
-            };
+            _teamTicketVar = QGVAR(RespawnTickets_Ind);
+            //_waveCountVar = QGVAR(CurrentWaveCount_Ind);
+            //_waveSizeVar = QGVAR(WaveSize_Ind);
+            //_waveUnlockedVar = QGVAR(CurrentWaveUnlocked_Ind);
+            //_respawnPenVar = QGVAR(RespawnPenGate_Ind);
         };
         case civilian: {
-            if (GVAR(RespawnTickets_Civ) > 0) then {
-                GVAR(RespawnTickets_Civ) = GVAR(RespawnTickets_Civ) - 1;
-                GVAR(CurrentWaveCountCiv) = GVAR(CurrentWaveCountCiv) + 1;
-                if (GVAR(CurrentWaveCountCiv) >= GVAR(WaveSizeCiv) && {!(GVAR(RespawnPenGateCiv) isEqualTo objnull)}) then {
-                    GVAR(CurrentWaveUnlockedCiv) = true;
-                    GVAR(RespawnPenGateCiv) hideObjectGlobal true;
-                    [{
-                        GVAR(RespawnPenGateCiv) hideObjectGlobal false;
-                        GVAR(CurrentWaveCountCiv) = 0;
-                        GVAR(CurrentWaveUnlockedCiv) = false;
-                    }, [], 30] call CBA_fnc_waitAndExecute;
-                };
-                _canRespawn = true;
-            };
+            _teamTicketVar = QGVAR(RespawnTickets_Civ);
+            //_waveCountVar = QGVAR(CurrentWaveCount_Civ);
+            //_waveSizeVar = QGVAR(WaveSize_Civ);
+            //_waveUnlockedVar = QGVAR(CurrentWaveUnlocked_Civ);
+            //_respawnPenVar = QGVAR(RespawnPenGate_Civ);
+        };
+        default {};
+    };
+    TRACE_2("",_side,_teamTicketVar);
+    private _teamTickets = missionNamespace getVariable [_teamTicketVar, 0];
+    TRACE_2("",_side,_teamTickets);
+    // If team tickets are unlimited, exit with response event with client mode
+    if (_teamTickets isEqualTo -1) exitWith {
+        if (_localTickets isEqualTo -1) then {
+            [QGVAR(eventCheckRespawnTickets_Response), ["C_UNLIMITED"], _unit] call CBA_fnc_targetEvent;
+        } else {
+            [QGVAR(eventCheckRespawnTickets_Response), ["C_LIMITED"], _unit] call CBA_fnc_targetEvent;
         };
     };
-    LOG_1("eventCheckRespawnTickets_Response called: %1",_unit);
-    [QGVAR(eventCheckRespawnTickets_Response), _canRespawn, _unit] call CBA_fnc_targetEvent;
+    // If team tickets are zero / used up:
+    if (_teamTickets isEqualTo 0) exitWith {
+        [QGVAR(eventCheckRespawnTickets_Response), ["TEAM_ZERO"], _unit] call CBA_fnc_targetEvent;
+    };
+    private _type = if (_localTickets isEqualTo -1) then {
+        // local tickets are unlimited, only substract from team tickets
+        "TEAM_LIMITED"
+    } else {
+        // local tickets are limited, subtract from both
+        "BOTH LIMITED"
+    };
+    private _newValue = (_teamTickets - 1) max 0;
+    missionNamespace setVariable [_teamTicketVar, _newValue];
+    [QGVAR(eventCheckRespawnTickets_Response), [_type, _newValue], _unit] call CBA_fnc_targetEvent;
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(ShotCountEvent), {
@@ -114,6 +103,59 @@ GVAR(MissionEnded) = false; //Mission has not ended
     };
     [_side, _magName] call FUNC(shotCount);
 }] call CBA_fnc_addEventHandler;
+GVAR(serverViewDistance) = [missionConfigFile >> QGVAR(serverSettings) >> "viewDistance", "number", 2500] call CBA_fnc_getConfigEntry;
+
+GVAR(timeLimit) = [missionConfigFile >> QGVAR(serverSettings) >> "timeLimit", "number", 30] call CBA_fnc_getConfigEntry;
+GVAR(timeLimitMessage) = [missionConfigFile >> QGVAR(serverSettings) >> "timeLimitMessage", "string", "TIME LIMIT REACHED!"] call CBA_fnc_getConfigEntry;
+GVAR(endConditionFrequency) = [missionConfigFile >> QGVAR(endConditionFrequency) >> "timeLimit", "number", 30] call CBA_fnc_getConfigEntry;
+
+GVAR(disconnectBodyCleanupTime) = [missionConfigFile >> QGVAR(serverSettings) >> "disconnectBodyCleanupTime", "number", 2] call CBA_fnc_getConfigEntry;
+GVAR(disconnectBodyCleanupSides) = [];
+if (([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "disconnectBodyCleanUp", "number", 1] call CBA_fnc_getConfigEntry) == 1) then {GVAR(disconnectBodyCleanupSides) pushBackUnique west};
+if (([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "disconnectBodyCleanUp", "number", 1] call CBA_fnc_getConfigEntry) == 1) then {GVAR(disconnectBodyCleanupSides) pushBackUnique east};
+if (([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "disconnectBodyCleanUp", "number", 1] call CBA_fnc_getConfigEntry) == 1) then {GVAR(disconnectBodyCleanupSides) pushBackUnique independent};
+if (([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "disconnectBodyCleanUp", "number", 1] call CBA_fnc_getConfigEntry) == 1) then {GVAR(disconnectBodyCleanupSides) pushBackUnique civilian};
+
+GVAR(respawnTickets_West) = [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "respawnTickets", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(waveSize_West) =  [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "waveSize", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(respawnPenGate_West) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "respawnPenGate", "array", ["objNull"]] call CBA_fnc_getConfigEntry) apply {missionNamespace getVariable [_x, objNull]};
+
+GVAR(respawnTickets_East) = [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "respawnTickets", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(waveSize_East) =  [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "waveSize", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(respawnPenGate_East) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "respawnPenGate", "array", ["objNull"]] call CBA_fnc_getConfigEntry) apply {missionNamespace getVariable [_x, objNull]};
+
+GVAR(respawnTickets_Ind) = [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "respawnTickets", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(waveSize_Ind) =  [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "waveSize", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(respawnPenGate_Ind) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "respawnPenGate", "array", ["objNull"]] call CBA_fnc_getConfigEntry) apply {missionNamespace getVariable [_x, objNull]};
+
+GVAR(respawnTickets_Civ) = [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "respawnTickets", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(waveSize_Civ) =  [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "waveSize", "number", -1] call CBA_fnc_getConfigEntry;
+GVAR(respawnPenGate_Civ) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "respawnPenGate", "array", ["objNull"]] call CBA_fnc_getConfigEntry) apply {missionNamespace getVariable [_x, objNull]};
+
+private _westTeam = [
+    west,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "name", "string", "USMC"] call CBA_fnc_getConfigEntry,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "type", "string", "player"] call CBA_fnc_getConfigEntry
+];
+_westTeam call FUNC(AddTeam);
+private _eastTeam = [
+    east,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "name", "string", "VDV"] call CBA_fnc_getConfigEntry,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
+];
+_eastTeam call FUNC(AddTeam);
+private _indTeam = [
+    independent,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "name", "string", "Local Militia"] call CBA_fnc_getConfigEntry,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
+];
+_indTeam call FUNC(AddTeam);
+private _civTeam = [
+    civilian,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "name", "string", "Local Civilians"] call CBA_fnc_getConfigEntry,
+    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
+];
+_civTeam call FUNC(AddTeam);
 
 [QGVAR(requestCOEvent), {
     params [["_side", west, [west]], ["_requestingUnit", objNull, [objNull]]];
@@ -153,6 +195,5 @@ GVAR(ind_ExpendedAmmo) = [];
 GVAR(civ_ExpendedAmmo) = [];
 GVAR(shotClassNames) = [];
 
-#include "..\customization\serverSettings.sqf" //DO NOT REMOVE
 #include "..\customization\inits\PreInitServer.sqf" //DO NOT REMOVE
 #include "..\modules\modules.sqf" //DO NOT REMOVE

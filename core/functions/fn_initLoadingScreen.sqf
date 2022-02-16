@@ -2,8 +2,6 @@
 
 params ["_display"];
 
-#include "..\..\customization\settings.sqf"
-
 if !(GETMVAR(loadingScreen,false)) exitwith {};
 
 private _image = getMissionConfigValue ["loadScreen", ""];
