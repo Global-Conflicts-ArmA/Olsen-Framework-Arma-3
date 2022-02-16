@@ -8,105 +8,90 @@ GVAR(MissionEnded) = false; //Mission has not ended
 
 [QGVAR(spawnedEvent), {
     params ["_unit"];
+    //LOG_1("spawnedEvent started: %1",_unit);
 	_unit call FUNC(eventSpawned);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(untrackEvent), {
     params ["_unit"];
-    LOG_1("untrackEvent started: %1",_unit);
+    //LOG_1("untrackEvent started: %1",_unit);
 	_unit call FUNC(untrackUnit);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(killedEvent), {
     params [["_unit", objNull, [objNull]], ["_killer", objNull, [objNull]]];
-    LOG_1("killedevent started: %1",_unit);
+    //LOG_1("killedevent started: %1",_unit);
 	[_unit, _killer] call FUNC(EventKilled);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(respawnEvent), {
-    params [["_unit", objNull, [objNull]]];
-    LOG_1("respawnEvent started: %1",_unit);
-	[_unit] call FUNC(EventRespawned);
+    params [["_unit", objNull, [objNull]], ["_spectator", false, [false]]];
+    LOG_2("respawnEvent started: %1 spectator: %2",_unit,_spectator);
+	[_unit, _spectator] call FUNC(EventRespawned);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(eventCheckRespawnTickets), {
-    params [["_unit", objNull, [objNull]]];
-    private _side = side _unit;
-    LOG_1("eventCheckRespawnTickets started: %1",_unit);
-    private _canRespawn = false;
-    switch (_side) do {
-        case west: {
-            if (GVAR(RespawnTicketsWest) > 0) then {
-                GVAR(RespawnTicketsWest) = GVAR(RespawnTicketsWest) - 1;
-                GVAR(CurrentWaveCountWest) = GVAR(CurrentWaveCountWest) + 1;
-                if (GVAR(CurrentWaveCountWest) >= GVAR(WaveSizeWest) && {!(GVAR(RespawnPenGateWest) isEqualTo objnull)}) then {
-                    GVAR(CurrentWaveUnlockedWest) = true;
-                    GVAR(RespawnPenGateWest) hideObjectGlobal true;
-                    [{
-                        GVAR(RespawnPenGateWest) hideObjectGlobal false;
-                        GVAR(CurrentWaveCountWest) = 0;
-                        GVAR(CurrentWaveUnlockedWest) = false;
-                    }, [], 30] call CBA_fnc_waitAndExecute;
-                };
-                _canRespawn = true;
-            };
-        };
+    params [
+        ["_unit", objNull, [objNull]],
+        ["_side", west, [sideEmpty]],
+        ["_localTickets", 0, [0]]
+    ];
+    TRACE_2("eventCheckRespawnTickets started",_unit,_side);
+    // First get appropriate variable names for unit side
+    private _teamTicketVar = QGVAR(RespawnTickets_West);
+    //private _waveCountVar = QGVAR(CurrentWaveCount_West);
+    //private _waveSizeVar = QGVAR(WaveSize_West);
+    //private _waveUnlockedVar = QGVAR(CurrentWaveUnlocked_West);
+    //private _respawnPenVar = QGVAR(RespawnPenGate_West);
+    switch _side do {
         case east: {
-            if (GVAR(RespawnTicketsEast) > 0) then {
-                GVAR(RespawnTicketsEast) = GVAR(RespawnTicketsEast) - 1;
-                GVAR(CurrentWaveCountEast) = GVAR(CurrentWaveCountEast) + 1;
-                if (GVAR(CurrentWaveCountEast) >= GVAR(WaveSizeEast) && {!(GVAR(RespawnPenGateEast) isEqualTo objnull)}) then {
-                    GVAR(CurrentWaveUnlockedEast) = true;
-                    GVAR(RespawnPenGateEast) hideObjectGlobal true;
-                    [{
-                        GVAR(RespawnPenGateEast) hideObjectGlobal false;
-                        GVAR(CurrentWaveCountEast) = 0;
-                        GVAR(CurrentWaveUnlockedEast) = false;
-                    }, [], 30] call CBA_fnc_waitAndExecute;
-                };
-                _canRespawn = true;
-            };
+            _teamTicketVar = QGVAR(RespawnTickets_East);
+            //_waveCountVar = QGVAR(CurrentWaveCount_East);
+            //_waveSizeVar = QGVAR(WaveSize_East);
+            //_waveUnlockedVar = QGVAR(CurrentWaveUnlocked_East);
+            //_respawnPenVar = QGVAR(RespawnPenGate_East);
         };
         case independent: {
-            if (GVAR(RespawnTicketsInd) > 0) then {
-                GVAR(RespawnTicketsInd) = GVAR(RespawnTicketsInd) - 1;
-                GVAR(CurrentWaveCountInd) = GVAR(CurrentWaveCountInd) + 1;
-                if (GVAR(CurrentWaveCountInd) >= GVAR(WaveSizeInd) && {!(GVAR(RespawnPenGateInd) isEqualTo objnull)}) then {
-                    GVAR(CurrentWaveUnlockedInd) = true;
-                    GVAR(RespawnPenGateInd) hideObjectGlobal true;
-                    [{
-                        GVAR(RespawnPenGateInd) hideObjectGlobal false;
-                        GVAR(CurrentWaveCountInd) = 0;
-                        GVAR(CurrentWaveUnlockedInd) = false;
-                    }, [], 30] call CBA_fnc_waitAndExecute;
-                };
-                _canRespawn = true;
-            };
+            _teamTicketVar = QGVAR(RespawnTickets_Ind);
+            //_waveCountVar = QGVAR(CurrentWaveCount_Ind);
+            //_waveSizeVar = QGVAR(WaveSize_Ind);
+            //_waveUnlockedVar = QGVAR(CurrentWaveUnlocked_Ind);
+            //_respawnPenVar = QGVAR(RespawnPenGate_Ind);
         };
         case civilian: {
-            if (GVAR(RespawnTicketsCiv) > 0) then {
-                GVAR(RespawnTicketsCiv) = GVAR(RespawnTicketsCiv) - 1;
-                GVAR(CurrentWaveCountCiv) = GVAR(CurrentWaveCountCiv) + 1;
-                if (GVAR(CurrentWaveCountCiv) >= GVAR(WaveSizeCiv) && {!(GVAR(RespawnPenGateCiv) isEqualTo objnull)}) then {
-                    GVAR(CurrentWaveUnlockedCiv) = true;
-                    GVAR(RespawnPenGateCiv) hideObjectGlobal true;
-                    [{
-                        GVAR(RespawnPenGateCiv) hideObjectGlobal false;
-                        GVAR(CurrentWaveCountCiv) = 0;
-                        GVAR(CurrentWaveUnlockedCiv) = false;
-                    }, [], 30] call CBA_fnc_waitAndExecute;
-                };
-                _canRespawn = true;
-            };
+            _teamTicketVar = QGVAR(RespawnTickets_Civ);
+            //_waveCountVar = QGVAR(CurrentWaveCount_Civ);
+            //_waveSizeVar = QGVAR(WaveSize_Civ);
+            //_waveUnlockedVar = QGVAR(CurrentWaveUnlocked_Civ);
+            //_respawnPenVar = QGVAR(RespawnPenGate_Civ);
+        };
+        default {};
+    };
+    TRACE_2("",_side,_teamTicketVar);
+    private _teamTickets = missionNamespace getVariable [_teamTicketVar, 0];
+    TRACE_2("",_side,_teamTickets);
+    // If team tickets are unlimited, exit with response event with client mode
+    if (_teamTickets isEqualTo -1) exitWith {
+        if (_localTickets isEqualTo -1) then {
+            [QGVAR(eventCheckRespawnTickets_Response), ["C_UNLIMITED"], _unit] call CBA_fnc_targetEvent;
+        } else {
+            [QGVAR(eventCheckRespawnTickets_Response), ["C_LIMITED"], _unit] call CBA_fnc_targetEvent;
         };
     };
-    LOG_1("eventCheckRespawnTickets_Response called: %1",_unit);
-    [QGVAR(eventCheckRespawnTickets_Response), _canRespawn, _unit] call CBA_fnc_targetEvent;
-
-  // Wait is necessary so that the client has a chance to update the Spectating variable
-  [{
-    [_unit] call FUNC(EventRespawned);
-  }, [_unit], 2] call CBA_fnc_waitAndExecute;
+    // If team tickets are zero / used up:
+    if (_teamTickets isEqualTo 0) exitWith {
+        [QGVAR(eventCheckRespawnTickets_Response), ["TEAM_ZERO"], _unit] call CBA_fnc_targetEvent;
+    };
+    private _type = if (_localTickets isEqualTo -1) then {
+        // local tickets are unlimited, only substract from team tickets
+        "TEAM_LIMITED"
+    } else {
+        // local tickets are limited, subtract from both
+        "BOTH LIMITED"
+    };
+    private _newValue = (_teamTickets - 1) max 0;
+    missionNamespace setVariable [_teamTicketVar, _newValue];
+    [QGVAR(eventCheckRespawnTickets_Response), [_type, _newValue], _unit] call CBA_fnc_targetEvent;
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(ShotCountEvent), {
@@ -118,12 +103,11 @@ GVAR(MissionEnded) = false; //Mission has not ended
     };
     [_side, _magName] call FUNC(shotCount);
 }] call CBA_fnc_addEventHandler;
-
 GVAR(serverViewDistance) = [missionConfigFile >> QGVAR(serverSettings) >> "viewDistance", "number", 2500] call CBA_fnc_getConfigEntry;
 
 GVAR(timeLimit) = [missionConfigFile >> QGVAR(serverSettings) >> "timeLimit", "number", 30] call CBA_fnc_getConfigEntry;
 GVAR(timeLimitMessage) = [missionConfigFile >> QGVAR(serverSettings) >> "timeLimitMessage", "string", "TIME LIMIT REACHED!"] call CBA_fnc_getConfigEntry;
-GVAR(endConditionFrequency) = [missionConfigFile >> QGVAR(serverSettings) >> "endConditionFrequency", "number", 30] call CBA_fnc_getConfigEntry;
+GVAR(endConditionFrequency) = [missionConfigFile >> QGVAR(endConditionFrequency) >> "timeLimit", "number", 30] call CBA_fnc_getConfigEntry;
 
 GVAR(disconnectBodyCleanupTime) = [missionConfigFile >> QGVAR(serverSettings) >> "disconnectBodyCleanupTime", "number", 2] call CBA_fnc_getConfigEntry;
 GVAR(disconnectBodyCleanupSides) = [];
@@ -243,6 +227,5 @@ GVAR(ind_ExpendedAmmo) = [];
 GVAR(civ_ExpendedAmmo) = [];
 GVAR(shotClassNames) = [];
 
-#include "..\customization\serverSettings.sqf" //DO NOT REMOVE
 #include "..\customization\inits\PreInitServer.sqf" //DO NOT REMOVE
 #include "..\modules\modules.sqf" //DO NOT REMOVE
