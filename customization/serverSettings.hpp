@@ -10,6 +10,11 @@ Set this to 0 or a negative number to disable behaviour
 */
 disconnectBodyCleanupTime = 2;
 
+// How often the chain of command is checked (some module functions force an immediate check)
+CoC_CheckFrequency = 30;
+// Whether the new CO gets a message about becoming the new CO upon old CO dying and a check being done
+CoC_Changed_Message = true;
+
 class Teams {
     class west {
         name = "USMC";
@@ -29,6 +34,9 @@ class Teams {
         */
         respawnPenGate[] = {};
         disconnectBodyCleanUp = true;
+        // List, in order (left to right) of which units are in the secession of command for CO in a mission
+        // example: CoC_override[] = {"comd1", "plSgt1"};
+        CoC_override[] = {};
     };
     class east {
         name = "VDV";
@@ -37,6 +45,7 @@ class Teams {
         waveSize = 0;
         respawnPenGate[] = {};
         disconnectBodyCleanUp = true;
+        CoC_override[] = {};
     };
     class independent {
         name = "Local Militia";
@@ -45,6 +54,7 @@ class Teams {
         waveSize = 0;
         respawnPenGate[] = {};
         disconnectBodyCleanUp = true;
+        CoC_override[] = {};
     };
     class civilian {
         name = "Local Civilians";
@@ -53,5 +63,6 @@ class Teams {
         waveSize = 0;
         respawnPenGate[] = {};
         disconnectBodyCleanUp = true;
+        CoC_override[] = {};
     };
 };

@@ -4,7 +4,7 @@
 #endif
 //#define DEBUG_MODE_NORMAL
 #define DEBUG_MODE_FULL
-#define VERSIONSTR "0.1.1 DEV"
+#define VERSIONSTR "1.1.0 DEV"
 #include "script_macros_mission.hpp"
 
 #define RNG(var1) var1 > random 1

@@ -132,6 +132,38 @@ GVAR(respawnTickets_Civ) = [missionConfigFile >> QGVAR(serverSettings) >> "Teams
 GVAR(waveSize_Civ) =  [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "waveSize", "number", -1] call CBA_fnc_getConfigEntry;
 GVAR(respawnPenGate_Civ) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "respawnPenGate", "array", ["objNull"]] call CBA_fnc_getConfigEntry) apply {missionNamespace getVariable [_x, objNull]};
 
+GVAR(CoC_CheckFrequency) = [missionConfigFile >> QGVAR(serverSettings) >> "CoC_CheckFrequency", "number", 30] call CBA_fnc_getConfigEntry;
+GVAR(CoC_Changed_Message) = ([missionConfigFile >> QGVAR(serverSettings) >> "CoC_Changed_Message", "number", 1] call CBA_fnc_getConfigEntry) isEqualTo 1;
+
+GVAR(CoC_ManualOverride_Blufor) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "CoC_override", "array", []] call CBA_fnc_getConfigEntry) select {
+    private _obj = missionNamespace getVariable [_x, objNull];
+    (_obj isNotEqualTo objNull)
+} apply {
+    private _obj = missionNamespace getVariable [_x, objNull];
+    _obj
+};
+GVAR(CoC_ManualOverride_Opfor) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "CoC_override", "array", []] call CBA_fnc_getConfigEntry) select {
+    private _obj = missionNamespace getVariable [_x, objNull];
+    (_obj isNotEqualTo objNull)
+} apply {
+    private _obj = missionNamespace getVariable [_x, objNull];
+    _obj
+};
+GVAR(CoC_ManualOverride_Indfor) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "CoC_override", "array", []] call CBA_fnc_getConfigEntry) select {
+    private _obj = missionNamespace getVariable [_x, objNull];
+    (_obj isNotEqualTo objNull)
+} apply {
+    private _obj = missionNamespace getVariable [_x, objNull];
+    _obj
+};
+GVAR(CoC_ManualOverride_Civfor) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "CoC_override", "array", []] call CBA_fnc_getConfigEntry) select {
+    private _obj = missionNamespace getVariable [_x, objNull];
+    (_obj isNotEqualTo objNull)
+} apply {
+    private _obj = missionNamespace getVariable [_x, objNull];
+    _obj
+};
+
 private _westTeam = [
     west,
     [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "name", "string", "USMC"] call CBA_fnc_getConfigEntry,
