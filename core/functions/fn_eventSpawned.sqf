@@ -18,10 +18,12 @@ params ["_unit"];
 
 SETPVAR(_unit,Side,(side _unit));
 
-if ((isPlayer _unit) || {!(GETVAR(_unit,DontTrack,false))}) then {
-    if !(GETVAR(_unit,Tracked,false)) then {
-        SETPVAR(_unit,Tracked,true);
-    };
+if (
+    (isPlayer _unit ||
+    {!(GETVAR(_unit,DontTrack,false))}) &&
+    {!(GETVAR(_unit,Tracked,false))}
+) then {
+    SETPVAR(_unit,Tracked,true);
     SETPVAR(_unit,HasDied,false); //we will use this variable to make sure killed eventHandler doesn't fire twice
     GVAR(Teams) apply {
         _x params ["_name", "_side", "_type", "_total", "_current"];

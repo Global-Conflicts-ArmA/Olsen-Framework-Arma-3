@@ -32,7 +32,6 @@ class Core {
 	class setTeamVariable {};
 	class spectatePrep {};
 	class trackAsset {};
-	class trackUnit {};
 	class untrackUnit {};
 	class briefing {};
 	class gearExport {};
