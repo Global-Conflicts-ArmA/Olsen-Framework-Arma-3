@@ -16,7 +16,7 @@ if !(local _unit) exitWith {};
 private _temp = "";
 
 if !(_groupId isEqualTo "") then {
-	(group _unit) setGroupId [_groupId];
+	(group _unit) setGroupIdGlobal [_groupId];
 };
 
 if (GETMVAR(removeAllGear, true)) then {

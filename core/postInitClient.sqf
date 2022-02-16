@@ -76,5 +76,9 @@
     }];
 }, []] call CBA_fnc_waitUntilAndExecute;
 
+[QGVAR(CoC_Changed), {
+    [(localize "STR_GCFW_InCommand")] call ace_common_fnc_displayTextStructured;
+}] call CBA_fnc_addEventHandler;
+
 #include "..\customization\inits\PostInitClient.sqf" //DO NOT REMOVE
 #include "..\modules\modules.sqf" //DO NOT REMOVE

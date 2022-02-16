@@ -264,5 +264,14 @@ FUNC(eg_keyHandler2) = {
     };
 }] call CBA_fnc_addEventHandler;
 
+GVAR(CheckingCoC) = false;
+
+[QGVAR(responseCOEvent), {
+    params [["_co", objNull, [objNull]], ["_var", "", [""]]];
+    TRACE_2("client response for CO",_co,_var);
+    missionNamespace setVariable [_var, _co];
+    GVAR(CheckingCoC) = false;
+}] call CBA_fnc_addEventHandler;
+
 #include "..\customization\inits\PreInitClient.sqf" //DO NOT REMOVE
 #include "..\modules\modules.sqf" //DO NOT REMOVE
