@@ -15,7 +15,7 @@ if !(local _unit) exitWith {};
 
 private _temp = "";
 
-if !(_groupId isEqualTo "") then {
+if (_groupId isNotEqualTo "") then {
 	(group _unit) setGroupIdGlobal [_groupId];
 };
 

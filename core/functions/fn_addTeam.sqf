@@ -29,20 +29,23 @@ if !(isMultiplayer) then {
 };
 
 GVAR(TeamSides) pushBackUnique _side;
-switch _side do {
+private _var =  switch _side do {
     case west: {
-	    SETMPVAR(TeamName_Blufor,_name);
+	    QGVAR(TeamName_Blufor)
     };
 	case east: {
-	    SETMPVAR(TeamName_Opfor,_name);
+	    QGVAR(TeamName_Opfor)
     };
 	case independent: {
-	    SETMPVAR(TeamName_Indfor,_name);
+	    QGVAR(TeamName_Indfor)
     };
 	case civilian: {
-	    SETMPVAR(TeamName_Civ,_name);
+	    QGVAR(TeamName_Civ)
     };
-    default {};
+    default {
+        QGVAR(TeamName_Blufor)
+    };
 };
+missionNamespace setVariable [_var, _name, true];
 
 GVAR(Teams) pushBack [_name, _side, _type,  0, 0, [], []];

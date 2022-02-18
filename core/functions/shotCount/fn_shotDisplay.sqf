@@ -7,24 +7,24 @@ private _textCIVILIAN = "CIVILIAN Munitions Expended:<br/>";
 
 private _textArray = [];
 
-if (west in GVAR(TeamSides)) then {
+if (west in GVAR(TeamSides) && {GETMVAR(EndScreenDisplay_West,true)}) then {
     _textArray pushBack [_textBLUFOR, GVAR(west_ExpendedAmmo)];
 };
-if (east in GVAR(TeamSides)) then {
+if (east in GVAR(TeamSides) && {GETMVAR(EndScreenDisplay_East,true)}) then {
     _textArray pushBack [_textOPFOR, GVAR(east_ExpendedAmmo)];
 };
-if (independent in GVAR(TeamSides)) then {
+if (independent in GVAR(TeamSides) && {GETMVAR(EndScreenDisplay_Ind,true)}) then {
     _textArray pushBack [_textINDFOR, GVAR(ind_ExpendedAmmo)];
 };
-if (civilian in GVAR(TeamSides)) then {
+if (civilian in GVAR(TeamSides) && {GETMVAR(EndScreenDisplay_Civ,true)}) then {
     _textArray pushBack [_textCIVILIAN, GVAR(civ_ExpendedAmmo)];
 };
 
-LOG_1("shotDisplay _textArray: %1",_textArray);
+TRACE_1("shotDisplay",_textArray);
 
 private _return = _textArray apply {
     _x params [["_text", "", [""]], ["_array", [], [[]]]];
-    LOG_2("shotDisplay _text: %1 _array: %2", _text, _array);
+    TRACE_2("shotDisplay", _text, _array);
     if (_array isEqualTo []) then {
         _text = _text + "None";
     } else {

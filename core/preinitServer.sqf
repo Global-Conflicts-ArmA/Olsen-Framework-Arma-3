@@ -164,30 +164,42 @@ GVAR(CoC_ManualOverride_Civfor) = ([missionConfigFile >> QGVAR(serverSettings) >
     _obj
 };
 
-private _westTeam = [
-    west,
-    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "name", "string", "USMC"] call CBA_fnc_getConfigEntry,
-    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "type", "string", "player"] call CBA_fnc_getConfigEntry
-];
-_westTeam call FUNC(AddTeam);
-private _eastTeam = [
-    east,
-    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "name", "string", "VDV"] call CBA_fnc_getConfigEntry,
-    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
-];
-_eastTeam call FUNC(AddTeam);
-private _indTeam = [
-    independent,
-    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "name", "string", "Local Militia"] call CBA_fnc_getConfigEntry,
-    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
-];
-_indTeam call FUNC(AddTeam);
-private _civTeam = [
-    civilian,
-    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "name", "string", "Local Civilians"] call CBA_fnc_getConfigEntry,
-    [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
-];
-_civTeam call FUNC(AddTeam);
+if (isClass (missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west")) then {
+    GVAR(EndScreenDisplay_West) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "endScreenDisplay", "number", 1] call CBA_fnc_getConfigEntry) isEqualTo 1;
+    private _westTeam = [
+        west,
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "name", "string", "USMC"] call CBA_fnc_getConfigEntry,
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "type", "string", "player"] call CBA_fnc_getConfigEntry
+    ];
+    _westTeam call FUNC(AddTeam);
+};
+if (isClass (missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east")) then {
+    GVAR(EndScreenDisplay_East) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "endScreenDisplay", "number", 1] call CBA_fnc_getConfigEntry) isEqualTo 1;
+    private _eastTeam = [
+        east,
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "name", "string", "VDV"] call CBA_fnc_getConfigEntry,
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
+    ];
+    _eastTeam call FUNC(AddTeam);
+};
+if (isClass (missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent")) then {
+    GVAR(EndScreenDisplay_Ind) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "endScreenDisplay", "number", 1] call CBA_fnc_getConfigEntry) isEqualTo 1;
+    private _indTeam = [
+        independent,
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "name", "string", "Local Militia"] call CBA_fnc_getConfigEntry,
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
+    ];
+    _indTeam call FUNC(AddTeam);
+};
+if (isClass (missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian")) then {
+    GVAR(EndScreenDisplay_Civ) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "endScreenDisplay", "number", 1] call CBA_fnc_getConfigEntry) isEqualTo 1;
+    private _civTeam = [
+        civilian,
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "name", "string", "Local Civilians"] call CBA_fnc_getConfigEntry,
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
+    ];
+    _civTeam call FUNC(AddTeam);
+};
 
 [QGVAR(requestCOEvent), {
     params [["_side", west, [west]], ["_requestingUnit", objNull, [objNull]]];
