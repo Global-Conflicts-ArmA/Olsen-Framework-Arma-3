@@ -29,7 +29,6 @@ class Core {
 	class removeAllGear {};
 	class removeAllVehicleGear {};
 	class parsedTextDisplay {};
-	class setTeamVariable {};
 	class spectatePrep {};
 	class trackAsset {};
 	class untrackUnit {};

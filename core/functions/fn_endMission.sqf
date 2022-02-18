@@ -22,17 +22,32 @@ if (CBA_missionTime > 0) then {
 	SETMPVAR(MissionEnded,true);
 
 	private _ammoInfo = [] call FUNC(shotDisplay);
-	
-	GVAR(Teams) apply {
-		private _team = (_x select 0);
-		private _assets = _team call FUNC(GetDamagedAssets);
+
+	private _filteredTeams = GVAR(Teams) select {
+        private _side = _x select 1;
+        (
+            _side isEqualTo west && {GETMVAR(EndScreenDisplay_West,true)} ||
+            _side isEqualTo east && {GETMVAR(EndScreenDisplay_East,true)} ||
+            _side isEqualTo independent && {GETMVAR(EndScreenDisplay_Ind,true)} ||
+            _side isEqualTo civilian && {GETMVAR(EndScreenDisplay_Civ,true)}
+        )
+    } apply {
+        _x params ["_name", "_side", "_type", "_total", "_current"];
+		private _assets = _name call FUNC(GetDamagedAssets);
 		_assets params ["_damaged", "_destroyed"];
-		[_team, 5, _damaged] call FUNC(SetTeamVariable);
-		[_team, 6, _destroyed] call FUNC(SetTeamVariable);
+        [
+            _name,
+            _side,
+            _type,
+            _total,
+            _current,
+            _damaged,
+            _destroyed
+        ]
 	};
 
-	[QGVAR(EndMission), [_endText, GVAR(TimeLimit), GVAR(Teams), _ammoInfo]] call CBA_fnc_globalEvent;
-	
+	[QGVAR(EndMission), [_endText, GVAR(TimeLimit), _filteredTeams, _ammoInfo]] call CBA_fnc_globalEvent;
+
 } else {
 	"End Conditions have just been triggered. Mission will have to be ended manually." remoteExec ["systemChat", 0, false];
 };

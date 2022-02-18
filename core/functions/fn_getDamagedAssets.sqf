@@ -24,7 +24,7 @@ private _destroyedAssets = [];
         private _assetName = GETVAR(_x,AssetName,typeOf _x);
 		if (alive _x) then {
 			if (!canMove _x && {!canFire _x} || {_x getHitPointDamage "hitEngine" >= 0.5}) then {
-				private _searchIndex = _disabledAssets findIf {(_x select 0) isEqualTo "_assetName"};
+				private _searchIndex = _disabledAssets findIf {(_x select 0) isEqualTo _assetName};
 	            if (_searchIndex isEqualTo -1) then {
 	                _disabledAssets pushBackUnique [_assetName, 1];
 	            } else {
@@ -32,7 +32,7 @@ private _destroyedAssets = [];
 	            };
 			};
 		} else {
-            private _searchIndex = _destroyedAssets findIf {(_x select 0) isEqualTo "_assetName"};
+            private _searchIndex = _destroyedAssets findIf {(_x select 0) isEqualTo _assetName};
             if (_searchIndex isEqualTo -1) then {
                 _destroyedAssets pushBackUnique [_assetName, 1];
             } else {

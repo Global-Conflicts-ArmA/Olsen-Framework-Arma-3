@@ -37,6 +37,8 @@ class Teams {
         // List, in order (left to right) of which units are in the secession of command for CO in a mission
         // example: CoC_override[] = {"comd1", "plSgt1"};
         CoC_override[] = {};
+        // Whether the team will be shown on the end screen statistics
+        endScreenDisplay = true;
     };
     class east {
         name = "VDV";
@@ -46,6 +48,7 @@ class Teams {
         respawnPenGate[] = {};
         disconnectBodyCleanUp = true;
         CoC_override[] = {};
+        endScreenDisplay = true;
     };
     class independent {
         name = "Local Militia";
@@ -55,6 +58,7 @@ class Teams {
         respawnPenGate[] = {};
         disconnectBodyCleanUp = true;
         CoC_override[] = {};
+        endScreenDisplay = true;
     };
     class civilian {
         name = "Local Civilians";
@@ -64,5 +68,6 @@ class Teams {
         respawnPenGate[] = {};
         disconnectBodyCleanUp = true;
         CoC_override[] = {};
+        endScreenDisplay = true;
     };
 };
