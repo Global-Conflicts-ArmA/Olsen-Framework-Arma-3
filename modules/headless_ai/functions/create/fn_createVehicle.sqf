@@ -49,11 +49,7 @@ if (_fly) then {
     };
 };
 
-private _vehicle = if (_placeMode isEqualTo "NONE") then {
-    _vehClass createVehicle _pos
-} else {
-    createVehicle [_vehClass, _pos, [], 0, _placeMode]
-};
+private _vehicle = createVehicle [_vehClass, _pos, [], 0, _placeMode];
 _vehicle setVectorDirAndUp [_vectorDir,_vectorUp];
 _vehicle setPosATL _pos;
 
