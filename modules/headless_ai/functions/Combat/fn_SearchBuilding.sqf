@@ -87,7 +87,7 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
             doStop _x;
             _x doMove _pos;
         };
-        LOG_2("sending team to pos: %1 remaining positions: %2",_pos,count _positions);
+        //LOG_2("sending team to pos: %1 remaining positions: %2",_pos,count _positions);
     };
 };
 
@@ -116,7 +116,7 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
         ({alive _x} count (_x select 1)) == 0
     } apply {
         _positions pushback (_x select 0);
-        LOG_1("pos: %1 readded from dead team",(_x select 0));
+        //LOG_1("pos: %1 readded from dead team",(_x select 0));
     };
     if (
         (CBA_missionTime >= _lastTimeChanged + 30) ||
@@ -129,7 +129,7 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
         };
         _group lockWP false;
         SETVAR(_group,Task,_otask);
-        LOG_1("exited bld search for group: %1 on complete",_group);
+        //LOG_1("exited bld search for group: %1 on complete",_group);
         SETVAR(_building,searched,CBA_missionTime);
         SETVAR(_group,searchingBuilding,false);
         if (GETMVAR(useMarkers,false)) then {
@@ -141,7 +141,7 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
 
     private _assaultUnits = _units - _coverTeam;
 
-    LOG_4("group: %1 pos counts: %2 coverteam: %3 team count: %4",_group,(count _positions),_coverTeam,(count _teams));
+    //LOG_4("group: %1 pos counts: %2 coverteam: %3 team count: %4",_group,(count _positions),_coverTeam,(count _teams));
 
     if (count _assaultUnits <= 1) then {
         _args set [5, []];
@@ -166,17 +166,19 @@ for "_u" from 0 to ((count _assaultUnits) - 1) step 2 do {
             _lastTimeChanged = CBA_missionTime;
             _args set [8, _lastTimeChanged];
             _args set [7, _clearedPositions];
-            LOG_2("team reached pos: %1 team members: %2",_pos,_members);
+            //LOG_2("team reached pos: %1 team members: %2",_pos,_members);
             if (_positions isNotEqualTo []) then {
                 _pos = _positions deleteAt 0;
-                "Sign_Arrow_F" createvehicle [_pos select 0, _pos select 1, (_pos select 2) + 2.5];
-                LOG_2("sending team to pos: %1 remaining positions: %2",_pos,count _positions);
+                if (GETMVAR(useMarkers,false)) then {
+                    "Sign_Arrow_F" createvehicle [_pos select 0, _pos select 1, (_pos select 2) + 2.5];
+                    //LOG_2("sending team to pos: %1 remaining positions: %2",_pos,count _positions);
+                };
                 _members apply {
                     _x doMove _pos;
                 };
             };
         };
-        LOG_2("team pos: %1 member count: %2",_pos,(count _members));
+        //LOG_2("team pos: %1 member count: %2",_pos,(count _members));
         _x set [0, _pos];
         _x set [1, _members];
     } forEach _aliveTeams;
