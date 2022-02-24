@@ -10,6 +10,7 @@ params [
 _vehArgs params [
     ["_vehClass", "", [""]],
     ["_vehCrew", [], [[]]],
+    ["_cargo", [], [[]]],
     ["_pos", [], [[]]],
     ["_vectorDir", [], [[]]],
     ["_vectorUp", [], [[]]],
@@ -24,6 +25,11 @@ _vehArgs params [
     ["_vehCustomization", [], [[]]],
     ["_varName", "", [""]],
     ["_olsenGearType", "", [""]]
+];
+
+_cargo params [
+    ["_groupInfo", [], [[]]],
+    ["_cargoCrew", [], [[]]]
 ];
 
 private _placeMode = "NONE";
@@ -86,6 +92,53 @@ if (_turretMags isNotEqualTo []) then {
     };
 };
 
+private _cargoGroup = grpNull;
+if (_cargoCrew isNotEqualTo []) then {
+    _groupInfo params [
+        /* 0 */  ["_side", west, [west]],
+        /* 1 */  ["_groupPos", [], [[]]],
+        /* 2 */  ["_behaviour", "AWARE", [""]],
+        /* 3 */  ["_combat", "YELLOW", [""]],
+        /* 4 */  ["_speed", "normal", [""]],
+        /* 5 */  ["_formation", "wedge", [""]],
+        /* 6 */  ["_groupStance", "AUTO", [""]],
+        /* 7 */  ["_groupInit", false, [false, {}, ""]],
+        /* 8 */  ["_createRadius", 0, [0]],
+        /* 9 */  ["_taskRadius", 30, [0]],
+        /* 10 */ ["_taskWait", 3, [0]],
+        /* 11 */ ["_startBuilding", false, [false]],
+        /* 12 */ ["_task", "PATROL", [""]],
+        /* 13 */ ["_taskTimer", 0, [0]],
+        /* 14 */ ["_multi", 1, [1]],
+        /* 15 */ ["_occupy", "Off", ["", 0]],
+        /* 16 */ ["_vehAssigned", false, [false]],
+        /* 17 */ ["_waypoints", [], [[]]],
+        /* 18 */ ["_surfaceWater", false, [false]],
+        /* 19 */ ["_fl", false, [false]],
+        /* 20 */ ["_surrender", false, [false]],
+        /* 21 */ ["_cargoStoredVars", [], [[]]],
+        /* 22 */ ["_name", "", [""]],
+        /* 23 */ ["_groupID", "", [""]],
+        /* 24 */ ["_areaAssigned", "NONE", [""]],
+        /* 25 */ ["_assetType", "INFANTRY", [""]]
+    ];
+    createCenter _side;
+    _cargoGroup = createGroup _side;
+    if (_name isNotEqualTo "") then {
+        private _uniqueName = [_name] call FUNC(findUniqueName);
+        missionNamespace setVariable [_uniqueName, _cargoGroup, true];
+    };
+    if (_groupID isNotEqualTo "") then {
+        _cargoGroup setGroupIdGlobal [_groupID];
+    };
+    if (_cargoStoredVars isNotEqualTo []) then {
+        _cargoStoredVars apply {
+            _x params ["_varName", "_varValue"];
+            _cargoGroup setvariable [_varName, _varValue];
+        };
+    };
+};
+
 if (_initial) then {
     {
         _x params ["_vehRole", "_userInfo"];
@@ -95,9 +148,20 @@ if (_initial) then {
             _this call FUNC(setAssignedVehicle);
         }, [_unit, _vehicle, _role, _index]] call CBA_fnc_waitUntilAndExecute;
     } forEach _vehCrew;
+    if (_cargoCrew isNotEqualTo []) then {
+        {
+            _x params ["_vehRole", "_userInfo"];
+            _vehRole params ["_role", "_index"];
+            private _unit = [false, _cargoGroup, _gpos, false, _foreachIndex, _userInfo] call FUNC(createUnit);
+            [{_this select 0 isNotEqualTo objNull}, {
+                _this call FUNC(setAssignedVehicle);
+            }, [_unit, _vehicle, _role, _index]] call CBA_fnc_waitUntilAndExecute;
+        } forEach _cargoCrew;
+        [_cargoGroup, _groupInfo] call FUNC(finishGroupSpawn);
+    };
     [_vehicle, _init, _storedVars] call FUNC(finishVehicleSpawn);
 } else {
-    private _vehArray = [_group, _gpos, _vehicle, _vehCrew, _init, _storedVars];
+    private _vehArray = [_group, _gpos, _vehicle, _vehCrew, _cargoGroup, _groupInfo, _cargoCrew, _init, _storedVars];
     TRACE_1("sending to spawn veh pfh",_vehArray);
     [FUNC(spawnUnitsVehiclePFH), 0.1, _vehArray] call CBA_fnc_addPerFrameHandler;
 };

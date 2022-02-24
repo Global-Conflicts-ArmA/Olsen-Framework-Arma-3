@@ -50,6 +50,7 @@ if (_task isEqualTo "MANUAL" || (GETVAR(leader _group,noAI,false)) || (GETVAR(_g
         SETVAR(_veh,vehCargoGroups,_cargoGroups);
         TRACE_2("vehCargoGroups added",_veh,_cargoGroups);
         _task = "CARGO";
+        [_group] call FUNC(taskRelease);
     };
     LOG_2("Setting %1 to task: %2",_group,_task);
     private _manualPos = GETVAR(_group,taskPos,[ARR_3(0,0,0)]);

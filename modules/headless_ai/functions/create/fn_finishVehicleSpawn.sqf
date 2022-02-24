@@ -19,3 +19,14 @@ if (_storedVars isNotEqualTo []) then {
         //LOG_2("Setting _varName: %1 with: %2",_varName,_varValue);
     };
 };
+
+private _driverGroup = group driver _vehicle;
+private _effectiveCommanderGrp = group effectiveCommander _vehicle;
+TRACE_2("finishVehSpawn",_driverGroup,_effectiveCommanderGrp);
+if (_effectiveCommanderGrp isNotEqualTo _driverGroup) then {
+    private _leader = leader _driverGroup;
+    _vehicle setEffectiveCommander _leader;
+    TRACE_2("set EC",_leader,effectiveCommander _vehicle);
+    doStop driver _vehicle;
+    driver _vehicle doFollow _leader;
+};
