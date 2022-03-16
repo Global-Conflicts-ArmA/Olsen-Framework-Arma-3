@@ -8,7 +8,7 @@
 
 #ifdef description_XEH_PostInit
 	class COMPONENT {
-		serverInit = "'' call compile preprocessFileLineNumbers 'modules\rank_icons\postInitServer.sqf'";
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\rank_icons\postInitClient.sqf'";
 	};
 #endif
 

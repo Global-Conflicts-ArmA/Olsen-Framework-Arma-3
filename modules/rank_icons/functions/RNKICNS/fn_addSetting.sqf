@@ -5,7 +5,7 @@ params[
   ["_iconFile", "modules\rank_icons\res\chopper.paa", [""]]
 ];
 
-INFO("Adding rank icon setting..");
+/* INFO("Adding rank icon setting.."); */
 
 if (_selector isEqualType sideUnknown || _selector isEqualType grpNull) exitWith {
     units _selector apply {
