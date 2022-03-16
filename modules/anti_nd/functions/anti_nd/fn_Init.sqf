@@ -70,7 +70,8 @@
             _newVehicle setVariable [QGVAR(actionVehEH), _actionVehEH];
         };
     }, true] call CBA_fnc_addPlayerEventHandler;
-    private _turretEH = ["turretWeapon", {
+    // Turrent event handler currently causing an issue with reloading removing mags from the vehicle
+    /* private _turretEH = ["turretWeapon", {
         params ["_unit", "_newWeapon", "_oldWeapon"];
         private _safedWeapons = _unit getVariable ["ace_safemode_safedWeapons", []];
         private _turret = vehicle ACE_player unitTurret ACE_player;
@@ -83,7 +84,7 @@
         if !(_newWeapon in _safedWeapons) then {
             [vehicle ACE_player, _newWeapon, currentMuzzle vehicle ACE_player] call ace_safemode_fnc_lockSafety;
         };
-    }, true] call CBA_fnc_addPlayerEventHandler;
+    }, true] call CBA_fnc_addPlayerEventHandler; */
     ACE_player setVariable ["ace_common_effect_blockThrow", 1];
     ACE_player setvariable ["ace_explosives_PlantingExplosive", true];
     SETPLVAR(EHid, _firedEH);
@@ -106,14 +107,14 @@
         ((GETMVAR(Time,30)) <= 0 || {CBA_missionTime >= GETMVAR(Time,30)})
         || {(GETMVAR(Distance,200)) <= 0 || {((EGETMVAR(FW,SpawnPos,getpos (vehicle ACE_player))) distance (vehicle ACE_player)) >= GETMVAR(Distance,200)}}
     },{
-        params ["_firedEH", "_turretEH", "_vehPlayerEH", "_actionVehEH"];
+        params ["_firedEH", "_vehPlayerEH", "_actionVehEH"];
         player removeEventHandler ["FiredMan", _firedEH];
         [ACE_player, "DefaultAction", _actionVehEH] call ace_common_fnc_removeActionEventHandler;
         ACE_player setVariable ["ace_common_effect_blockThrow", 0];
         ACE_player setvariable ["ace_explosives_PlantingExplosive", false];
         ["vehicle", _vehPlayerEH] call CBA_fnc_removeEventHandler;
-        ["turretWeapon", _turretEH] call CBA_fnc_removeEventHandler;
+        /* ["turretWeapon", _turretEH] call CBA_fnc_removeEventHandler; */
         SETPLVAR(EHid, "DISABLED");
         SETPLVAR(Active, false);
-    }, [_firedEH, _turretEH, _vehPlayerEH, _actionVehEH]] call CBA_fnc_waitUntilAndExecute;
+    }, [_firedEH, _vehPlayerEH, _actionVehEH]] call CBA_fnc_waitUntilAndExecute;
 }] call CBA_fnc_waitUntilAndExecute;
