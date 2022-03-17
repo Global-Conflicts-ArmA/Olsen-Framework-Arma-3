@@ -24,7 +24,11 @@ private _vehCustomization = _veh call BIS_fnc_getVehicleCustomization;
 private _name = GETVAR(_veh,varName,"");
 private _olsenGearType = GETVAR(_veh,gearType,"");
 private _fullCrew = fullCrew [_veh, "", false];
-private _vehCrew = _fullCrew apply {
+private _vehCrew = [];
+private _cargoCrew = [];
+private _cargoGroup = [];
+
+ _fullCrew apply {
     _x params ["_u", "_role", "_cargoIndex", "_turretPath", "_personTurret"];
     _role = toLower _role;
     private _index = if (_role isEqualTo "cargo") then {
@@ -32,11 +36,25 @@ private _vehCrew = _fullCrew apply {
     } else { _turretPath };
     private _roleInfo = [_role, _index];
     private _unitInfo = [_u] call FUNC(getDetailsUnit);
-    [_roleInfo, _unitInfo]
+    private _group = group _u;
+    private _isCargoGroup = GETVAR(_group,vehCargo,false);
+    if (_isCargoGroup) then {
+        if (leader _u isEqualTo _u) then {
+            _cargoGroup = [_u, getPosATL _u] call FUNC(getDetailsGroup);
+        };
+         _cargoCrew pushBackUnique [_roleInfo, _unitInfo];
+    } else {
+        _vehCrew pushBackUnique [_roleInfo, _unitInfo];
+    };
 };
+
+TRACE_3("",typeOf _veh,count _vehCrew, count _cargoCrew);
+
+private _cargo = [_cargoGroup, _cargoCrew];
 
 [typeOf _veh,
 _vehCrew,
+_cargo,
 _pos,
 _vectorDir,
 _vectorUp,

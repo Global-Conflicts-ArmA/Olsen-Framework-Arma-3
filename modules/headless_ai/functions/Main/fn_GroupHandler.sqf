@@ -28,39 +28,39 @@ GVAR(GroupHandlerPFH) = [{
             _target isNotEqualTo objNull &&
             {
                 assignedTarget _leader isEqualTo objNull ||
-                {!alive _target}
+                {!(_target call EFUNC(FW,isAlive))}
             }
         ) then {
             _target = objNull;
             SETVAR(_group,CurrentTarget,objNull);
         };
-        if (_target isEqualTo objNull && {assignedTarget _leader isNotEqualTo objNull}) then {
-            TRACE_2("set target on active group",_group,_target);
-            _target = leader (assignedTarget _leader);
-            if (_target isEqualTo objNull) then {
-                private _targetCounter = GETVAR(_group,NullTargetCounter,0);
-                if (_targetCounter >= 5) then {
-                    TRACE_1("no longer in combat, exiting and resetting",_group);
-                    SETVAR(_group,NullTargetCounter,0);
-                    private _originalBeh = GETVAR(_group,behaviour,"AWARE");
-                    private _originalCM = GETVAR(_group,combatMode,"YELLOW");
-                    private _originalSpeed = GETVAR(_group,speed,"normal");
-                    private _originalForm = GETVAR(_group,formation,"wedge");
-                    [_group,_originalBeh,_originalCM,_originalSpeed,_originalForm] call FUNC(setGroupBehaviour);
-                    private _originalTask = GETVAR(_group,OriginalTask,"PATROL");
-                    private _originalPos = GETVAR(_group,Pos,getPos leader _group);
-                    private _originalRadius = GETVAR(_group,taskRadius,30);
-                    [_group,_originalTask,_originalPos,_originalRadius] call FUNC(taskAssign);
-                } else {
-                    _targetCounter = _targetCounter + 1;
-                    SETVAR(_group,NullTargetCounter,_targetCounter);
-                };
-            } else {
-                SETVAR(_group,CurrentTarget,_target);
-            };
-        } else {
-            SETVAR(_group,NullTargetCounter,0);
-        };
+        //if (_target isEqualTo objNull && {assignedTarget _leader isNotEqualTo objNull}) then {
+        //    TRACE_2("set target on active group",_group,_target);
+        //    _target = leader (assignedTarget _leader);
+        //    if (_target isEqualTo objNull) then {
+        //        private _targetCounter = GETVAR(_group,NullTargetCounter,0);
+        //        if (_targetCounter >= 5) then {
+        //            TRACE_1("no longer in combat, exiting and resetting",_group);
+        //            SETVAR(_group,NullTargetCounter,0);
+        //            private _originalBeh = GETVAR(_group,behaviour,"AWARE");
+        //            private _originalCM = GETVAR(_group,combatMode,"YELLOW");
+        //            private _originalSpeed = GETVAR(_group,speed,"normal");
+        //            private _originalForm = GETVAR(_group,formation,"wedge");
+        //            [_group,_originalBeh,_originalCM,_originalSpeed,_originalForm] call FUNC(setGroupBehaviour);
+        //            private _originalTask = GETVAR(_group,OriginalTask,"PATROL");
+        //            private _originalPos = GETVAR(_group,Pos,getPos leader _group);
+        //            private _originalRadius = GETVAR(_group,taskRadius,30);
+        //            [_group,_originalTask,_originalPos,_originalRadius] call FUNC(taskAssign);
+        //        } else {
+        //            _targetCounter = _targetCounter + 1;
+        //            SETVAR(_group,NullTargetCounter,_targetCounter);
+        //        };
+        //    } else {
+        //        SETVAR(_group,CurrentTarget,_target);
+        //    };
+        //} else {
+        //    SETVAR(_group,NullTargetCounter,0);
+        //};
         if (GETMVAR(UseMarkers,false)) then {
             //TRACE_2("",GVAR(markerTrackedGroups),str _group);
             GVAR(markerTrackedGroups) set [str _group, [

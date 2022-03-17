@@ -142,24 +142,29 @@ FUNC(eg_keyHandler2) = {
 	[QGVAR(death), 0, false] call ace_common_fnc_setHearingCapability;
 	0 fadeSound 1;
 
-	private _respawnName = switch (side player) do {
-        case west: {"fw_west_respawn"};
-        case east: {"fw_east_respawn"};
-        case independent: {"fw_ind_respawn"};
-        case civilian: {"fw_civ_respawn"};
-        default {""};
-    };
-	private _respawnPoint = missionNamespace getVariable [_respawnName, objNull];
 	private _loadout = (player getVariable [QGVAR(Loadout), ""]);
 
 	if (_loadout isNotEqualTo "") then {
 		[player, _loadout] call FUNC(GearScript);
 	};
 
-	if (_respawnPoint isNotEqualTo objnull) then {
-		player setPosATL getPosATL _respawnPoint;
-	} else {
-        player setPosATL (GETMVAR(spawnPos,[ARR_3(0,0,0)]));
+    private _customRespawn = missionNamespace getVariable [QGVAR(CustomRespawnPoint), [0,0,0]];
+    if (_customRespawn isNotEqualTo [0,0,0]) then {
+        player setPosATL _customRespawn;
+    } else {
+        private _respawnName = switch (side player) do {
+            case west: {"fw_west_respawn"};
+            case east: {"fw_east_respawn"};
+            case independent: {"fw_ind_respawn"};
+            case civilian: {"fw_civ_respawn"};
+            default {""};
+        };
+    	private _respawnPoint = missionNamespace getVariable [_respawnName, objNull];
+        if (_respawnPoint isNotEqualTo objnull) then {
+    		player setPosATL getPosATL _respawnPoint;
+    	} else {
+            player setPosATL (GETMVAR(spawnPos,[ARR_3(0,0,0)]));
+        };
     };
 
     player setVariable [QGVAR(Body), player, true];

@@ -27,6 +27,8 @@ private _vehAssigned = ((assignedVehicleRole _unit) isNotEqualTo []);
 private _waypoints = [waypoints _unit] call FUNC(getWaypointDetails);
 //private _taskArray = [] call EFUNC(tasks,getTaskInfoGroup);
 private _commanderArray = [];
+private _storedVars = GETVAR(_group,storedVars,[]);
+TRACE_2("",_group,_storedVars);
 
 [side _unit,
 _pos,
@@ -49,7 +51,7 @@ _waypoints,
 surfaceIsWater getposATL _unit,
 GETVAR(_group,forceLights,false),
 GETVAR(_group,surrender,false),
-GETVAR(_group,storedVars,[]),
+_storedVars,
 GETVAR(_group,varName,""),
 GETVAR(_group,groupID,""),
 _areaAssigned,
