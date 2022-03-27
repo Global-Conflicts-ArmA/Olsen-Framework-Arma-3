@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-private _version = 0.2;
+private _version = 0.3;
 
 ["AI drivers", "Adds AI commanded by players as drivers to vehicles.", "BlackHawk &amp; PiZZADOX", _version] call FUNC(RegisterModule);
 

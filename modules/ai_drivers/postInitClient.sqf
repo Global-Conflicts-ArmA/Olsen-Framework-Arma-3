@@ -58,7 +58,7 @@ private _pipNvAction = ["ai_driver_pip_nv","Enable/Disable NV in driver's view",
 }] call ace_interact_menu_fnc_createAction;
 
 private _vehClasses = GETMVAR(VehicleClasses, []);
-private _selectVehicles = GETMVAR(SelectVehicles, []);
+private _selectVehicles = GETMVAR(selectVehicles, []);
 
 if (GETMVAR(AllCars, false)) then {
     GVAR(VehicleClasses) pushBackUnique "Car";
@@ -83,9 +83,10 @@ if (_selectVehicles isNotEqualTo []) then {
         private _veh = _x;
         (_vehClasses findIf {_veh isKindOf _x}) isEqualTo -1
     } apply {
-        [{!isNull _x},{
-            private _veh = _x;
-            params ["_addAction", "_removeAction", "_engineOffAction", "_pipAction", "_unflipAction", "_pipNvAction"];
+        [{missionNamespace getvariable [(_this select 0), objNull] isNotEqualTo objNull}, {
+            params ["_veh", "_addAction", "_removeAction", "_engineOffAction", "_pipAction", "_unflipAction", "_pipNvAction"];
+            _veh = missionNamespace getvariable [_veh, objNull];
+
             [_veh, 1, ["ACE_SelfActions"], _addAction] call ace_interact_menu_fnc_addActionToObject;
             [_veh, 1, ["ACE_SelfActions"], _removeAction] call ace_interact_menu_fnc_addActionToObject;
             [_veh, 1, ["ACE_SelfActions"], _engineOffAction] call ace_interact_menu_fnc_addActionToObject;
@@ -96,7 +97,7 @@ if (_selectVehicles isNotEqualTo []) then {
             if (GETMVAR(NVGAction, false)) then {
                 [_veh, 1, ["ACE_SelfActions"], _pipNvAction] call ace_interact_menu_fnc_addActionToObject;
             };
-        }, [_addAction, _removeAction, _engineOffAction, _pipAction, _unflipAction, _pipNvAction]] call CBA_fnc_waitUntilAndExecute;
+        }, [_x, _addAction, _removeAction, _engineOffAction, _pipAction, _unflipAction, _pipNvAction]] call CBA_fnc_waitUntilAndExecute;
     };
 };
 
