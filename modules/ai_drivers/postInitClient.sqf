@@ -63,18 +63,21 @@ private _selectVehicles = GETMVAR(selectVehicles, []);
 if (GETMVAR(AllCars, false)) then {
     GVAR(VehicleClasses) pushBackUnique "Car";
     _vehClasses = _vehClasses select {!(_x isKindOf "Car")};
+    _vehClasses pushBackUnique "Car";
     _selectVehicles = _selectVehicles select {!(_x isKindOf "Car")};
 };
 
 if (GETMVAR(AllTanks, false)) then {
     GVAR(VehicleClasses) pushBackUnique "Tank";
     _vehClasses = _vehClasses select {!(_x isKindOf "Tank")};
+    _vehClasses pushBackUnique "Tank";
     _selectVehicles = _selectVehicles select {!(_x isKindOf "Tank")};
 };
 
 if (GETMVAR(AllShips, false)) then {
     GVAR(VehicleClasses) pushBackUnique "Ship";
     _vehClasses = _vehClasses select {!(_x isKindOf "Ship")};
+    _vehClasses pushBackUnique "Ship";
     _selectVehicles = _selectVehicles select {!(_x isKindOf "Ship")};
 };
 
