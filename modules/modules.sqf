@@ -46,6 +46,7 @@ Additional modules that can be enabled by removing the //
 //#include "gas\root.sqf"
 //#include "grad-fortifications\root.sqf"
 #include "headless_ai\root.sqf"
+//#include "headless_spawn\root.sqf"
 //#include "hostage\root.sqf"
 //#include "in_game_brief\root.sqf"
 //#include "knock_down\root.sqf"
