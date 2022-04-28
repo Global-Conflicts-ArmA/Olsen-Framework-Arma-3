@@ -8,7 +8,7 @@
 
 #ifdef description_XEH_PostInit
 	class COMPONENT {
-		serverInit = "'' call compile preprocessFileLineNumbers 'modules\cTab_settings\postInitServer.sqf'";
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\cTab_settings\postInitClient.sqf'";
 	};
 #endif
 
