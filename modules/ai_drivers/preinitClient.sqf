@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 
-private _version = 0.2;
+private _version = 0.3;
 
-["AI drivers", "Adds AI commanded by players as drivers to vehicles.", "BlackHawk &amp; PiZZADOX", _version] call FUNC(RegisterModule);
+["AI drivers", "Adds AI commanded by players as drivers to vehicles.", "BlackHawk &amp; PiZZADOX", _version] call EFUNC(FW,RegisterModule);
 
 GVAR(selectVehicles) = [missionConfigFile >> QGVAR(settings) >> "selectVehicles", "array", []] call CBA_fnc_getConfigEntry;
 GVAR(VehicleClasses) = [missionConfigFile >> QGVAR(settings) >> "VehicleClasses", "array", []] call CBA_fnc_getConfigEntry;
