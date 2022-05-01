@@ -9,9 +9,9 @@
 [{CBA_missionTime > 0}, {
   params["_groups"];
 
-  private _hcPresent = if (isNil "HC_1") then {false} else {true};
+  private _hcPresent = !isNil "HC_1";
 
-  doSpawn = {
+  private _doSpawn = {
     /*
      * Change the code below to alter the behaviour of headless AI spawned units
      * This function is an example and elements of it are commented out to show
@@ -76,15 +76,15 @@
   };
 
   // Leave this code alone
-  if (_hcPresent && isMultiplayer) then { // If HC is connected
-    if (!isServer && !hasInterface) then { // If this unit is the HC
-      call doSpawn;
+   if (isMultiplayer && {_hcPresent}) then { // If HC is connected
+    if (!isServer && {!hasInterface}) then { // If this unit is the HC
+      call _doSpawn;
     } else {
       // Do nothing.
     };
   } else {
     if (isServer) then { // If HC isn't connected and this is the server
-      call doSpawn;
+      call _doSpawn;
     } else {
       // Do nothing.
     };
