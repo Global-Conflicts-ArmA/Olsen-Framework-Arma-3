@@ -107,6 +107,7 @@
         ((GETMVAR(Time,30)) <= 0 || {CBA_missionTime >= GETMVAR(Time,30)})
         || {(GETMVAR(Distance,200)) <= 0 || {((EGETMVAR(FW,SpawnPos,getpos (vehicle ACE_player))) distance (vehicle ACE_player)) >= GETMVAR(Distance,200)}}
     },{
+        LOG_1("Removing anti_nd event handlers for player = %1",ACE_player);
         params ["_firedEH", "_vehPlayerEH", "_actionVehEH"];
         player removeEventHandler ["FiredMan", _firedEH];
         [ACE_player, "DefaultAction", _actionVehEH] call ace_common_fnc_removeActionEventHandler;
