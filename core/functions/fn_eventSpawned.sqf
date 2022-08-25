@@ -32,6 +32,7 @@ if (
 			{(isPlayer _unit && {_type != "ai"}) || {_type == "ai"}}
 		) exitWith {
             if (_unit call FUNC(isAlive)) then {
+                TRACE_3("Setting new alive count",_unit,_total,_current);
                 _x set [3, _total + 1];
                 _x set [4, _current + 1];
             };

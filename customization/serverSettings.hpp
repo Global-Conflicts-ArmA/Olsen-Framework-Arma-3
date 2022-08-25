@@ -18,7 +18,7 @@ CoC_Changed_Message = true;
 class Teams {
     class west {
         name = "USMC";
-        type = "player"
+        type = "player";
         /*
             Respawn tickets per side. Total number of respawns that a side can have during a mission.
             Set to -1 for unlimited team respawns, so respawns will only be limited by the individual respawnTickets
