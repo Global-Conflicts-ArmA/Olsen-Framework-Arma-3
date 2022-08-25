@@ -15,7 +15,7 @@
 #include "script_component.hpp"
 params ["_unit", ["_spectator", false, [false]]];
 
-LOG("Server Event Respawned called");
+TRACE_2("Server Event Respawned called",_unit,_spectator);
 if (_spectator || GETVAR(_unit,Spectating,false)) then {
     _unit call FUNC(UntrackUnit);
 } else {
