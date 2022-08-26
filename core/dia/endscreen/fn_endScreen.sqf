@@ -38,7 +38,7 @@ private _teamTextArray = [];
 
 	private _temp = format ["%1<br />Casualties: %2 out of %3<br />", _name, (_total - _current), _total];
 
-	if !(_disabled isEqualTo []) then {
+	if (_disabled isNotEqualTo []) then {
 		_temp = _temp + "<br />Disabled assets:<br />";
 		{
 			_x params ["_assetName", "_count"];
@@ -46,7 +46,7 @@ private _teamTextArray = [];
 		} forEach _disabled;
 	};
 
-	if !(_destroyed isEqualTo []) then {
+	if (_destroyed isNotEqualTo []) then {
 		_temp = _temp + "<br />Destroyed assets:<br />";
 		{
 			_x params ["_assetName", "_count"];
@@ -61,7 +61,7 @@ private _teamTextArray = [];
 
 private _endTitleText = _scenario;
 
-if (_timeLimit != 0) then {
+if (_timeLimit isNotEqualTo 0) then {
 	private _time = ceil (CBA_missionTime / 60);
 	if (_time >= _timeLimit) then {
 		_time = _timeLimit;
@@ -80,7 +80,7 @@ switch (count _teamTextArray) do {
     case 2: {
 		(_dia displayCtrl _left2) ctrlSetStructuredText parseText (_teamTextArray select 0);
 		(_dia displayCtrl _right2) ctrlSetStructuredText parseText (_teamTextArray select 1);
-		
+
 		(_dia displayCtrl _bottomLeft2) ctrlSetStructuredText parseText (_ammoInfo select 0);
 		(_dia displayCtrl _bottomRight2) ctrlSetStructuredText parseText (_ammoInfo select 1);
     };
@@ -88,7 +88,7 @@ switch (count _teamTextArray) do {
 		(_dia displayCtrl _left3) ctrlSetStructuredText parseText (_teamTextArray select 0);
 		(_dia displayCtrl _middle3) ctrlSetStructuredText parseText (_teamTextArray select 1);
 		(_dia displayCtrl _right3) ctrlSetStructuredText parseText (_teamTextArray select 2);
-		
+
 		(_dia displayCtrl _bottomLeft3) ctrlSetStructuredText parseText (_ammoInfo select 0);
 		(_dia displayCtrl _bottomMiddle3) ctrlSetStructuredText parseText (_ammoInfo select 1);
 		(_dia displayCtrl _bottomRight3) ctrlSetStructuredText parseText (_ammoInfo select 2);
@@ -98,7 +98,7 @@ switch (count _teamTextArray) do {
 		(_dia displayCtrl _middleLeft4) ctrlSetStructuredText parseText (_teamTextArray select 1);
 		(_dia displayCtrl _middleRight4) ctrlSetStructuredText parseText (_teamTextArray select 2);
 		(_dia displayCtrl _right4) ctrlSetStructuredText parseText (_teamTextArray select 3);
-		
+
 		(_dia displayCtrl _bottomLeft4) ctrlSetStructuredText parseText (_ammoInfo select 0);
 		(_dia displayCtrl _bottomMiddleLeft4) ctrlSetStructuredText parseText (_ammoInfo select 1);
 		(_dia displayCtrl _bottomMiddleRight4) ctrlSetStructuredText parseText (_ammoInfo select 2);
@@ -124,4 +124,3 @@ GVAR(endScreenPFH) = [{
 [{
     endMission "END1";
 }, [], 15] call CBA_fnc_waitAndExecute;
-

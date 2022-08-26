@@ -15,16 +15,8 @@
 
 #include "script_component.hpp"
 
-params ["_message"];
+params [["_message", "", [""]]];
 
-private _found = false;
-
-{
-	if (_x isEqualTo _message) exitWith {
-		_found = true;
-	};
-} forEach GVAR(DebugMessages);
-
-if !(_found) then {
-	GVAR(DebugMessages) set [count GVAR(DebugMessages), _message];
+if (GVAR(DebugMessages) findIf {_x isEqualTo _message} isNotEqualTo -1) then {
+	GVAR(DebugMessages) pushBackUnique _message;
 };

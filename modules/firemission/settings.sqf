@@ -1,13 +1,13 @@
 /*
 	Quick-Reference:
 
-	FW_fnc_FIREMIS_GetAmmoDisplayNameAndIndex; Get ammo of unit as string
-	FW_fnc_FIREMIS_ArtMakePlayerObserver; make player an observer
-	FW_fnc_FIREMIS_SetArtilleryData; set artillery Data
-	FW_fnc_FIREMIS_PointFiremission; pointfiremission
-	FW_fnc_FIREMIS_RegisterForwardObserver; make ai an observer
-	FW_fnc_FIREMIS_SetObserverSkill; set skill of observer
-  FW_fnc_FIREMIS_DoConstantArtillery; Constantly fire artillery at a marker target
+	FIREMIS_fnc_GetAmmoDisplayNameAndIndex; Get ammo of unit as string
+	FIREMIS_fnc_ArtMakePlayerObserver; make player an observer
+	FIREMIS_fnc_SetArtilleryData; set artillery Data
+	FIREMIS_fnc_PointFiremission; pointfiremission
+	FIREMIS_fnc_RegisterForwardObserver; make ai an observer
+	FIREMIS_fnc_SetObserverSkill; set skill of observer
+  FIREMIS_fnc_DoConstantArtillery; Constantly fire artillery at a marker target
 */
 
 /*
@@ -27,7 +27,7 @@
 */
 
 /*
- * FW_fnc_FIREMIS_GetAmmoDisplayNameAndIndex
+ * FIREMIS_fnc_GetAmmoDisplayNameAndIndex
  *
  * Returns an array of [index,className,displayName] for each ammunition defined in the artillery config.
  *
@@ -38,11 +38,11 @@
  * array
  *
  * Example:
- * unit call FW_fnc_FIREMIS_GetAmmoDisplayNameAndIndex;
+ * unit call FIREMIS_fnc_GetAmmoDisplayNameAndIndex;
  */
 
  /*
-  * FW_fnc_FIREMIS_ArtMakePlayerObserver
+  * FIREMIS_fnc_ArtMakePlayerObserver
   *
   * Makes a player an artillery observer
   *
@@ -54,16 +54,16 @@
   * none
   *
   * Example:
-  * [fo,[m109]] call FW_fnc_FIREMIS_ArtMakePlayerObserver;
+  * [fo,[m109]] call FIREMIS_fnc_ArtMakePlayerObserver;
   *
   * Note:
-  * for JIP compatibility use [this,guns] call FW_fnc_FIREMIS_ArtMakePlayerObserver; in the unit Init
-  * Right now you cannot change the artilleries a unit has because of certain ace issues but you can disable the gun with [gun,isAviable] call FW_fnc_FIREMIS_SetArtyAviable; isAvailable = false if you want it not be used
+  * for JIP compatibility use [this,guns] call FIREMIS_fnc_ArtMakePlayerObserver; in the unit Init
+  * Right now you cannot change the artilleries a unit has because of certain ace issues but you can disable the gun with [gun,isAviable] call FIREMIS_fnc_SetArtyAviable; isAvailable = false if you want it not be used
   */
 
 
   /*
-   * FW_fnc_FIREMIS_SetArtilleryData
+   * FIREMIS_fnc_SetArtilleryData
    *
    * Sets variables on the artillery gun which are used in firemissions
    *
@@ -83,11 +83,11 @@
    * none
    *
    * Example:
-   * [arty1,1,0,300,4,3,"Arty at Airfield",true] call FW_fnc_FIREMIS_SetArtilleryData;
+   * [arty1,1,0,300,4,3,"Arty at Airfield",true] call FIREMIS_fnc_SetArtilleryData;
    */
 
    /*
-	* FW_fnc_FIREMIS_SetObserverSkill
+	* FIREMIS_fnc_SetObserverSkill
 	*
 	* Sets variables on an AI Observer used in the observer function
 	*
@@ -100,11 +100,11 @@
 	* none
 	*
 	* Example:
-	* [obs1,0,0] call FW_fnc_FIREMIS_SetObserverSkill;
+	* [obs1,0,0] call FIREMIS_fnc_SetObserverSkill;
 	*/
 
 	/*
-	 * FW_fnc_FIREMIS_RegisterForwardObserver
+	 * FIREMIS_fnc_RegisterForwardObserver
 	 *
 	 * Makes an AI unit an FO who can call in artillery
 	 *
@@ -119,17 +119,17 @@
 	 * 7: roundsPerBurst <int> number of rounds per burst
 	 * 8: burstWaitTime <int> downtime between bursts
 	 * 9: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-	 * 10: roundIndex <int> ammunition index from FUNC(FIREMIS_Dia_GetAmmoDisplayNameAndIndex)
+	 * 10: roundIndex <int> ammunition index from FUNC(Dia_GetAmmoDisplayNameAndIndex)
 	 *
 	 * Return Value:
 	 * none
 	 *
 	 * Example:
-	 *  [obs1,[arty11,arty12,arty13,arty14],1,300,1000,10,5,10,300,150,0] call FW_fnc_FIREMIS_RegisterForwardObserver;
+	 *  [obs1,[arty11,arty12,arty13,arty14],1,300,1000,10,5,10,300,150,0] call FIREMIS_fnc_RegisterForwardObserver;
 	 */
 
 	 /*
-	  * FW_fnc_FIREMIS_PolarFiremission
+	  * FIREMIS_fnc_PolarFiremission
 	  *
 	  * Calls in a polar firemission
 	  *
@@ -143,18 +143,18 @@
 	  * 6: roundsPerBurst <int> number of rounds per burst
 	  * 7: burstWaitTime <int> downtime between bursts
 	  * 9: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-	  * 10: roundIndex <int> ammunition index from FW_fnc_FIREMIS_GetAmmoDisplayNameAndIndex
+	  * 10: roundIndex <int> ammunition index from FIREMIS_fnc_GetAmmoDisplayNameAndIndex
 
 	  *
 	  * Return Value:
 	  * none
 	  *
 	  * Example:
-	  *  [arty1,"132035",3230,500,200,10,5,10,100,0] call FW_fnc_FIREMIS_PolarFiremission;
+	  *  [arty1,"132035",3230,500,200,10,5,10,100,0] call FIREMIS_fnc_PolarFiremission;
 	  */
 
 	  /*
-	   * FW_fnc_FIREMIS_PointFiremission
+	   * FIREMIS_fnc_PointFiremission
 	   *
 	   * Calls in a point firemission
 	   *
@@ -166,18 +166,18 @@
 	   * 4: roundsPerBurst <int> number of rounds per burst
 	   * 5: burstWaitTime <int> downtime between bursts
 	   * 6: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-	   * 7: roundIndex <int> ammunition index from FW_fnc_FIREMIS_GetAmmoDisplayNameAndIndex
+	   * 7: roundIndex <int> ammunition index from FIREMIS_fnc_GetAmmoDisplayNameAndIndex
 
 	   *
 	   * Return Value:
 	   * none
 	   *
 	   * Example:
-	   *  [arty1,getPos gameLogic1,200,10,5,10,100,0] call FW_fnc_FIREMIS_PointFiremission;
+	   *  [arty1,getPos gameLogic1,200,10,5,10,100,0] call FIREMIS_fnc_PointFiremission;
 	   */
 
 	   /*
-		* FW_fnc_FIREMIS_LineFiremission
+		* FIREMIS_fnc_LineFiremission
 		*
 		* Calls in a firemission which moves from startPoint to endPoint. Line between SP and EP will be cut into burstCount pieces and a burst will be fired at every piece
 		*
@@ -189,18 +189,18 @@
 		* 4: roundsPerBurst <int> number of rounds per burst
 		* 5: burstWaitTime <int> downtime between bursts
 		* 6: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-		* 7: roundIndex <int> ammunition index from FUNC(FIREMIS_Dia_GetAmmoDisplayNameAndIndex)
+		* 7: roundIndex <int> ammunition index from FUNC(Dia_GetAmmoDisplayNameAndIndex)
 
 		*
 		* Return Value:
 		* none
 		*
 		* Example:
-		*  [arty2,getPos gameLogic2,getPos gameLogic3,10,2,10,100,0] call FW_fnc_FIREMIS_LineFiremission;
+		*  [arty2,getPos gameLogic2,getPos gameLogic3,10,2,10,100,0] call FIREMIS_fnc_LineFiremission;
 		*/
 
 		/*
-		 * FW_fnc_FIREMIS_BracketFiremission
+		 * FIREMIS_fnc_BracketFiremission
 		 *
 		 * Calls in a firemission which moves from startPoint half way to endPoint and from endPoint halfway to startPoint. Line between SP and EP will be cut into burstCount pieces and a burst will be fired at every piece.
 		 *
@@ -213,18 +213,18 @@
 		 * 5: roundsPerBurst <int> number of rounds per burst
 		 * 6: burstWaitTime <int> downtime between bursts
 		 * 7: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-		 * 8: roundIndex <int> ammunition index from FW_fnc_FIREMIS_GetAmmoDisplayNameAndIndex
+		 * 8: roundIndex <int> ammunition index from FIREMIS_fnc_GetAmmoDisplayNameAndIndex
 
 		 *
 		 * Return Value:
 		 * none
 		 *
 		 * Example:
-		 *  [arty2,getPos gameLogic2,getPos gameLogic3,10,2,10,100,0] call FW_fnc_FIREMIS_BracketFiremission;
+		 *  [arty2,getPos gameLogic2,getPos gameLogic3,10,2,10,100,0] call FIREMIS_fnc_BracketFiremission;
 		 */
 
 		 /*
-		  * FW_fnc_FIREMIS_DonutFiremission
+		  * FIREMIS_fnc_DonutFiremission
 		  *
 		  * Calls in a firemission where artillery will shoot between innerRadius and outerRadius from the target
 		  *
@@ -237,18 +237,18 @@
 		  * 5: roundsPerBurst <int> number of rounds per burst
 		  * 6: burstWaitTime <int> downtime between bursts
 		  * 7: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-		  * 8: roundIndex <int> ammunition index from FW_fnc_FIREMIS_GetAmmoDisplayNameAndIndex
+		  * 8: roundIndex <int> ammunition index from FIREMIS_fnc_GetAmmoDisplayNameAndIndex
 
 		  *
 		  * Return Value:
 		  * none
 		  *
 		  * Example:
-		  *  [arty4,getPos gameLogic6,200,400,10,5,20,100,0] call FW_fnc_FIREMIS_DonutFiremission;
+		  *  [arty4,getPos gameLogic6,200,400,10,5,20,100,0] call FIREMIS_fnc_DonutFiremission;
 		  */
 
 		  /*
-		   * FW_fnc_FIREMIS_MarkerFiremission
+		   * FIREMIS_fnc_MarkerFiremission
 		   *
 		   * Calls in a firemission where artillery will shoot in the rectangle or circle marker
 		   *
@@ -259,18 +259,18 @@
 		   * 3: roundsPerBurst <int> number of rounds per burst
 		   * 4: burstWaitTime <int> downtime between bursts
 		   * 5: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-		   * 6: roundIndex <int> ammunition index from FUNC(FIREMIS_Dia_GetAmmoDisplayNameAndIndex)
+		   * 6: roundIndex <int> ammunition index from FUNC(Dia_GetAmmoDisplayNameAndIndex)
 
 		   *
 		   * Return Value:
 		   * none
 		   *
 		   * Example:
-		   * [arty5,"artytarget1",10,5,20,100,0] call FW_fnc_FIREMIS_MarkerFiremission;
+		   * [arty5,"artytarget1",10,5,20,100,0] call FIREMIS_fnc_MarkerFiremission;
 		   */
 
 		   /*
-			* FW_fnc_FIREMIS_PointMarkerFiremission
+			* FIREMIS_fnc_PointMarkerFiremission
 			*
 			* Calls a point firemission on a given markername
 			*
@@ -282,18 +282,18 @@
 			* 4: roundsPerBurst <int> number of rounds per burst
 			* 5: burstWaitTime <int> downtime between bursts
 			* 6: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-			* 7: roundIndex <int> ammunition index from FUNC(FIREMIS_Dia_GetAmmoDisplayNameAndIndex)
+			* 7: roundIndex <int> ammunition index from FUNC(Dia_GetAmmoDisplayNameAndIndex)
 
 			*
 			* Return Value:
 			* none
 			*
 			* Example:
-			* [arty5,"artytarget1",300,10,5,20,100,0] call FW_fnc_FIREMIS_PointMarkerFiremission;
+			* [arty5,"artytarget1",300,10,5,20,100,0] call FIREMIS_fnc_PointMarkerFiremission;
 			*/
 
 			/*
-			 * FW_fnc_FIREMIS_DynamicMarkerFiremission
+			 * FIREMIS_fnc_DynamicMarkerFiremission
 			 *
 			 * Calls a point firemission on a marker with a given text
 			 *
@@ -305,18 +305,18 @@
 			 * 4: roundsPerBurst <int> number of rounds per burst
 			 * 5: burstWaitTime <int> downtime between bursts
 			 * 6: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-			 * 7: roundIndex <int> ammunition index from FW_fnc_FIREMIS_GetAmmoDisplayNameAndIndex
+			 * 7: roundIndex <int> ammunition index from FIREMIS_fnc_GetAmmoDisplayNameAndIndex
 
 			 *
 			 * Return Value:
 			 * none
 			 *
 			 * Example:
-			 * [arty5,"artytarget1",300,10,5,20,100,0] call FW_fnc_FIREMIS_DynamicMarkerFiremission;
+			 * [arty5,"artytarget1",300,10,5,20,100,0] call FIREMIS_fnc_DynamicMarkerFiremission;
 			 */
 
 			 /*
-			  * FW_fnc_FIREMIS_CurtainFiremission
+			  * FIREMIS_fnc_CurtainFiremission
 			  *
 			  * Calls in multiple synchronized line firemission from START to ENDPOINT with WIDTH left right dispersion
 			  *
@@ -329,18 +329,18 @@
 			  * 5: roundsPerBurst <int> number of rounds per burst
 			  * 6: burstWaitTime <int> downtime between bursts
 			  * 7: minSpottedDistance <int> range in m of how close a spotting round needs to be to be accepted
-			  * 8: roundIndex <int> ammunition index from FW_fnc_FIREMIS_GetAmmoDisplayNameAndIndex
+			  * 8: roundIndex <int> ammunition index from FIREMIS_fnc_GetAmmoDisplayNameAndIndex
 
 			  *
 			  * Return Value:
 			  * none
 			  *
 			  * Example:
-			  * [[arty6,arty7,arty8,arty9,arty10],getPos gameLogic7,getPos gameLogic8,200,10,5,20,100,0] call FW_fnc_FIREMIS_CurtainFiremission;
+			  * [[arty6,arty7,arty8,arty9,arty10],getPos gameLogic7,getPos gameLogic8,200,10,5,20,100,0] call FIREMIS_fnc_CurtainFiremission;
 			  */
 
         /**
-         * FW_fnc_FIREMIS_DoConstantArtillery
+         * FIREMIS_fnc_DoConstantArtillery
          * Commands a battery to constantly fire artillery at a marker target with unliminted ammo until the battery is destroyed.
          * Author: StatusRed
          *

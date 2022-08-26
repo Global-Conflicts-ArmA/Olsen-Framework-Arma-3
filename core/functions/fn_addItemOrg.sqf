@@ -22,7 +22,7 @@ params ["_unit", "_loadoutType", "_item", ["_amount", 1, [1]], ["_position", "no
 
 if !([_item, _unit] call FUNC(checkClassname)) exitWith {};
 
-if !(_position isEqualTo "") then {
+if (_position isNotEqualTo "") then {
 	_position = toLower _position;
 };
 

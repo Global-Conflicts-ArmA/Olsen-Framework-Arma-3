@@ -12,6 +12,10 @@
 	};
 #endif
 
+#ifdef description_sounds
+	#include "sounds.hpp"
+#endif
+
 #ifdef description_titles
 	#include "RscAOLimit.hpp"
 #endif

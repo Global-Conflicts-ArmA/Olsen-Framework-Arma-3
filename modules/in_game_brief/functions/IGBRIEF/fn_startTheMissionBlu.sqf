@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-[-2, {hint "BLUFOR Confirm mission start?";}] call CBA_fnc_globalExecute;
+["BLUFOR Confirm mission start?"] remoteExec ["hint"];
 
 BlueBoard removeAction GVAR(bluforStarter);
 

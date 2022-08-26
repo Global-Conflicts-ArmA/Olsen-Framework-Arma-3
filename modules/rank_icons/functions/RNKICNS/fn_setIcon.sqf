@@ -5,6 +5,6 @@ params [
   ["_iconFile", "modules\rank_icons\res\chopper.paa", [""]]
 ];
 
-LOG_2("Setting rank icon = %1 on unit = %2", _iconFile, _unit);
+TRACE_2("Setting rank icon = %1 on unit = %2", _iconFile, _unit);
 
 _unit setVariable ["ace_nametags_rankIcon", (getMissionPath _iconFile)];

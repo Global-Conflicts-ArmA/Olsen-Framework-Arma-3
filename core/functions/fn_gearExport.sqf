@@ -20,17 +20,17 @@ _script = "";
 
 // Clothings //
 
-if (uniform _unit != "") then {
+if (uniform _unit isNotEqualTo "") then {
 	_script = _script + '["' + (uniform _unit) + '"] call FNC_AddItem;
 	';
 };
 
-if (vest _unit != "") then {
+if (vest _unit isNotEqualTo "") then {
 	_script = _script + '["' + (vest _unit) + '"] call FNC_AddItem;
 	';
 };
 
-if (backpack _unit != "") then {
+if (backpack _unit isNotEqualTo "") then {
 	_script = _script + '["' + (backpack _unit) + '"] call FNC_AddItem;
 	';
 };
@@ -40,12 +40,12 @@ _script = _script + "
 
 // Headgear //
 
-if (headgear _unit != "") then {
+if (headgear _unit isNotEqualTo "") then {
 	_script = _script + '["' + (headgear _unit) + '"] call FNC_AddItem;
 	';
 };
 
-if (goggles _unit != "") then {
+if (goggles _unit isNotEqualTo "") then {
 	_script = _script + '["' + (goggles _unit) + '"] call FNC_AddItem;
 	';
 };
@@ -56,7 +56,7 @@ _script = _script + "
 
 // Assigned Items //
 
-if (count assignedItems _unit > 0) then {
+if (assignedItems _unit isNotEqualTo []) then {
 	{
 		if (_x == "ItemRadioAcreFlagged") then {
 			_x = "ItemRadio";
@@ -105,40 +105,40 @@ _script = _script + "
 
 // Weapons / Attachments //
 
-if (primaryWeapon _unit != "") then {
+if (primaryWeapon _unit isNotEqualTo "") then {
 	_script = _script + '
 	["' + (primaryWeapon _unit) + '"] call FNC_AddItem;
 	';
 };
 
 {
-	if (_x != "") then {
+	if (_x isNotEqualTo "") then {
 		_script = _script + '_unit addPrimaryWeaponItem "' + _x + '";
 		';
 	};
 } forEach primaryWeaponItems _unit;
 
-if (secondaryWeapon _unit != "") then {
+if (secondaryWeapon _unit isNotEqualTo "") then {
 	_script = _script + '
 	["' + (secondaryWeapon _unit) + '"] call FNC_AddItem;
 	';
 };
 
 {
-	if (_x != "") then {
+	if (_x isNotEqualTo "") then {
 		_script = _script + '_unit addSecondaryWeaponItem "' + _x + '";
 		';
 	};
 } forEach secondaryWeaponItems _unit;
 
-if (handgunWeapon _unit != "") then {
+if (handgunWeapon _unit isNotEqualTo "") then {
 	_script = _script + '
 	["' + (handgunWeapon _unit) + '"] call FNC_AddItem;
 	';
 };
 
 {
-	if (_x != "") then {
+	if (_x isNotEqualTo "") then {
 		_script = _script + '_unit addHandgunItem "' + _x + '";';
 	};
 } forEach handgunItems _unit;

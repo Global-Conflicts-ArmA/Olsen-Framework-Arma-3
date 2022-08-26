@@ -2,7 +2,7 @@
 Information on installation, configuration and usage here.
 */
 
-canDemolishDefault = 1;
+canDemolishDefault = true;
 demolitionTimeFactor = 1;
 playerInventorySize = 500;
 buildTimeFactor = 2;

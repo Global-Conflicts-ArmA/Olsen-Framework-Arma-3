@@ -13,15 +13,13 @@
  */
 
 #include "script_component.hpp"
+params ["_unit", ["_spectator", false, [false]]];
 
-params ["_new", "_corpse"];
-SETVAR(_new,Body,_corpse);
-
-LOG("Server Event Respawned called");
-if (GETVAR(_new,Spectating,false)) then {
-    _new call FUNC(UntrackUnit);
+TRACE_2("Server Event Respawned called",_unit,_spectator);
+if (_spectator || GETVAR(_unit,Spectating,false)) then {
+    _unit call FUNC(UntrackUnit);
 } else {
-    SETPVAR(_new,Dead,false);
-    SETPVAR(_new,Spectating,false);
-    _new call FUNC(EventSpawned);
+    SETPVAR(_unit,Dead,false);
+    SETPVAR(_unit,Spectating,false);
+    _unit call FUNC(EventSpawned);
 };

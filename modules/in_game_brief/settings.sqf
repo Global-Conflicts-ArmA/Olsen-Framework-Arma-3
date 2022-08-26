@@ -6,12 +6,11 @@
 // You can find an example mission here: https://globalconflicts.net/wiki/index.php?title=Mission_template/Examples
 // 1) Uncomment the module in the modules\modules.sqf file.
 //
-// 3) For each setup zone you want to create, place a gamelogic in the center of the desired area, and add the following to the settings.sqf file:
-// [<GAME LOGIC NAME>, <SETUP SIZE>, <SIDE>] call FUNC(setup);
+// 2) For each setup zone you want to create, place a rectangle area marker for the desired briefing area, and add the following to the settings.sqf file:
+// [<MARKER NAME>, <SIDE>] call FUNC(setup);
 //
-// 4) Place down one object in each sides start zone, it can be any object, and give each object the relevant variable name for the correct side, either "BlueBoard" or "RedBoard"
+// 3) Place down one object in each sides' start zone, it can be any object, and give each object the relevant variable name for the correct side, either "BlueBoard" or "RedBoard"
 //
-// 5) Place down a logic and name it "barrierChecker"
 // ----------------------------------------------------
-//[barrier1, 50, west] call FUNC(setup);
-//[barrier2, 50, east] call FUNC(setup);
+//["setup_blufor", blufor] call FUNC(setup);
+//["setup_opfor", opfor] call FUNC(setup);

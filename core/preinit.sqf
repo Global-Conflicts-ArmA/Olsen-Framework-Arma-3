@@ -1,8 +1,18 @@
 #define preinit
 
 #include "script_macros.hpp"
-#include "..\customization\settings.sqf" //DO NOT REMOVE
-#include "..\customization\debugSettings.sqf" //DO NOT REMOVE
+
+// debug settings
+GVAR(testingDisableFriendlyAI) = ([missionConfigFile >> QGVAR(debugSettings) >> "testingDisableFriendlyAI", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+
+// gear settings
+GVAR(force_remove_facewear) = ([missionConfigFile >> QGVAR(gearSettings) >> "forceRemoveFacewear", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+GVAR(enableOverfill) = ([missionConfigFile >> QGVAR(gearSettings) >> "testingDisableFriendlyAI", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(removeAllGear) = ([missionConfigFile >> QGVAR(gearSettings) >> "testingDisableFriendlyAI", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+
+// general settings
+GVAR(loadingScreen) = ([missionConfigFile >> QGVAR(settings) >> "loadingScreen", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+ace_respawn_RemoveDeadBodiesDisconnected = ([missionConfigFile >> QGVAR(settings) >> "removeDeadBodiesDisconnected", "number", 0] call CBA_fnc_getConfigEntry) == 1;
 
 GVAR(DebugMessages) = [];
 GVAR(Modules) = [];
@@ -11,8 +21,6 @@ GVAR(Modules) = [];
 ["ace_firedPlayerVehicle", FUNC(firedEH)] call CBA_fnc_addEventHandler;
 ["ace_firedNonPlayer", FUNC(firedEH)] call CBA_fnc_addEventHandler;
 ["ace_firedNonPlayerVehicle", FUNC(firedEH)] call CBA_fnc_addEventHandler;
-
-#include "..\customization\gearSettings.sqf"
 
 #include "..\customization\inits\PreInitGlobal.sqf" //DO NOT REMOVE
 #include "..\modules\modules.sqf" //DO NOT REMOVE

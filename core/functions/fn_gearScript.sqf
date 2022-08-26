@@ -15,12 +15,12 @@ if !(local _unit) exitWith {};
 
 private _temp = "";
 
-if !(_groupId isEqualTo "") then {
-	(group _unit) setGroupId [_groupId];
+if (_groupId isNotEqualTo "") then {
+	(group _unit) setGroupIdGlobal [_groupId];
 };
 
-if (GETMVAR(removeGear,true)) then {
-	[] call FUNC(removeAllGear);
+if (GETMVAR(removeAllGear, true)) then {
+	[_unit] call FUNC(removeAllGear);
 };
 
 SETPVAR(_unit,Loadout,_type);

@@ -55,7 +55,7 @@
         };
 
         if (GETMVAR(eg_instant_death,true)) then {
-            cutText ["\n", "BLACK", 0.1, true];
+            QGVAR(respawnBlackScreen) cutText ["\n", "BLACK", 0.1, true];
             [QGVAR(death), 0, true] call ace_common_fnc_setHearingCapability;
             0 fadeSound 0;
             [{
@@ -63,7 +63,7 @@
             }, [], 1] call CBA_fnc_waitAndExecute;
         } else {
             [{
-                cutText ["\n", "BLACK", 0.5, true];
+                QGVAR(respawnBlackScreen) cutText ["\n", "BLACK", 0.5, true];
                 [QGVAR(death), 0, true] call ace_common_fnc_setHearingCapability;
                 [{
                     0 fadeSound 0;
@@ -75,6 +75,10 @@
         };
     }];
 }, []] call CBA_fnc_waitUntilAndExecute;
+
+[QGVAR(CoC_Changed), {
+    [(localize "STR_GCFW_InCommand")] call ace_common_fnc_displayTextStructured;
+}] call CBA_fnc_addEventHandler;
 
 #include "..\customization\inits\PostInitClient.sqf" //DO NOT REMOVE
 #include "..\modules\modules.sqf" //DO NOT REMOVE

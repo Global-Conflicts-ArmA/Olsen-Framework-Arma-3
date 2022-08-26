@@ -1,25 +1,54 @@
-#include "script_macros.hpp"
+#include "script_component.hpp"
 
 #ifdef description
-	#include "StateMachines.hpp"
-	#include "CfgRemoteExec.hpp"
+	#include "functions\CfgRemoteExec.hpp"
+    class GVAR(Settings) {
+        #include "settings.hpp"
+        class Bunker {
+            #include "settings\bunker.hpp"
+        };
+        class Commander {
+            #include "settings\commander.hpp"
+        };
+        class SightAid {
+            #include "settings\sight.hpp"
+        };
+        class CustomSkill {
+            #include "settings\skill.hpp"
+        };
+    };
+    class GVAR(Config) {
+        class Tasks {
+            #include "config\tasks.hpp"
+        };
+    };
+#endif
+
+#ifdef description_other
+    #include "functions\StateMachines.hpp"
 #endif
 
 #ifdef description_external_functions
-	#include "CfgFunctions.hpp"
+	#include "functions\CfgFunctions.hpp"
 #endif
 
 #ifdef description_XEH_PreInit
 	class COMPONENT {
-		Init = "call compile preProcessFileLineNumbers 'modules\headless_ai\cfgXEH\init\GlobalPreInit.sqf';";
-		serverInit = "call compile preProcessFileLineNumbers 'modules\headless_ai\cfgXEH\init\ServerPreInit.sqf';";
-		clientInit = "call compile preProcessFileLineNumbers 'modules\headless_ai\cfgXEH\init\ClientPreInit.sqf';";
+		Init = "call compile preProcessFileLineNumbers 'modules\headless_ai\preInitGlobal.sqf';";
+		serverInit = "call compile preProcessFileLineNumbers 'modules\headless_ai\preInitServer.sqf';";
+		clientInit = "call compile preProcessFileLineNumbers 'modules\headless_ai\preInitClient.sqf';";
 	};
 #endif
 
 #ifdef description_XEH_FiredMan_CAManBase
 	class COMPONENT {
 		firedMan = QUOTE(_this call FUNC(onFiredMan));
+	};
+#endif
+
+#ifdef description_XEH_InitPost_CAManBase
+	class COMPONENT {
+		init = QUOTE(_this call FUNC(initPostMan));
 	};
 #endif
 
