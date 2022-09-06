@@ -16,7 +16,7 @@ To use enhanced mission briefings, simply remove the customization\briefings dir
 
 To learn more about this framework, visit [our wiki](https://github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3/wiki).
 
-For information on how to make a mission read [this guide](https://globalconflicts.net/wiki/index.php?title=Mission_making).
+For information on how to make a mission read [this guide](https://globalconflicts.net/guides/mission-making-intro).
 
 For help in writing your own module, visit [functions documentation](https://github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3/wiki/Framework-functions) and [modules page](https://github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3/wiki/Framework-functions/Modules).
 
