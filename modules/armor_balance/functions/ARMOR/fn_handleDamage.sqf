@@ -56,7 +56,7 @@ if (ARMOR_enabled) then {
 		case (_hitpoint in ["hitarms","hitleftarm","hitrightarm"]): {if !(isNil "ARMOR_CoefArms") then {_armorCoef = ARMOR_CoefArms}};
 		case (_hitpoint == "hithands"): {if !(isNil "ARMOR_CoefHands") then {_armorCoef = ARMOR_CoefHands}};
 		case (_hitpoint in ["hitlegs","hitleftleg","hitrightleg"]): {if !(isNil "ARMOR_CoefLegs") then {_armorCoef = ARMOR_CoefLegs}};
-		case (_hitpoint == "hitbody"): {if !(isNil "ARMOR_CoefHead") then {_armorCoef = 1}};
+		case (_hitpoint == "hitbody"): {};
 		default {};
 	};
 
