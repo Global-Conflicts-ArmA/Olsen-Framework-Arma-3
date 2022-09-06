@@ -44,7 +44,6 @@ GVAR(sides) = [west,east,resistance,civilian];
 
 //Armor base overwrite
 //This overwrites the base config armor value. This is optional.
-//Armor calulated by: BaseAll + BaseHitPart
 //
 //No negative numbers!
 //Lack of variables will use default armor values
