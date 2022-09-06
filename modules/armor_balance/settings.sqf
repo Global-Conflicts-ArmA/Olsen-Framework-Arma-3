@@ -27,7 +27,7 @@ GVAR(sides) = [west,east,resistance,civilian];
 //EXAMPLE: GVAR(CoefTorso) = 1; default, no change
 //EXAMPLE: GVAR(CoefTorso) = 2; armor is twice as effective at protection
 //EXAMPLE: GVAR(CoefTorso) = .5; armor is half as effective at protection
-//EXAMPLE: GVAR(CoefAll) = 2; GVAR(CoefHead) = 2; head armor will be twice as effective. will apply first to all body parts following other body oarts
+//EXAMPLE: GVAR(CoefAll) = 1; GVAR(CoefHead) = 2; head armor will be twice as effective. will apply first to all body parts following other body oarts
 
 //GVAR(CoefAll) = 1;
 //GVAR(CoefHead) = 1;
