@@ -29,6 +29,7 @@ Additional modules that can be enabled by removing the //
 //#include "ambient_effects\root.sqf"
 //#include "ao_limit\root.sqf"
 //#include "ao_limit_soft\root.sqf"
+//#include "armor_balance\root.sqf"
 //#include "backpack_on_chest\root.sqf"
 //#include "billboards\root.sqf"
 //#include "call_mission\root.sqf"
