@@ -31,10 +31,10 @@ GVAR(sides) = [west,east,resistance,civilian];
 //EXAMPLE: GVAR(CoefAll) = 2; GVAR(CoefHead) = 2; head armor will be twice as effective. will apply first to all body parts following other body oarts
 
 //GVAR(CoefAll) = 1;
-GVAR(CoefHead) = 99999;
-GVAR(CoefFace) = 99999;
-GVAR(CoefNeck) = 99999;
-GVAR(CoefChest) = 1000;
+//GVAR(CoefHead) = 1;
+//GVAR(CoefFace) = 1;
+//GVAR(CoefNeck) = 1;
+//GVAR(CoefChest) = 1;
 //GVAR(CoefDiaphragm) = 1;
 //GVAR(CoefAbdomen) = 1;
 //GVAR(CoefPelvis) = 1;
@@ -63,18 +63,3 @@ GVAR(CoefChest) = 1000;
 //GVAR(BaseArms) = 20;
 //GVAR(BaseHands) = 20;
 //GVAR(BaseLegs) = 20;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
