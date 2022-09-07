@@ -107,7 +107,7 @@ GVAR(serverViewDistance) = [missionConfigFile >> QGVAR(serverSettings) >> "viewD
 
 GVAR(timeLimit) = [missionConfigFile >> QGVAR(serverSettings) >> "timeLimit", "number", 30] call CBA_fnc_getConfigEntry;
 GVAR(timeLimitMessage) = [missionConfigFile >> QGVAR(serverSettings) >> "timeLimitMessage", "string", "TIME LIMIT REACHED!"] call CBA_fnc_getConfigEntry;
-GVAR(endConditionFrequency) = [missionConfigFile >> QGVAR(endConditionFrequency) >> "timeLimit", "number", 30] call CBA_fnc_getConfigEntry;
+GVAR(endConditionFrequency) = [missionConfigFile >> QGVAR(serverSettings) >> "endConditionFrequency", "number", 30] call CBA_fnc_getConfigEntry;
 
 GVAR(disconnectBodyCleanupTime) = [missionConfigFile >> QGVAR(serverSettings) >> "disconnectBodyCleanupTime", "number", 2] call CBA_fnc_getConfigEntry;
 GVAR(disconnectBodyCleanupSides) = [];
