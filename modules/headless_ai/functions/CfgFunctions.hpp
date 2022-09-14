@@ -186,7 +186,6 @@ class COMPONENT {
 
     class set {
 		file = "modules\headless_ai\functions\set";
-	    class setAssignedVehicle {};
 	    class setBuildingPos {};
 	    class setFlashlights {};
 	    class setGroupBehaviour {};
