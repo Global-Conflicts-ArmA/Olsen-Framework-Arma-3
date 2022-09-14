@@ -142,20 +142,18 @@ if (_cargoCrew isNotEqualTo []) then {
 if (_initial) then {
     {
         _x params ["_vehRole", "_userInfo"];
-        _vehRole params ["_role", "_index"];
         private _unit = [false, _group, _gpos, false, _foreachIndex, _userInfo] call FUNC(createUnit);
         [{_this select 0 isNotEqualTo objNull}, {
             _this call FUNC(setAssignedVehicle);
-        }, [_unit, _vehicle, _role, _index]] call CBA_fnc_waitUntilAndExecute;
+        }, [_unit, _vehicle, _vehRole]] call CBA_fnc_waitUntilAndExecute;
     } forEach _vehCrew;
     if (_cargoCrew isNotEqualTo []) then {
         {
             _x params ["_vehRole", "_userInfo"];
-            _vehRole params ["_role", "_index"];
             private _unit = [false, _cargoGroup, _gpos, false, _foreachIndex, _userInfo] call FUNC(createUnit);
             [{_this select 0 isNotEqualTo objNull}, {
                 _this call FUNC(setAssignedVehicle);
-            }, [_unit, _vehicle, _role, _index]] call CBA_fnc_waitUntilAndExecute;
+            }, [_unit, _vehicle, _vehRole]] call CBA_fnc_waitUntilAndExecute;
         } forEach _cargoCrew;
         [_cargoGroup, _groupInfo] call FUNC(finishGroupSpawn);
     };
