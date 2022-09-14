@@ -2,8 +2,8 @@
 
 params [
     ["_unit",objNull,[objNull]],
-    ["_vehRole",[],[[]]],
     ["_veh",objNull,[objNull]],
+    ["_vehRole",[],[[]]],
     ["_pos",[],[[]]],
     ["_vehType","",[""]]
 ];
