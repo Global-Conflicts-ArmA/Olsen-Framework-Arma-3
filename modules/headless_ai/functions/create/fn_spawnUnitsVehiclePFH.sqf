@@ -33,11 +33,10 @@ if (_vehCrew isEqualTo []) then {
         _args set [6, _cargoCrew];
         TRACE_1("vehicle cargo spawn",_toSpawn);
         _toSpawn params ["_vehRole", "_userInfo"];
-        _vehRole params ["_role", "_index"];
         private _unit = [false, _cargoGroup, _groupPos, false, _unitIndex, _userInfo] call FUNC(createUnit);
         [{_this select 0 isNotEqualTo objNull}, {
             _this call FUNC(setAssignedVehicle);
-        }, [_unit, _vehicle, _role, _index]] call CBA_fnc_waitUntilAndExecute;
+        }, [_unit, _vehicle, _vehRole]] call CBA_fnc_waitUntilAndExecute;
         _unitIndex = _unitIndex + 1;
         _args set [9, _unitIndex];
     };
@@ -46,11 +45,10 @@ if (_vehCrew isEqualTo []) then {
     _args set [3, _vehCrew];
     TRACE_1("vehicle spawn",_toSpawn);
     _toSpawn params ["_vehRole", "_userInfo"];
-    _vehRole params ["_role", "_index"];
     private _unit = [false, _group, _groupPos, false, _unitIndex, _userInfo] call FUNC(createUnit);
     [{_this select 0 isNotEqualTo objNull}, {
         _this call FUNC(setAssignedVehicle);
-    }, [_unit, _vehicle, _role, _index]] call CBA_fnc_waitUntilAndExecute;
+    }, [_unit, _vehicle, _vehRole]] call CBA_fnc_waitUntilAndExecute;
     _unitIndex = _unitIndex + 1;
     _args set [9, _unitIndex];
 };
