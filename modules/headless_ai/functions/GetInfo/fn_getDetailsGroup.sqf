@@ -28,8 +28,6 @@ private _waypoints = [waypoints _unit] call FUNC(getWaypointDetails);
 //private _taskArray = [] call EFUNC(tasks,getTaskInfoGroup);
 private _commanderArray = [];
 private _storedVars = GETVAR(_group,storedVars,[]);
-private _defaultTask = ["PATROL", "STATIONARY"] select (INVEHICLE(_unit));
-private _getTask = _group getVariable [QGVAR(task), _defaultTask];
 TRACE_2("",_group,_storedVars);
 
 [side _unit,
@@ -44,7 +42,7 @@ GETVAR(_group,createRadius,0),
 GETVAR(_group,taskRadius,30),
 GETVAR(_group,taskWait,3),
 GETVAR(_group,startBuilding,false),
-_getTask,
+GETVAR(_group,task,"NONE"),
 GETVAR(_group,TaskTimer,0),
 GETVAR(_group,multiplier,0),
 _occupy,
