@@ -3,7 +3,7 @@
 
 params [
     ["_group",grpNull,[grpNull]],
-    ["_task","NONE",["NONE"]],
+    ["_task","NONE",[""]],
     ["_pos",[],[[]]],
     ["_radius",50,[0]],
     ["_wait",3,[0]],
@@ -22,8 +22,9 @@ private _taskSetBld = [_bld,_group,_pos,_radius,_wait,_behaviour,_combat,_speed,
 private _taskSetBlds = [_blds,_group,_pos,_radius,_wait,_behaviour,_combat,_speed,_formation];
 
 _task = toUpper _task;
+private _defaultTask = ["PATROL", "STATIONARY"] select (INVEHICLE(leader _group));
 if (_task isEqualTo "NONE") then {
-    _task = "PATROL";
+    _task = _defaultTask;
     LOG_2("group:%1 defaulted to task: %2,",_group,_task);
 };
 LOG_2("group:%1 set to task: %2,",_group,_task);
