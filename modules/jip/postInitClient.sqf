@@ -1,6 +1,7 @@
 #include "script_component.hpp"
 
 if !(hasInterface) exitWith {};
+if !(didJIP) exitWith {};
 
 private _west_locationString = ([missionConfigFile >> QGVAR(settings) >> "west" >> "spawnLocation", "string", ""] call CBA_fnc_getConfigEntry);
 GVAR(west_spawnLocation) = missionNamespace getVariable [_west_locationString, objNull];
@@ -72,9 +73,7 @@ switch side player do {
     };
 };
 
-GVAR(teamTransporters) = missionNamespace getVariable [_transportersVar, []];
-
-if (missionNamespace getVariable [QGVAR(_typeVar), "TELEPORT"] isEqualTo "DENY") exitWith {
+if (missionNamespace getVariable [QGVAR(_typeVar), "TELEPORT"] isEqualTo "DENY" && {missionNamespace getVariable [QGVAR(_deniedVar), false]}) exitWith {
     [{
 		player call EFUNC(FW,UntrackUnit);
 		player setDamage 1;
@@ -84,17 +83,9 @@ if (missionNamespace getVariable [QGVAR(_typeVar), "TELEPORT"] isEqualTo "DENY")
 	}, [], 2] call CBA_fnc_waitAndExecute;
 };
 
-if (missionNamespace getVariable [QGVAR(_deniedVar), false]) exitWith {
-    [{
-		player call EFUNC(FW,UntrackUnit);
-		player setDamage 1;
-		[{
-		    cutText ["JIP deny time reached, JIPs can no longer enter mission.", "PLAIN DOWN"];
-		}, [], 3] call CBA_fnc_waitAndExecute;
-	}, [], 2] call CBA_fnc_waitAndExecute;
-};
+GVAR(teamTransporters) = missionNamespace getVariable [_transportersVar, []];
 
-if (missionNamespace getVariable [_dismountVehiclesVar, true]) then {
+if (missionNamespace getVariable [_dismountVehiclesVar, true] && {INVEHICLE(player)}) then {
     moveOut player;
 };
 
@@ -104,6 +95,10 @@ private _spawnLoc = missionNamespace getVariable [_spawnLocationVar, objNull];
 if (_spawnLoc isNotEqualTo objNull) then {
     player setPosATL _spawnLoc;
     GVAR(JIPSpawnPos) = getPosATL _spawnLoc;
+};
+
+if (missionNamespace getVariable [QGVAR(_typeVar), "TELEPORT"] isEqualTo "NONE") exitWith {
+    ["JIP set to regular spawn, no transport or teleport option available."] call EFUNC(FW,parsedTextDisplay);
 };
 
 private _target = leader player;
