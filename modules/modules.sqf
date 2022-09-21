@@ -59,7 +59,6 @@ Additional modules that can be enabled by removing the //
 //#include "setup_timer\root.sqf"
 //#include "snow\root.sqf"
 //#include "start_in_parachute\root.sqf"
-//#include "start_in_vehicle\root.sqf"
 //#include "start_on_team_color\root.sqf"
 //#include "start_text\root.sqf"
 //#include "task_control\root.sqf"
