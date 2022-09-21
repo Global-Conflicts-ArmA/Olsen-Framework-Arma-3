@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 
-params ["_unit", "_muzzle", ["_target", objNull, [[], objNull]]];
+params ["_unit", ["_target", objNull, [[], objNull]]];
 
-_unit call FUNC(tempRemovePrimaryMags);
+//[_unit, 5] call FUNC(tempRemovePrimaryMags);
 
 private _invisibleTarget = GETVAR(_unit,InvisibleTarget,objnull);
 if (_invisibleTarget isEqualTo objnull) then {
@@ -34,9 +34,9 @@ if (_invisibleTarget isEqualTo objnull) then {
 
 //private _heightAdjustMult = (GETMVAR(HeightAdjustMult,0.25));
 private _targetPos = [_target, 5] call CBA_fnc_randPos;
-private _laserPos = ATLToASL [_targetPos select 0, _targetPos select 1, (_targetPos select 2) + 2];
+private _laserPos = ATLToASL [_targetPos select 0, _targetPos select 1, (_targetPos select 2) + 4];
 _invisibleTarget setPosASL [_laserPos select 0, _laserPos select 1, (_laserPos select 2)];
-_unit selectWeapon _muzzle;
+_unit selectWeapon (secondaryWeapon _unit);
 _unit reveal [_invisibleTarget, 4];
 _unit doTarget _invisibleTarget;
 
@@ -46,15 +46,8 @@ _unit doTarget _invisibleTarget;
         !([getPosATL _unit, getDir _unit, 5, getPosATL _x] call BIS_fnc_inAngleSector)
     } forEach ((units group _unit) - [_unit]))
     && {[_unit, false] call FUNC(isAimed)}
+    && {currentWeapon _unit isEqualTo secondaryWeapon _unit}
 }, {
-    _this params ["_unit", "_muzzle", "_invisibleTarget"];
-    [_unit, _muzzle] call BIS_fnc_fire;
-    private _relDir = _unit getDir _invisibleTarget;
-    //TODO: move to optional param or put in existing functions that call this
-    //[{
-    //	_this params ["_unit", "_invisibleTarget", "_relDir"];
-    //    _invisibleTarget setPosASL [0,0,0];
-    //    _unit doTarget objNull;
-    //    [_unit, _relDir, 2] call FUNC(SuppressDirection);
-    //}, [_unit, _invisibleTarget, _relDir]] call CBA_fnc_execNextFrame;
-}, [_unit, _muzzle, _invisibleTarget], 1, {}] call CBA_fnc_waitUntilAndExecute;
+    params ["_unit"];
+    _unit forceWeaponFire [weaponState _unit select 1, weaponState _unit select 2];
+}, [_unit], 5, {}] call CBA_fnc_waitUntilAndExecute;

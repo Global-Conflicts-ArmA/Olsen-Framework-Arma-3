@@ -51,10 +51,11 @@ private _knownEnemy = (_nearbyEnemy isNotEqualTo []);
         false
     };
     if (
-        _enemyHasArmored && 
+        _enemyHasArmored &&
         {_assetType in ["Motorized"] ||
-        {_assetType in ["Snipers", "Infantry"] && 
-        {!(_group call FUNC(hasAT))}}}
+        {_assetType in ["Snipers", "Infantry"]}//&&
+        //{!(_group call FUNC(hasAT))}}
+        }
     ) exitwith {
         TRACE_2("exiting response with enemy armored no AT",_group,_enemyHasArmored);
         false

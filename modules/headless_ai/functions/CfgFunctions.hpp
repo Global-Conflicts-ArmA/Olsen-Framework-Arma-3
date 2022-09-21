@@ -13,7 +13,7 @@ class COMPONENT {
 		class OnSEAimed {};
 		class OnSETimeOutReset {};
 		class OnSEBurstReset {};
-		class CondBurstCount {};
+		class CondBurstCount {}; //TODO: rename to proper format
 	};
 
     class CachingSM {
@@ -38,6 +38,7 @@ class COMPONENT {
 		class DefaultGroupPatrol {};
 		class DestroyBuilding {};
 		class FindCoverPos {};
+        class FireAT {};
 		class FireUGL {};
 		class FlankManeuver {};
 		class FocusedAccuracy {};
@@ -203,6 +204,7 @@ class COMPONENT {
 		class SA_OnSECombatMode {};
 		class SA_onSEEnemyInRange {};
 		class SA_OnSERemoveCantSeeEnemy {};
+        class SA_OnWait {};
 	};
 
 	class StateMachine {

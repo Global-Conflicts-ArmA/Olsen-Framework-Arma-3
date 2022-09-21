@@ -22,7 +22,7 @@ initialRandomSpawnsCount = 0;
 
 // Debug message settings
 debug = true;
-verboseDebug = true;
+verboseDebug = false;
 groupDebug = false;
 // Turn on map markers that track AI movement
 useMarkers = true;
