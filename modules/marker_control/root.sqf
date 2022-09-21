@@ -1,15 +1,17 @@
+#include "script_component.hpp"
+
 #ifdef description_XEH_PreInit
-	class MRKCON {
+	class COMPONENT {
 		clientInit = "'' call compile preprocessFileLineNumbers 'modules\marker_control\preInitClient.sqf'";
 	};
 #endif
 
 #ifdef description_XEH_PostInit
-	class MRKCON {
+	class COMPONENT {
 		clientInit = "'' call compile preprocessFileLineNumbers 'modules\marker_control\postInitClient.sqf'";
 	};
 #endif
 
-#ifdef description_functions
+#ifdef description_external_functions
 	#include "functions\CfgFunctions.hpp"
 #endif
