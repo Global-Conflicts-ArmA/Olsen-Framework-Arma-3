@@ -11,3 +11,5 @@
 	#include "params.hpp"
 
 #endif
+
+#undef COMPONENT
