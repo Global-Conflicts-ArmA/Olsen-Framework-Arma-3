@@ -3,18 +3,14 @@
 // Usage:
 // 1) Create a RECTANGLE/ELLIPSE marker that will represent the rescue zone for the hostage.
 // 2) Create the hostage unit and give it a name (used for the end conditions).
-// 3) In this file add a SETVAR(<unit name>, Enabled, true) entry (see below)
-// 4) In this file add a SETVAR(<unit name>, RescueLocation, <rescue marker name>) entry (see below)
-// 5) To check if the hostage has been rescued in the end conditions use this line: hostage call FUNC(HOST_IsRescued)
+// 3) In the hostage init place "[<HOSTAGE - OBJECT VAR>, <RESCUE MARKER - STRING>, <JOIN GROUP - BOOLEAN>, <CARELESS MODE - BOOLEAN>, <SITDOWN AFTER RESCUE - BOOLEAN>] call HOST_fnc_setHostage"
+// 4) To check if the hostage has been rescued in the end conditions use this line: hostage call EFUNC(HOST,IsRescued)
 //
 // Example:
-// if (hostage1 call FUNC(HOST_IsRescued) && hostage2 call FUNC(HOST_IsRescued)) exitWith {
+// if (hostage1 call EFUNC(HOST,IsRescued) && {hostage2 call EFUNC(HOST,IsRescued)}) exitWith {
 //		"Hostages Rescued" call FUNC(EndMission);
 // };
 //
-// if (!alive hostage1 && !alive hostage2) exitWith {
+// if (!([hostage1] call FUNC(isAlive)) && {!([hostage2] call FUNC(isAlive))}) exitWith {
 //		"Hostages Killed" call FUNC(EndMission);
 // };
-
-//SETVAR(hostage, Enabled, true);
-//SETVAR(hostage, RescueLocation, "marker_rescue");
