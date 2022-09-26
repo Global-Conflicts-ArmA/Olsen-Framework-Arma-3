@@ -1,5 +1,11 @@
 #include "script_component.hpp"
 
+#ifdef description
+    class GVAR(Settings) {
+        #include "settings.hpp"
+    };
+#endif
+
 #ifdef description_XEH_PreInit
 	class COMPONENT {
 		clientInit = "'' call compile preprocessFileLineNumbers 'modules\jip\preInitClient.sqf'";
@@ -10,6 +16,7 @@
 #ifdef description_XEH_PostInit
 	class COMPONENT {
 		clientInit = "'' call compile preprocessFileLineNumbers 'modules\jip\postInitClient.sqf'";
+		serverInit = "'' call compile preprocessFileLineNumbers 'modules\jip\postInitServer.sqf'";
 	};
 #endif
 
