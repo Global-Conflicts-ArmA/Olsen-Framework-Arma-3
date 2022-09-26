@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 
-#ifdef description_XEH_InitPost_CAManBase
+#ifdef description_XEH_PreInit
 	class COMPONENT {
-		init = "call compile preprocessFileLineNumbers 'modules\hostage\postInitClient.sqf'";
+		clientInit = "'' call compile preprocessFileLineNumbers 'modules\hostage\preInitClient.sqf'";
 	};
 #endif
 
