@@ -10,16 +10,10 @@ params [
     ["_behaviour", "UNCHANGED", [""]],
     ["_combat", "NO CHANGE", [""]],
     ["_speed", "UNCHANGED", [""]],
-    ["_formation", "NO CHANGE", [""]],
-    ["_occupyOption",0,[0]],
-    ["_bld",objNull,[objNull]],
-    ["_blds",[],[[]]]
+    ["_formation", "NO CHANGE", [""]]
 ];
 
 private _taskSet = [_group,_pos,_radius,_wait,_behaviour,_combat,_speed,_formation];
-private _taskSetBasic = [_group,_behaviour,_combat,_speed,_formation];
-private _taskSetBld = [_bld,_group,_pos,_radius,_wait,_behaviour,_combat,_speed,_formation];
-private _taskSetBlds = [_blds,_group,_pos,_radius,_wait,_behaviour,_combat,_speed,_formation];
 
 _task = toUpper _task;
 private _defaultTask = ["PATROL", "STATIONARY"] select (INVEHICLE(leader _group));
@@ -31,7 +25,7 @@ LOG_2("group:%1 set to task: %2,",_group,_task);
 switch (_task) do {
     case "MANUAL": {};
     case "GARRISON": {
-        _taskSet call FUNC(taskPatrol);
+        _taskSet call FUNC(taskGarrison);
     };
     case "PATROL": {
         _taskSet call FUNC(taskPatrol);
@@ -64,18 +58,9 @@ switch (_task) do {
         _taskSet call FUNC(taskStationary);
     };
     case "HOLD": {
-        _taskSet call FUNC(taskPatrol);
+        _taskSet call FUNC(taskDefend);
     };
     case "BYPASS": {
-        _taskSet call FUNC(taskPatrol);
-    };
-    case "BLDMOVE": {
-        _taskSet call FUNC(taskPatrol);
-    };
-    case "BLDDEFEND": {
-        _taskSet call FUNC(taskPatrol);
-    };
-    case "BLDSEARCH": {
         _taskSet call FUNC(taskPatrol);
     };
     case "PICKUP": {
