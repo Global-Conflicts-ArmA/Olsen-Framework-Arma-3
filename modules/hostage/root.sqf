@@ -1,15 +1,13 @@
-#ifdef description_XEH_PreInit
-	class HOST {
-		clientInit = "'' call compile preprocessFileLineNumbers 'modules\hostage\preInitClient.sqf'";
-	};
-#endif
+#include "script_component.hpp"
 
 #ifdef description_XEH_InitPost_CAManBase
-	class HOST {
+	class COMPONENT {
 		init = "call compile preprocessFileLineNumbers 'modules\hostage\postInitClient.sqf'";
 	};
 #endif
 
-#ifdef description_functions
+#ifdef description_external_functions
 	#include "functions\CfgFunctions.hpp"
 #endif
+
+#undef COMPONENT
