@@ -33,6 +33,7 @@ GVAR(radioDistance) = [missionConfigFile >> QGVAR(settings) >> "radioDistance", 
 GVAR(radioWait) = [missionConfigFile >> QGVAR(settings) >> "radioWait", "number", 30] call CBA_fnc_getConfigEntry;
 GVAR(radioNeedRadio) = ([missionConfigFile >> QGVAR(settings) >> "radioNeedRadio", "number", 0] call CBA_fnc_getConfigEntry) == 1;
 GVAR(patrolDistance) = [missionConfigFile >> QGVAR(settings) >> "patrolDistance", "number", 200] call CBA_fnc_getConfigEntry;
+GVAR(patrolSearchBuilding) = ([missionConfigFile >> QGVAR(settings) >> "patrolSearchBuilding", "number", 0] call CBA_fnc_getConfigEntry) == 1;
 GVAR(garrisonPatrol) = ([missionConfigFile >> QGVAR(settings) >> "garrisonPatrol", "number", 0] call CBA_fnc_getConfigEntry) == 1;
 GVAR(reinforce) = ([missionConfigFile >> QGVAR(settings) >> "reinforce", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 GVAR(reinforceDistance) = [missionConfigFile >> QGVAR(settings) >> "reinforceDistance", "number", 2500] call CBA_fnc_getConfigEntry;

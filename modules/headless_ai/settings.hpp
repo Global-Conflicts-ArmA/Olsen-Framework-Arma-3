@@ -58,6 +58,8 @@ radioWait = 30;
 radioNeedRadio = false;
 // Distance the AI will patrol to by default
 patrolDistance = 200;
+// Whether the AI will search buildings in casual (enemy not detected) patrolling task
+patrolSearchBuilding = false;
 // Whether the AI will patrol between garrison positions. Pretty buggy, but nice for 'mersion
 garrisonPatrol = false;
 // Default group reinforcement behaviour
