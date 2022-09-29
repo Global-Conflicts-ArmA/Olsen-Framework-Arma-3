@@ -87,8 +87,8 @@ GVAR(CustomSkill_general) = [missionConfigFile >> QGVAR(settings) >> "CustomSkil
 GVAR(CustomSkill_courage) = [missionConfigFile >> QGVAR(settings) >> "CustomSkill" >> "courage", "number", 1] call CBA_fnc_getConfigEntry;
 
 GVAR(CommanderEnabled) = ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "feature", "number", 0] call CBA_fnc_getConfigEntry) == 1;
-GVAR(CommanderDebug) = ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "feature", "number", 1] call CBA_fnc_getConfigEntry) == 1;
-GVAR(CommanderSide) = switch (tolower ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "feature", "side", "east"] call CBA_fnc_getConfigEntry)) do {
+GVAR(CommanderDebug) = ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "debug", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(CommanderSide) = switch (tolower ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "side", "east"] call CBA_fnc_getConfigEntry)) do {
     case "west": {west};
     case "east": {east};
     case "independent": {independent};
