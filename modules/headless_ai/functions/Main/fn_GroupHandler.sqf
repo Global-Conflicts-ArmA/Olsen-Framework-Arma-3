@@ -115,20 +115,6 @@ GVAR(GroupHandlerPFH) = [{
                     if (_currentWaypoint > (count _waypoints - 1) && {(_group getVariable [QGVAR(Task), "PATROL"]) isEqualTo "MANUAL"}) then {
                         [_group, _position] call FUNC(taskPatrol);
                     };
-                    private _nextWP = [_group, _currentWaypoint];
-                    private _waypointType = waypointType _nextWP;
-                    if ((_waypointType isEqualTo "MOVE") && {CBA_MissionTime >= _lastWaypointTime + 3}) then {
-                        //TRACE_1("non combat wp check",_group);
-                        SETVAR(_group,lastWaypointTime,CBA_MissionTime);
-                        private _statements = waypointStatements _nextWP;
-                        _statements params ["_condition", "_onAct"];
-                        private _waypointPos = waypointPosition _nextWP;
-                        private _waypointRadius = waypointCompletionRadius _nextWP;
-                        private _distance = _position distance2D _waypointPos;
-                        if (_condition isEqualTo "true" && {_distance <= _waypointRadius}) then {
-                            _nextWP setWaypointPosition [_position, -1];
-                        };
-                    };
                 };
             };
             //commander handling
