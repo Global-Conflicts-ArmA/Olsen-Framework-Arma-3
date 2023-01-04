@@ -155,15 +155,15 @@ if (_interval < 5) then {
                     _conTeamName = missionNamespace getVariable [QEGVAR(FW,TeamName_Blufor), "Blufor"];
                 };
                 case opfor: {
-                    _colour = _bluforColour;
+                    _colour = _opforColour;
                     _conTeamName = missionNamespace getVariable [QEGVAR(FW,TeamName_Opfor), "Opfor"];
                 };
                 case independent: {
-                    _colour = _bluforColour;
+                    _colour = _indforColour;
                     _conTeamName = missionNamespace getVariable [QEGVAR(FW,TeamName_Indfor), "Indfor"];
                 };
                 case civilian: {
-                    _colour = _bluforColour;
+                    _colour = _civColour;
                     _conTeamName = missionNamespace getVariable [QEGVAR(FW,TeamName_Civ), "Civilian"];
                 };
                 default {
