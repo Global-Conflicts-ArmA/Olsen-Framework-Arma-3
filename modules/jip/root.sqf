@@ -16,7 +16,6 @@
 #ifdef description_XEH_PostInit
 	class COMPONENT {
 		clientInit = "'' call compile preprocessFileLineNumbers 'modules\jip\postInitClient.sqf'";
-		serverInit = "'' call compile preprocessFileLineNumbers 'modules\jip\postInitServer.sqf'";
 	};
 #endif
 
