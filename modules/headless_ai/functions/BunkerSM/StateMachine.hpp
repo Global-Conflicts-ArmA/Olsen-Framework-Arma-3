@@ -56,7 +56,7 @@ class GVAR(bunkerStateMachine) {
         class Infantry {
             targetState = QUOTE(Target);
 
-            condition = QUOTE(vehicle _this isNotEqualTo _this);
+            condition = QUOTE(vehicle _this isEqualTo _this);
         };
     };
     class Target {

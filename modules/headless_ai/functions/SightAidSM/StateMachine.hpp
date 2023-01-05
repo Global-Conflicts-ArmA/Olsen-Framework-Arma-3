@@ -1,8 +1,5 @@
-<<<<<<<< HEAD:modules/headless_ai/cfgFunctions/FSM/sightAidSM.hpp
-========
 #include "script_component.hpp"
 
->>>>>>>> origin/dev:modules/headless_ai/functions/SightAidSM/StateMachine.hpp
 class GVAR(sightAidStateMachine) {
     list = QUOTE(allUnits select {\
         local _x && \
