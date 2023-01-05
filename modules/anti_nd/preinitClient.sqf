@@ -13,4 +13,6 @@ GVAR(INDFOR_Distance) = [missionConfigFile >> QGVAR(settings) >> "INDFOR" >> "di
 GVAR(CIV_Time) = [missionConfigFile >> QGVAR(settings) >> "CIV" >> "time", "number", 30] call CBA_fnc_getConfigEntry;
 GVAR(CIV_Distance) = [missionConfigFile >> QGVAR(settings) >> "CIV" >> "distance", "number", 200] call CBA_fnc_getConfigEntry;
 
+GVAR(disableQuickGrenades) = ([missionConfigFile >> QGVAR(settings) >> "disableQuickGrenades", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+
 [] call FUNC(Init);

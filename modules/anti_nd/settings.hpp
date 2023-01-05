@@ -8,6 +8,8 @@
 
 // If you want to disable a setting, set it to 0.
 
+disableQuickGrenades = true;
+
 class BLUFOR {
     time = 60;
     distance = 200;
