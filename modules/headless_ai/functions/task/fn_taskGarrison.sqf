@@ -3,7 +3,12 @@
 params [
     "_group",
     "_pos",
-    ["_radius",100,[0]]
+    ["_radius",100,[0]],
+    ["_wait",3,[0]],
+    ["_behaviour", "UNCHANGED", [""]],
+    ["_combat", "NO CHANGE", [""]],
+    ["_speed", "UNCHANGED", [""]],
+    ["_formation", "NO CHANGE", [""]]
 ];
 
 private _buildings = _pos nearObjects ["Building", _radius];

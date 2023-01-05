@@ -15,7 +15,7 @@ _groupSet params [
     /* 6 */  ["_groupStance", "AUTO", [""]],
     /* 7 */  ["_groupInit", false, [false, {}, ""]],
     /* 8 */  ["_createRadius", 0, [0]],
-    /* 9 */  ["_taskRadius", 30, [0]],
+    /* 9 */  ["_taskRadius", 100, [0]],
     /* 10 */ ["_taskWait", 3, [0]],
     /* 11 */ ["_startBuilding", false, [false]],
     /* 12 */ ["_task", "PATROL", [""]],
@@ -58,14 +58,18 @@ if (
         [_group] call FUNC(taskRelease);
     };
     LOG_2("Setting %1 to task: %2",_group,_task);
-    private _manualPos = GETVAR(_group,taskPos,[ARR_3(0,0,0)]);
-    private _taskPos = if (_manualPos isEqualTo [0,0,0]) then {
-        _groupPos
+    private _taskPos = _groupPos;
+    private _taskPosValue = GETVAR(_group,taskPos,[ARR_3(0,0,0)]);
+    if (_taskPosValue isEqualType "" && {markerColor _taskPosValue isNotEqualTo ""}) then {
+        _taskPos = markerPos _taskPosValue;
+        _taskRadius = (markerSize _taskPosValue select 0) max (markerSize _taskPosValue select 1);
     } else {
-        _manualPos
+        if (_taskPosValue isNotEqualTo [0,0,0]) then {
+            _taskPos = _taskPosValue;
+        };
     };
     TRACE_2("",_group,_taskPos);
-    private _passarray = [_group,_task,_taskPos,_taskRadius,_wait,_behaviour,_combat,_speed,_formation,_occupyOption];
+    private _passarray = [_group,_task,_taskPos,_taskRadius,_taskWait,_behaviour,_combat,_speed,_formation];
     [{(count waypoints (_this select 0)) isNotEqualTo 0},{
         _this call FUNC(taskAssign);
     },_passarray] call CBA_fnc_waitUntilAndExecute;

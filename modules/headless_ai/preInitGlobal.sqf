@@ -33,6 +33,7 @@ GVAR(radioDistance) = [missionConfigFile >> QGVAR(settings) >> "radioDistance", 
 GVAR(radioWait) = [missionConfigFile >> QGVAR(settings) >> "radioWait", "number", 30] call CBA_fnc_getConfigEntry;
 GVAR(radioNeedRadio) = ([missionConfigFile >> QGVAR(settings) >> "radioNeedRadio", "number", 0] call CBA_fnc_getConfigEntry) == 1;
 GVAR(patrolDistance) = [missionConfigFile >> QGVAR(settings) >> "patrolDistance", "number", 200] call CBA_fnc_getConfigEntry;
+GVAR(patrolSearchBuilding) = ([missionConfigFile >> QGVAR(settings) >> "patrolSearchBuilding", "number", 0] call CBA_fnc_getConfigEntry) == 1;
 GVAR(garrisonPatrol) = ([missionConfigFile >> QGVAR(settings) >> "garrisonPatrol", "number", 0] call CBA_fnc_getConfigEntry) == 1;
 GVAR(reinforce) = ([missionConfigFile >> QGVAR(settings) >> "reinforce", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 GVAR(reinforceDistance) = [missionConfigFile >> QGVAR(settings) >> "reinforceDistance", "number", 2500] call CBA_fnc_getConfigEntry;
@@ -86,8 +87,8 @@ GVAR(CustomSkill_general) = [missionConfigFile >> QGVAR(settings) >> "CustomSkil
 GVAR(CustomSkill_courage) = [missionConfigFile >> QGVAR(settings) >> "CustomSkill" >> "courage", "number", 1] call CBA_fnc_getConfigEntry;
 
 GVAR(CommanderEnabled) = ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "feature", "number", 0] call CBA_fnc_getConfigEntry) == 1;
-GVAR(CommanderDebug) = ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "feature", "number", 1] call CBA_fnc_getConfigEntry) == 1;
-GVAR(CommanderSide) = switch (tolower ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "feature", "side", "east"] call CBA_fnc_getConfigEntry)) do {
+GVAR(CommanderDebug) = ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "debug", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(CommanderSide) = switch (tolower ([missionConfigFile >> QGVAR(settings) >> "Commander" >> "side", "string", "east"] call CBA_fnc_getConfigEntry)) do {
     case "west": {west};
     case "east": {east};
     case "independent": {independent};
