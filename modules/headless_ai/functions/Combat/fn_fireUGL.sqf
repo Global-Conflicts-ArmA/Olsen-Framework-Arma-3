@@ -22,15 +22,17 @@ if (_invisibleTarget isEqualTo objnull) then {
     _invisibleTarget = _targetClass createVehicleLocal [0,0,0];
     createVehicleCrew _invisibleTarget;
     _invisibleTarget allowdamage false;
-    private _invisibleTargetHelper = "Sign_Sphere100cm_F" createVehicleLocal [0,0,0];
     if (GETMVAR(UseMarkers,false)) then {
+        private _invisibleTargetHelper = "Sign_Sphere100cm_F" createVehicleLocal [0,0,0];
         _invisibleTargetHelper setobjecttexture [0,"#(rgb,8,8,3)color(1,0,0,1)"];
+        _invisibleTargetHelper attachTo [_invisibleTarget, [0,0,0]];
     } else {
-        _invisibleTargetHelper setobjecttexture [0,""];
+        //_invisibleTargetHelper setobjecttexture [0,""];
     };
-    _invisibleTargetHelper attachTo [_invisibleTarget, [0,0,0]];
     SETVAR(_unit,InvisibleTarget,_invisibleTarget);
 };
+
+SETVAR(_unit,busy,true);
 
 //private _heightAdjustMult = (GETMVAR(HeightAdjustMult,0.25));
 private _targetPos = [_target, 5] call CBA_fnc_randPos;
@@ -50,6 +52,15 @@ _unit doTarget _invisibleTarget;
     _this params ["_unit", "_muzzle", "_invisibleTarget"];
     [_unit, _muzzle] call BIS_fnc_fire;
     private _relDir = _unit getDir _invisibleTarget;
+    [{
+        params ["_unit", "_invisibleTarget"];
+        _unit reveal [_invisibleTarget, 0];
+        _invisibleTarget setposASL [0,0,0];
+        SETVAR(_unit,busy,false);
+    }, [
+        _unit,
+        _invisibleTarget
+    ], 3] call CBA_fnc_waitAndExecute;
     //TODO: move to optional param or put in existing functions that call this
     //[{
     //	_this params ["_unit", "_invisibleTarget", "_relDir"];
@@ -57,4 +68,9 @@ _unit doTarget _invisibleTarget;
     //    _unit doTarget objNull;
     //    [_unit, _relDir, 2] call FUNC(SuppressDirection);
     //}, [_unit, _invisibleTarget, _relDir]] call CBA_fnc_execNextFrame;
-}, [_unit, _muzzle, _invisibleTarget], 1, {}] call CBA_fnc_waitUntilAndExecute;
+}, [_unit, _muzzle, _invisibleTarget], 3, {
+    _this params ["_unit", "", "_invisibleTarget"];
+    _unit reveal [_invisibleTarget, 0];
+    _invisibleTarget setposASL [0,0,0];
+    SETVAR(_unit,busy,false);
+}] call CBA_fnc_waitUntilAndExecute;

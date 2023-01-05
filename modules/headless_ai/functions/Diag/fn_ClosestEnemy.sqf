@@ -8,7 +8,9 @@ private _enemyArray = [_group] call FUNC(EnemyArray);
 
 if (_enemyArray isEqualTo []) exitwith {objnull};
 
-private _distanceArray = _enemyArray apply {
+private _distanceArray = _enemyArray select {
+    [_x] call EFUNC(FW,isAlive)
+} apply {
 	private _enemyDistance = _unit distance2d _x;
 	[_enemyDistance, _x]
 };

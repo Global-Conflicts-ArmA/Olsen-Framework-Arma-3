@@ -114,6 +114,7 @@ class COMPONENT {
     	class ClosestObject {};
     	class DriverCheck {};
     	class EnemyArray {};
+    	class getGrenades {};
     	class getStance {};
     	class hasMine {};
     	class hasAT {};

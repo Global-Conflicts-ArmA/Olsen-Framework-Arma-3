@@ -7,7 +7,7 @@ of reinforcements or subsequent AOs.
 
 // Array objects
 // eg: ["mainEnemy", "patrol_1", "patrol_2", "patrol_3"]
-arrayObjects[] = {"hc1", "hc2"};
+arrayObjects[] = {"hc_spawn"};
 
 // Initial spawns are spawned upon init, at the start of the mission.
 // eg: ["mainEnemy"]
@@ -72,10 +72,6 @@ QRF_Distance = 2500;
 mountStatics = true;
 // Distance AI will mount empty statics from - maximum of 100m
 mountStaticsDistance = 50;
-// Should AI use smoke grenades? Besides default A3 behavior?
-usesmoke = false;
-// Percentage chance of AI using grenades
-grenadechance = 45;
 // AI will automatically disembark from vehicles when in combat.
 AIDisembark = true;
 // How low should an AI's mag count be for them to consider finding more ammo? This DOES NOT include the mag loaded in the gun already.

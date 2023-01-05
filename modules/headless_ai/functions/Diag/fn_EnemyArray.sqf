@@ -18,15 +18,24 @@ private _sideUpdateTime = switch (_side) do {
     default {QGVAR(enemyArrayUpdateTime_West)};
 };
 private _enemyArray = missionNamespace getVariable [_sideEnemies, []];
-if (_forced || {_enemyArray isEqualTo []} || {CBA_MissionTime >= (missionNamespace getVariable [_sideUpdateTime, CBA_MissionTime - 5]) + (GETMVAR(EnemyUpdateFrequency,5))}) then {
+if (
+    _forced ||
+    {_enemyArray isEqualTo []} ||
+    {CBA_MissionTime >= (missionNamespace getVariable [_sideUpdateTime, CBA_MissionTime - 5]) + (GETMVAR(EnemyUpdateFrequency,5))}
+) then {
     private _unitSide = side _group;
-    _enemyArray = ((allUnits + vehicles) - allCurators) select {
-        !(_x isKindOf "TargetSoldierBase") &&
-        !(_x isKindOf "HeadlessClient_F") &&
-        {[_unitSide, (side _x)] call BIS_fnc_sideIsEnemy}
+    private _newEnemyArray = ((allUnits + vehicles) - allCurators) select {
+        !isNull _x &&
+        {!(_x isKindOf "TargetSoldierBase")} &&
+        {!(_x isKindOf "HeadlessClient_F")} &&
+        {!(_x isKindOf "B_UAV_AI")} &&
+        {!(_x isKindOf "O_UAV_AI")} &&
+        {!(_x isKindOf "I_UAV_AI")} &&
+        {[_unitSide, side _x] call BIS_fnc_sideIsEnemy} &&
+        {[_x] call EFUNC(FW,isAlive)}
     };
     missionNamespace setVariable [_sideUpdateTime, CBA_MissionTime];
-    missionNamespace setVariable [_sideEnemies, _enemyArray];
+    missionNamespace setVariable [_sideEnemies, _newEnemyArray];
 };
 
 _enemyArray
