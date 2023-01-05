@@ -1,5 +1,5 @@
 #include "script_component.hpp"
 
-private _version = 0.1;
+private _version = 0.2;
 
-["Set Face", "Selects faces from an array and applies them.", "TinfoilHate", _version] call EFUNC(FW,RegisterModule);
+["Set Face", "Selects faces from an array and applies them.", "TinfoilHate &amp; PiZZADOX", _version] call EFUNC(FW,RegisterModule);

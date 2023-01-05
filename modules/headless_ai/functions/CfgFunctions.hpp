@@ -13,7 +13,7 @@ class COMPONENT {
 		class OnSEAimed {};
 		class OnSETimeOutReset {};
 		class OnSEBurstReset {};
-		class CondBurstCount {};
+		class CondBurstCount {}; //TODO: rename to proper format
 	};
 
     class CachingSM {
@@ -31,6 +31,7 @@ class COMPONENT {
 		class CombatAssaultVehicle {};
 		class CombatDefend {};
 		class CombatDropOff {};
+        class CombatGarrison {};
 		class CombatLand {};
 		class CombatMode {};
 		class CombatMoveTo {};
@@ -38,15 +39,13 @@ class COMPONENT {
 		class DefaultGroupPatrol {};
 		class DestroyBuilding {};
 		class FindCoverPos {};
+        class FireAT {};
 		class FireUGL {};
 		class FlankManeuver {};
 		class FocusedAccuracy {};
 		class ForceHeal {};
 		class FormationChange {};
 		class FragmentMove {};
-		class Garrison {};
-		class GarrisonClear {};
-		class GarrisonClearPatrol {};
 		class GroupLoiter {};
 		class GroupPatrol {};
 		class LightGarrison {};
@@ -137,7 +136,6 @@ class COMPONENT {
 
     class get {
 		file = "modules\headless_ai\functions\get";
-	    class getBuildingList {};
 	    class getBuildings {};
 	    class getGroupVariables {};
 	    class getNearestBuilding {};
@@ -186,7 +184,6 @@ class COMPONENT {
 
     class set {
 		file = "modules\headless_ai\functions\set";
-	    class setAssignedVehicle {};
 	    class setBuildingPos {};
 	    class setFlashlights {};
 	    class setGroupBehaviour {};
@@ -204,6 +201,7 @@ class COMPONENT {
 		class SA_OnSECombatMode {};
 		class SA_onSEEnemyInRange {};
 		class SA_OnSERemoveCantSeeEnemy {};
+        class SA_OnWait {};
 	};
 
 	class StateMachine {
@@ -230,22 +228,6 @@ class COMPONENT {
 	    class taskLoiter {};
 	    class taskHoldUntil {};
 	    class taskRelease {};
-	    class taskBuildingPatrol {};
-	    class taskBuildingDefend {};
-	    class taskMoveBuilding {};
-	    class taskMoveBuildings {};
-	    class taskMoveGroupBuildingsDefend {};
-	    class taskMoveGroupBuildingsPatrol {};
-	    class taskMoveMultipleBuildingsDefend {};
-	    class taskMoveMultipleBuildingsPatrol {};
-	    class taskMoveNearestBuildingDefend {};
-	    class taskMoveNearestBuildingPatrol {};
-	    class taskMoveRandomBuildingDefend {};
-	    class taskMoveRandomBuildingPatrol {};
-	    class taskMoveRandomGroupBuildingsDefend {};
-	    class taskMoveRandomGroupBuildingsPatrol {};
-	    class taskMoveRandomMultipleBuildingsDefend {};
-	    class taskMoveRandomMultipleBuildingsPatrol {};
 	    class taskSearchNearby {};
 	    class taskPickup {};
 	    class taskBunker {};
@@ -255,6 +237,7 @@ class COMPONENT {
 	    class taskStationary {};
 	    class taskPatrol {};
 	    class taskPatrolPerimeter {};
+        class taskGarrison {};
 	};
 
     class UnitStanceSM {

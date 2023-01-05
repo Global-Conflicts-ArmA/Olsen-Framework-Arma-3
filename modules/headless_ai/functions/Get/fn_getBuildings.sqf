@@ -1,10 +1,56 @@
 #include "script_component.hpp"
+/*
+ * Author: nkenny
+ * Finds nearby buildings
+ *
+ * Arguments:
+ * 0: Unit checking <OBJECT> or position <ARRAY>
+ * 1: Range to find buildings in meters, default 100 <NUMBER>
+ * 2: Should house positions be returned, default false <BOOLEAN>
+ * 3: Should only indoor positions be returned, default false <BOOLEAN>
+ *
+ * Return Value:
+ * Array of buildings or house positions
+ *
+ * Example:
+ * [bob, 100, true, true] call PZAI_fnc_getBuildings;
+ *
+ * Public: Yes
+*/
 
+params [
+    ["_unit", objNull, [objNull, []]],
+    ["_range", 100, [0]],
+    ["_useHousePos", false, [false]],
+    ["_onlyIndoor", false, [false]],
+    ["_findDoors", false, [false]]
+];
 
-params ["_pos",["_radius",100,[0]],["_blds",[],[[]]]];
-private _getblds = (_pos nearObjects ["building",_radius]) select {count (_x buildingPos -1) > 0 && {!(isObjectHidden _x)}};
-if (count _getblds < 1) exitWith {[objNull]};
-private _xbld = _getblds apply {[_x distance _pos, _x]};
-_xbld sort true;
-_blds = _xbld apply {_x select 1};
-_blds
+// houses
+private _houses = nearestObjects [_unit, ["House", "Strategic", "Ruins"], _range, true];
+_houses = _houses select {((_x buildingPos -1) isNotEqualTo [])};
+
+// find house positions
+if (!_useHousePos) exitWith {_houses}; // return if not use House Pos
+private _housePos = [];
+{
+    private _house = _x;
+    _housePos append (_house buildingPos -1);
+    if (_findDoors) then {
+        {
+            if ("door" in toLower (_x)) then {
+                _housePos pushBack (_house modelToWorld (_house selectionPosition _x));
+            };
+        } forEach (selectionNames _house);
+    };
+} forEach _houses;
+
+// sort indoor positions
+if (_onlyIndoor) then {
+    _housePos = _housePos select {
+        private _pos = AGLToASL _x;
+        lineIntersects [_pos, _pos vectorAdd [0, 0, 6]]
+    };
+};
+// return
+_housePos

@@ -1,13 +1,8 @@
 #include "script_component.hpp"
 
 
-params ["_group"];
+params ["_unit"];
 
-private _response = false;
-private _aliveUnits = units _group select {alive _x};
-
-{
-    if ((secondaryWeapon _x) isNotEqualTo "") exitwith {_response = true};
-} forEach _aliveUnits;
+private _response = (((secondaryWeapon _unit) isNotEqualTo "") && {secondaryWeaponMagazine _unit isNotEqualTo []});
 
 _response

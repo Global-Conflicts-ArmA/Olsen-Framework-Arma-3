@@ -2,7 +2,7 @@
 
 LOG("HC Client Pre Init");
 
-private _version = "0.2.5";
+private _version = "0.2.6";
 
 ["Headless AI", "Spawns AI via logic sync and provides custom AI system", "PIZZADOX", _version] call EFUNC(FW,RegisterModule);
 
@@ -18,15 +18,11 @@ GVAR(spawnUnitsQueue) = [];
 GVAR(spawnUnitsQueueActiveGroup) = [];
 
 //Ask server for entities data
-//if (isMultiplayer) then {
-    [{
-        [QGVAR(HCRequestArrayDataEvent), clientOwner] call CBA_fnc_serverEvent;
-    	[{
-    	    (GETMVAR(receivedArrayData,false))
-    	},{
-    	    [] call FUNC(initMain);
-    	}] call CBA_fnc_waitUntilAndExecute;
-    }] call CBA_fnc_execNextFrame
-//} else {
-//	[] call FUNC(initMain);
-//};
+[{
+    [QGVAR(HCRequestArrayDataEvent), clientOwner] call CBA_fnc_serverEvent;
+	[{
+	    (GETMVAR(receivedArrayData,false))
+	},{
+	    [] call FUNC(initMain);
+	}] call CBA_fnc_waitUntilAndExecute;
+}] call CBA_fnc_execNextFrame;

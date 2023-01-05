@@ -34,7 +34,7 @@ if (_identity isNotEqualTo []) then {
     }] remoteExec ["BIS_fnc_call", 0, true];
 };
 
-private _unitInit = GETVAR(_unit,unitInit,false);
-if (_unitInit isEqualType {}) then {
-    _unit call _unitInit;
+private _init = GETVAR(_unit,init,false);
+if (_init isEqualType {}) then {
+    _unit call _init;
 };

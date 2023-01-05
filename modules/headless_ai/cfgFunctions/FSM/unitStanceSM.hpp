@@ -1,10 +1,17 @@
+<<<<<<<< HEAD:modules/headless_ai/cfgFunctions/FSM/unitStanceSM.hpp
+========
+#include "script_component.hpp"
+
+>>>>>>>> origin/dev:modules/headless_ai/functions/UnitStanceSM/StateMachine.hpp
 class GVAR(unitStanceStateMachine) {
-    list = QUOTE(allUnits select {\
+    list = QUOTE(allUnits select { \
         local _x && \
-        {!isPlayer _x} &&\
-        {!(QGETVAR(_x,NOAI,false))} &&\
-        {(side (leader _x)) in GVAR(SideBasedExecution)} &&\
-        {(vehicle _x isEqualTo _x)}\
+        {!isPlayer _x} && \
+        {QGETVAR(_x,spawned,false)} && \
+        {(QGETVAR(_x,stance,'') isEqualTo '') && {(QGETVAR(group _x,stance,'') isEqualTo '')}} && \
+        {!(QGETVAR(_x,NOAI,false))} && \
+        {!([group _x] call FUNC(isMoveTask))} && \
+        {(vehicle _x isEqualTo _x)} \
     });
     skipNull = 1;
     class Initial {
@@ -21,7 +28,7 @@ class GVAR(unitStanceStateMachine) {
             targetState = QUOTE(Check_Stance);
 
             condition = QUOTE(((behaviour _this) in [ARR_2(QN(COMBAT),QN(STEALTH))])\
-            && {!((_this targets []) isEqualTo [])}\
+            && {(_this targets []) isNotEqualTo []}\
             && {!(QGETVAR(_this,reloading,false))});
         };
         class No_target {

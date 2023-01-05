@@ -8,11 +8,7 @@ params [
     ["_behaviour", "UNCHANGED", [""]],
     ["_combat", "NO CHANGE", [""]],
     ["_speed", "UNCHANGED", [""]],
-    ["_formation", "NO CHANGE", [""]],
-    ["_Type","MOVE",[""]],
-    ["_oncomplete",QUOTE(this call FUNC(taskSearchNearby)),[""]],
-    ["_compradius",50,[0]],
-    ["_wpcount",10,[0]]
+    ["_formation", "NO CHANGE", [""]]
 ];
 
 SETVAR(_group,Task,"ATTACK");

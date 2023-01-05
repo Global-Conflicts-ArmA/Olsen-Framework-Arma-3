@@ -1,6 +1,8 @@
-#ifdef preinit
+#include "script_component.hpp"
 
-	#include "preInit.sqf"
+#ifdef preInitServer
+
+	#include "preInitServer.sqf"
 
 #endif
 
@@ -9,3 +11,5 @@
 	#include "params.hpp"
 
 #endif
+
+#undef COMPONENT

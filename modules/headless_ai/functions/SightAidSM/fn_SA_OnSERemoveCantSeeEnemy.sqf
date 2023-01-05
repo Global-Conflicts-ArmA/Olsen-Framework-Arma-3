@@ -11,5 +11,5 @@ if ((_enemyTarget isNotEqualTo objnull) && {(_enemyInRange isNotEqualTo [])} && 
     SETVAR(_unit,SA_seeChecks,(_seeChecks + 1));
 } else {
     SETVAR(_unit,SA_enemyInRange,[]);
+    SETVAR(_unit,SA_enemyTargetGroup,0);
 };
-

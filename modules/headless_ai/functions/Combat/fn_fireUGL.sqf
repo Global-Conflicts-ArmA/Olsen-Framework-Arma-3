@@ -50,14 +50,11 @@ _unit doTarget _invisibleTarget;
     _this params ["_unit", "_muzzle", "_invisibleTarget"];
     [_unit, _muzzle] call BIS_fnc_fire;
     private _relDir = _unit getDir _invisibleTarget;
-    [{
-    	_this params ["_unit", "_invisibleTarget", "_relDir"];
-        _invisibleTarget setPosASL [0,0,0];
-        _unit doTarget objNull;
-        [_unit, _relDir, 2] call FUNC(SuppressDirection);
-    }, [_unit, _invisibleTarget, _relDir]] call CBA_fnc_execNextFrame;
+    //TODO: move to optional param or put in existing functions that call this
+    //[{
+    //	_this params ["_unit", "_invisibleTarget", "_relDir"];
+    //    _invisibleTarget setPosASL [0,0,0];
+    //    _unit doTarget objNull;
+    //    [_unit, _relDir, 2] call FUNC(SuppressDirection);
+    //}, [_unit, _invisibleTarget, _relDir]] call CBA_fnc_execNextFrame;
 }, [_unit, _muzzle, _invisibleTarget], 1, {}] call CBA_fnc_waitUntilAndExecute;
-
-
-
-

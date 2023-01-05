@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 class GVAR(bunkerStateMachine) {
     list = QUOTE(allUnits select { \
         local _x && \
@@ -6,7 +8,6 @@ class GVAR(bunkerStateMachine) {
         {!isPlayer (leader _x)} && \
         {!(QGETVAR(_x,NOAI,false))} && \
         {QGETVAR(group _x,Spawned,false)} && \
-        {side _x in GVAR(SideBasedExecution)} && \
         {((QGETVAR(group _x,Mission,'NONE')) isEqualTo 'BUNKER') || {(QGETVAR(_x,Bunker,false))}} \
     });
     skipNull = 1;
@@ -24,7 +25,7 @@ class GVAR(bunkerStateMachine) {
         class Enemy_in__Range {
             targetState = QUOTE(Check_Nearby_Ene);
 
-            condition = QUOTE(!((QGETVAR(_this,enemyInRange,[])) isEqualTo []));
+            condition = QUOTE((QGETVAR(_this,enemyInRange,[])) isNotEqualTo []);
         };
         class No_Enemy__in_Ran {
             targetState = QUOTE(Wait);
@@ -37,7 +38,7 @@ class GVAR(bunkerStateMachine) {
         class Can_See {
             targetState = QUOTE(CombatMode);
 
-            condition = QUOTE(!((QGETVAR(_this,enemyInView,[])) isEqualTo []));
+            condition = QUOTE((QGETVAR(_this,enemyInView,[])) isNotEqualTo []);
         };
         class Can_Not_See {
             targetState = QUOTE(Wait);
@@ -50,12 +51,12 @@ class GVAR(bunkerStateMachine) {
         class Vehicle {
             targetState = QUOTE(Enemy_Check_);
 
-            condition = QUOTE(!(vehicle _this isEqualTo _this));
+            condition = QUOTE(vehicle _this isNotEqualTo _this);
         };
         class Infantry {
             targetState = QUOTE(Target);
 
-            condition = QUOTE((vehicle _this isEqualTo _this));
+            condition = QUOTE(vehicle _this isEqualTo _this);
         };
     };
     class Target {
@@ -92,7 +93,7 @@ class GVAR(bunkerStateMachine) {
         class Enemy_in__Range {
             targetState = QUOTE(Check_Nearby_Ene);
 
-            condition = QUOTE(!((QGETVAR(_this,enemyInRange,[])) isEqualTo []));
+            condition = QUOTE((QGETVAR(_this,enemyInRange,[])) isNotEqualTo []);
         };
         class Can_Not_See {
             targetState = QUOTE(Enemy_Check_);

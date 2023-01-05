@@ -7,7 +7,7 @@ of reinforcements or subsequent AOs.
 
 // Array objects
 // eg: ["mainEnemy", "patrol_1", "patrol_2", "patrol_3"]
-arrayObjects[] = {"hc0", "hc1", "hc2", "hc3", "hc4"};
+arrayObjects[] = {"hc1", "hc2"};
 
 // Initial spawns are spawned upon init, at the start of the mission.
 // eg: ["mainEnemy"]
@@ -22,7 +22,7 @@ initialRandomSpawnsCount = 0;
 
 // Debug message settings
 debug = true;
-verboseDebug = true;
+verboseDebug = false;
 groupDebug = false;
 // Turn on map markers that track AI movement
 useMarkers = true;
@@ -58,6 +58,8 @@ radioWait = 30;
 radioNeedRadio = false;
 // Distance the AI will patrol to by default
 patrolDistance = 200;
+// Whether the AI will search buildings in casual (enemy not detected) patrolling task
+patrolSearchBuilding = false;
 // Whether the AI will patrol between garrison positions. Pretty buggy, but nice for 'mersion
 garrisonPatrol = false;
 // Default group reinforcement behaviour

@@ -20,8 +20,7 @@ private _getposTarget = if (vehicle _target == _target) then {
 private _cansee = [(vehicle _unit), "VIEW", objNull] checkVisibility [_getpos1, _getposTarget];
 
 if (GETMVAR(VerboseDebug,false)) then {
-	LOG_3("_unit: %1 _cansee: %2 _target: %3",_unit,_cansee,_target);
+	TRACE_3("",_unit,(_cansee >+ _sightLevel),_target);
 };
 
 (_cansee >= _sightLevel)
-

@@ -11,7 +11,7 @@ for "_i" from 0 to _max step 1 do {
     if (_i >= _posCount) exitwith {};
     private _angle = random 360;
     private _dist = _rangeMin + (random (_rangeMax - _rangeMin));
-    private _newPos = [_pos, _dist, _angle] call BIS_fnc_relPos;
+    private _newPos = _pos getPos [_dist, _angle];
     if ((!_water) && {surfaceIsWater _newPos}) then {
         _i = _i - 1;
         _newPos = [];

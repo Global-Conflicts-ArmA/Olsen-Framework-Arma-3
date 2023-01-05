@@ -11,3 +11,4 @@ if (_enemyArray isNotEqualTo []) then {
 
 SETVAR(_unit,SA_seeChecks,0);
 SETVAR(_unit,SA_enemyInRange,_enemyInRange);
+SETVAR(_unit,SA_enemyTargetGroup,0);
