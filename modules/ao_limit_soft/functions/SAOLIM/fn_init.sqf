@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 
 if ((count GVAR(markers)) > 0) then {
-	private _anySide = sideLogic;
+	private _anySide = sideEmpty;
 	private _processingMarkers = [];
 	private _allowedOutside = true;
 	private _vehicle = (vehicle player);

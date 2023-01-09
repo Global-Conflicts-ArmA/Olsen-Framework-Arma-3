@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-private _anySide = sideLogic;
+private _anySide = sideEmpty;
 private _processingMarkers = [];
 private _allowedOutside = true;
 private _vehicle = (vehicle player);
