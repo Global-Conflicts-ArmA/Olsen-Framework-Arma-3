@@ -116,10 +116,13 @@ class COMPONENT {
     	class EnemyArray {};
     	class getGrenades {};
     	class getStance {};
+    	class getWeaponType {};
     	class hasMine {};
     	class hasAT {};
     	class hasMG {};
     	class hasUGL {};
+    	class UGLRoundType {};
+    	class muzzleMags {};
     	class HasRadioGroup {};
     	class IRCheck {};
     	class isAimed {};

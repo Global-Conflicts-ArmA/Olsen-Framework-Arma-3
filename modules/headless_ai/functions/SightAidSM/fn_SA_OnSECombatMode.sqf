@@ -32,7 +32,7 @@ if (
     {_knowsabouttarget > 1.5}
 ) then {
     // Random grenade chance - random check, range check, then check for grenades, check for building, nearby friendlies to target, if none - throw grenade
-    if (GETMVAR(forceGrenades,true)) then {
+    if (GETMVAR(forceGrenades,true) && {!(GETVAR(_unit,busy,false))}) then {
         private _chance = round random 100;
         if (
             _chance <= GETMVAR(grenadeChance,25) &&
@@ -62,7 +62,7 @@ if (
             };
         };
     };
-    if (GETMVAR(forceUGLs,true)) then {
+    if (GETMVAR(forceUGLs,true) && {!(GETVAR(_unit,busy,false))}) then {
         private _chance = round random 100;
         if (
             _chance <= GETMVAR(UGLChance,25) &&
@@ -70,8 +70,32 @@ if (
             {_distance > GETMVAR(UGLMinRange,50)}
         ) then {
             private _UGL = _unit call FUNC(hasUGL);
+            TRACE_2("",_unit,_UGL);
             if (_UGL isNotEqualTo "") then {
-                [_unit, _UGL, _enemyTarget] call FUNC(fireUGL);
+                private _magList = [_unit, _UGL, false] call FUNC(muzzleMags);
+                TRACE_2("",_unit,_magList);
+                if (_magList isNotEqualTo []) then {
+                    private _index = _magList findIf {
+                        private _type = [_x] call FUNC(UGLRoundType);
+                        (_type isEqualTo 1)
+                    };
+                    if (_index isNotEqualTo -1) then {
+                        _unit loadMagazine [[0], currentWeapon _unit, _magList select _index];
+                        [_unit, _UGL, _enemyTarget] call FUNC(fireUGL);
+                    };
+                };
+            };
+        };
+    };
+    if (GETMVAR(forceAT,true) && {!(GETVAR(_unit,busy,false))}) then {
+        private _chance = round random 100;
+        if (
+            _chance <= GETMVAR(ATChance,25) &&
+            {_distance <= GETMVAR(ATMaxRange,200)} &&
+            {_distance > GETMVAR(ATMinRange,50)}
+        ) then {
+            if (_unit call FUNC(hasAT)) then {
+                [_unit, _enemyTarget] call FUNC(fireAT);
             };
         };
     };

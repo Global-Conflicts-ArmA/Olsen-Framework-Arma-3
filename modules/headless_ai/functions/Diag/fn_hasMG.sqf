@@ -3,6 +3,9 @@
 
 params ["_unit"];
 
-private _isMG = ((primaryweapon _unit) call BIS_fnc_itemtype) select 1 == "MachineGun";
+private _weapon = primaryweapon _unit;
+if (_weapon isEqualTo "") exitWith {false};
+
+private _isMG = ([_weapon] call FUNC(getWeaponType)) isEqualTo 3;
 
 _isMG

@@ -28,5 +28,11 @@ UGLMaxRange = 200;
 // What distance does the AI need to be outside of to use a ugl?
 UGLMinRange = 50;
 
-// Do AI use rocket launchers forced by the statemachine?
+// Do AI use launchers forced by the statemachine?
 forceAT = true;
+// What percentage chance does the AI have in using a laucnher?
+ATChance = 99;
+// What distance does the AI need to be within to use a laucnher?
+ATMaxRange = 300;
+// What distance does the AI need to be outside of to use a laucnher?
+ATMinRange = 50;
