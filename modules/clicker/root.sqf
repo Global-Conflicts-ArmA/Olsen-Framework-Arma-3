@@ -6,8 +6,10 @@
 	};
 #endif
 
-#ifdef description_sounds
-	#include "sounds.hpp"
+#ifdef description_XEH_PreInit
+	class COMPONENT {
+		clientInit = "call compile preprocessFileLineNumbers 'modules\clicker\preinitClient.sqf'";
+	};
 #endif
 
 #ifdef description_external_functions
