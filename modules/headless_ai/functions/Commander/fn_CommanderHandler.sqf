@@ -21,7 +21,22 @@ GVAR(CommanderAreasHandlerPFH) = [{
         private _terrainMode = GETVAR(_namespace,terrainMode,"Auto");
         private _importance = GETVAR(_namespace,importance,_forEachIndex);
         private _assignedAssets = GETVAR(_namespace,assignedAssets,[]);
-        private _controlStatus = GETVAR(_namespace,control,"Neutral");
+        private _knownEnemies = [GVAR(CommanderSide)] call FUNC(enemyArray);
+        private _enemiesInArea = {_x inArea _marker} count _knownEnemies;
+        private _assetsInArea = {leader _x inArea _marker} count _assignedAssets;
+        private _controlStatus = if (_assetsInArea > 0) then {
+            if (_enemiesInArea isEqualTo 0) then {
+                "Friendly"
+            } else {
+                "Contested"
+            };
+        } else {
+            if (_enemiesInArea isEqualTo 0) then {
+                "Unknown"
+            } else {
+                "Enemy"
+            };
+        };
 
         if (GVAR(CommanderDebug)) then {
             private _markerColour = switch (_terrainMode) do {

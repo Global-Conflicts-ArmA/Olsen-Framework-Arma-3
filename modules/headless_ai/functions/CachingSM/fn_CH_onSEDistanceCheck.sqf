@@ -7,7 +7,7 @@ private _enemyInRange = false;
 private _enemyArray = if (GETMVAR(CacheAllPlayers,true)) then {
 	[] call BIS_fnc_listPlayers;
 } else {
-	_group call FUNC(EnemyArray);
+	side _leader call FUNC(EnemyArray);
 };
 
 if (_enemyArray isNotEqualTo []) then {

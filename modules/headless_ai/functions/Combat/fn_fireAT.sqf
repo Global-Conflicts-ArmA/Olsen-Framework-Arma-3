@@ -36,7 +36,7 @@ SETVAR(_unit,busy,true);
 
 //private _heightAdjustMult = (GETMVAR(HeightAdjustMult,0.25));
 private _targetPos = [_target, 5] call CBA_fnc_randPos;
-private _laserPos = ATLToASL [_targetPos select 0, _targetPos select 1, (_targetPos select 2) + 0];
+private _laserPos = ATLToASL [_targetPos select 0, _targetPos select 1, (_targetPos select 2) - 1];
 _invisibleTarget setPosASL [_laserPos select 0, _laserPos select 1, (_laserPos select 2) + 1];
 _unit selectWeapon (secondaryWeapon _unit);
 _unit reveal [_invisibleTarget, 4];
@@ -44,9 +44,7 @@ _unit doTarget _invisibleTarget;
 
 [{
     private _unit = _this select 0;
-    ({
-        !([getPosATL _unit, getDir _unit, 5, getPosATL _x] call BIS_fnc_inAngleSector)
-    } forEach ((units group _unit) - [_unit])) &&
+    [_unit] call FUNC(clearSight) &&
     {[_unit, false] call FUNC(isAimed)} &&
     {currentWeapon _unit isEqualTo secondaryWeapon _unit}
 }, {

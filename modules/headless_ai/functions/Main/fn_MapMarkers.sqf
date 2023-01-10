@@ -4,17 +4,17 @@ GVAR(GroupMarkersPFH) = [{
     {
         private _key = _x;
         _y params [
-            "_group",
-            "_side",
-            "_leader",
-            "_groupcount",
-            "_task",
-            "_behaviour",
-            "_target",
-            "_position",
-            "_areaAssigned",
-            "_assetType",
-            ["_usedMarkers", [], [[]]]
+            /*1*/ "_group",
+            /*2*/ "_side",
+            /*3*/ "_leader",
+            /*4*/ "_groupcount",
+            /*5*/ "_task",
+            /*6*/ "_behaviour",
+            /*7*/ "_target",
+            /*8*/ "_position",
+            /*9*/ "_areaAssigned",
+           /*10*/ "_assetType",
+           /*11*/ ["_usedMarkers", [], [[]]]
         ];
         if (
             _group isEqualTo grpNull ||
@@ -163,17 +163,17 @@ GVAR(GroupMarkersPFH) = [{
                 _targetMarker
             ];
             GVAR(markerTrackedGroups) set [_key, [
-                _group,
-                _side,
-                _leader,
-                _groupcount,
-                _task,
-                _behaviour,
-                _target,
-                _position,
-                _areaAssigned,
-                _assetType,
-                _usedMarkers
+                /*1*/ _group,
+                /*2*/ _side,
+                /*3*/ _leader,
+                /*4*/ _groupcount,
+                /*5*/ _task,
+                /*6*/ _behaviour,
+                /*7*/ _target,
+                /*8*/ _position,
+                /*9*/ _areaAssigned,
+               /*10*/ _assetType,
+               /*11*/ _usedMarkers
             ]]
         }
     } forEach GVAR(markerTrackedGroups);

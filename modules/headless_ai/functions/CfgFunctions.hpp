@@ -70,6 +70,7 @@ class COMPONENT {
 		file = "modules\headless_ai\functions\Commander";
 		class assignToArea {};
 		class CommanderHandler {};
+		class CommanderGroupHandler {};
 		class CommanderInit {};
 	};
 
@@ -110,6 +111,7 @@ class COMPONENT {
     class Diag {
     	file = "modules\headless_ai\functions\Diag";
     	class checkView {};
+    	class clearSight {};
     	class closestEnemy {};
     	class ClosestObject {};
     	class DriverCheck {};

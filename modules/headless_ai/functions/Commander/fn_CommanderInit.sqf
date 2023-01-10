@@ -7,21 +7,21 @@ GVAR(CommanderAreasParsed) = [];
 {
     private _area = _x;
     _area params [
-        ["_displayName", "", [""]],
-        ["_marker", "", [""]],
-        ["_mission", "Patrol", [""]],
-        ["_min",0,[0]],
-        ["_max",10,[10]],
-        ["_threshold",1,[1]],
-        ["_QRFSupport",true,[true]],
-        ["_assetSupport",true,[true]],
-        ["_withdrawalEnabled",true,[true]],
-        ["_resourceUse",true,[true]],
-        ["_preferredTypes",["ALL"],[[]]],
-        ["_terrainMode","Auto",[""]],
-        ["_importance",_foreachIndex,[0]],
-        ["_assignedAssets",[],[[]]],
-        ["_control","Neutral",["Neutral"]]
+    /*1*/ ["_displayName", "", [""]],
+    /*2*/ ["_marker", "", [""]],
+    /*3*/ ["_mission", "Patrol", [""]],
+    /*4*/ ["_min",0,[0]],
+    /*5*/ ["_max",10,[10]],
+    /*6*/ ["_threshold",1,[1]],
+    /*7*/ ["_QRFSupport",true,[true]],
+    /*8*/ ["_assetSupport",true,[true]],
+    /*9*/ ["_withdrawalEnabled",true,[true]],
+   /*10*/ ["_resourceUse",true,[true]],
+   /*11*/ ["_preferredTypes",["ALL"],[[]]],
+   /*12*/ ["_terrainMode","Auto",[""]],
+   /*13*/ ["_importance",_foreachIndex,[0]],
+   /*14*/ ["_assignedAssets",[],[[]]],
+   /*15*/ ["_control","Neutral",["Neutral"]]
     ];
     TRACE_1("",_area);
     if (_displayName isEqualTo "") then {

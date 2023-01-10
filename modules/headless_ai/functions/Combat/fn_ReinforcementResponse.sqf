@@ -27,7 +27,7 @@ private _knownEnemy = (_nearbyEnemy isNotEqualTo []);
 //            private _importance = GETVAR(_namespace,importance,_forEachIndex);
 //            private _assignedAssets = GETVAR(_namespace,assignedAssets,[]);
 //            private _assetCount = count _assignedAssets;
-//            private _controlStatus = GETVAR(_namespace,control,"Neutral");
+//            private _controlStatus = GETVAR(_namespace,control,"Unknown");
 //        };
 //    };
 //} else {

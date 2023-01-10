@@ -3,8 +3,7 @@
 
 params ["_unit", ["_randomSelect", false, [false]]];
 
-private _group = group _unit;
-private _enemyArray = [_group] call FUNC(EnemyArray);
+private _enemyArray = [side _unit] call FUNC(EnemyArray);
 
 if (_enemyArray isEqualTo []) exitwith {objnull};
 

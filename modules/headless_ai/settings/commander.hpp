@@ -1,5 +1,5 @@
 // AI commander options -WIP
-feature = false;
+feature = true;
 debug = true;
 side = "east";
 //"Random" "Aggressive" "Defensive" "Guerilla" "Probing"
@@ -25,9 +25,9 @@ assignStartZone = true;
 // Optional array elements: terrain manual define, QRF support for contact encountered in the area, minimum assets to assign for the area, asset threshold for the area (if threshold to assign cannot be met area will not be considered), maximum assets to assign for the area (leftover groups will be assigned to areas that aligns with preferred asset types), preferred asset types.
 // Preferred asset types will be determined from terrain setting if not manually defined.
 class Areas {
-    class Hangars {
-        marker = "area1";
-        mission = "defend";
+    class Town {
+        marker = "town";
+        mission = "Defend";
         minAssets = 1;
         maxAssets = 2;
         threshold = 0;
@@ -38,8 +38,16 @@ class Areas {
         preferedTypes[] = {"Infantry", "Snipers"};
         terrainMode = "Auto";
     };
-    class Runway: Hangars {
-        marker = "area2";
-        mission = "patrol";
+    class Hill: Town {
+        marker = "hill";
+        mission = "Patrol";
+        withdrawal = true;
+    };
+    class Hill_1: Town {
+        marker = "hill_1";
+        mission = "Ambush";
+        withdrawal = true;
+        qrfSupport = false;
+        assetSupport = false;
     };
 };

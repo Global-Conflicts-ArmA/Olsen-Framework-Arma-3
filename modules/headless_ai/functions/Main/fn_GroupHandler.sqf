@@ -34,33 +34,33 @@ GVAR(GroupHandlerPFH) = [{
             _target = objNull;
             SETVAR(_group,CurrentTarget,objNull);
         };
-        //if (_target isEqualTo objNull && {assignedTarget _leader isNotEqualTo objNull}) then {
-        //    TRACE_2("set target on active group",_group,_target);
-        //    _target = leader (assignedTarget _leader);
-        //    if (_target isEqualTo objNull) then {
-        //        private _targetCounter = GETVAR(_group,NullTargetCounter,0);
-        //        if (_targetCounter >= 5) then {
-        //            TRACE_1("no longer in combat, exiting and resetting",_group);
-        //            SETVAR(_group,NullTargetCounter,0);
-        //            private _originalBeh = GETVAR(_group,behaviour,"AWARE");
-        //            private _originalCM = GETVAR(_group,combatMode,"YELLOW");
-        //            private _originalSpeed = GETVAR(_group,speed,"normal");
-        //            private _originalForm = GETVAR(_group,formation,"wedge");
-        //            [_group,_originalBeh,_originalCM,_originalSpeed,_originalForm] call FUNC(setGroupBehaviour);
-        //            private _originalTask = GETVAR(_group,OriginalTask,"PATROL");
-        //            private _originalPos = GETVAR(_group,Pos,getPos leader _group);
-        //            private _originalRadius = GETVAR(_group,taskRadius,30);
-        //            [_group,_originalTask,_originalPos,_originalRadius] call FUNC(taskAssign);
-        //        } else {
-        //            _targetCounter = _targetCounter + 1;
-        //            SETVAR(_group,NullTargetCounter,_targetCounter);
-        //        };
-        //    } else {
-        //        SETVAR(_group,CurrentTarget,_target);
-        //    };
-        //} else {
-        //    SETVAR(_group,NullTargetCounter,0);
-        //};
+        if (_target isEqualTo objNull && {assignedTarget _leader isNotEqualTo objNull}) then {
+            TRACE_2("set target on active group",_group,_target);
+            _target = leader (assignedTarget _leader);
+            if (_target isEqualTo objNull) then {
+                private _targetCounter = GETVAR(_group,NullTargetCounter,0);
+                if (_targetCounter >= 5) then {
+                    TRACE_1("no longer in combat, exiting and resetting",_group);
+                    SETVAR(_group,NullTargetCounter,0);
+                    private _originalBeh = GETVAR(_group,behaviour,"AWARE");
+                    private _originalCM = GETVAR(_group,combatMode,"YELLOW");
+                    private _originalSpeed = GETVAR(_group,speed,"normal");
+                    private _originalForm = GETVAR(_group,formation,"wedge");
+                    [_group,_originalBeh,_originalCM,_originalSpeed,_originalForm] call FUNC(setGroupBehaviour);
+                    private _originalTask = GETVAR(_group,OriginalTask,"PATROL");
+                    private _originalPos = GETVAR(_group,Pos,getPos leader _group);
+                    private _originalRadius = GETVAR(_group,taskRadius,30);
+                    [_group,_originalTask,_originalPos,_originalRadius] call FUNC(taskAssign);
+                } else {
+                    _targetCounter = _targetCounter + 1;
+                    SETVAR(_group,NullTargetCounter,_targetCounter);
+                };
+            } else {
+                SETVAR(_group,CurrentTarget,_target);
+            };
+        } else {
+            SETVAR(_group,NullTargetCounter,0);
+        };
         if (GETMVAR(UseMarkers,false)) then {
             //TRACE_2("",GVAR(markerTrackedGroups),str _group);
             GVAR(markerTrackedGroups) set [str _group, [
@@ -117,82 +117,12 @@ GVAR(GroupHandlerPFH) = [{
                     };
                 };
             };
-            //commander handling
             if (
                 (GETMVAR(CommanderEnabled,false)) &&
                 {!(GETVAR(_group,CommanderExempt,false))} &&
                 {side _group isEqualTo (GETMVAR(CommanderSide,east))}
             ) then {
-                if (_areaAssigned isEqualTo "NONE") then {
-                    //check zones for assignments
-                    private _assigned = false;
-                    {
-                        private _namespace = missionNamespace getVariable _x;
-                        private _displayName = GETVAR(_namespace,displayName,"");
-                        //private _mission = GETVAR(_namespace,mission,"Patrol");
-                        //private _marker = GETVAR(_namespace,marker,"");
-                        //private _min = GETVAR(_namespace,min,0);
-                        private _max = GETVAR(_namespace,max,10);
-                        //private _threshold = GETVAR(_namespace,threshold,1);
-                        //private _QRFSupport = GETVAR(_namespace,QRFSupport,true);
-                        //private _assetSupport = GETVAR(_namespace,assetSupport,true);
-                        //private _withdrawalEnabled = GETVAR(_namespace,withdrawalEnabled,true);
-                        //private _resourceUse = GETVAR(_namespace,resourceUse,true);
-                        private _preferredTypes = GETVAR(_namespace,preferredTypes,"ALL");
-                        //private _terrainMode = GETVAR(_namespace,terrainMode,"Auto");
-                        //private _importance = GETVAR(_namespace,importance,_forEachIndex);
-                        private _assignedAssets = GETVAR(_namespace,assignedAssets,[]);
-                        private _controlStatus = GETVAR(_namespace,control,"Neutral");
-                        private _assetCount = count _assignedAssets;
-                        //LOG_3("Area: %1 _assetCount: %2 _max: %3",_displayName,_assetCount,_max);
-                        if (
-                            (_assetCount < _max) &&
-                            {!_assigned} &&
-                            {!(_controlStatus in ["EnemyControlled", "Contested"])} &&
-                            {(_assetType in _preferredTypes) || (_preferredTypes isEqualTo ["ALL"])}
-                        ) then {
-                            LOG_2("Sending group %1 to area %2",_group,_displayName);
-                            _assigned = true;
-                            [_group,_namespace] call FUNC(assignToArea);
-                        };
-                    } foreach GVAR(CommanderAreasParsed);
-                    if !(_assigned) then {
-                        ERROR_1("Could not find area suitable for: %1 type %2 ignoring preferred types",_group,_assetType);
-                        {
-                            private _namespace = missionNamespace getVariable _x;
-                            private _displayName = GETVAR(_namespace,displayName,"");
-                            //private _mission = GETVAR(_namespace,mission,"Patrol");
-                            //private _marker = GETVAR(_namespace,marker,"");
-                            //private _min = GETVAR(_namespace,min,0);
-                            private _max = GETVAR(_namespace,max,10);
-                            //private _threshold = GETVAR(_namespace,threshold,1);
-                            //private _QRFSupport = GETVAR(_namespace,QRFSupport,true);
-                            //private _assetSupport = GETVAR(_namespace,assetSupport,true);
-                            //private _withdrawalEnabled = GETVAR(_namespace,withdrawalEnabled,true);
-                            //private _resourceUse = GETVAR(_namespace,resourceUse,true);
-                            //private _preferredTypes = GETVAR(_namespace,preferredTypes,"ALL");
-                            //private _terrainMode = GETVAR(_namespace,terrainMode,"Auto");
-                            //private _importance = GETVAR(_namespace,importance,_forEachIndex);
-                            private _assignedAssets = GETVAR(_namespace,assignedAssets,[]);
-                            private _controlStatus = GETVAR(_namespace,control,"Neutral");
-                            private _assetCount = count _assignedAssets;
-                            //LOG_3("Area: %1 _assetCount: %2 _max: %3",_marker,_assetCount,_max);
-                            if (
-                                (_assetCount < _max) &&
-                                {!_assigned} &&
-                                {!(_controlStatus in ["EnemyControlled", "Contested"])}
-                            ) then {
-                                LOG_2("Sending group %1 to area %2",_group,_displayName);
-                                _assigned = true;
-                                [_group,_namespace] call FUNC(assignToArea);
-                            };
-                        } foreach GVAR(CommanderAreasParsed);
-                        if !(_assigned) then {
-                            ERROR_1("Could not find area suitable for: %1 sending to default zone",_group);
-                            [_group,(missionNamespace getVariable (GVAR(CommanderAreasParsed) select 0))] call FUNC(assignToArea);
-                        };
-                    };
-                };
+                [_group, _areaAssigned, _assetType] call FUNC(commanderGroupHandler)
             };
             SETVAR(_group,lastTimeChecked,CBA_missionTime);
         };
