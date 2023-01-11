@@ -14,18 +14,33 @@
 
 #include "script_component.hpp"
 
-params ["_unit"];
+params ["_unit", ["_forcedSide", sideEmpty, [sideEmpty]]];
 
-if (GETVAR(_unit,Tracked,false)) then {
+TRACE_2("untrackUnit",_unit,_forced);
+private _forced = _forcedSide isNotEqualTo sideEmpty;
+
+if (GETVAR(_unit,Tracked,false) || {_forced}) then {
 	GVAR(Teams) apply {
 		_x params ["", "_side", "_type", "_total", "_current"];
 		if (
-            ((_unit getVariable [QGVAR(Side), sideEmpty]) isEqualTo _side) &&
-            {(((_type != "ai") && {isPlayer _unit}) || (_type == "ai"))}
+            (
+                (GETVAR(_unit,Side,sideUnknown)) isEqualto _side ||
+                {_forced && {_forcedSide isEqualto _side}}
+            ) &&
+            {
+                (isPlayer _unit && {_type != "ai"} )||
+                {!isPlayer _unit && {_type == "ai"}}
+            }
         ) exitWith {
-			if (_unit call FUNC(isAlive)) then {
-				_x set [3, _total - 1];
-				_x set [4, _current - 1];
+			if (
+                _forced ||
+                {_unit call FUNC(isAlive)}
+            ) then {
+                private _newCurrent = _current - 1;
+                private _newTotal = _total - 1;
+                TRACE_3("Setting new alive count",_unit,_newTotal,_newCurrent);
+                _x set [3, _newTotal];
+                _x set [4, _newCurrent];
 			};
 		};
 	};

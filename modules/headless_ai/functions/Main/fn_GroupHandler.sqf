@@ -36,7 +36,7 @@ GVAR(GroupHandlerPFH) = [{
         };
         if (_target isEqualTo objNull && {assignedTarget _leader isNotEqualTo objNull}) then {
             TRACE_2("set target on active group",_group,_target);
-            _target = leader (assignedTarget _leader);
+            _target = assignedTarget _leader;
             if (_target isEqualTo objNull) then {
                 private _targetCounter = GETVAR(_group,NullTargetCounter,0);
                 if (_targetCounter >= 5) then {
@@ -77,9 +77,13 @@ GVAR(GroupHandlerPFH) = [{
             ]]
         };
         if (CBA_missionTime >= _lastTimeChecked + 3) then {
-            private _inCombat = (_behaviour in ["COMBAT","STEALTH"]) && {!(GETVAR(_group,taskCombatModeSet,false))};
-            //TRACE_2("inCombat check",_group,_inCombat);
-            if (_inCombat || {(_target isNotEqualTo objnull)}) then {
+            if (
+                (
+                    _behaviour in ["COMBAT","STEALTH"] &&
+                    {!(GETVAR(_group,taskCombatModeSet,false))}
+                ) ||
+                {_target isNotEqualTo objnull}
+            ) then {
                 //switch tasks on actions
                 //handle for special loiter task - regroup
                 if (_task isEqualTo "LOITER") then {
@@ -93,17 +97,23 @@ GVAR(GroupHandlerPFH) = [{
                 };
                 //radio for help
                 if ((GETMVAR(RadioDistance,2000)) > 0) then {
-                    if (!(GETMVAR(RadioNeedRadio,false)) || {(_group call FUNC(hasRadioGroup)) select 0}) then {
+                    if (
+                        !(GETMVAR(RadioNeedRadio,false)) ||
+                        {(_group call FUNC(hasRadioGroup)) select 0}
+                    ) then {
                         private _radioWait = GETMVAR(RadioWait,30);
                         private _lastCallTime = GETVAR(_group,LastCallTime,(CBA_MissionTime - _radioWait));
-                        if (CBA_MissionTime >= (_LastCallTime + _radioWait) && {!(GETVAR(_group,Reinforcing,false))}) then {
+                        if (
+                            CBA_MissionTime >= (_LastCallTime + _radioWait) &&
+                            {!(GETVAR(_group,Reinforcing,false))}
+                        ) then {
                             TRACE_1("radio call for support",_group);
                             SETVAR(_group,LastCallTime,CBA_MissionTime);
-                            //if (GVAR(CommanderEnabled)) then {
-                            //    [_group,_target,_side] call FUNC(RadioReportThreat);
-                            //} else {
+                            if (GVAR(CommanderEnabled)) then {
+                                [_group,_target] call FUNC(RadioReportThreat);
+                            } else {
                                 [_group,_target,_side] call FUNC(RadioCallForSupport);
-                            //};
+                            };
                         };
                     };
                 };

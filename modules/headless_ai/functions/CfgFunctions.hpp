@@ -55,7 +55,6 @@ class COMPONENT {
 		class PlaceMine {};
 		class RadioCallForSupport {};
 		class RadioCommsEnemy {};
-		class RadioReportThreat {};
 		class ReinforcementResponse {};
 		class FireWeapon {};
 		class SuppressDirection {};
@@ -72,6 +71,7 @@ class COMPONENT {
 		class CommanderHandler {};
 		class CommanderGroupHandler {};
 		class CommanderInit {};
+        class RadioReportThreat {};
 	};
 
     class create {
