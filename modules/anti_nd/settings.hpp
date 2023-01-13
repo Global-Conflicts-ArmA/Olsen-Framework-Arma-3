@@ -6,10 +6,11 @@
 // Distance:
 // Distance is recommended for regular assault missions.
 
-// If you want to disable a setting, set it to 0.
-
+// Disables quick grenades (default G to throw item) and only enables ACE throwing.
+// User will get an annoying message if they do not have their grenade key unbound and attempt to throw.
 disableQuickGrenades = true;
 
+// If you want to disable a setting for a team, set it to 0.
 class BLUFOR {
     time = 60;
     distance = 200;
