@@ -3,7 +3,7 @@ class COMPONENT {
     class AIDrivers {
     	file = "modules\ai_drivers\functions\AIDrivers";
     	class createDriver {};
-        class enableAIDriver {};
+        class getDriverOpticsPos {};
     	class removeDriver {};
     	class toggleDriverCam {};
     };
