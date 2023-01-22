@@ -38,7 +38,7 @@ if (GVAR(ENABLE_VIEWING_MAP)) then {
 		!("ItemMap" in assignedItems _player) &&
 		{"ItemMap" in assignedItems _target} &&
 		{_target distance _player <= 3} &&
-		{(_player getVariable "mis_originalSide" isEqualTo _target getVariable "mis_originalSide")}
+		{((_player getVariable ["mis_originalSide", side _player]) isEqualTo (_target getVariable ["mis_originalSide", side _target]))}
 	}] call ace_interact_menu_fnc_createAction;
 	["Man", 0, ["ACE_MainActions"], _shareMap, true] call ace_interact_menu_fnc_addActionToClass;
 };
