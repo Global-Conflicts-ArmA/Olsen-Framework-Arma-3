@@ -28,13 +28,14 @@ if (GVAR(stanceFeature)) then {
 
 //Main Functions
 [{
+    //Commander Functions
+    if (GVAR(CommanderEnabled)) then {
+        GVAR(CommanderAssets) = [];
+    	[] call FUNC(CommanderInit);
+    };
 	[] call FUNC(GroupHandler);
     if (GETMVAR(UseMarkers,false)) then {
         [] call FUNC(MapMarkers);
-    };
-    //Commander Functions
-    if (GVAR(CommanderEnabled)) then {
-    	[] call FUNC(CommanderInit);
     };
 }, []] call CBA_fnc_execNextFrame;
 

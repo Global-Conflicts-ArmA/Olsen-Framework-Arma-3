@@ -69,7 +69,6 @@ class COMPONENT {
 		file = "modules\headless_ai\functions\Commander";
 		class assignToArea {};
 		class CommanderHandler {};
-		class CommanderGroupHandler {};
 		class CommanderInit {};
         class RadioReportThreat {};
 	};

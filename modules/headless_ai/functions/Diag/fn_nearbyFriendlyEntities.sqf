@@ -31,7 +31,7 @@ private _nearbyInfantry = _list select {
 };
 private _nearbyCars = _list select {
     side _x isEqualTo side _unit &&
-    {_x isKindOf "CAManBase"}
+    {_x isKindOf "Car"}
 };
 private _nearbyAPCs = _list select {
     side _x isEqualTo side _unit &&

@@ -24,68 +24,24 @@ GVAR(GroupHandlerPFH) = [{
         private _groupcount = count _aliveUnits;
         private _behaviour = behaviour _leader;
         private _target = GETVAR(_group,CurrentTarget,objNull);
-        if (
-            _target isNotEqualTo objNull &&
-            {
-                assignedTarget _leader isEqualTo objNull ||
-                {!(_target call EFUNC(FW,isAlive))}
-            }
-        ) then {
-            _target = objNull;
-            SETVAR(_group,CurrentTarget,objNull);
-        };
-        if (_target isEqualTo objNull && {assignedTarget _leader isNotEqualTo objNull}) then {
-            TRACE_2("set target on active group",_group,_target);
-            _target = assignedTarget _leader;
-            if (_target isEqualTo objNull) then {
-                private _targetCounter = GETVAR(_group,NullTargetCounter,0);
-                if (_targetCounter >= 5) then {
-                    TRACE_1("no longer in combat, exiting and resetting",_group);
-                    SETVAR(_group,NullTargetCounter,0);
-                    private _originalBeh = GETVAR(_group,behaviour,"AWARE");
-                    private _originalCM = GETVAR(_group,combatMode,"YELLOW");
-                    private _originalSpeed = GETVAR(_group,speed,"normal");
-                    private _originalForm = GETVAR(_group,formation,"wedge");
-                    [_group,_originalBeh,_originalCM,_originalSpeed,_originalForm] call FUNC(setGroupBehaviour);
-                    private _originalTask = GETVAR(_group,OriginalTask,"PATROL");
-                    private _originalPos = GETVAR(_group,Pos,getPos leader _group);
-                    private _originalRadius = GETVAR(_group,taskRadius,30);
-                    [_group,_originalTask,_originalPos,_originalRadius] call FUNC(taskAssign);
-                } else {
-                    _targetCounter = _targetCounter + 1;
-                    SETVAR(_group,NullTargetCounter,_targetCounter);
-                };
-            } else {
-                SETVAR(_group,CurrentTarget,_target);
+        if (assignedTarget _leader isEqualTo objNull) then {
+            // reset target to objNull
+            if (_target isNotEqualTo objNull) then {
+                _target = objNull;
+                SETVAR(_group,CurrentTarget,objNull);
             };
+            // reset back to original task?
         } else {
-            SETVAR(_group,NullTargetCounter,0);
-        };
-        if (GETMVAR(UseMarkers,false)) then {
-            //TRACE_2("",GVAR(markerTrackedGroups),str _group);
-            GVAR(markerTrackedGroups) set [str _group, [
-                _group,
-                _side,
-                _leader,
-                _groupcount,
-                _task,
-                _behaviour,
-                _target,
-                _position,
-                _areaAssigned,
-                _assetType
-            ]]
-        };
-        if (CBA_missionTime >= _lastTimeChecked + 3) then {
             if (
-                (
-                    _behaviour in ["COMBAT","STEALTH"] &&
-                    {!(GETVAR(_group,taskCombatModeSet,false))}
-                ) ||
-                {_target isNotEqualTo objnull}
+                _target isEqualTo objNull &&
+                {!(_target call EFUNC(FW,isAlive))}
             ) then {
-                //switch tasks on actions
-                //handle for special loiter task - regroup
+                TRACE_2("set target on active group",_group,_target);
+                _target = assignedTarget _leader;
+                SETVAR(_group,CurrentTarget,_target);
+                // react
+                // switch tasks on actions
+                // handle for special loiter task - regroup
                 if (_task isEqualTo "LOITER") then {
                     _group setSpeedMode "FULL";
         			_units apply {_x setUnitPos "Auto"; _x doFollow _leader};
@@ -104,12 +60,15 @@ GVAR(GroupHandlerPFH) = [{
                         private _radioWait = GETMVAR(RadioWait,30);
                         private _lastCallTime = GETVAR(_group,LastCallTime,(CBA_MissionTime - _radioWait));
                         if (
-                            CBA_MissionTime >= (_LastCallTime + _radioWait) &&
+                            CBA_MissionTime >= (_lastCallTime + _radioWait) &&
                             {!(GETVAR(_group,Reinforcing,false))}
                         ) then {
                             TRACE_1("radio call for support",_group);
                             SETVAR(_group,LastCallTime,CBA_MissionTime);
-                            if (GVAR(CommanderEnabled)) then {
+                            if (
+                                GVAR(CommanderEnabled) &&
+                                {side _group isEqualTo (GETMVAR(CommanderSide,east))}
+                            ) then {
                                 [_group,_target] call FUNC(RadioReportThreat);
                             } else {
                                 [_group,_target,_side] call FUNC(RadioCallForSupport);
@@ -122,19 +81,41 @@ GVAR(GroupHandlerPFH) = [{
                     private _lastWaypointTime = GETVAR(_group,lastWaypointTime,CBA_MissionTime - 3);
                     private _currentWaypoint = currentWaypoint _group;
                     private _waypoints = waypoints _group;
-                    if (_currentWaypoint > (count _waypoints - 1) && {(_group getVariable [QGVAR(Task), "PATROL"]) isEqualTo "MANUAL"}) then {
+                    if (
+                        _currentWaypoint > (count _waypoints - 1) &&
+                        {(_group getVariable [QGVAR(Task), "PATROL"]) isEqualTo "MANUAL"}
+                    ) then {
                         [_group, _position] call FUNC(taskPatrol);
                     };
                 };
             };
-            if (
-                (GETMVAR(CommanderEnabled,false)) &&
-                {!(GETVAR(_group,CommanderExempt,false))} &&
-                {side _group isEqualTo (GETMVAR(CommanderSide,east))}
-            ) then {
-                [_group, _areaAssigned, _assetType] call FUNC(commanderGroupHandler)
-            };
-            SETVAR(_group,lastTimeChecked,CBA_missionTime);
+            // no enemy detected - what do?
         };
+        if (GETMVAR(UseMarkers,false)) then {
+            //TRACE_2("",GVAR(markerTrackedGroups),str _group);
+            GVAR(markerTrackedGroups) set [str _group, [
+                _group,
+                _side,
+                _leader,
+                _groupcount,
+                _task,
+                _behaviour,
+                _target,
+                _position,
+                _areaAssigned,
+                _assetType
+            ]]
+        };
+        // AI Commander
+        if (
+            (GETMVAR(CommanderEnabled,false)) &&
+            {!(GETVAR(_group,CommanderExempt,false))} &&
+            {side _group isEqualTo (GETMVAR(CommanderSide,east))} &&
+            {!(_group in GVAR(CommanderAssets))}
+        ) then {
+            // add to commander asset array
+            GVAR(CommanderAssets) pushBackUnique _group;
+        };
+        SETVAR(_group,lastTimeChecked,CBA_missionTime);
     };
 }, 1] call CBA_fnc_addPerFrameHandler;
