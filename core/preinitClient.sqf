@@ -15,6 +15,14 @@ GVAR(clientViewDistance) = [missionConfigFile >> QGVAR(clientSettings) >> "viewD
 GVAR(respawnTickets) = [missionConfigFile >> QGVAR(clientSettings) >> "respawnTickets", "number", 0] call CBA_fnc_getConfigEntry;
 
 if (([missionConfigFile >> QGVAR(clientSettings) >> "forceTerrainGrid", "number", 0] call CBA_fnc_getConfigEntry) == 1) then {
+    GVAR(terrainGridValue) = [missionConfigFile >> QGVAR(clientSettings) >> "terrainGridValue", "number", 3.125] call CBA_fnc_getConfigEntry;
+    if (GVAR(terrainGridValue) > 50) then {
+        GVAR(terrainGridValue) = 50;
+    } else {
+        if (GVAR(terrainGridValue) > 3.125) then {
+            GVAR(terrainGridValue) = 3.125;
+        };
+    };
     [] call FUNC(forceTerrainGrid);
 };
 

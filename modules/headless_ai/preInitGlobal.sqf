@@ -12,6 +12,14 @@ GVAR(groupDebug) = ([missionConfigFile >> QGVAR(settings) >> "groupDebug", "numb
 GVAR(useMarkers) = ([missionConfigFile >> QGVAR(settings) >> "useMarkers", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
 GVAR(AIViewDistance) = [missionConfigFile >> QGVAR(settings) >> "AIViewDistance", "number", 2500] call CBA_fnc_getConfigEntry;
+GVAR(AITerrainDetail) = [missionConfigFile >> QGVAR(settings) >> "AIViewDistance", "number", 3.125] call CBA_fnc_getConfigEntry;
+if (GVAR(AITerrainDetail) > 50) then {
+    GVAR(AITerrainDetail) = 50;
+} else {
+    if (GVAR(AITerrainDetail) > 3.125) then {
+        GVAR(AITerrainDetail) = 3.125;
+    };
+};
 
 GVAR(forceTimeEnable) = ([missionConfigFile >> QGVAR(settings) >> "forceTimeEnable", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 GVAR(forceTime) = [missionConfigFile >> QGVAR(settings) >> "forceTime", "array", []] call CBA_fnc_getConfigEntry;
