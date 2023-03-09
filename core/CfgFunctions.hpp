@@ -28,6 +28,7 @@ class Core {
 	class registerModule {};
 	class removeAllGear {};
 	class removeAllVehicleGear {};
+    class softEndMission {};
 	class parsedTextDisplay {};
 	class spectatePrep {};
 	class trackAsset {};
