@@ -5,10 +5,10 @@
 
 //[SIDE, NAME] call FUNC(addAOMarker);
 //SIDE is the side of the AO marker, NAME is the name of the AO marker.
-//If you want all teams to have this AO limit use ANY.
+//If you want all teams to have this AO limit use sideEmpty.
 
 //Example:
-//[ANY, "entireAO"] call FUNC(addAOMarker);
+//[sideEmpty, "entireAO"] call FUNC(addAOMarker);
 //[east, "Kavala"] call FUNC(addAOMarker);
 
 /* [blufor, "marker_setup"] call FUNC(addAOMarker); */

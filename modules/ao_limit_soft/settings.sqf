@@ -12,8 +12,9 @@ GVAR(AudibleWarning) = false;
 
 //[SIDE, NAME] call FUNC(addAOMarker);
 //SIDE is the side of the AO marker, NAME is the name of the AO marker.
-//If you want all teams to have this AO limit use ANY.
+//If you want all teams to have this AO limit use sideEmpty.
 
 //Example:
 //[east, "Kavala"] call FUNC(addAOMarker);
 //[blufor, "marker_20"] call FUNC(addAOMarker);
+//[sideEmpty, "marker_20"] call FUNC(addAOMarker);

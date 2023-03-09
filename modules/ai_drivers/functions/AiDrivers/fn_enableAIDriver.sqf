@@ -46,6 +46,21 @@ private _pipAction = ["ai_driver_pip","Enable/Disable driver's view","",{
     (vehicle _player isEqualTo _target) && {effectiveCommander vehicle _player isEqualTo _player} && {!isNull (GETVAR(_target,driver,objnull))}
 }] call ace_interact_menu_fnc_createAction;
 
+//move PIP action
+private _movePIPAction = ["ai_driver_pip","Switch driver view location","",{
+    with uiNamespace do {
+        GVAR(driverPipDisplay) ctrlSetPosition [0.1,0.1,0.75,0.5];
+        GVAR(driverPipDisplay) ctrlCommit 0;
+    };
+},{
+    (vehicle _player isEqualTo _target) &&
+    {effectiveCommander vehicle _player isEqualTo _player} &&
+    {!isNull (GETVAR(_target,driver,objnull))} //&&
+    //{!isNil QGVAR(DriverCam) && {!isNull GVAR(DriverCam)}} &&
+    //{uiNamespace getVariable [QGVAR(pipDisplay), displayNull] isNotEqualTo displayNull} &&
+    //{uiNamespace getVariable [QGVAR(driverPipDisplay), controlNull] isNotEqualTo controlNull}
+}] call ace_interact_menu_fnc_createAction;
+
 //toggle NV for PIP
 private _pipNvAction = ["ai_driver_pip_nv","Enable/Disable NV in driver's view","",{
     if (isNil QGVAR(pipNvEnabled)) then {
@@ -65,6 +80,7 @@ private _pipNvAction = ["ai_driver_pip_nv","Enable/Disable NV in driver's view",
 [_veh, 1, ["ACE_SelfActions"], _removeAction] call ace_interact_menu_fnc_addActionToObject;
 [_veh, 1, ["ACE_SelfActions"], _engineOffAction] call ace_interact_menu_fnc_addActionToObject;
 [_veh, 1, ["ACE_SelfActions"], _pipAction] call ace_interact_menu_fnc_addActionToObject;
+[_veh, 1, ["ACE_SelfActions"], _movePIPAction] call ace_interact_menu_fnc_addActionToObject;
 
 if (GVAR(FlipAction)) then {
     [_veh, 1, ["ACE_SelfActions"], _unflipAction] call ace_interact_menu_fnc_addActionToObject;

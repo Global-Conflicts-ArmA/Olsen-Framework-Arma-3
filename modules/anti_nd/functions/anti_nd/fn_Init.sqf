@@ -2,38 +2,31 @@
 
 [{(!isNull ACE_player)}, {
     // stop grenade throw
-    [
-        [false, false, false],
-        [true, false, false],
-        [true, true, false],
-        [true, true, true],
-        [false, true, false],
-        [false, true, true],
-        [false, false, true],
-        [true, false, true]
-    ] apply {
-        private _modifiersKey = _x;
-        [ActionKeys "throw" select 0, _modifiersKey, {
-            true
-        }] call CBA_fnc_addKeyHandler;
-    };
     private _firedEH = ACE_player addEventHandler ["FiredMan", {
-        params ["_unit", "", "", "", "", "_magazine", "_projectile", ""];
+        params ["_unit", "_weapon", "", "", "", "_magazine", "_projectile", ""];
         private _cantFire = _unit getVariable [QGVAR(Active), false];
-        if (_cantFire) exitWith {
-            deleteVehicle _projectile;
-            if (_magazine call BIS_fnc_isThrowable) then {
+        if (_magazine call BIS_fnc_isThrowable) then {
+            if (
+                _cantFire ||
+                {GETMVAR(disableQuickGrenades,true)}
+            ) exitWith {
+                deleteVehicle _projectile;
                 player addMagazine _magazine;
-            } else {
+                ["Unbind your grenade key", "", true, false, [] call BIS_fnc_displayMission, false, false] spawn BIS_fnc_guiMessage;
+                true
+            };
+            false
+        } else {
+            if (_cantFire) exitWith {
                 private _curWeapon = currentWeapon player;
                 player setAmmo [_curWeapon, (player ammo _curWeapon) + 1];
+                private _weapon = currentWeapon ACE_player;
+                private _picture = getText (configFile >> "CfgWeapons" >> _weapon >> "picture");
+                ["Anti ND Active", _picture] call ace_common_fnc_displayTextPicture;
+                true
             };
-            private _weapon = currentWeapon ACE_player;
-            private _picture = getText (configFile >> "CfgWeapons" >> _weapon >> "picture");
-            ["Anti ND Active", _picture] call ace_common_fnc_displayTextPicture;
-            true
+            false
         };
-        false
     }];
     private _actionVehEH = [vehicle ACE_player, "DefaultAction", {true}, {
         private _cantFire = (_this select 1) getVariable [QGVAR(Active), false];
@@ -109,7 +102,7 @@
     },{
         LOG_1("Removing anti_nd event handlers for player = %1",ACE_player);
         params ["_firedEH", "_vehPlayerEH", "_actionVehEH"];
-        player removeEventHandler ["FiredMan", _firedEH];
+        //ACE_player removeEventHandler ["FiredMan", _firedEH];
         [ACE_player, "DefaultAction", _actionVehEH] call ace_common_fnc_removeActionEventHandler;
         ACE_player setVariable ["ace_common_effect_blockThrow", 0];
         ACE_player setvariable ["ace_explosives_PlantingExplosive", false];
