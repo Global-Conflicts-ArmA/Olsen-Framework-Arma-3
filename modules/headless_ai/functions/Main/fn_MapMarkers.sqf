@@ -18,8 +18,9 @@ GVAR(GroupMarkersPFH) = [{
         ];
         if (
             _group isEqualTo grpNull ||
-            {leader _group isEqualTo objNull} ||
-            {!alive leader _group}
+            {
+                (units _group) findIf {_x call EFUNC(FW,isAlive)} isEqualTo -1
+            }
         ) then {
             GVAR(markerTrackedGroups) deleteAt _key;
             if (_usedMarkers isNotEqualTo []) then {
@@ -55,20 +56,6 @@ GVAR(GroupMarkersPFH) = [{
                 _tracker setMarkerColor _markercolour;
             };
             _tracker setMarkerPos [getpos _leader select 0, getpos _leader select 1];
-            private _usedest = _task in [
-                "PATROL",
-                "PERIMPATROL",
-                "SENTRY",
-                "ATTACK",
-                "ASSAULT",
-                "FLANK",
-                "MOVE",
-                "MANUAL",
-                "BLDMOVE",
-                "BLDSEARCH",
-                "PICKUP",
-                "DROPOFF"
-            ];
             private _usetarget = _target isNotEqualTo objnull;
             if !(_usetarget) then {
                 _target = "NONE";
@@ -94,41 +81,64 @@ GVAR(GroupMarkersPFH) = [{
             };
             //LOG_1("MarkerText: %1",_text);
             _tracker setMarkerText _text;
-            if (_usedest) then {
-                if (_dest isEqualTo "") then {
-                    _dest = format["dest_%1_%2",_side,_group];
-                    createMarker [_dest,[0,0]];
-                    _dest setMarkerShape "ICON";
-                    _dest setMarkerType "mil_marker";
-                    _dest setMarkerSize [0.25,0.25];
-                    _dest setmarkercolor _markercolour;
-                    _destline = format ["destline_%1_%2",_side,_group];
-                    createMarker [_destline,[0,0]];
-                    _destline setMarkerShape "RECTANGLE";
-                    _destline setMarkerBrush "SOLID";
-                    _destline setmarkercolor _markercolour;
-                };
-                private _wpArray = waypoints _group;
-                private _wppos = [0,0,0];
-                if (_wpArray isNotEqualTo []) then {
-                    private _wpindex = currentWaypoint _group;
-                    _wppos = waypointPosition [_group,_wpindex];
-                    _dest setmarkerpos _wppos;
+            // find appropriate dest waypoint, if any
+            if (_task in [
+                "PATROL",
+                "PERIMPATROL",
+                "SENTRY",
+                "ATTACK",
+                "ASSAULT",
+                "FLANK",
+                "MOVE",
+                "MANUAL",
+                "BLDMOVE",
+                "BLDSEARCH",
+                "PICKUP",
+                "DROPOFF"
+            ]) then {
+                private _groupWPs = waypoints _group;
+                if (_groupWPs isEqualTo []) then {
+                    if (_dest isNotEqualTo "") then {
+                        deletemarker _dest;
+                        deletemarker _destline;
+                        _dest = "";
+                        _destline = "";
+                    };
                 } else {
-                    _dest setmarkerpos [0,0];
-                };
-                private _dist = (_position distance2D _wppos) / 2;
-                private _ang = _position getDir _wppos;
-                private _center = _position getPos [_dist, _ang];
-                _destline setMarkerSize [1,_dist];
-                _destline setMarkerDir _ang;
-                _destline setMarkerPos _center;
-            } else {
-                if (_dest isNotEqualTo "") then {
-                    deletemarker _dest;
-                    deletemarker _destline;
-                    _dest = "";
-                    _destline = "";
+                    private _currentWP = currentWaypoint _group;
+                    private _wpPos = waypointPosition [_group, _currentWP];
+                    if (
+                        _currentWP >= count _groupWPs &&
+                        {_wpPos isEqualTo [0,0,0]}
+                    ) then {
+                        if (_dest isNotEqualTo "") then {
+                            deletemarker _dest;
+                            deletemarker _destline;
+                            _dest = "";
+                            _destline = "";
+                        };
+                    } else {
+                        if (_dest isEqualTo "") then {
+                            _dest = format["dest_%1_%2", _side, _group];
+                            createMarker [_dest, [0, 0]];
+                            _dest setMarkerShapeLocal "ICON";
+                            _dest setMarkerTypeLocal "mil_marker";
+                            _dest setMarkerSizeLocal [0.25, 0.25];
+                            _dest setMarkerColorLocal _markercolour;
+                            _destline = format ["destline_%1_%2", _side, _group];
+                            createMarker [_destline, [0, 0]];
+                            _destline setMarkerShapeLocal "RECTANGLE";
+                            _destline setMarkerBrushLocal "SOLID";
+                            _destline setMarkerColorLocal _markercolour;
+                        };
+                        _dest setMarkerPos _wpPos;
+                        private _dist = (_position distance2D _wppos) / 2;
+                        private _ang = _position getDir _wppos;
+                        private _center = _position getPos [_dist, _ang];
+                        _destline setMarkerSizeLocal [1, _dist];
+                        _destline setMarkerDirLocal _ang;
+                        _destline setMarkerPos _center;
+                    };
                 };
             };
             if (_usetarget) then {
