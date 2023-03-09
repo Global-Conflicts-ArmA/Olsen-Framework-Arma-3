@@ -16,7 +16,11 @@
 #include "script_component.hpp"
 
 GVAR(terrainGridPFH_handle) = [{
-	if ((CBA_missionTime > 0) && {getTerrainGrid isNotEqualTo 2}) then {
-		setTerrainGrid 2;
+    private _value = GETMVAR(terrainGridValue,3.125);
+	if (
+        CBA_missionTime > 0 &&
+        {getTerrainGrid isNotEqualTo _value}
+    ) then {
+		setTerrainGrid _value;
 	};
 }, 1] call CBA_fnc_addPerFrameHandler;

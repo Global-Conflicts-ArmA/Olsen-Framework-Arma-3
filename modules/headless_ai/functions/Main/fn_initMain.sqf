@@ -94,7 +94,7 @@ if ((GVAR(InitialRandomSpawnsCount) > 1) && {(GVAR(InitialRandomSpawns) isNotEqu
 //ForceTime
 if (!(hasInterface) && {!(isServer)}) then {
 	setViewDistance GVAR(AIViewDistance);
-	setTerrainGrid 6.25;
+	setTerrainGrid (GETMVAR(AITerrainDetail,3.125));
 	if (GVAR(ForceTimeEnable)) then {
 		private _forcedDate = [date select 0, date select 1, date select 2, GVAR(ForceTime) select 0, GVAR(ForceTime) select 1];
 		GVAR(TimeHandlePFH) = [{

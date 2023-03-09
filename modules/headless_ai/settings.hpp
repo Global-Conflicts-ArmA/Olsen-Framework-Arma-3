@@ -29,6 +29,8 @@ useMarkers = true;
 
 // Custom viewdistance for the AI
 AIViewDistance = 2500;
+// value between 3.125 and 50, the lower the more terrain detail
+AITerrainDetail = 3.125;
 // Forces Time on the HC to simulate better AI at night [HOUR,MINUTE]
 forceTimeEnable = true;
 forceTime[] = {12,00};
