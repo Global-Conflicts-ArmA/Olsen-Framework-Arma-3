@@ -59,7 +59,7 @@ GVAR(CommanderHandlerPFH) = [{
                     //private _resourceUse = GETVAR(_namespace,resourceUse,true);
                     private _preferredTypes = GETVAR(_namespace,preferredTypes,"ALL");
                     //private _terrainMode = GETVAR(_namespace,terrainMode,"Auto");
-                    //private _importance = GETVAR(_namespace,importance,_forEachIndex);
+                    private _importance = GETVAR(_namespace,importance,_forEachIndex);
                     private _assignedAssets = GETVAR(_namespace,assignedAssets,[]);
                     private _controlStatus = GETVAR(_namespace,control,"Unknown");
                     private _assetCount = count _assignedAssets;
@@ -208,7 +208,7 @@ GVAR(CommanderHandlerPFH) = [{
             ["_enemyHasVehicles", false, [false]],
             ["_enemyHasArmored", false, [false]],
             ["_lastTimeAddressed", -1, [0]],
-            ["_threatPriority", -1, [0]],
+            ["_threatLevel", -1, [0]],
             ["_nearestArea", "", [""]]
         ];
         _targetMarkers params [
@@ -378,6 +378,32 @@ GVAR(CommanderHandlerPFH) = [{
                         _textMarker setMarkerPos _reportedLocation;
                     };
                 };
+                //detemine closest area
+                private _areaDistances = GVAR(CommanderAreasParsed) select {
+                    private _namespace = missionNamespace getVariable _x;
+                    !(GETVAR(_namespace,deactivated,false))
+                } apply {
+                    private _namespace = missionNamespace getVariable _x;
+                    private _marker = GETVAR(_namespace,marker,"");
+                    private _markerPos = getMarkerPos _marker;
+                    private _importance = GETVAR(_namespace,importance,0);
+                    [_reportedLocation distance2D _markerPos, _x, _importance]
+                };
+                _areaDistances sort true;
+                _nearestArea = _areaDistances select 0 select 1;
+                private _importance = _areaDistances select 0 select 2;
+                TRACE_3("nearestArea calc",_targetGroup,_nearestArea,_importance);
+                // detemine effective threat level - threat equation
+                // threat level base (marker size calc) + importance of area zone (0 is highest)
+                private _size = switch _threatMarkerSize do {
+                    case "LARGE": {15};
+                    case "MEDIUM": {8};
+                    default {3};
+                };
+                private _threatLevel = (_size select 0) + (10 - (_importance * 2));
+                TRACE_2("threat level calc",_targetGroup,_threatLevel);
+                // address with assets
+
                 private _setArray = [
                     _targetGroup,
                     [_areaMarker, _textMarker],
@@ -388,7 +414,7 @@ GVAR(CommanderHandlerPFH) = [{
                     _enemyHasVehicles,
                     _enemyHasArmored,
                     _lastTimeAddressed,
-                    _threatPriority,
+                    _threatLevel,
                     _nearestArea
                 ];
                 _updatedThreats pushBack _setArray;

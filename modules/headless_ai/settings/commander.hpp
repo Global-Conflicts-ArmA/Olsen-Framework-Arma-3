@@ -2,7 +2,7 @@
 feature = true;
 debug = true;
 side = "east";
-//"Random" "Aggressive" "Defensive" "Guerilla" "Probing"
+//"Random" "Aggressive" "Defensive" "Guerilla"
 personality = "Random";
 delay = 3;
 skill = 5;
@@ -14,7 +14,7 @@ roam = false;
 withdrawal = false;
 arty[] = {};
 airStrikes[] = {};
-paradrops[] = {[]};
+paradrops[] = {};
 // Commander fills zones to maximum asset values then starts assigning to next zone, or commander assigns evenly to zones in order of precedent until max values filled
 // "FILL" or "EVEN"
 fillAssignMode = "FILL";
@@ -42,12 +42,10 @@ class Areas {
         marker = "hill";
         mission = "Patrol";
         withdrawal = true;
-    };
-    class Hill_1: Town {
-        marker = "hill_1";
-        mission = "Ambush";
-        withdrawal = true;
         qrfSupport = false;
         assetSupport = false;
+    };
+    class Hill_1: Hill {
+        marker = "hill_1";
     };
 };

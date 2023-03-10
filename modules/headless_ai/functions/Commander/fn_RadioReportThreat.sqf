@@ -1,3 +1,4 @@
+
 #include "script_component.hpp"
 
 params [
@@ -10,7 +11,6 @@ if (_callerGroup isEqualTo objNull || _target isEqualTo objNull) exitWith {};
 private _callerSide = side leader _callerGroup;
 private _targetGroup = group _target;
 
-//IGNORE_PRIVATE_WARNING ["_x"]
 private _nearbyEnemy = [];
 _nearbyEnemy = [_target, 50] call FUNC(nearbyFriendlyEntities);
 _nearbyEnemy params [
