@@ -46,7 +46,6 @@ class COMPONENT {
 		class ForceHeal {};
 		class FormationChange {};
 		class FragmentMove {};
-		class GroupLoiter {};
 		class GroupPatrol {};
 		class LightGarrison {};
 		class LoiterAction {};
@@ -132,6 +131,7 @@ class COMPONENT {
     	class LOSCheck {};
     	class tempRemovePrimaryMags {};
     	class nearbyFriendlyEntities {};
+    	class randPos {};
     };
 
     class Eventhandlers {
