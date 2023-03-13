@@ -10,6 +10,13 @@ if(isServer && {GVAR(ACRE_Enable_AddRacks)}) then {
 			_x params ["_objString","_rackType","_mountRadio","_radioRemovable","_rackNames","_whitelistedPositions","_blacklistedPositions","_faction"];
 			private ["_mountedRadio"];
 			private _object = missionNamespace getVariable [_objString, objNull];
+
+			//removes the rack radios added by addons
+            private _vehicleRacks = [_object] call acre_api_fnc_getVehicleRacks;
+			for "_i" from (count _vehicleRacks) - 1 to 0 step -1 do {
+				[_object, _vehicleRacks select _i] call acre_api_fnc_removeRackFromVehicle;
+			};
+
 			if((missionNamespace getVariable _objString) isEqualTo objNull) then {
 				(format ["(ACRE_SETUP_MODULE) [ERR]: NFB ERROR ENCOUNTERED"]) call FNC_DebugMessage;
 				(format ["(ACRE_SETUP_MODULE) [ERR]: OBJECT VARIABLE NAME DOES NOT EXIST OR IS INCORRECT"]) call FNC_DebugMessage;
