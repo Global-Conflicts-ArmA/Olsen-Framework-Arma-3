@@ -1,10 +1,20 @@
 #include "script_component.hpp"
 
-private _version = 0.1;
+private _version = 0.2;
 
-["Snow", "Snow and breath effects for winter.", "TinfoilHate &amp; StatusRed", _version] call EFUNC(FW,RegisterModule);
+["Snow", "Snow and breath effects for winter.", "TinfoilHate, StatusRed, &amp; PiZZADOX", _version] call EFUNC(FW,RegisterModule);
 
-#include "settings.sqf"
+GVAR(snowfall) = ([missionConfigFile >> QGVAR(settings) >> "snowfall", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(snowFog) = ([missionConfigFile >> QGVAR(settings) >> "snowFog", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(breath) = ([missionConfigFile >> QGVAR(settings) >> "breath", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(shiver) = ([missionConfigFile >> QGVAR(settings) >> "shiver", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(shiverFrequency) = [missionConfigFile >> QGVAR(settings) >> "shiverFrequency", "number", 20] call CBA_fnc_getConfigEntry;
+GVAR(postProcessing) = ([missionConfigFile >> QGVAR(settings) >> "postProcessing", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+GVAR(fog) = ([missionConfigFile >> QGVAR(settings) >> "fog", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(density) = [missionConfigFile >> QGVAR(settings) >> "density", "number", 0.6] call CBA_fnc_getConfigEntry;
+GVAR(decay) = [missionConfigFile >> QGVAR(settings) >> "decay", "number", 0] call CBA_fnc_getConfigEntry;
+GVAR(baseHeight) = [missionConfigFile >> QGVAR(settings) >> "baseHeight", "number", 0] call CBA_fnc_getConfigEntry;
+
 
 if (GVAR(postProcessing)) then {
 	"colorCorrections" ppEffectAdjust [1, 1, 0, [0.01, 0.02, 0.04, 0.01], [0.87, 1.08, 1.196, 0.3], [0.399, 0.287, 0.014, 0.0]];
