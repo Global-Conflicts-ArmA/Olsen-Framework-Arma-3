@@ -1,7 +1,6 @@
 #include "script_component.hpp"
 
-if !(hasInterface) exitWith {};
-if !(didJIP) exitWith {};
+if (!hasInterface || !didJIP) exitWith {};
 
 private _west_locationString = ([missionConfigFile >> QGVAR(settings) >> "west" >> "spawnLocation", "string", ""] call CBA_fnc_getConfigEntry);
 GVAR(west_spawnLocation) = missionNamespace getVariable [_west_locationString, objNull];
@@ -73,7 +72,10 @@ switch side player do {
     };
 };
 
-if (missionNamespace getVariable [QGVAR(_typeVar), "TELEPORT"] isEqualTo "DENY" && {missionNamespace getVariable [QGVAR(_deniedVar), false]}) exitWith {
+if (
+    missionNamespace getVariable [_typeVar, "TELEPORT"] isEqualTo "DENY" &&
+    {missionNamespace getVariable [_deniedVar, false]}
+) exitWith {
     [{
 		player call EFUNC(FW,UntrackUnit);
 		player setDamage 1;
@@ -97,7 +99,7 @@ if (_spawnLoc isNotEqualTo objNull) then {
     GVAR(JIPSpawnPos) = getPosATL _spawnLoc;
 };
 
-if (missionNamespace getVariable [QGVAR(_typeVar), "TELEPORT"] isEqualTo "NONE") exitWith {
+if (missionNamespace getVariable [_typeVar, "TELEPORT"] isEqualTo "NONE") exitWith {
     ["JIP set to regular spawn, no transport or teleport option available."] call EFUNC(FW,parsedTextDisplay);
 };
 
