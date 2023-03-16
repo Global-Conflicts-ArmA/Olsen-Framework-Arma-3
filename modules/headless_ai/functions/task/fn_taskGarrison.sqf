@@ -14,12 +14,20 @@ params [
 private _excludeClaimedHouses = true;
 private _largerSearch = true;
 private _houses = (nearestObjects [leader _group, ["House", "Strategic", "Ruins"], _radius, true]) select {
-    ((_x buildingPos -1) select {!(_x in GVAR(OccupiedPositions))}) isNotEqualTo [] &&
+    private _bPosArray = _x buildingPos -1;
+    (count _bPosArray >= 3) &&
+    {
+        (_bPosArray select {!(_x in GVAR(OccupiedPositions))}) isNotEqualTo []
+    } &&
     {!_excludeClaimedHouses || !(GETVAR(_x,claimed,false))}
 };
 if (_houses isEqualTo [] && _largerSearch) then {
     _houses = (nearestObjects [leader _group, ["House", "Strategic", "Ruins"], _radius * 3, true]) select {
-        ((_x buildingPos -1) select {!(_x in GVAR(OccupiedPositions))}) isNotEqualTo [] &&
+        private _bPosArray = _x buildingPos -1;
+        (count _bPosArray >= 3) &&
+        {
+            (_bPosArray select {!(_x in GVAR(OccupiedPositions))}) isNotEqualTo []
+        } &&
         {!_excludeClaimedHouses || !(GETVAR(_x,claimed,false))}
     };
 };

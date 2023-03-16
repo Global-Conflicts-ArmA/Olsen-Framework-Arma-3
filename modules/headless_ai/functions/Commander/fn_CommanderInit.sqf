@@ -24,6 +24,7 @@ GVAR(CommanderAreasParsed) = [];
    /*15*/ ["_control","Neutral",["Neutral"]]
     ];
     TRACE_1("",_area);
+    private _markerSuccess = false;
     if (_displayName isEqualTo "") then {
         _displayName = _marker;
         ERROR_1("%1 has no display name! defaulting to marker name",_displayName);
@@ -37,7 +38,11 @@ GVAR(CommanderAreasParsed) = [];
             LOG_1("passed check for area: %1",_displayName);
             //hide marker
             _marker setMarkerAlpha 0;
+            _markerSuccess = true;
         };
+    };
+    if !(_markerSuccess) then {
+        continue;
     };
     if (_min < 0) then {
         ERROR_2("%1 min value below minimum! _min: %2",_displayName,_min);
