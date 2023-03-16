@@ -22,8 +22,8 @@
 params [
     ["_pos", [0,0,0], [[], objNull]],
     ["_radius", 30, [0]],
-    ["_road", "NO", [""]],
-    ["_water", "NO", [""]]
+    ["_road", "ANY", [""]],
+    ["_water", "ANY", [""]]
 ];
 
 if (_pos isEqualType objNull) then {
@@ -32,7 +32,7 @@ if (_pos isEqualType objNull) then {
 
 private _randomPos = [0,0,0];
 
-for "_i" from 0 to 30 step 1 do {
+for "_i" from 0 to 10 step 1 do {
     private _tempPos =  [_pos, _radius] call CBA_fnc_randPos;
     if (
         (_road isEqualTo "ANY" ||
