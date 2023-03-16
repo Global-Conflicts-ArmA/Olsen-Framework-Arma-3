@@ -7,7 +7,7 @@ of reinforcements or subsequent AOs.
 
 // Array objects
 // eg: ["mainEnemy", "patrol_1", "patrol_2", "patrol_3"]
-arrayObjects[] = {"hc_1", "hc_2", "hc_3", "hc_4"};
+arrayObjects[] = {"hc_1", "hc_2", "hc_3", "hc_4", "hc_5"};
 
 // Initial spawns are spawned upon init, at the start of the mission.
 // eg: ["mainEnemy"]
