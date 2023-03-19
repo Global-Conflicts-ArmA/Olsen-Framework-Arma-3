@@ -1,3 +1,16 @@
+/*
+To detect a capturezone being held by a side for use in a trigger or end conditions, use:
+
+missionNamespace getVariable ["captureZone1", sideEmpty] isEqualTo <SIDE>
+
+eg in end conditions:
+
+if (missionNamespace getVariable ["captureZone1", sideEmpty] isEqualTo west) exitwith {
+    // mission end function call
+};
+
+*/
+
 
 [
     "testCap", // Marker name
