@@ -1,13 +1,12 @@
 #include "script_component.hpp"
 
-
 params ["_groupcaller", ["_enemycaller", objnull, [objnull]]];
 
-private _sidecaller = side _groupcaller;
+private _sideCaller = side _groupcaller;
 private _posCaller = getposATL leader _groupcaller;
 
 if (GVAR(Debug)) then {
-	TRACE_3("radiocomms params",_groupcaller,_enemycaller,_sidecaller);
+	TRACE_3("radiocomms params",_groupcaller,_enemycaller,_sideCaller);
 };
 
 private _respondingInfantry = [];
@@ -33,9 +32,10 @@ if (_knownEnemy) then {
 allGroups select {
 	private _leader = leader _x;
 	(GETVAR(_x,Spawned,false)) &&
-	{(_groupcaller isNotEqualTo _x)} &&
+	{_sideCaller isEqualTo side _leader} &&
+	{_groupcaller isNotEqualTo _x} &&
 	{!(isNull _leader)} &&
-	{(alive _leader)} &&
+	{_leader call EFUNC(FW,isAlive)} &&
 	{!(GETVAR(_leader,NOAI,false))} &&
 	{!(isPlayer _leader)} &&
 	{!([_x] call FUNC(isInCombat))} &&
@@ -54,7 +54,7 @@ allGroups select {
 	private _target = GETVAR(_group,CurrentTarget,objnull);
 	private _distanceToGroup = (leader _groupcaller) distance2d _leader;
     if (
-    	([_sidecaller, _side] call BIS_fnc_sideIsFriendly) &&
+    	([_sideCaller, _side] call BIS_fnc_sideIsFriendly) &&
     	{!_knownEnemy || {_target isEqualTo objnull} || {!(_target in _nearbyEnemy)}} &&
     	{_distanceToGroup <= GVAR(RadioDistance)} &&
     	{!(GETMVAR(RadioNeedRadio,false)) || {(_group call FUNC(hasRadioGroup)) select 0}}

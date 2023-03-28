@@ -1,14 +1,20 @@
 #include "script_component.hpp"
 
 
-params ["_unit", ["_randomSelect", false, [false]]];
+params [
+    ["_unit", objNull, [objNull]],
+    ["_randomSelect", false, [false]]
+];
 
-private _group = group _unit;
-private _enemyArray = [_group] call FUNC(EnemyArray);
+if (_unit isEqualTo objNull) exitwith {objNull};
 
-if (_enemyArray isEqualTo []) exitwith {objnull};
+private _enemyArray = [side _unit] call FUNC(EnemyArray);
+if (_enemyArray isEqualTo []) exitwith {objNull};
 
-private _distanceArray = _enemyArray apply {
+private _distanceArray = _enemyArray select {
+    !isNull _x &&
+    {[_x] call EFUNC(FW,isAlive)}
+} apply {
 	private _enemyDistance = _unit distance2d _x;
 	[_enemyDistance, _x]
 };
@@ -16,7 +22,7 @@ private _distanceArray = _enemyArray apply {
 _distanceArray sort true;
 
 private _selectIndex = if (_randomSelect) then {
-	random ((count _distanceArray) / 2)
+	floor random (count _distanceArray / 2)
 } else {
 	0
 };

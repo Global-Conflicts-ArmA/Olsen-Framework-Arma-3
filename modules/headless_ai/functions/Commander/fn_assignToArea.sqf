@@ -26,7 +26,7 @@ private _areaMarker = GETVAR(_namespace,marker,"");
 //private _areaTerrainMode = GETVAR(_namespace,terrainMode,"Auto");
 //private _areaImportance = GETVAR(_namespace,importance,_forEachIndex);
 private _areaAssignedAssets = GETVAR(_namespace,assignedAssets,[]);
-//private _areaControlStatus = GETVAR(_namespace,control,"Neutral");
+//private _areaControlStatus = GETVAR(_namespace,control,"Unknown");
 
 LOG_2("assigning %1 to Area: %2",_group,_areaDisplayName);
 SETVAR(_group,areaAssigned,_areaMarker);

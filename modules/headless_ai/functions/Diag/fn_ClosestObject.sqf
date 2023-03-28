@@ -5,7 +5,7 @@ params [["_list",[],[[]]],["_object",objnull,[objnull]],["_randomSelect",false,[
 
 if ("_object" isEqualTo objnull) exitWith {};
 if ("_list" isEqualTo []) exitWith {};
-	
+
 private _DistanceArray = [];
 
 {

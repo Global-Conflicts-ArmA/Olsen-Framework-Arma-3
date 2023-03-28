@@ -21,17 +21,20 @@
 params [
     ["_unit", objNull, [objNull, []]],
     ["_range", 100, [0]],
+    ["_excludeUsedHouses", false, [false]],
     ["_useHousePos", false, [false]],
     ["_onlyIndoor", false, [false]],
     ["_findDoors", false, [false]]
 ];
 
 // houses
-private _houses = nearestObjects [_unit, ["House", "Strategic", "Ruins"], _range, true];
-_houses = _houses select {((_x buildingPos -1) isNotEqualTo [])};
+private _houses = (nearestObjects [_unit, ["House", "Strategic", "Ruins"], _range, true]) select {
+    (_x buildingPos -1) isNotEqualTo []
+};
+if (!_useHousePos) exitWith {_houses}; // return if not use House Pos
 
 // find house positions
-if (!_useHousePos) exitWith {_houses}; // return if not use House Pos
+
 private _housePos = [];
 {
     private _house = _x;
@@ -53,4 +56,4 @@ if (_onlyIndoor) then {
     };
 };
 // return
-_housePos
+[_housePos]

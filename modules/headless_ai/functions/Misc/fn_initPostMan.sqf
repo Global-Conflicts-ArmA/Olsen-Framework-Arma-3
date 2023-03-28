@@ -38,3 +38,10 @@ private _init = GETVAR(_unit,init,false);
 if (_init isEqualType {}) then {
     _unit call _init;
 };
+
+private _acreItems = uniqueUnitItems _unit;
+private _hasRadio = (GVAR(acreRadiosArray) findIf {
+    _x in _acreItems
+}) isNotEqualTo -1;
+TRACE_2("radio check",_unit,_hasRadio);
+SETVAR(_unit,hasRadio,_hasRadio);
