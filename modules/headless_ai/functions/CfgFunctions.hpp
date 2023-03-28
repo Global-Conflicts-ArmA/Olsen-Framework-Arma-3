@@ -46,7 +46,6 @@ class COMPONENT {
 		class ForceHeal {};
 		class FormationChange {};
 		class FragmentMove {};
-		class GroupLoiter {};
 		class GroupPatrol {};
 		class LightGarrison {};
 		class LoiterAction {};
@@ -55,7 +54,6 @@ class COMPONENT {
 		class PlaceMine {};
 		class RadioCallForSupport {};
 		class RadioCommsEnemy {};
-		class RadioReportThreat {};
 		class ReinforcementResponse {};
 		class FireWeapon {};
 		class SuppressDirection {};
@@ -71,6 +69,7 @@ class COMPONENT {
 		class assignToArea {};
 		class CommanderHandler {};
 		class CommanderInit {};
+        class RadioReportThreat {};
 	};
 
     class create {
@@ -110,15 +109,20 @@ class COMPONENT {
     class Diag {
     	file = "modules\headless_ai\functions\Diag";
     	class checkView {};
+    	class clearSight {};
     	class closestEnemy {};
     	class ClosestObject {};
     	class DriverCheck {};
     	class EnemyArray {};
+    	class getGrenades {};
     	class getStance {};
+    	class getWeaponType {};
     	class hasMine {};
     	class hasAT {};
     	class hasMG {};
     	class hasUGL {};
+    	class UGLRoundType {};
+    	class muzzleMags {};
     	class HasRadioGroup {};
     	class IRCheck {};
     	class isAimed {};
@@ -127,6 +131,7 @@ class COMPONENT {
     	class LOSCheck {};
     	class tempRemovePrimaryMags {};
     	class nearbyFriendlyEntities {};
+    	class randPos {};
     };
 
     class Eventhandlers {

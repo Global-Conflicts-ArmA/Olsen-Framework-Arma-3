@@ -18,12 +18,8 @@ if (
         SETVAR(_unit,US_SetStance,true);
         //LOG_1("Set to MIDDLE",_unit);
     } else {
-        //LOG_1("stance: %1 failed middle check!",_unit);
-        if ([_unit, _unitDir, 1.7] call FUNC(checkView)) then {
-            _unit setUnitPos "UP";
-            SETVAR(_unit,US_SetStance,true);
-            //LOG_1("Set to UP",_unit);
-        };
+        _unit setUnitPos "UP";
+        SETVAR(_unit,US_SetStance,true);
     };
 } else {
     //LOG_1("stance: %1 was NOT prone!",_unit);
@@ -31,6 +27,7 @@ if (
         (stance _unit isEqualTo "CROUCH")
         && {!(GETVAR(_unit,reloading,false))}
         && {([_unit, _unitDir, 0.25] call FUNC(checkView))}
+        && {(insideBuilding _unit) > 0.5}
     ) then {
         //LOG_1("stance: %1 was crouched, can see prone!",_unit);
         _unit setUnitPos "DOWN";

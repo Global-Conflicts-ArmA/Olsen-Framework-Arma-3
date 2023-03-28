@@ -8,25 +8,25 @@ GVAR(MissionEnded) = false; //Mission has not ended
 
 [QGVAR(spawnedEvent), {
     params ["_unit"];
-    //LOG_1("spawnedEvent started: %1",_unit);
+    TRACE_1("spawned Event",_unit);
 	_unit call FUNC(eventSpawned);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(untrackEvent), {
-    params ["_unit"];
-    //LOG_1("untrackEvent started: %1",_unit);
-	_unit call FUNC(untrackUnit);
+    params ["_unit", ["_forced", sideEmpty, [sideEmpty]]];
+    TRACE_2("untrack Event",_unit,_forced);
+	[_unit, _forced] call FUNC(untrackUnit);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(killedEvent), {
     params [["_unit", objNull, [objNull]], ["_killer", objNull, [objNull]]];
-    //LOG_1("killedevent started: %1",_unit);
+    TRACE_2("killed Event",_unit,_killer);
 	[_unit, _killer] call FUNC(EventKilled);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(respawnEvent), {
     params [["_unit", objNull, [objNull]], ["_spectator", false, [false]]];
-    LOG_2("respawnEvent started: %1 spectator: %2",_unit,_spectator);
+    TRACE_2("respawnEvent started",_unit,_spectator);
 	[_unit, _spectator] call FUNC(EventRespawned);
 }] call CBA_fnc_addEventHandler;
 
@@ -168,8 +168,8 @@ if (isClass (missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west")) t
     GVAR(EndScreenDisplay_West) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "endScreenDisplay", "number", 1] call CBA_fnc_getConfigEntry) isEqualTo 1;
     private _westTeam = [
         west,
-        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "name", "string", "USMC"] call CBA_fnc_getConfigEntry,
-        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "type", "string", "player"] call CBA_fnc_getConfigEntry
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "name", "STRING", "USMC"] call CBA_fnc_getConfigEntry,
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "west" >> "type", "STRING", "player"] call CBA_fnc_getConfigEntry
     ];
     _westTeam call FUNC(AddTeam);
 };
@@ -177,8 +177,8 @@ if (isClass (missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east")) t
     GVAR(EndScreenDisplay_East) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "endScreenDisplay", "number", 1] call CBA_fnc_getConfigEntry) isEqualTo 1;
     private _eastTeam = [
         east,
-        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "name", "string", "VDV"] call CBA_fnc_getConfigEntry,
-        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "name", "STRING", "VDV"] call CBA_fnc_getConfigEntry,
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "east" >> "type", "STRING", "ai"] call CBA_fnc_getConfigEntry
     ];
     _eastTeam call FUNC(AddTeam);
 };
@@ -186,8 +186,8 @@ if (isClass (missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independe
     GVAR(EndScreenDisplay_Ind) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "endScreenDisplay", "number", 1] call CBA_fnc_getConfigEntry) isEqualTo 1;
     private _indTeam = [
         independent,
-        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "name", "string", "Local Militia"] call CBA_fnc_getConfigEntry,
-        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "name", "STRING", "Local Militia"] call CBA_fnc_getConfigEntry,
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "independent" >> "type", "STRING", "ai"] call CBA_fnc_getConfigEntry
     ];
     _indTeam call FUNC(AddTeam);
 };
@@ -195,8 +195,8 @@ if (isClass (missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian"
     GVAR(EndScreenDisplay_Civ) = ([missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "endScreenDisplay", "number", 1] call CBA_fnc_getConfigEntry) isEqualTo 1;
     private _civTeam = [
         civilian,
-        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "name", "string", "Local Civilians"] call CBA_fnc_getConfigEntry,
-        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "type", "string", "ai"] call CBA_fnc_getConfigEntry
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "name", "STRING", "Local Civilians"] call CBA_fnc_getConfigEntry,
+        [missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian" >> "type", "STRING", "ai"] call CBA_fnc_getConfigEntry
     ];
     _civTeam call FUNC(AddTeam);
 };

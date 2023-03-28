@@ -1,9 +1,8 @@
 #include "script_component.hpp"
 
-params ["_group", "_targetPos"];
+params ["_group", "_targetPos", "_radius"];
 
 private _enemyDir = leader _group getDir _targetPos;
-private _radius = 100;
 
 //private _formation = if ((random 2) > 1) then {"LINE"} else {"WEDGE"};
 //_group setFormation _formation;

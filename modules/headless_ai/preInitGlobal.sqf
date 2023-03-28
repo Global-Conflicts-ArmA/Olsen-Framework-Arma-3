@@ -49,7 +49,6 @@ GVAR(QRF_Distance) = [missionConfigFile >> QGVAR(settings) >> "QRF_Distance", "n
 GVAR(mountStatics) = ([missionConfigFile >> QGVAR(settings) >> "mountStatics", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 GVAR(mountStaticsDistance) = [missionConfigFile >> QGVAR(settings) >> "mountStaticsDistance", "number", 50] call CBA_fnc_getConfigEntry;
 GVAR(usesmoke) = ([missionConfigFile >> QGVAR(settings) >> "usesmoke", "number", 1] call CBA_fnc_getConfigEntry) == 1;
-GVAR(grenadechance) = [missionConfigFile >> QGVAR(settings) >> "grenadechance", "number", 45] call CBA_fnc_getConfigEntry;
 GVAR(AIDisembark) = ([missionConfigFile >> QGVAR(settings) >> "AIDisembark", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 GVAR(AIMagLimit) = [missionConfigFile >> QGVAR(settings) >> "AIMagLimit", "number", 2] call CBA_fnc_getConfigEntry;
 GVAR(rainImpact) = ([missionConfigFile >> QGVAR(settings) >> "rainImpact", "number", 1] call CBA_fnc_getConfigEntry) == 1;
@@ -68,6 +67,18 @@ GVAR(SightAidVehicles) = ([missionConfigFile >> QGVAR(settings) >> "SightAid" >>
 GVAR(SightAidDistance) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "distance", "number", 800] call CBA_fnc_getConfigEntry;
 GVAR(SightAidMinIncrease) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "minIncrease", "number", 2] call CBA_fnc_getConfigEntry;
 GVAR(SightAidEngageDistance) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "engageDistance", "number", 200] call CBA_fnc_getConfigEntry;
+
+GVAR(forceGrenades) = ([missionConfigFile >> QGVAR(settings) >> "SightAid" >> "forceGrenades", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(grenadeChance) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "grenadeChance", "number", 25] call CBA_fnc_getConfigEntry;
+GVAR(grenadeRange) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "grenadeRange", "number", 40] call CBA_fnc_getConfigEntry;
+
+GVAR(forceUGLs) = ([missionConfigFile >> QGVAR(settings) >> "SightAid" >> "forceUGLs", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(UGLChance) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "UGLChance", "number", 25] call CBA_fnc_getConfigEntry;
+GVAR(UGLMaxRange) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "UGLMaxRange", "number", 200] call CBA_fnc_getConfigEntry;
+GVAR(UGLMinRange) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "UGLMinRange", "number", 50] call CBA_fnc_getConfigEntry;
+
+GVAR(forceAT) = ([missionConfigFile >> QGVAR(settings) >> "SightAid" >> "forceAT", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+
 
 //Bunker Settings
 GVAR(BunkerDistance) = [missionConfigFile >> QGVAR(settings) >> "Bunker" >> "distance", "number", 1200] call CBA_fnc_getConfigEntry;
@@ -150,6 +161,19 @@ TRACE_1("",GVAR(CommanderAreas));
 
 //exit clients
 AI_EXEC_CHECK(HC);
+
+GVAR(bluforEnemies) = [opfor, independent] select {
+    [blufor, _x] call BIS_fnc_sideIsEnemy
+};
+GVAR(opforEnemies) = [blufor, independent] select {
+    [opfor, _x] call BIS_fnc_sideIsEnemy
+};
+GVAR(indforEnemies) = [blufor, opfor] select {
+    [independent, _x] call BIS_fnc_sideIsEnemy
+};
+
+private _acreRadios = [] call ACRE_api_fnc_getallradios;
+GVAR(acreRadiosArray) = (_acreRadios select 0) + (_acreRadios select 1);
 
 [QGVAR(HCReceiveArrayDataEvent), {
     LOG_1("Received Array Data: %1",_this);

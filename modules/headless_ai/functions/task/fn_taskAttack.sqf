@@ -20,4 +20,4 @@ if !(local _group) exitWith {}; // Don't create waypoints on each machine
 
 _attackPos = _attackPos call CBA_fnc_getPos;
 
-[_group, _attackPos] call FUNC(combatAttack);
+[_group, _attackPos, _radius] call FUNC(combatAttack);

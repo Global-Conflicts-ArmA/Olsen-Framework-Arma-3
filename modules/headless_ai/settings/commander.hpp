@@ -2,7 +2,7 @@
 feature = false;
 debug = true;
 side = "east";
-//"Random" "Aggressive" "Defensive" "Guerilla" "Probing"
+//"Random" "Aggressive" "Defensive" "Guerilla"
 personality = "Random";
 delay = 3;
 skill = 5;
@@ -14,7 +14,7 @@ roam = false;
 withdrawal = false;
 arty[] = {};
 airStrikes[] = {};
-paradrops[] = {[]};
+paradrops[] = {};
 // Commander fills zones to maximum asset values then starts assigning to next zone, or commander assigns evenly to zones in order of precedent until max values filled
 // "FILL" or "EVEN"
 fillAssignMode = "FILL";
@@ -25,9 +25,9 @@ assignStartZone = true;
 // Optional array elements: terrain manual define, QRF support for contact encountered in the area, minimum assets to assign for the area, asset threshold for the area (if threshold to assign cannot be met area will not be considered), maximum assets to assign for the area (leftover groups will be assigned to areas that aligns with preferred asset types), preferred asset types.
 // Preferred asset types will be determined from terrain setting if not manually defined.
 class Areas {
-    class Hangars {
-        marker = "area1";
-        mission = "defend";
+    class Town {
+        marker = "town";
+        mission = "Defend";
         minAssets = 1;
         maxAssets = 2;
         threshold = 0;
@@ -38,8 +38,14 @@ class Areas {
         preferedTypes[] = {"Infantry", "Snipers"};
         terrainMode = "Auto";
     };
-    class Runway: Hangars {
-        marker = "area2";
-        mission = "patrol";
+    class Hill: Town {
+        marker = "hill";
+        mission = "Patrol";
+        withdrawal = true;
+        qrfSupport = false;
+        assetSupport = false;
+    };
+    class Hill_1: Hill {
+        marker = "hill_1";
     };
 };
