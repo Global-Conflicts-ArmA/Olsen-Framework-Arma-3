@@ -1,0 +1,568 @@
+version=1;
+class GraphItems
+{
+	class Item0
+	{
+		Flags=250;
+		BasicText="";
+		Left=-225;
+		Top=250;
+		Right=-125;
+		Bottom=300;
+		BgColor=255;
+		class ItemInfo
+		{
+			Text="Initial";
+			lStyle=-842150451;
+			Shape=6;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=700;
+			FontUnderline=1;
+			FontCharSet=0;
+			ItemType=0;
+			class ItemInfo
+			{
+				Id=0;
+				InitCode="onStateEntered = QFUNC(onSEInitial);";
+			};
+		};
+	};
+	class Item1
+	{
+		Flags=218;
+		BasicText="";
+		Left=-225;
+		Top=350;
+		Right=-125;
+		Bottom=400;
+		BgColor=8421440;
+		class ItemInfo
+		{
+			Text="isInitialized";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=8;
+			class ItemInfo
+			{
+				Id=4;
+				Condition="true";
+				ConditionTab=1;
+			};
+		};
+	};
+	class Item2
+	{
+		Flags=250;
+		BasicText="";
+		Left=-225;
+		Top=425;
+		Right=-125;
+		Bottom=475;
+		BgColor=16777215;
+		class ItemInfo
+		{
+			Text="Target";
+			lStyle=-842150451;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=2;
+			class ItemInfo
+			{
+				Id=21;
+				InitCode="onStateEntered = QFUNC(onSETarget);";
+			};
+		};
+	};
+	class Item3
+	{
+		Flags=218;
+		BasicText="";
+		Left=-225;
+		Top=650;
+		Right=-125;
+		Bottom=700;
+		BgColor=65535;
+		class ItemInfo
+		{
+			Text="Aimed";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=4;
+			class ItemInfo
+			{
+				Id=22;
+				Condition="([_this] call FUNC(isAimed))";
+			};
+		};
+	};
+	class Item4
+	{
+		Flags=218;
+		BasicText="";
+		Left=-50;
+		Top=575;
+		Right=50;
+		Bottom=625;
+		BgColor=65535;
+		class ItemInfo
+		{
+			Text="Time Out";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=4;
+			class ItemInfo
+			{
+				Id=23;
+				Priority=2;
+				Condition="((CBA_MissionTime >= ((QGETVAR(_this,TargetStartTime,CBA_MissionTime)) + 4)) || ((CBA_MissionTime >= ((QGETVAR(_this,TargetStartTime,CBA_MissionTime)) + 2)) && {(CBA_MissionTime >= ((QGETVAR(_this,LastFiredTime,CBA_MissionTime)) + 2))}))";
+				ConditionTab=1;
+			};
+		};
+	};
+	class Item5
+	{
+		Flags=250;
+		BasicText="";
+		Left=-225;
+		Top=725;
+		Right=-125;
+		Bottom=775;
+		BgColor=16777215;
+		class ItemInfo
+		{
+			Text="Fire";
+			lStyle=-842150451;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=2;
+			class ItemInfo
+			{
+				Id=24;
+				InitCode="onStateEntered = QFUNC(onSEFire);";
+			};
+		};
+	};
+	class Item6
+	{
+		Flags=218;
+		BasicText="";
+		Left=-75;
+		Top=725;
+		Right=25;
+		Bottom=775;
+		BgColor=8421440;
+		class ItemInfo
+		{
+			Text="Return To Aim";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=8;
+			class ItemInfo
+			{
+				Id=25;
+				Condition="true";
+				PreCondition="conditionFrequency = 0.05;";
+				ConditionTab=2;
+			};
+		};
+	};
+	class Item7
+	{
+		Flags=218;
+		BasicText="";
+		Left=-350;
+		Top=650;
+		Right=-250;
+		Bottom=700;
+		BgColor=65535;
+		class ItemInfo
+		{
+			Text="No Ammo";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=4;
+			class ItemInfo
+			{
+				Id=27;
+				Priority=1;
+				Condition="(_this ammo currentMuzzle _this) == 0";
+			};
+		};
+	};
+	class Item8
+	{
+		Flags=250;
+		BasicText="";
+		Left=-350;
+		Top=725;
+		Right=-250;
+		Bottom=775;
+		BgColor=16777215;
+		class ItemInfo
+		{
+			Text="Refill Ammo";
+			lStyle=-842150451;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=2;
+			class ItemInfo
+			{
+				Id=28;
+				InitCode="onStateEntered = QUOTE((vehicle _this) setAmmo [ARR_2(primaryWeapon (vehicle _this), 10000)]);";
+			};
+		};
+	};
+	class Item9
+	{
+		Flags=218;
+		BasicText="";
+		Left=-450;
+		Top=650;
+		Right=-350;
+		Bottom=700;
+		BgColor=8421440;
+		class ItemInfo
+		{
+			Text="Return to AIm";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=8;
+			class ItemInfo
+			{
+				Id=29;
+				Condition="true";
+			};
+		};
+	};
+	class Item10
+	{
+		Flags=218;
+		BasicText="";
+		Left=-225;
+		Top=500;
+		Right=-125;
+		Bottom=550;
+		BgColor=8421440;
+		class ItemInfo
+		{
+			Text="Move to " \n "Aimed";
+			lStyle=-842150451;
+			Shape=2;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=8;
+			class ItemInfo
+			{
+				Id=39;
+				Condition="true";
+			};
+		};
+	};
+	class Item11
+	{
+		Flags=250;
+		BasicText="";
+		Left=-225;
+		Top=575;
+		Right=-125;
+		Bottom=625;
+		BgColor=16777215;
+		class ItemInfo
+		{
+			Text="Aimed";
+			lStyle=-842150451;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=0;
+			FontCharSet=0;
+			ItemType=2;
+			class ItemInfo
+			{
+				Id=40;
+				InitCode="onStateEntered = QFUNC(onSEAimed);";
+			};
+		};
+	};
+	class Item12
+	{
+		Flags=250;
+		BasicText="";
+		Left=75;
+		Top=575;
+		Right=175;
+		Bottom=625;
+		BgColor=33023;
+		class ItemInfo
+		{
+			Text="";
+			lStyle=-842150451;
+			Shape=6;
+			Group=-842150451;
+			FontFace="Arial";
+			FontHeight=10;
+			FontWeight=700;
+			FontCharSet=0;
+			ItemType=1;
+			class ItemInfo
+			{
+				Id=42;
+			};
+		};
+	};
+};
+class GraphLinks
+{
+	class Link0
+	{
+		From=0;
+		To=1;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link1
+	{
+		From=1;
+		To=2;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link2
+	{
+		From=2;
+		To=10;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link3
+	{
+		From=3;
+		To=5;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link4
+	{
+		From=4;
+		To=12;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link5
+	{
+		From=5;
+		To=6;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link6
+	{
+		From=6;
+		To=11;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link7
+	{
+		From=7;
+		To=8;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link8
+	{
+		From=8;
+		To=9;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link9
+	{
+		From=9;
+		To=11;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link10
+	{
+		From=10;
+		To=11;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link11
+	{
+		From=11;
+		To=3;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link12
+	{
+		From=11;
+		To=4;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link13
+	{
+		From=11;
+		To=7;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+};
+class Globals
+{
+	NextGroupID=1;
+	NextID=43;
+	FSMName="GVAR(suppressStateMachine)";
+	CompileConfig="C:\Program Files (x86)\Steam\steamapps\common\Arma 3 Tools\FSMEditor\CBA_FSMEditor.cfg";
+	class Attributes
+	{
+		items=3;
+		class Item0
+		{
+			name="list";
+			value="allUnits select { \" \n "    local _x && \" \n "    {!isNull _x} && \" \n "    {alive _x} && \" \n "    {!isPlayer (leader _x)} && \" \n "    {!(QGETVAR(_x,NOAI,false))} && \" \n "    {QGETVAR(group _x,Spawned,false)} && \" \n "    {side _x in GVAR(SideBasedExecution)} && \" \n "    {((QGETVAR(group _x,Mission,'NONE')) isEqualTo 'BUNKER') || {(QGETVAR(_x,Bunker,false))}} \" \n "}";
+		};
+		class Item1
+		{
+			name="skipnull";
+			value="1";
+		};
+		class Item2
+		{
+			name="repeatperframe";
+			value="4";
+		};
+	};
+	class DefaultLink
+	{
+		ArrowSize=0;
+	};
+	DefaultLinkColor=6316128;
+	DefaultLinkColorFromSelected=6316287;
+	DefaultLinkColorToSelected=6356832;
+	DefaultLinkUseCustom=1;
+	PZoomLeft=-541.36371;
+	PZoomRight=301.05927;
+	PZoomBottom=872.19836;
+	PZoomTop=-142.71338;
+	Clxs=547;
+	Clys=659;
+	Aspect=1;
+};
+class Window
+{
+	Flags=0;
+	MaxPosX=-1;
+	MaxPosY=-1;
+	MinPosX=-1;
+	MinPosY=-1;
+	Left=52;
+	Top=52;
+	Right=993;
+	Bottom=883;
+	ShowCmd=1;
+	SplitPos=565;
+};

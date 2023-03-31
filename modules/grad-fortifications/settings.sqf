@@ -2,3 +2,4 @@
 Information on installation, configuration and usage here.
 */
 
+[player, "Land_BagFence_01_long_green_F", 2] call GRADFORT_fnc_addFort;

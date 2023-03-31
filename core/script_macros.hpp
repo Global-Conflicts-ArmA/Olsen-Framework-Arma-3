@@ -2,9 +2,11 @@
 #ifndef COMPONENT
     #define COMPONENT FW
 #endif
-//#define DEBUG_MODE_NORMAL
-#define DEBUG_MODE_FULL
-#define VERSIONSTR "1.1.1 DEV"
+#define DEBUG_MODE_NORMAL
+//#define DEBUG_MODE_FULL
+#define VERSIONSTR "1.1.3"
+#define VERSION 1.1
+#define VERSION_AR 1,1,3
 #include "script_macros_mission.hpp"
 
 #define RNG(var1) var1 > random 1

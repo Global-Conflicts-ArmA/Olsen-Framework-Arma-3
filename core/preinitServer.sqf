@@ -26,6 +26,58 @@ GVAR(MissionEnded) = false; //Mission has not ended
 
 [QGVAR(respawnEvent), {
     params [["_unit", objNull, [objNull]], ["_spectator", false, [false]]];
+    LOG_2("respawnEvent started: %1 spectator: %2",_unit,_spectator);
+    private _waveCountVar = QGVAR(CurrentWaveCount_West);
+    private _waveSizeVar = QGVAR(WaveSize_West);
+    private _waveUnlockedVar = QGVAR(CurrentWaveUnlocked_West);
+    private _respawnPenVar = QGVAR(RespawnPenGate_West);
+    switch (side _unit) do {
+        case east: {
+            _waveCountVar = QGVAR(CurrentWaveCount_East);
+            _waveSizeVar = QGVAR(WaveSize_East);
+            _waveUnlockedVar = QGVAR(CurrentWaveUnlocked_East);
+            _respawnPenVar = QGVAR(RespawnPenGate_East);
+        };
+        case independent: {
+            _waveCountVar = QGVAR(CurrentWaveCount_Ind);
+            _waveSizeVar = QGVAR(WaveSize_Ind);
+            _waveUnlockedVar = QGVAR(CurrentWaveUnlocked_Ind);
+            _respawnPenVar = QGVAR(RespawnPenGate_Ind);
+        };
+        case civilian: {
+            _waveCountVar = QGVAR(CurrentWaveCount_Civ);
+            _waveSizeVar = QGVAR(WaveSize_Civ);
+            _waveUnlockedVar = QGVAR(CurrentWaveUnlocked_Civ);
+            _respawnPenVar = QGVAR(RespawnPenGate_Civ);
+        };
+        default {};
+    };
+    private _waveSize = missionNamespace getVariable [_waveSizeVar, -1];
+    private _waveCount = missionNamespace getVariable [_waveCountVar, 0];
+    private _waveUnlocked = missionNamespace getVariable [_waveUnlockedVar, false];
+    private _respawnPen = missionNamespace getVariable [_respawnPenVar, []];
+    if (_waveSize > 0) then {
+        _waveCount = _waveCount + 1;
+        missionNamespace setVariable [_waveCountVar, _waveCount];
+        if (_waveCount >= _waveSize) then {
+            if !(_waveUnlocked) then {
+                missionNamespace setVariable [_waveUnlockedVar, true];
+                missionNamespace setVariable [_waveCountVar, 0];
+                _respawnPen apply {
+                    _x hideObjectGlobal true;
+                };
+                [{
+                    params [
+                        ["_respawnPen", [], [[]]]
+                    ];
+                    _respawnPen apply {
+                        _x hideObjectGlobal false;
+                    };
+                    missionNamespace setVariable [_waveUnlockedVar, false];
+                }, [_respawnPen], 30] call CBA_fnc_waitAndExecute;
+            };
+        };
+    };
     TRACE_2("respawnEvent started",_unit,_spectator);
 	[_unit, _spectator] call FUNC(EventRespawned);
 }] call CBA_fnc_addEventHandler;
@@ -38,34 +90,19 @@ GVAR(MissionEnded) = false; //Mission has not ended
     ];
     TRACE_2("eventCheckRespawnTickets started",_unit,_side);
     // First get appropriate variable names for unit side
-    private _teamTicketVar = QGVAR(RespawnTickets_West);
-    //private _waveCountVar = QGVAR(CurrentWaveCount_West);
-    //private _waveSizeVar = QGVAR(WaveSize_West);
-    //private _waveUnlockedVar = QGVAR(CurrentWaveUnlocked_West);
-    //private _respawnPenVar = QGVAR(RespawnPenGate_West);
-    switch _side do {
+    private _teamTicketVar = switch _side do {
         case east: {
-            _teamTicketVar = QGVAR(RespawnTickets_East);
-            //_waveCountVar = QGVAR(CurrentWaveCount_East);
-            //_waveSizeVar = QGVAR(WaveSize_East);
-            //_waveUnlockedVar = QGVAR(CurrentWaveUnlocked_East);
-            //_respawnPenVar = QGVAR(RespawnPenGate_East);
+            QGVAR(RespawnTickets_East)
         };
         case independent: {
-            _teamTicketVar = QGVAR(RespawnTickets_Ind);
-            //_waveCountVar = QGVAR(CurrentWaveCount_Ind);
-            //_waveSizeVar = QGVAR(WaveSize_Ind);
-            //_waveUnlockedVar = QGVAR(CurrentWaveUnlocked_Ind);
-            //_respawnPenVar = QGVAR(RespawnPenGate_Ind);
+            QGVAR(RespawnTickets_Ind)
         };
         case civilian: {
-            _teamTicketVar = QGVAR(RespawnTickets_Civ);
-            //_waveCountVar = QGVAR(CurrentWaveCount_Civ);
-            //_waveSizeVar = QGVAR(WaveSize_Civ);
-            //_waveUnlockedVar = QGVAR(CurrentWaveUnlocked_Civ);
-            //_respawnPenVar = QGVAR(RespawnPenGate_Civ);
+            QGVAR(RespawnTickets_Civ)
         };
-        default {};
+        default {
+            QGVAR(RespawnTickets_West)
+        };
     };
     TRACE_2("",_side,_teamTicketVar);
     private _teamTickets = missionNamespace getVariable [_teamTicketVar, 0];
@@ -223,15 +260,15 @@ if (isClass (missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian"
     [QGVAR(responseCOEvent), [_co, _var], _requestingUnit] call CBA_fnc_targetEvent;
 }] call CBA_fnc_addEventHandler;
 
-GVAR(CurrentWaveUnlockedWest) = false;
-GVAR(CurrentWaveUnlockedEast) = false;
-GVAR(CurrentWaveUnlockedInd) = false;
-GVAR(CurrentWaveUnlockedCiv) = false;
+GVAR(CurrentWaveUnlocked_West) = false;
+GVAR(CurrentWaveUnlocked_East) = false;
+GVAR(CurrentWaveUnlocked_Ind) = false;
+GVAR(CurrentWaveUnlocked_Civ) = false;
 
-GVAR(CurrentWaveCountWest) = if (GVAR(WaveSizeWest) > 0) then {0} else {-1000};
-GVAR(CurrentWaveCountEast) = if (GVAR(WaveSizeEast) > 0) then {0} else {-1000};
-GVAR(CurrentWaveCountInd) = if (GVAR(WaveSizeInd) > 0) then {0} else {-1000};
-GVAR(CurrentWaveCountCiv) = if (GVAR(WaveSizeCiv) > 0) then {0} else {-1000};
+GVAR(CurrentWaveCount_West) = if (GVAR(WaveSize_West) > 0) then {0} else {-1000};
+GVAR(CurrentWaveCount_East) = if (GVAR(WaveSize_East) > 0) then {0} else {-1000};
+GVAR(CurrentWaveCount_Ind) = if (GVAR(WaveSize_Ind) > 0) then {0} else {-1000};
+GVAR(CurrentWaveCount_Civ) = if (GVAR(WaveSize_Civ) > 0) then {0} else {-1000};
 
 GVAR(west_ExpendedAmmo) = [];
 GVAR(east_ExpendedAmmo) = [];
