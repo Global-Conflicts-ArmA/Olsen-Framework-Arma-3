@@ -5,9 +5,10 @@ class GVAR(unitStanceStateMachine) {
         local _x && \
         {!isPlayer _x} && \
         {QGETVAR(_x,spawned,false)} && \
-        {(QGETVAR(_x,stance,'') isEqualTo '') && {(QGETVAR(group _x,stance,'') isEqualTo '')}} && \
+        {(QGETVAR(_x,stance,'AUTO') == 'AUTO') && {(QGETVAR(group _x,stance,'AUTO') == 'AUTO')}} && \
         {!(QGETVAR(_x,NOAI,false))} && \
         {!([group _x] call FUNC(isMoveTask))} && \
+        {!(QGETVAR(_x,Busy,false))} && \
         {(vehicle _x isEqualTo _x)} \
     });
     skipNull = 1;

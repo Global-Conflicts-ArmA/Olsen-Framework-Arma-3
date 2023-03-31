@@ -3,7 +3,6 @@
 params ["_group", "_targetPos", ["_compradius", 250, [0]]];
 LOG_1("combatAssault started _this: %1",_this);
 
-private _leader = leader _group;
 private _units = units _group;
 
 [_group] call CBA_fnc_clearWaypoints;
@@ -38,7 +37,7 @@ private _assaultTaskPFH = [{
             (getPosATL _leader distance2D _targetPos) <= _compradius
         } ||
         {
-            !(((_group call FUNC(EnemyArray)) findif {
+            !(((side _leader call FUNC(EnemyArray)) findif {
                 ((_leader distance2D _x) <= (GETVAR(_group,AssaultEngageDistance,200))) &&
                 {[_leader, _x] call FUNC(LOSCheck)}
             }) isEqualTo -1)

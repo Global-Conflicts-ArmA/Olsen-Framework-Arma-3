@@ -5,7 +5,7 @@ GVAR(BasicCheckCurrent) = 0;
 GVAR(LeaderExecuteCurrent) = 0;
 GVAR(MarkerArray) = [];
 GVAR(markerTrackedGroups) = createHashMap;
-
+GVAR(OccupiedPositions) = [];
 
 //StateMachines
 LOG("creating bunkerStateMachine");
@@ -28,13 +28,14 @@ if (GVAR(stanceFeature)) then {
 
 //Main Functions
 [{
+    //Commander Functions
+    if (GVAR(CommanderEnabled)) then {
+        GVAR(CommanderAssets) = [];
+    	[] call FUNC(CommanderInit);
+    };
 	[] call FUNC(GroupHandler);
     if (GETMVAR(UseMarkers,false)) then {
         [] call FUNC(MapMarkers);
-    };
-    //Commander Functions
-    if (GVAR(CommanderEnabled)) then {
-    	[] call FUNC(CommanderInit);
     };
 }, []] call CBA_fnc_execNextFrame;
 

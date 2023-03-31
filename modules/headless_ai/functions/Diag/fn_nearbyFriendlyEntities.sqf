@@ -1,15 +1,50 @@
 #include "script_component.hpp"
 
 
-params ["_unit", ["_distance", 50, [50]]];
+params [
+    "_unit",
+    ["_distance", 5, [5]],
+    ["_infantryOnly", false, [false]]
+];
 
-private _nearbyInfantry = (_unit nearEntities ["CAManBase", _distance]) select {side commander _x isEqualTo _unit};
-private _nearbyCars = (_unit nearEntities ["Car", _distance]) select {side commander _x isEqualTo _unit};
-private _nearbyAPCs = (_unit nearEntities [["TrackedAPC", "WheeledAPC"], _distance]) select {side commander _x isEqualTo _unit};
-private _nearbyTanks = (_unit nearEntities ["Tank", _distance]) select {side commander _x isEqualTo _unit};
+if (_infantryOnly) exitWith {
+    private _nearbyInfantry = (_unit nearEntities [[
+        "CAManBase"
+    ], _distance]) select {
+        side _x isEqualTo side _unit
+    };
+    private _nearbyEntities = [_nearbyInfantry, [], [], []];
+    _nearbyEntities
+};
+
+private _list = _unit nearEntities [[
+    "CAManBase",
+    "Car",
+    "WheeledAPC",
+    "TrackedAPC",
+    "Tank"
+], _distance];
+
+private _nearbyInfantry = _list select {
+    side _x isEqualTo side _unit &&
+    {_x isKindOf "CAManBase"}
+};
+private _nearbyCars = _list select {
+    side _x isEqualTo side _unit &&
+    {_x isKindOf "Car"}
+};
+private _nearbyAPCs = _list select {
+    side _x isEqualTo side _unit &&
+    {
+        _x isKindOf "TrackedAPC" ||
+        {_x isKindOf "WheeledAPC"}
+    }
+};
+private _nearbyTanks = _list select {
+    side _x isEqualTo side _unit &&
+    {_x isKindOf "Tank"}
+};
 
 private _nearbyEntities = [_nearbyInfantry, _nearbyCars, _nearbyAPCs, _nearbyTanks];
 
 _nearbyEntities
-
-

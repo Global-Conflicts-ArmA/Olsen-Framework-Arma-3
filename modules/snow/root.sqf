@@ -14,4 +14,10 @@
 	#include "functions\CfgFunctions.hpp"
 #endif
 
+#ifdef description
+    class GVAR(settings) {
+        #include "settings.hpp"
+    };
+#endif
+
 #undef COMPONENT

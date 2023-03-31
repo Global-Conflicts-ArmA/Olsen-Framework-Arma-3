@@ -19,8 +19,9 @@ params ["_unit"];
 SETPVAR(_unit,Side,(side _unit));
 
 if (
-    (isPlayer _unit ||
-    {!(GETVAR(_unit,DontTrack,false))}) &&
+    !isNull _unit &&
+    {isPlayer _unit ||
+    {!(GETVAR(_unit,DontTrack,false))}} &&
     {!(GETVAR(_unit,Tracked,false))}
 ) then {
     SETPVAR(_unit,Tracked,true);
@@ -29,12 +30,17 @@ if (
         _x params ["_name", "_side", "_type", "_total", "_current"];
         if (
 			((GETVAR(_unit,Side,sideUnknown)) isEqualto _side) &&
-			{(isPlayer _unit && {_type != "ai"}) || {_type == "ai"}}
+			{
+                (isPlayer _unit && {_type != "ai"}) ||
+                {!isPlayer _unit && {_type == "ai"}}
+            }
 		) exitWith {
             if (_unit call FUNC(isAlive)) then {
-                TRACE_3("Setting new alive count",_unit,_total,_current);
-                _x set [3, _total + 1];
-                _x set [4, _current + 1];
+                private _newCurrent = _current + 1;
+                private _newTotal = _total + 1;
+                TRACE_3("Setting new alive count",_unit,_newTotal,_newCurrent);
+                _x set [3, _newTotal];
+                _x set [4, _newCurrent];
             };
         };
     };

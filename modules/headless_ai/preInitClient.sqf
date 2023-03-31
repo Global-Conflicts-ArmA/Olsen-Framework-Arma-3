@@ -2,7 +2,7 @@
 
 LOG("HC Client Pre Init");
 
-private _version = "0.2.6";
+private _version = "0.2.7";
 
 ["Headless AI", "Spawns AI via logic sync and provides custom AI system", "PIZZADOX", _version] call EFUNC(FW,RegisterModule);
 
