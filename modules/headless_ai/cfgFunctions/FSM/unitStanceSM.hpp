@@ -1,8 +1,5 @@
-<<<<<<<< HEAD:modules/headless_ai/cfgFunctions/FSM/unitStanceSM.hpp
-========
 #include "script_component.hpp"
 
->>>>>>>> origin/dev:modules/headless_ai/functions/UnitStanceSM/StateMachine.hpp
 class GVAR(unitStanceStateMachine) {
     list = QUOTE(allUnits select { \
         local _x && \
