@@ -252,4 +252,9 @@ class COMPONENT {
 		class US_onSEStanceCheck {};
 		class US_onSEUnitChecks {};
 	};
+
+    class CustomAI {
+		file = "modules\headless_ai\functions\customAI";
+		class zombie {};
+	};
 };
