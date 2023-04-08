@@ -24,6 +24,36 @@ GVAR(MissionEnded) = false; //Mission has not ended
 	[_unit, _killer] call FUNC(EventKilled);
 }] call CBA_fnc_addEventHandler;
 
+[QGVAR(increaseTeamTickets), {
+    params [
+        ["_side", sideEmpty, [sideEmpty]],
+        ["_ticketsChange", 0, [0]]
+    ];
+    private _teamTicketVar = switch _side do {
+        case east: {
+            QGVAR(RespawnTickets_East)
+        };
+        case independent: {
+            QGVAR(RespawnTickets_Ind)
+        };
+        case civilian: {
+            QGVAR(RespawnTickets_Civ)
+        };
+        default {
+            QGVAR(RespawnTickets_West)
+        };
+    };
+    private _teamTickets = missionNamespace getVariable [_teamTicketVar, 0];
+    if (_ticketsChange isEqualTo 0) exitWith {
+        ERROR_2("Team ticket change invalid, cannot change by 0",_side,_ticketsChange);
+    };
+    TRACE_2("team tickets changed original",_side,_teamTickets);
+    TRACE_2("team tickets changed changed",_side,_ticketsChange);
+    private _ticketsNew = _teamTickets + _ticketsChange;
+    missionNamespace setVariable [_teamTicketVar, _ticketsNew];
+    TRACE_2("team tickets changed new",_side,_ticketsNew);
+}] call CBA_fnc_addEventHandler;
+
 [QGVAR(respawnEvent), {
     params [["_unit", objNull, [objNull]], ["_spectator", false, [false]]];
     LOG_2("respawnEvent started: %1 spectator: %2",_unit,_spectator);
