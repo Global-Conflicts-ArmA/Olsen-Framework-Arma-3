@@ -325,5 +325,29 @@ GVAR(CheckingCoC) = false;
     };
 }] call CBA_fnc_addEventHandler;
 
+[QGVAR(TimelimitClient), {
+    params [
+        ["_command", "check", [""]],
+        ["_arg", 0, [0, ""]]
+    ];
+    switch (_command) do {
+        case "check": {
+            private _timeLeft = _arg - (CBA_missionTime / 60);
+            private _text = format ["TimeLimit: %1 Time Remaining: %2 minutes", _arg, _timeLeft];
+            [_text, 1.5, ACE_Player, 10] call ace_common_fnc_displayTextStructured;
+        };
+        case "extend": {
+            private _timeLeft = _arg - (CBA_missionTime / 60);
+            private _text = format ["TimeLimit set to: %1 Time Remaining: %2 minutes", _arg, _timeLeft];
+            [_text, 1.5, ACE_Player, 10] call ace_common_fnc_displayTextStructured;
+        };
+        case "message": {
+            private _text = format ["TimeLimit message set to: %1", _arg];
+            [_text, 1.5, ACE_Player, 10] call ace_common_fnc_displayTextStructured;
+        };
+        default {};
+    };
+}] call CBA_fnc_addEventHandler;
+
 #include "..\customization\inits\PreInitClient.sqf" //DO NOT REMOVE
 #include "..\modules\modules.sqf" //DO NOT REMOVE

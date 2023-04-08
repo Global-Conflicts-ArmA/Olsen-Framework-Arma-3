@@ -297,6 +297,34 @@ if (isClass (missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian"
     [QGVAR(responseCOEvent), [_co, _var], _requestingUnit] call CBA_fnc_targetEvent;
 }] call CBA_fnc_addEventHandler;
 
+[QGVAR(TimelimitServer), {
+    params [
+        ["_command", "check", [""]],
+        "_client",
+        ["_arg", 0, [0, ""]]
+    ];
+    switch (_command) do {
+        case "check": {
+            private _timeLimit = (GETMVAR(Timelimit,60));
+            [QGVAR(TimelimitClient), ["check", _timeLimit], _client] call CBA_fnc_targetEvent;
+        };
+        case "extend": {
+            if (_arg > 0) then {
+                private _newTimeLimit = ((GETMVAR(Timelimit,60)) + _arg);
+                SETMVAR(Timelimit,_newTimeLimit);
+                [QGVAR(TimelimitClient), ["extend", _newTimeLimit], _client] call CBA_fnc_targetEvent;
+            };
+        };
+        case "message": {
+            if (_arg isEqualType "") then {
+                SETMVAR(timeLimitMessage,_arg);
+                [QGVAR(TimelimitClient), ["message", _arg], _client] call CBA_fnc_targetEvent;
+            };
+        };
+        default {};
+    };
+}] call CBA_fnc_addEventHandler;
+
 GVAR(CurrentWaveUnlocked_West) = false;
 GVAR(CurrentWaveUnlocked_East) = false;
 GVAR(CurrentWaveUnlocked_Ind) = false;
