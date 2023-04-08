@@ -285,6 +285,21 @@ GVAR(CheckingCoC) = false;
     GVAR(CheckingCoC) = false;
 }] call CBA_fnc_addEventHandler;
 
+[QGVAR(increaseRespawnTickets), {
+    params [
+        ["_ticketsChange", 0, [0]]
+    ];
+    if (_ticketsChange isEqualTo 0) exitWith {
+        ERROR_1("Individual ticket change invalid, cannot change by 0",_ticketsChange);
+    };
+    private _currentTickets = GETMVAR(RespawnTickets,0);
+    TRACE_1("tickets changed original",_currentTickets);
+    TRACE_1("tickets changed",_ticketsChange);
+    private _ticketsNew = _currentTickets + _ticketsChange;
+    SETMVAR(RespawnTickets,_ticketsNew);
+    TRACE_1("tickets changed new",_ticketsNew);
+}] call CBA_fnc_addEventHandler;
+
 [QGVAR(triggeredRespawn), {
     params [
         ["_side", sideEmpty, [sideEmpty]],
