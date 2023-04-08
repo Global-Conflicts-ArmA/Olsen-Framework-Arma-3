@@ -29,6 +29,9 @@ GVAR(MissionEnded) = false; //Mission has not ended
         ["_side", sideEmpty, [sideEmpty]],
         ["_ticketsChange", 0, [0]]
     ];
+    if (_side isEqualTo sideEmpty) exitWith {
+        ERROR_2("Team ticket change invalid, side invalid",_side,_ticketsChange);
+    };
     private _teamTicketVar = switch _side do {
         case east: {
             QGVAR(RespawnTickets_East)
