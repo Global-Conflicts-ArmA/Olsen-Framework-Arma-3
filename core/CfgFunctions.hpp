@@ -46,6 +46,7 @@ class Core {
 class Spectator {
 	file = "core\functions\spectator";
 	class startSpectator {};
+	class endSpectator {};
 	class initSpectateScreen {};
 	class spectatorBriefing {};
 	class parseBriefing {};

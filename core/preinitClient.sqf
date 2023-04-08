@@ -110,7 +110,6 @@ FUNC(killcam_toggleFnc) = {
 
 FUNC(eg_keyHandler) = {
     params ["_control", "_code", "_shift", "_control", "_alt"];
-
     private _acre = ["ACRE2", "HeadSet"] call CBA_fnc_getKeybind;
     if !(isNil "_acre") then {
         private _action = _acre select 4;
@@ -119,7 +118,6 @@ FUNC(eg_keyHandler) = {
             call _action;
         };
     };
-
     if (_code == 35 && {!_shift} && {_control} && {!_alt}) then {
         if !(GETMVAR(eg_keyHandler_display_hidden,false)) then {
             (findDisplay 60492) closedisplay 1;
@@ -130,13 +128,11 @@ FUNC(eg_keyHandler) = {
 
 FUNC(eg_keyHandler2) = {
     params ["_control", "_code", "_shift", "_control", "_alt"];
-
     if (_code == 35 && {!_shift} && {_control} && {!_alt} &&
     {GETMVAR(eg_keyHandler_display_hidden,false)}
     ) then {
         ([] call BIS_fnc_displayMission) createDisplay "RscDisplayEGSpectator";
         SETMVAR(eg_keyHandler_display_hidden,false);
-
         GVAR(eg_keyHandle) = (findDisplay 60492) displayAddEventHandler ["keyDown", {call FUNC(eg_keyHandler);}];
         if (GETMVAR(killcam_active,false)) then {
             GVAR(killcam_keyHandle) = (findDisplay 60492) displayAddEventHandler ["keyDown", {call FUNC(killcam_toggleFnc);}];
@@ -145,17 +141,13 @@ FUNC(eg_keyHandler2) = {
 };
 
 [QGVAR(eventPlayerRespawned), {
-
     QGVAR(respawnBlackScreen) cutText ["\n","BLACK IN", 5];
 	[QGVAR(death), 0, false] call ace_common_fnc_setHearingCapability;
 	0 fadeSound 1;
-
 	private _loadout = (player getVariable [QGVAR(Loadout), ""]);
-
 	if (_loadout isNotEqualTo "") then {
 		[player, _loadout] call FUNC(GearScript);
 	};
-
     private _customRespawn = missionNamespace getVariable [QGVAR(CustomRespawnPoint), [0,0,0]];
     if (_customRespawn isNotEqualTo [0,0,0]) then {
         player setPosATL _customRespawn;
@@ -171,10 +163,10 @@ FUNC(eg_keyHandler2) = {
         if (_respawnPoint isNotEqualTo objnull) then {
     		player setPosATL getPosATL _respawnPoint;
     	} else {
+            ERROR_MSG_1("respawn marker not found for side!",_respawnName);
             player setPosATL (GETMVAR(spawnPos,[ARR_3(0,0,0)]));
         };
     };
-
     player setVariable [QGVAR(Body), player, true];
     player setVariable [QGVAR(HasDied), false, true];
     player setVariable [QGVAR(Dead), false, true];
@@ -284,6 +276,26 @@ GVAR(CheckingCoC) = false;
     TRACE_2("client response for CO",_co,_var);
     missionNamespace setVariable [_var, _co];
     GVAR(CheckingCoC) = false;
+}] call CBA_fnc_addEventHandler;
+
+[QGVAR(triggeredRespawn), {
+    params [
+        ["_side", sideEmpty, [sideEmpty]],
+        ["_condition", {true}, [{}]],
+        ["_newIndividualTickets", 0, [0]]
+    ];
+    if (
+        (_side isEqualTo sideEmpty ||
+        {playerSide isEqualTo _side}) &&
+        {GETPLVAR(spectating,false)} &&
+        {_condition}
+    ) then {
+        if (_newIndividualTickets > 0) then {
+            TRACE_2("Setting new individual ticket value",(GVAR(RespawnTickets)),_newIndividualTickets);
+            GVAR(RespawnTickets) = _newIndividualTickets;
+        };
+        [] call FUNC(endSpectator);
+    };
 }] call CBA_fnc_addEventHandler;
 
 #include "..\customization\inits\PreInitClient.sqf" //DO NOT REMOVE
