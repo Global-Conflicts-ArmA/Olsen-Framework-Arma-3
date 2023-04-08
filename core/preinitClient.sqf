@@ -290,7 +290,7 @@ GVAR(CheckingCoC) = false;
         {GETPLVAR(spectating,false)} &&
         {_condition}
     ) then {
-        if (_newIndividualTickets > 0) then {
+        if (_newIndividualTickets > 0 && {_newIndividualTickets > GVAR(RespawnTickets)}) then {
             TRACE_2("Setting new individual ticket value",(GVAR(RespawnTickets)),_newIndividualTickets);
             GVAR(RespawnTickets) = _newIndividualTickets;
         };
