@@ -116,9 +116,13 @@ GVAR(MissionEnded) = false; //Mission has not ended
     params [
         ["_unit", objNull, [objNull]],
         ["_side", west, [sideEmpty]],
+        ["_bypassTickets", false, [false]],
         ["_localTickets", 0, [0]]
     ];
     TRACE_2("eventCheckRespawnTickets started",_unit,_side);
+    if (_bypassTickets) exitWith {
+        [QGVAR(eventCheckRespawnTickets_Response), ["MANUAL_BYPASS"], _unit] call CBA_fnc_targetEvent;
+    };
     // First get appropriate variable names for unit side
     private _teamTicketVar = switch _side do {
         case east: {

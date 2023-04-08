@@ -266,6 +266,13 @@ FUNC(eg_keyHandler2) = {
             }, _message, 1] call CBA_fnc_waitAndExecute;
             [QGVAR(eventPlayerRespawned)] call CBA_fnc_localEvent;
         };
+        case "MANUAL_BYPASS": {
+            private _message = "You have been respawned manually or through a triggered event. No tickets have been used.";
+            [{
+                [_this, true, 5, 100] call ace_common_fnc_displayText
+            }, _message, 1] call CBA_fnc_waitAndExecute;
+            [QGVAR(eventPlayerRespawned)] call CBA_fnc_localEvent;
+        };
     };
 }] call CBA_fnc_addEventHandler;
 
@@ -282,6 +289,7 @@ GVAR(CheckingCoC) = false;
     params [
         ["_side", sideEmpty, [sideEmpty]],
         ["_condition", {true}, [{}]],
+        ["_bypassTeamTickets", false, [false]],
         ["_newIndividualTickets", 0, [0]]
     ];
     if (
@@ -294,7 +302,7 @@ GVAR(CheckingCoC) = false;
             TRACE_2("Setting new individual ticket value",(GVAR(RespawnTickets)),_newIndividualTickets);
             GVAR(RespawnTickets) = _newIndividualTickets;
         };
-        [] call FUNC(endSpectator);
+        [_bypassTeamTickets] call FUNC(endSpectator);
     };
 }] call CBA_fnc_addEventHandler;
 
