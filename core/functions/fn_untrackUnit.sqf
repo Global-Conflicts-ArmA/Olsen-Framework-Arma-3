@@ -28,8 +28,9 @@ if (GETVAR(_unit,Tracked,false) || {_forced}) then {
                 {_forced && {_forcedSide isEqualto _side}}
             ) &&
             {
-                (isPlayer _unit && {_type != "ai"} )||
-                {!isPlayer _unit && {_type == "ai"}}
+                (_type == "both" || _type == "any") ||
+                {_type == "player" && {isPlayer _unit}} ||
+                {_type == "ai" && {!isPlayer _unit}}
             }
         ) exitWith {
 			if (
