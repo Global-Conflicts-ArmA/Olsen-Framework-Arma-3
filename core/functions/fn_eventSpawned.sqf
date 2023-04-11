@@ -31,8 +31,9 @@ if (
         if (
 			((GETVAR(_unit,Side,sideUnknown)) isEqualto _side) &&
 			{
-                (isPlayer _unit && {_type != "ai"}) ||
-                {!isPlayer _unit && {_type == "ai"}}
+                (_type == "both" || _type == "any") ||
+                {_type == "player" && {isPlayer _unit}} ||
+                {_type == "ai" && {!isPlayer _unit}}
             }
 		) exitWith {
             if (_unit call FUNC(isAlive)) then {
