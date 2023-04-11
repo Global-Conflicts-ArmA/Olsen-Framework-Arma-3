@@ -24,8 +24,8 @@ params [
 
 if (_side in GVAR(TeamSides)) exitwith {};
 
-if !(isMultiplayer) then {
-	_type = "ai";
+if (!isMultiplayer && {_type == "player"}) then {
+	_type = "both";
 };
 
 GVAR(TeamSides) pushBackUnique _side;

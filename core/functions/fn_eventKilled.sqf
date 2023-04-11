@@ -27,7 +27,11 @@ if (GETVAR(_unit,Tracked,false)) then {
 				!(GETVAR(_unit,HasDied,false)) &&
 				{!(GETVAR(_unit,Dead,false))} &&
 				{(GETVAR(_unit,Side,sideUnknown)) isEqualTo _side} &&
-				{((_type != "ai") && {isPlayer _unit}) || (_type isEqualTo "ai")}
+                {
+                    (_type == "both" || _type == "any") ||
+                    {_type == "player" && {isPlayer _unit}} ||
+                    {_type == "ai" && {!isPlayer _unit}}
+                }
 		) exitWith {
 			SETPVAR(_unit,HasDied,true);
             SETPVAR(_unit,Dead,true);
