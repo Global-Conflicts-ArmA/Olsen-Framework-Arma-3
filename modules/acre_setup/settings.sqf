@@ -108,7 +108,7 @@ GVAR(ACRE_Languages_Babel) = [
 	["fr", "en"],//WEST
 	["ru", "en"],//EAST
 	["fr", "en", "ru"],//INDEPENDENT
-	["en"]//DEFAULT/CIVILIAN
+	["en", "ru", "fr"]//CIVILIAN & Spectator - Add all languages to avoid spectators hearing bable.
 ];
 
 ///////////////////////
