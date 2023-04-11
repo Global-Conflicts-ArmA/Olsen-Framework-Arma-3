@@ -59,37 +59,40 @@ if (GVAR(InitialSpawn) isNotEqualTo []) then {
 	}, [_InitialSpawn]] call CBA_fnc_execNextFrame;
 };
 
-if ((GVAR(InitialRandomSpawnsCount) > 1) && {(GVAR(InitialRandomSpawns) isNotEqualTo [])}) then {
+if ((GVAR(InitialRandomSpawnsCount) >= 1) && {(GVAR(InitialRandomSpawns) isNotEqualTo [])}) then {
 	//construct InitialRandomSpawns array
-	private _InitialRandomSpawns = [];
+	private _initialRandomSpawns = [];
 	{
-	    _x params ["_element", "_weight"];
-		_InitialRandomSpawns pushBack _element;
-		_InitialRandomSpawns pushBack _weight;
+	    if (_x isEqualType "") then {
+            private _arrayName = _x;
+            private _weight = GVAR(InitialRandomSpawns) deleteAt (_forEachIndex + 1);
+            _initialRandomSpawns pushBack _arrayName;
+    		_initialRandomSpawns pushBack _weight;
+        };
 	} forEach GVAR(InitialRandomSpawns);
-	LOG_1("InitialRandomSpawns %1",_InitialRandomSpawns);
+	LOG_1("InitialRandomSpawns %1",_initialRandomSpawns);
 	[{
-		params ["_InitialRandomSpawns"];
-		private _InitialRandomSpawnsSelected = [];
-		for "_a" from 0 to (GETMVAR(InitialRandomSpawnsCount,1)) step 1 do {
-		    private _selected = selectRandomWeighted _InitialRandomSpawns;
-			_InitialRandomSpawnsSelected pushBack _selected;
-			_InitialRandomSpawns - [_selected];
+		params ["_initialRandomSpawns"];
+		private _initialRandomSpawnsSelected = [];
+		for "_a" from 1 to (GETMVAR(InitialRandomSpawnsCount,1)) step 1 do {
+		    private _selected = selectRandomWeighted _initialRandomSpawns;
+			_initialRandomSpawnsSelected pushBack _selected;
+			_initialRandomSpawns - [_selected];
 		};
-		if (GVAR(_InitialRandomSpawnsSelected) isNotEqualTo []) then {
+		if (_initialRandomSpawnsSelected isNotEqualTo []) then {
 			[{
-				params ["_InitialRandomSpawnsSelected"];
+				params ["_initialRandomSpawnsSelected"];
 				{
 					private _logic = missionNamespace getVariable [_x, objNull];
 					if (isNull _logic) then {
-						LOG_1("Could not find arrayName %1",_x);
+						ERROR_MSG_1("Could not find arrayName %1",_x);
 				    } else {
 						_x call FUNC(spawnArray);
 					};
-				} foreach _InitialRandomSpawnsSelected;
-			}, [_InitialRandomSpawnsSelected]] call CBA_fnc_execNextFrame;
+				} foreach _initialRandomSpawnsSelected;
+			}, [_initialRandomSpawnsSelected]] call CBA_fnc_execNextFrame;
 		};
-	}, [_InitialRandomSpawns]] call CBA_fnc_execNextFrame;
+	}, [_initialRandomSpawns]] call CBA_fnc_execNextFrame;
 };
 
 //ForceTime
