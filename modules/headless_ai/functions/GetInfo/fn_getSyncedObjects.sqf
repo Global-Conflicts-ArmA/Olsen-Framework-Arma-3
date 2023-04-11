@@ -12,11 +12,12 @@ private _objects = [];
 private _vehLog = [];
 private _entities = [];
 if (isNil QGVAR(allSyncedEntities)) then {
-    GVAR(allSyncedEntities) = [];
+    GVAR(allSyncedEntities) = _uniqueSynced;
+} else {
+    GVAR(allSyncedEntities) = GVAR(allSyncedEntities) + _uniqueSynced;
 };
 _uniqueSynced apply {
     private _obj =  _x;
-    GVAR(allSyncedEntities) pushBackUnique _obj;
     if (_obj isKindOf "Logic") then {
     } else {
         if (_obj isKindOf "Thing") then {
