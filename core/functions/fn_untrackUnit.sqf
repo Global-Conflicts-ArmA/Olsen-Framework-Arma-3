@@ -16,16 +16,16 @@
 
 params ["_unit", ["_forcedSide", sideEmpty, [sideEmpty]]];
 
-TRACE_2("untrackUnit",_unit,_forced);
 private _forced = _forcedSide isNotEqualTo sideEmpty;
+TRACE_2("untrackUnit",_unit,_forced);
 
 if (GETVAR(_unit,Tracked,false) || {_forced}) then {
 	GVAR(Teams) apply {
 		_x params ["", "_side", "_type", "_total", "_current"];
 		if (
             (
-                (GETVAR(_unit,Side,sideUnknown)) isEqualto _side ||
-                {_forced && {_forcedSide isEqualto _side}}
+				_forced && {_forcedSide isEqualto _side} ||
+                {(GETVAR(_unit,Side,sideUnknown)) isEqualto _side}
             ) &&
             {
                 (_type == "both" || _type == "any") ||
