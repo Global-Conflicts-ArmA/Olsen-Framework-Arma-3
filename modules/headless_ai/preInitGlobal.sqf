@@ -4,6 +4,7 @@ LOG("HC Global Pre Init");
 
 GVAR(ArrayObjects) = [missionConfigFile >> QGVAR(settings) >> "arrayObjects", "array", []] call CBA_fnc_getConfigEntry;
 GVAR(InitialSpawn) = [missionConfigFile >> QGVAR(settings) >> "initialSpawn", "array", []] call CBA_fnc_getConfigEntry;
+GVAR(InitialRandomSpawns) = [missionConfigFile >> QGVAR(settings) >> "initialRandomSpawns", "array", []] call CBA_fnc_getConfigEntry;
 GVAR(InitialRandomSpawnsCount) = [missionConfigFile >> QGVAR(settings) >> "initialRandomSpawnsCount", "number", 0] call CBA_fnc_getConfigEntry;
 
 GVAR(debug) = ([missionConfigFile >> QGVAR(settings) >> "debug", "number", 1] call CBA_fnc_getConfigEntry) == 1;
