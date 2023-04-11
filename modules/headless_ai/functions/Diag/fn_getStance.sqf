@@ -2,11 +2,11 @@
 
 params ["_stance"];
 
-private _return = switch (_stance) do {
-	case "STAND": {"UP";};
-	case "CROUCH": {"MIDDLE";};
-	case "PRONE": {"DOWN";};
-	case "Auto": {"Auto"};
+private _return = switch (toLower _stance) do {
+	case "stand": {"UP";};
+	case "crouch": {"MIDDLE";};
+	case "prone": {"DOWN";};
+	case "auto": {"Auto"};
 	default {"Auto"};
 };
 

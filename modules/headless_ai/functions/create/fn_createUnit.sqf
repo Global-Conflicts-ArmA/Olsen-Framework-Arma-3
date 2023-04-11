@@ -67,8 +67,8 @@ if (_storedVars isNotEqualTo []) then {
         _unit setvariable [_varName,_varValue];
     };
 };
-
-if (_stance isNotEqualTo "AUTO") then {
+private _groupStance = GETVAR(group _unit,stance,"AUTO");
+if (_stance != "AUTO" || {_groupStance != "AUTO"}) then {
     SETVAR(_unit,stance,_stance);
 };
 if (_identity isNotEqualTo []) then {

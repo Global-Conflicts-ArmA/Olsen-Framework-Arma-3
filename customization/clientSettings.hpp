@@ -18,7 +18,7 @@ respawnTickets = 0;
  // Enable this to force high terrain setting. This will prevent faraway objects from appearing as floating. Useful for missions with long sightlines.
 forceTerrainGrid = true;
 // value between 3.125 and 50, the lower the more terrain detail
-terrainGridValue = 3.125
+terrainGridValue = 3.125;
 
 class Spectator {
     // Whether all sides can be viewed by spectator

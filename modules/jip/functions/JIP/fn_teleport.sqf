@@ -1,7 +1,5 @@
 #include "script_component.hpp"
 
-/* diag_log format ["INFO: In teleport action! this = %1", _this]; */
-
 params ["_target"];
 
 if !(
@@ -33,10 +31,6 @@ if !(
         };
 	};
 };
-
-/* diag_log format ["INFO _target = %1", _target];
-diag_log format ["INFO in vehicle? = %1", (INVEHICLE(_target))];
-diag_log format ["INFO player = %1", player]; */
 
 if (_target isNotEqualTo objnull) then {
     ["ace_common_displayTextStructured", [["%1 joined the mission and is teleporting to you in 5 seconds", name player], 1.5, _target], [_target]] call CBA_fnc_targetEvent;

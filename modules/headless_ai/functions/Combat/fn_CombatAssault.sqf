@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-params ["_group", "_targetPos", ["_compradius", 250, [0]], ["_radius", 50, [0]]];
+params ["_group", "_targetPos", ["_radius", 50, [0]]];
 LOG_1("combatAssault started _this: %1",_this);
 
 private _leader = leader _group;
@@ -138,6 +138,6 @@ private _assaultTaskPFH = [{
             _unit setSuppression 0;
         };
     };
-}, 4, [_group, _targetPos, _compradius]] call CBA_fnc_addPerFrameHandler;
+}, 4, [_group, _targetPos, _radius]] call CBA_fnc_addPerFrameHandler;
 
 SETVAR(_group,Task,"ASSAULT");

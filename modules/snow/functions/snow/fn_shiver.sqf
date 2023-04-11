@@ -9,7 +9,7 @@ if (CBA_missionTime >= GVAR(shiverCheckTime)) then {
 				playSound _this;
 				addCamShake [0.1,(5 + (random 10)) * 2,25];
 			}, _sound, 1] call CBA_fnc_waitAndExecute;
-			GVAR(shiverInterval) = 20 + (random 30);
+			GVAR(shiverInterval) = GVAR(shiverFrequency) + (random 30);
 			GVAR(shiverTimer) = 0;
 		} else {
 			GVAR(shiverTimer) = GVAR(shiverTimer) + 5;
