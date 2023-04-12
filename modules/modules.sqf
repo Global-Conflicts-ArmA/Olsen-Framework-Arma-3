@@ -34,7 +34,7 @@ Additional modules that can be enabled by removing the //
 //#include "call_mission\root.sqf"
 //#include "capture_zone\root.sqf"
 //#include "clicker\root.sqf"
-//#include "cover_map\root.sqf"
+#include "cover_map\root.sqf"
 //#include "cTab_settings\root.sqf"
 //#include "currency\root.sqf"
 //#include "cvc_check\root.sqf"

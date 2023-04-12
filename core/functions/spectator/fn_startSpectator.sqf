@@ -5,9 +5,8 @@ if (GETPLVAR(Spectating,false)) exitWith {};
 SETPLPVAR(Dead,true); //Tells the framework the player is dead
 SETPLPVAR(Spectating,true); //Player is now spectating
 SETMVAR(Spectating,true); //set local global var to spectating
-
-[(player), true] remoteExecCall ["hideObject", 0];
-[(player), true] remoteExecCall ["hideObjectGlobal", 2];
+[player, true] remoteExecCall ["hideObject", 0];
+[player, true] remoteExecCall ["hideObjectGlobal", 2];
 
 [player] call FUNC(freezeUnit);
 
