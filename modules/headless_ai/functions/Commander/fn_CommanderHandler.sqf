@@ -354,7 +354,7 @@ GVAR(CommanderHandlerPFH) = [{
                             case civilian: {"ColorYellow"};
                             default {"ColorBlack"};
                         };
-                        private _areaMarker = format ["report_area_%1",_targetGroup];
+                        _areaMarker = format ["report_area_%1",_targetGroup];
                         createMarker [_areaMarker, [0,0]];
                         _areaMarker setMarkerShapeLocal "ELLIPSE";
                         _areaMarker setMarkerBrushLocal "Border";
@@ -392,7 +392,7 @@ GVAR(CommanderHandlerPFH) = [{
                 _areaDistances sort true;
                 _nearestArea = _areaDistances select 0 select 1;
                 private _importance = _areaDistances select 0 select 2;
-                TRACE_3("nearestArea calc",_targetGroup,_nearestArea,_importance);
+                //TRACE_3("nearestArea calc",_targetGroup,_nearestArea,_importance);
                 // detemine effective threat level - threat equation
                 // threat level base (marker size calc) + importance of area zone (0 is highest)
                 private _size = switch _threatMarkerSize do {
@@ -400,7 +400,7 @@ GVAR(CommanderHandlerPFH) = [{
                     case "MEDIUM": {8};
                     default {3};
                 };
-                private _threatLevel = (_size select 0) + (10 - (_importance * 2));
+                private _threatLevel = _size + (10 - (_importance * 2));
                 TRACE_2("threat level calc",_targetGroup,_threatLevel);
                 // address with assets
 
