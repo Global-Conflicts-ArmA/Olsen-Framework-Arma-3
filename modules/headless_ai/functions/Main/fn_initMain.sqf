@@ -76,7 +76,7 @@ if ((GVAR(InitialRandomSpawnsCount) >= 1) && {(GVAR(InitialRandomSpawns) isNotEq
 		private _initialRandomSpawnsSelected = [];
 		for "_a" from 1 to (GETMVAR(InitialRandomSpawnsCount,1)) step 1 do {
 		    private _selected = selectRandomWeighted _initialRandomSpawns;
-			_initialRandomSpawnsSelected pushBack _selected;
+			_initialRandomSpawnsSelected pushBackUnique _selected;
 			_initialRandomSpawns - [_selected];
 		};
 		if (_initialRandomSpawnsSelected isNotEqualTo []) then {
