@@ -13,12 +13,44 @@
         [QGVAR(PlayerSpawned), player] call CBA_fnc_serverEvent;
 
 		["endMission", {
-			private _msg = "Mission ended by the admin";
-			if (count (_this select 0) > 0) then {
-				_msg = _msg + ": " + (_this select 0);
-			};
+            params [
+                ["_msg", "Mission ended by the admin", [""]]
+            ];
 			_msg remoteExecCall [QFUNC(EndMission), 2];
-		}, "admin"] call CBA_fnc_registerChatCommand;
+		}, "adminLogged"] call CBA_fnc_registerChatCommand;
+
+        ["timelimit", {
+            params [
+                ["_string", "", [""]]
+            ];
+            (_string splitString " ") params [
+                ["_command", "", [""]],
+                ["_arg", 0, [0, ""]]
+            ];
+            switch (_command) do {
+                case "check": {
+                    [QGVAR(TimelimitServer), ["check", player]] call CBA_fnc_serverEvent;
+                };
+                case "extend": {
+                    private _number = parseNumber _arg;
+                    if (_number > 0) then {
+                        [QGVAR(TimelimitServer), ["extend", player, _number]] call CBA_fnc_serverEvent;
+                    } else {
+                        ERROR_MSG_1("Cannot alter timelimit by 0!",_number);
+                    };
+                };
+                case "message": {
+                    if (_arg isEqualType "") then {
+                        [QGVAR(TimelimitServer), ["message", player, _arg]] call CBA_fnc_serverEvent;
+                    } else {
+                        ERROR_MSG_1("Cannot alter timelimit message with an invalid string!",_arg);
+                    };
+                };
+                default {
+                    ERROR_MSG_1("invalid chat input for timelimit command",_this);
+                };
+            };
+        }, "adminLogged"] call CBA_fnc_registerChatCommand;
 	};
 
 	//Various settings
