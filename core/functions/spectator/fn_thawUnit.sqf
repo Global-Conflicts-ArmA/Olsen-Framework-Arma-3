@@ -2,8 +2,8 @@
 #include "script_component.hpp"
 
 params [
-  ["_unit", objNull, [objnull]]
-  ];
+    ["_unit", objNull, [objnull]]
+];
 
 _unit setCaptive false;
 _unit allowDamage true;

@@ -26,11 +26,11 @@ if (GVAR(ArrayObjects) isNotEqualTo []) then {
             //private _logic = missionNamespace getVariable [_arrayName, objnull];
             private _logic = missionNamespace getVariable [_x, objNull];
 			if (isNull _logic) then {
-				LOG_1("Could not find arrayName %1",_arrayName);
+				ERROR_MSG_1("Could not find arrayName %1",_arrayName);
 		    } else {
 				private _synced = [_logic] call FUNC(getSynced);
 				if (_synced isEqualTo []) then {
-				    ERROR_1("Nothing Synced to %1",_logic);
+				    ERROR_MSG_1("Nothing Synced to %1",_logic);
 				} else {
 					LOG_2("synced count for %1: %2", _logic, count _synced);
 					private _entities = [_synced] call FUNC(getSyncedObjects);

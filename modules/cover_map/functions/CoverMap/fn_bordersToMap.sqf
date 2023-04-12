@@ -1,6 +1,13 @@
 #include "script_component.hpp"
 
-params ["_marker", ["_centered", true, [true]], ["_zoomlevel", 0.4, [0]], ["_name", "AO", [""]], ["_bgColour", "BH_checkLOS_colorNotVisible", [""]]];
+params [
+    "_marker",
+    ["_centered", true, [true]],
+    ["_zoomlevel", 0.4, [0]],
+    ["_name", "AO", [""]],
+    ["_bgColour", "BH_checkLOS_colorNotVisible", [""]],
+    ["_condition", true, [true, {}]]
+];
 
 //delete old markers if present
 if !(GVAR(map_cover) isEqualTo []) then {

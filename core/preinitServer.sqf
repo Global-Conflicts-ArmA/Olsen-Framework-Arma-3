@@ -24,6 +24,39 @@ GVAR(MissionEnded) = false; //Mission has not ended
 	[_unit, _killer] call FUNC(EventKilled);
 }] call CBA_fnc_addEventHandler;
 
+[QGVAR(increaseTeamTickets), {
+    params [
+        ["_side", sideEmpty, [sideEmpty]],
+        ["_ticketsChange", 0, [0]]
+    ];
+    if (_side isEqualTo sideEmpty) exitWith {
+        ERROR_2("Team ticket change invalid, side invalid",_side,_ticketsChange);
+    };
+    private _teamTicketVar = switch _side do {
+        case east: {
+            QGVAR(RespawnTickets_East)
+        };
+        case independent: {
+            QGVAR(RespawnTickets_Ind)
+        };
+        case civilian: {
+            QGVAR(RespawnTickets_Civ)
+        };
+        default {
+            QGVAR(RespawnTickets_West)
+        };
+    };
+    private _teamTickets = missionNamespace getVariable [_teamTicketVar, 0];
+    if (_ticketsChange isEqualTo 0) exitWith {
+        ERROR_2("Team ticket change invalid, cannot change by 0",_side,_ticketsChange);
+    };
+    TRACE_2("team tickets changed original",_side,_teamTickets);
+    TRACE_2("team tickets changed changed",_side,_ticketsChange);
+    private _ticketsNew = _teamTickets + _ticketsChange;
+    missionNamespace setVariable [_teamTicketVar, _ticketsNew];
+    TRACE_2("team tickets changed new",_side,_ticketsNew);
+}] call CBA_fnc_addEventHandler;
+
 [QGVAR(respawnEvent), {
     params [["_unit", objNull, [objNull]], ["_spectator", false, [false]]];
     LOG_2("respawnEvent started: %1 spectator: %2",_unit,_spectator);
@@ -86,9 +119,13 @@ GVAR(MissionEnded) = false; //Mission has not ended
     params [
         ["_unit", objNull, [objNull]],
         ["_side", west, [sideEmpty]],
+        ["_bypassTickets", false, [false]],
         ["_localTickets", 0, [0]]
     ];
     TRACE_2("eventCheckRespawnTickets started",_unit,_side);
+    if (_bypassTickets) exitWith {
+        [QGVAR(eventCheckRespawnTickets_Response), ["MANUAL_BYPASS"], _unit] call CBA_fnc_targetEvent;
+    };
     // First get appropriate variable names for unit side
     private _teamTicketVar = switch _side do {
         case east: {
@@ -258,6 +295,34 @@ if (isClass (missionConfigFile >> QGVAR(serverSettings) >> "Teams" >> "civilian"
     missionNamespace setVariable [_var, _co, true];
     TRACE_2("",_co,_requestingUnit);
     [QGVAR(responseCOEvent), [_co, _var], _requestingUnit] call CBA_fnc_targetEvent;
+}] call CBA_fnc_addEventHandler;
+
+[QGVAR(TimelimitServer), {
+    params [
+        ["_command", "check", [""]],
+        "_client",
+        ["_arg", 0, [0, ""]]
+    ];
+    switch (_command) do {
+        case "check": {
+            private _timeLimit = (GETMVAR(Timelimit,60));
+            [QGVAR(TimelimitClient), ["check", _timeLimit], _client] call CBA_fnc_targetEvent;
+        };
+        case "extend": {
+            if (_arg > 0) then {
+                private _newTimeLimit = ((GETMVAR(Timelimit,60)) + _arg);
+                SETMVAR(Timelimit,_newTimeLimit);
+                [QGVAR(TimelimitClient), ["extend", _newTimeLimit], _client] call CBA_fnc_targetEvent;
+            };
+        };
+        case "message": {
+            if (_arg isEqualType "") then {
+                SETMVAR(timeLimitMessage,_arg);
+                [QGVAR(TimelimitClient), ["message", _arg], _client] call CBA_fnc_targetEvent;
+            };
+        };
+        default {};
+    };
 }] call CBA_fnc_addEventHandler;
 
 GVAR(CurrentWaveUnlocked_West) = false;
