@@ -8,13 +8,15 @@
 
 #ifdef description_XEH_PreInit
 	class COMPONENT {
-		clientInit = "'' call compile preprocessFileLineNumbers 'modules\set_face\preInitClient.sqf'";
+        clientInit = "'' call compile preprocessFileLineNumbers 'modules\set_face\preInitClient.sqf'";
+		init = "'' call compile preprocessFileLineNumbers 'modules\set_face\preInitGlobal.sqf'";
 	};
 #endif
 
-#ifdef description_XEH_PostInit
+#ifdef description_XEH_Init_CAManBase
 	class COMPONENT {
-		clientInit = "'' call compile preprocessFileLineNumbers 'modules\set_face\postInitClient.sqf'";
+        onRespawn = true;
+		init = "_this call compile preprocessFileLineNumbers 'modules\set_face\initPost.sqf'";
 	};
 #endif
 
