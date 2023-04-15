@@ -21,22 +21,25 @@ params [
 ];
 
 if (GETVAR(_unit,Tracked,false)) then {
-	GVAR(Teams) apply {
-		_x params ["", "_side", "_type", "_total", "_current"];
+	private _team = GVAR(Teams) select {
+        _x params ["", "_side", "_type", "_total", "_current"];
+        (GETVAR(_unit,Side,sideUnknown)) isEqualTo _side &&
+        {
+            (_type == "both" || _type == "any") ||
+            {_type == "player" && {isPlayer _unit}} ||
+            {_type == "ai" && {!isPlayer _unit}}
+        }
+    };
+    if (_team isNotEqualTo []) then {
+        (_team select 0) params ["", "_side", "_type", "_total", "_current"];
 		if (
-				!(GETVAR(_unit,HasDied,false)) &&
-				{!(GETVAR(_unit,Dead,false))} &&
-				{(GETVAR(_unit,Side,sideUnknown)) isEqualTo _side} &&
-                {
-                    (_type == "both" || _type == "any") ||
-                    {_type == "player" && {isPlayer _unit}} ||
-                    {_type == "ai" && {!isPlayer _unit}}
-                }
+			!(GETVAR(_unit,HasDied,false)) &&
+			{!(GETVAR(_unit,Dead,false))}
 		) exitWith {
 			SETPVAR(_unit,HasDied,true);
             SETPVAR(_unit,Dead,true);
             SETPVAR(_unit,Tracked,false);
-			_x set [4, _current - 1];
+			(_team select 0) set [4, _current - 1];
 		};
-	};
+    };
 };

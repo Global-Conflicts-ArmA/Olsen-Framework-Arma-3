@@ -17,28 +17,33 @@
 
 params [
 	["_team", "", [""]],
-	["_type", "", [""]]
+	["_type", "", ["", 0]]
 ];
 
 if (_type isEqualTo "") exitWith {
 	ERROR_1("Critical:<br></br>type '%1' does not exist.", _type);
 };
 
-private _index = switch (toUpper _type) do {
-    case "SIDE": {1};
-    case "TYPE": {2};
-    case "TOTAL": {3};
-    case "CURRENT": {4};
-    default {-1};
+private _index = if (_type isEqualType "") then {
+    switch (toUpper _type) do {
+        case "SIDE": {1};
+        case "TYPE": {2};
+        case "TOTAL": {3};
+        case "CURRENT": {4};
+        default {-1};
+    };
+} else {
+    _type
 };
+
 
 if (_index isEqualTo -1) exitwith {
 	ERROR_1("Critical:<br></br>Data '%1' does not exist.", _type);
 };
 
-private _teamIndex = GVAR(Teams) findIF {
+private _teamIndex = GVAR(Teams) findIf {
 	_x params ["_name"];
-	((toUpper _name) isEqualTo (toUpper _team))
+	toUpper _name isEqualTo toUpper _team
 };
 
 if (_teamIndex isEqualTo -1) exitwith {
