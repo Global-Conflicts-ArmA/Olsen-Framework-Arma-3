@@ -18,6 +18,6 @@ SETMVAR(Spectating,false); //set local global var to spectating false
 [QGVAR(eventCheckRespawnTickets), [
     player,
     playerSide,
-    GVAR(RespawnTickets),
-    _bypassTeamTickets
+    _bypassTeamTickets,
+    GVAR(RespawnTickets)
 ]] call CBA_fnc_serverEvent;

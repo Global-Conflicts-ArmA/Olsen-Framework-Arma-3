@@ -59,6 +59,10 @@
 	enableSentences false; //Disable Arma 3 regular radio chatter
 	0 fadeRadio 0; //Lower radio volume to 0
 
+    if ((GETMVAR(initialLoadout,[])) isEqualTo []) then {
+        GVAR(initialLoadout) = getUnitLoadout player;
+    };
+
 	//Creates the briefing notes for the player
 	[] call FUNC(Briefing);
     SETPLVAR(BriefingSide,side player);
