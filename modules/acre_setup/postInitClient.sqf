@@ -86,10 +86,12 @@ GVAR(ACRE_Presets) = ["default2", "default3", "default4", "default"];
 				["_spatial", "CENTER"]
 			];
 			private _radioID = [_radio] call acre_api_fnc_getRadioByType;
-			if (!isNil "_radioID") then {
-				[_radioID, _channel] call acre_api_fnc_setRadioChannel;
+			if (isNil "_radioID") then {
+				ERROR_2("unit does not have radio that acre module is trying to set!",_unit,_radio);
+			} else {
+                [_radioID, _channel] call acre_api_fnc_setRadioChannel;
 				[_radioID, _spatial] call acre_api_fnc_setRadioSpatial;
-			};
+            };
 		};
 	}, []] call CBA_fnc_waitUntilAndExecute;
 }, []] call CBA_fnc_waitUntilAndExecute;
