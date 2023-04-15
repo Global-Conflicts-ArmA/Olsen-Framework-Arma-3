@@ -22,7 +22,8 @@ if (
     !isNull _unit &&
     {isPlayer _unit ||
     {!(GETVAR(_unit,DontTrack,false))}} &&
-    {!(GETVAR(_unit,Tracked,false))}
+    {!(GETVAR(_unit,Tracked,false))} &&
+    {_unit call FUNC(isAlive)}
 ) then {
     SETPVAR(_unit,Tracked,true);
     SETPVAR(_unit,HasDied,false); //we will use this variable to make sure killed eventHandler doesn't fire twice
@@ -31,17 +32,16 @@ if (
         if (
 			((GETVAR(_unit,Side,sideUnknown)) isEqualto _side) &&
 			{
-                (isPlayer _unit && {_type != "ai"}) ||
-                {!isPlayer _unit && {_type == "ai"}}
+                (_type == "both" || _type == "any") ||
+                {_type == "player" && {isPlayer _unit}} ||
+                {_type == "ai" && {!isPlayer _unit}}
             }
 		) exitWith {
-            if (_unit call FUNC(isAlive)) then {
-                private _newCurrent = _current + 1;
-                private _newTotal = _total + 1;
-                TRACE_3("Setting new alive count",_unit,_newTotal,_newCurrent);
-                _x set [3, _newTotal];
-                _x set [4, _newCurrent];
-            };
+            private _newCurrent = _current + 1;
+            private _newTotal = _total + 1;
+            TRACE_3("Setting new alive count",_unit,_newTotal,_newCurrent);
+            _x set [3, _newTotal];
+            _x set [4, _newCurrent];
         };
     };
 };

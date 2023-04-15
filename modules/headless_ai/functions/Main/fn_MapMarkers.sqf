@@ -142,7 +142,7 @@ GVAR(GroupMarkersPFH) = [{
                 };
             };
             if (_usetarget) then {
-                if (_target isEqualTo objNull) then {
+                if (_target isEqualTo objNull || _target isEqualTo "NONE") then {
                     if (_targetMarker isNotEqualTo "") then {
                         deletemarker _targetMarker;
                         _targetMarker = "";
