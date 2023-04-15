@@ -156,8 +156,7 @@ FUNC(eg_keyHandler2) = {
             case west: {"fw_west_respawn"};
             case east: {"fw_east_respawn"};
             case independent: {"fw_ind_respawn"};
-            case civilian: {"fw_civ_respawn"};
-            default {""};
+            default {"fw_civ_respawn"};
         };
     	private _respawnPoint = missionNamespace getVariable [_respawnName, objNull];
         if (_respawnPoint isNotEqualTo objnull) then {

@@ -23,7 +23,7 @@ private _playerBriefing = switch (side player) do {
 	case west: {_westBriefing};
 	case east: {_eastBriefing};
 	case independent: {_indBriefing};
-	case civilian: {_civBriefing};
+	default {_civBriefing};
 };
 
 private _briefing = [];

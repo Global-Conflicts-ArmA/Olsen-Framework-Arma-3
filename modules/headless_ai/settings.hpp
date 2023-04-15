@@ -31,14 +31,17 @@ useMarkers = true;
 AIViewDistance = 2500;
 // value between 3.125 and 50, the lower the more terrain detail
 AITerrainDetail = 3.125;
-// Forces Time on the HC to simulate better AI at night [HOUR,MINUTE]
-forceTimeEnable = true;
+/* Forces Time on the HC to simulate better AI at night [HOUR,MINUTE]
+This setting should only be used to either increase AI sighting ability at night or to make the AI slower to detect in the day time
+There is no need to enable this setting if you are in the day time and want the AI to react as if it is the day time, likewise if it is night and you want the typical
+night behaviour. forceTime is the time in hour, then minute. */
+forceTimeEnable = false;
 forceTime[] = {12,00};
 
 // AI system options
 feature = true;
 enemyUpdateFrequency = 5;
-stateMachineFrames = 2;
+stateMachineFrames = 1;
 //attempts to find a better safe area for a vehicle to spawn in. Should only be used when neccessary.
 saferVehSpawning = false;
 
