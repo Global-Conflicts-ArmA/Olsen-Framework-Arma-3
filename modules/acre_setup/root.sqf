@@ -1,21 +1,26 @@
+#include "script_component.hpp"
+
 #ifdef description_XEH_PreInit
-	class ACRES {
+	class COMPONENT {
 		clientInit = "'' call compile preprocessFileLineNumbers 'modules\acre_setup\preInitClient.sqf'";
 	};
 #endif
 
 #ifdef description_XEH_PostInit
-	class ACRES {
+	class COMPONENT {
 		serverInit = "'' call compile preprocessFileLineNumbers 'modules\acre_setup\postInitServer.sqf'";
 	};
 #endif
 
 #ifdef description_XEH_InitPost_CAManBase
-	class ACRES {
+	class COMPONENT {
+        onRespawn = true;
 		clientInit = "_this call compile preprocessFileLineNumbers 'modules\acre_setup\postInitClient.sqf'";
 	};
 #endif
 
-#ifdef description_functions
+#ifdef description_external_functions
 	#include "functions\CfgFunctions.hpp"
 #endif
+
+#undef COMPONENT

@@ -1,5 +1,5 @@
-#include "..\..\core\script_macros.hpp"
+#include "script_component.hpp"
 
-private _version = 0.2;
+private _version = 0.3;
 
-["ACRE setup", "Module for all ACRE settings.", "BlackHawk &amp; StatusRed", _version] call FUNC(RegisterModule);
+["ACRE setup", "Module for all ACRE settings.", "BlackHawk, StatusRed &amp; PiZZADOX", _version] call FUNC(RegisterModule);
