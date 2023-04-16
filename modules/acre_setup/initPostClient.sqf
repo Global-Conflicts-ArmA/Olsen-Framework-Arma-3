@@ -3,7 +3,7 @@
 
 params ["_unit"];
 
-if (!hasInterface) exitWith {};
+if (!hasInterface || !local _unit) exitWith {};
 if (GETVAR(_unit,Spectating,false)) exitWith {}; // If the unit is spectating, don't run this, it will overwrite their access to all languages
 LOG_1("Running ACRE setup for %1", _unit);
 
@@ -20,14 +20,13 @@ GVAR(ACRE_Presets) = ["default2", "default3", "default4", "default"];
 	if ((abs GVAR(ACRE_Volume_Value)) > 2) then {
 	  GVAR(ACRE_Volume_Value) = 0;
 	};
-	private _v = 0.7;
-	switch (GVAR(ACRE_Volume_Value)) do {
-		case -2: {_v = 0.1;};
-		case -1: {_v = 0.2;};
-		case 0: {_v = 0.4;};
-		case 1: {_v = 0.7;};
-		case 2: {_v = 1.0;};
-		default {_v = 0.4;};
+	private _v = switch (GVAR(ACRE_Volume_Value)) do {
+		case -2: {0.1};
+		case -1: {0.2};
+		case 0: {0.4};
+		case 1: {0.7};
+		case 2: {1.0};
+		default {0.4};
 	};
 	[_v] call acre_api_fnc_setSelectableVoiceCurve;
 	acre_sys_gui_VolumeControl_Level = GVAR(ACRE_Volume_Value);
@@ -38,18 +37,10 @@ GVAR(ACRE_Presets) = ["default2", "default3", "default4", "default"];
 	}, [], _volumeDelay] call CBA_fnc_waitAndExecute;
 
 	private _side_i = switch (_side) do {
-		case west: {
-			0
-		};
-		case east: {
-            1
-		};
-		case independent: {
-			2
-		};
-		default {
-			3
-		};
+		case west: {0};
+		case east: {1};
+		case independent: {2};
+		default {3};
 	};
 
 	if (GVAR(ACRE_Enable_Scramble)) then {

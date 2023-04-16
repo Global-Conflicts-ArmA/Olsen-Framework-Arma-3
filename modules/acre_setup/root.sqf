@@ -15,7 +15,7 @@
 #ifdef description_XEH_InitPost_CAManBase
 	class COMPONENT {
         onRespawn = true;
-		clientInit = "_this call compile preprocessFileLineNumbers 'modules\acre_setup\postInitClient.sqf'";
+		clientInit = "_this call compile preprocessFileLineNumbers 'modules\acre_setup\initPostClient.sqf'";
 	};
 #endif
 
