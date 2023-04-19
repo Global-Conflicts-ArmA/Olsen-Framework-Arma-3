@@ -3,7 +3,8 @@
 
 params ["_unit"];
 
-if (!hasInterface || !local _unit) exitWith {};
+TRACE_2("locality checks for ACRE initPost XEH",local _unit, player != _unit);
+if (!hasInterface || !local _unit || player != _unit) exitWith {};
 if (GETVAR(_unit,Spectating,false)) exitWith {}; // If the unit is spectating, don't run this, it will overwrite their access to all languages
 LOG_1("Running ACRE setup for %1", _unit);
 
@@ -68,8 +69,11 @@ GVAR(ACRE_Presets) = ["default2", "default3", "default4", "default"];
 	};
 
 	[{[] call acre_api_fnc_isInitialized}, {
+        params [["_unit", objNull, [objNull]]];
+        TRACE_2("locality check for ACRE waitUntil",(local _unit),(player != _unit));
+        if (!local _unit || player != _unit) exitWith {};
 		private _channels = player getVariable ["ACRE_Channels", []];
-
+        if (player getVariable ["ACRE_Channels", []] isEqualTo []) exitWith {};
 		_channels apply {
 			_x params [
 				["_radio", ""],
@@ -84,5 +88,5 @@ GVAR(ACRE_Presets) = ["default2", "default3", "default4", "default"];
 				[_radioID, _spatial] call acre_api_fnc_setRadioSpatial;
             };
 		};
-	}, []] call CBA_fnc_waitUntilAndExecute;
+	}, [_unit]] call CBA_fnc_waitUntilAndExecute;
 }, []] call CBA_fnc_waitUntilAndExecute;
