@@ -3,7 +3,7 @@
 
 params [["_unit", objNull, [objNull]]];
 
-if !(hasInterface) exitWith {};
+if (!hasInterface || !local _unit) exitWith {};
 if (GETVAR(_unit,Spectating,false)) exitWith {}; // If the unit is spectating, don't run this, it will overwrite their access to all languages
 
 GVAR(ACRE_Presets) = ["default2", "default3", "default4", "default"];
