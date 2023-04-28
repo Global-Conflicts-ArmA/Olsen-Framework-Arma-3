@@ -11,13 +11,9 @@ private _emptyVehs = [];
 private _objects = [];
 private _vehLog = [];
 private _entities = [];
-if (isNil QGVAR(allSyncedEntities)) then {
-    GVAR(allSyncedEntities) = _uniqueSynced;
-} else {
-    GVAR(allSyncedEntities) = GVAR(allSyncedEntities) + _uniqueSynced;
-};
 _uniqueSynced apply {
     private _obj =  _x;
+    ESETVAR(_obj,FW,DontTrack,true);
     if (_obj isKindOf "Logic") then {
     } else {
         if (_obj isKindOf "Thing") then {

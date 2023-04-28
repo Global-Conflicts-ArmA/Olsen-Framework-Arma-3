@@ -9,7 +9,10 @@ GVAR(MissionEnded) = false; //Mission has not ended
 [QGVAR(spawnedEvent), {
     params ["_unit"];
     TRACE_1("spawned Event",_unit);
-	_unit call FUNC(eventSpawned);
+    [{CBA_missionTime > 3}, {
+    	params ["_unit"];
+        _unit call FUNC(eventSpawned);
+    }, [_unit]] call CBA_fnc_waitUntilAndExecute;
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(untrackEvent), {

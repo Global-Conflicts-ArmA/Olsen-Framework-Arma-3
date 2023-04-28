@@ -147,7 +147,12 @@ FUNC(eg_keyHandler2) = {
 	private _loadout = (player getVariable [QGVAR(Loadout), ""]);
 	if (_loadout isNotEqualTo "") then {
 		[player, _loadout] call FUNC(GearScript);
-	};
+	} else {
+        _loadout = GETMVAR(initialLoadout,[]);
+        if (_loadout isNotEqualTo []) then {
+            player setUnitLoadout _loadout;
+        };
+    };
     private _customRespawn = missionNamespace getVariable [QGVAR(CustomRespawnPoint), [0,0,0]];
     if (_customRespawn isNotEqualTo [0,0,0]) then {
         player setPosATL _customRespawn;

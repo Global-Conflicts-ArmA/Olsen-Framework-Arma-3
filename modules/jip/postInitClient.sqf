@@ -127,7 +127,7 @@ switch (missionNamespace getVariable [_typeVar, "TELEPORT"]) do {
             _args params ["_spawnDistance"];
             [_target,_args] call FUNC(Teleport);
         }, {((player distance ((_this select 2 ) select 1)) < ((_this select 2 ) select 0))}, {}, [_spawnDistance, _spawnLoc]] call ace_interact_menu_fnc_createAction;
-        [player, 1, ["ACE_SelfActions"], [_teleportAction]] call ace_interact_menu_fnc_addActionToObject;
+        [player, 1, ["ACE_SelfActions"], _teleportAction] call ace_interact_menu_fnc_addActionToObject;
         [{
             params ["_args","_idPFH"];
             _args params ["_spawnDistance", "_spawnLoc"];

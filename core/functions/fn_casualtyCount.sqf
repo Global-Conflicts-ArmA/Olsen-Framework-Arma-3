@@ -17,8 +17,8 @@
 params ["_team"];
 
 //IGNORE_PRIVATE_WARNING ["_start", "_current", "_team"];
-GETTEAMVAR(_start,_team,"TOTAL");
-GETTEAMVAR(_current,_team,"CURRENT");
+GETTEAMVAR(_start,_team,3);
+GETTEAMVAR(_current,_team,4);
 
 private _count = 0;
 

@@ -26,4 +26,4 @@ if (GVAR(RespawnTickets) isEqualTo 0) exitWith {
 };
 // individual tickets active, send event with unit, side, and local tickers to see if player can respawn
 TRACE_3("eventCheckRespawnTickets called",_unit, side _unit, GVAR(RespawnTickets));
-[QGVAR(eventCheckRespawnTickets), [_unit, side _unit, GVAR(RespawnTickets)]] call CBA_fnc_serverEvent;
+[QGVAR(eventCheckRespawnTickets), [_unit, side _unit, false, GVAR(RespawnTickets)]] call CBA_fnc_serverEvent;
