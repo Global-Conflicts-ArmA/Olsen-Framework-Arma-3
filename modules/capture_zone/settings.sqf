@@ -24,11 +24,14 @@ if (missionNamespace getVariable ["captureZone1", sideEmpty] isEqualTo west) exi
         ],
         [east, 30, 1]
     ],
-    "REPEAT", /* mode the capture zone operates in.
+    "REPEAT", /* mode the capture zone operates in. (default REPEAT, optional)
             HOLD means a team must have eligble units inside a zone or it will default back to uncontested. It can be recaptured.
             ONCE means it will start controlled or uncontrolled, depending on starting units, then can only be captured once.
             REPEAT means it will start controlled or uncontrolled, depending on starting units, then can be recaptured.
             */
-    false, // Whether to only count players as eligble units
-    5 // Interval to check capture zone in seconds
+    false, // Whether to only count players as eligble units (default false, optional)
+    5, // Interval to check capture zone in seconds (default 5 seconds, optional)
+    50, // Percentage of time of the time needed to capture for the team colour to start fading in from grey (default 50%, optional)
+    ["Blufor is capturing the zone", "Opfor is capturing the zone", "Resistance is capturing the zone", "Civilian is capturing the zone", "The zone is contested", "The zone is uncontested"], // Custom messages, Todo: implment custom messages alongside custom FW team names
+    ["ColorBlue", "ColorRed", "ColorGreen", "ColorYellow", "ColorWhite", "ColorKhaki"] // Custom team and uncontested values for colours, optional
 ] call FUNC(setCaptureZone);
