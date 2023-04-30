@@ -176,8 +176,7 @@ if (_interval < 5) then {
         } else {
             //visually show objective "capturing" for a side - change colour & alpha if team is over 50% the capture time
             private _levelOfControl = _timeDelta / _timeNeeded;
-            private _controlRatio = _colourChangePercent / 100;
-            if (_levelOfControl > _controlRatio) then {
+            if (_colourChangePercent isEqualTo -1 || _levelOfControl >= (_colourChangePercent / 100)) then {
                 private _colour = switch _controlSide do {
                     case blufor: {_bluforColour};
                     case opfor: {_opforColour};
