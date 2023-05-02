@@ -112,6 +112,14 @@ GVAR(map_currentAO) = "";
         ["_bgColour", "ColorBlack", [""]],
         ["_condition", true, [true, {}]]
     ];
+    [
+        GVAR(DefaultAO),
+        _isCentered,
+        _zoomLevel,
+        _name,
+        _bgColour,
+        _condition
+    ] call FUNC(bordersToMap);
     if (_isCentered) then {
         ((uiNamespace getVariable "RscDiary") displayCtrl 51) ctrlMapAnimAdd [0, _zoomlevel, getMarkerPos GVAR(DefaultAO)];
         ctrlMapAnimCommit ((uiNamespace getVariable "RscDiary") displayCtrl 51);
@@ -125,14 +133,6 @@ GVAR(map_currentAO) = "";
             ["_bgColour", "ColorBlack", [""]],
             ["_condition", true, [true, {}]]
         ];
-        [
-            GVAR(DefaultAO),
-            _isCentered,
-            _zoomLevel,
-            _name,
-            _bgColour,
-            _condition
-        ] call FUNC(bordersToMap);
         if (_isCentered) then {
             MapAnimAdd [0, _zoomlevel, getMarkerPos GVAR(DefaultAO)];
             MapAnimCommit;
