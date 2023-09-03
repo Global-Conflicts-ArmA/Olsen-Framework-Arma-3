@@ -19,6 +19,9 @@ Soft Ending the Mission
     [<MISSION END MESSAGE: STRING>, <MISSION END WARN MESSAGE: STRING | OPTIONAL>, <TIME TO WAIT: NUMBER | OPTIONAL>] call FUNC(SoftEndMission);
     eg. ["USMC VICTORY<br />VDV has retreated due to casualties.", "USMC VICTORY", 30] call FUNC(SoftEndMission);
 
+    If you want the mission to only display the end mission, and for it only to end when a GM calls it, set the time to wait to -1
+    eg. ["USMC VICTORY<br />VDV has retreated due to casualties.", "USMC VICTORY", -1] call FUNC(SoftEndMission);
+
 Alternative methods of counting casualties
 
 	"USMC" call FUNC(casualtyCount);
