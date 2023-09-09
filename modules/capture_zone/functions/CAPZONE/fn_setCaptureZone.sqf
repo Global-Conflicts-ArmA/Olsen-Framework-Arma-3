@@ -8,6 +8,7 @@ params [
     ["_mode", "HOLD", [""]],
     ["_playerOnly", false, [false]],
     ["_interval", 5, [0]],
+    ["_colourChangePercent", 50, [50]],
     ["_messages", ["Blufor is capturing the zone", "Opfor is capturing the zone", "Resistance is capturing the zone", "Civilian is capturing the zone", "The zone is contested", "The zone is uncontested"], [[]]],
     ["_colours", ["ColorBlue", "ColorRed", "ColorGreen", "ColorYellow", "ColorWhite", "ColorKhaki"], [[]]]
 ];
@@ -48,11 +49,12 @@ if (_interval < 5) then {
     /*3*/ ["_sides", [], [[]]],
     /*4*/ ["_mode", "HOLD", [""]],
     /*5*/ ["_playerOnly", false, [false]],
-    /*6*/ ["_messages", [], [[]]],
-    /*7*/ ["_colours", [], [[]]],
-    /*8*/ ["_timer", CBA_missionTime, [0]],
-    /*9*/ ["_oldOwner", sideEmpty, [sideEmpty]],
-   /*10*/ ["_firstRun", true, [true]]
+    /*6*/ ["_colourChangePercent", 50, [50]],
+    /*7*/ ["_messages", [], [[]]],
+    /*8*/ ["_colours", [], [[]]],
+    /*9*/ ["_timer", CBA_missionTime, [0]],
+    /*10*/ ["_oldOwner", sideEmpty, [sideEmpty]],
+   /*11*/ ["_firstRun", true, [true]]
     ];
 
     TRACE_3("",_marker,_timer,_oldOwner);
@@ -117,14 +119,14 @@ if (_interval < 5) then {
             case opfor: {_opforColour};
             case independent: {_indforColour};
             case civilian: {_civColour};
-            default {_conColour};
+            default {_unconColour};
         };
         _marker setMarkerColorLocal _colour;
         _marker setMarkerBrush "SolidBorder";
         _firstRun = false;
-        _args set [10, _firstRun];
+        _args set [11, _firstRun];
         _oldOwner = _controlSide;
-        _args set [9, _oldOwner];
+        _args set [10, _oldOwner];
         missionNamespace setVariable [_zoneVar, _controlSide, true];
     };
 
@@ -135,15 +137,7 @@ if (_interval < 5) then {
         private _timeNeeded = if (_controlSide isEqualTo sideEmpty) then {
             30
         } else {
-            private _return = _sides apply {
-                _x params [
-                    ["_side", blufor, [sideEmpty]],
-                    ["_timeNeeded", 300, [0]],
-                    ["_ratio", 1, [1]]
-                ];
-                if (_side isEqualTo _controlSide) exitWith {_timeNeeded};
-            };
-            _return
+            _sides select {_x select 0 isEqualTo _controlSide} select 0 select 1
         };
         TRACE_3("",_controlSide,_timeNeeded,_timeDelta);
         if (_timeDelta > _timeNeeded) then {
@@ -182,7 +176,7 @@ if (_interval < 5) then {
         } else {
             //visually show objective "capturing" for a side - change colour & alpha if team is over 50% the capture time
             private _levelOfControl = _timeDelta / _timeNeeded;
-            if (_levelOfControl > 0.5) then {
+            if (_colourChangePercent isEqualTo -1 || _levelOfControl >= (_colourChangePercent / 100)) then {
                 private _colour = switch _controlSide do {
                     case blufor: {_bluforColour};
                     case opfor: {_opforColour};
@@ -202,7 +196,7 @@ if (_interval < 5) then {
         _marker setMarkerAlphaLocal 0.8;
         _marker setMarkerBrush "Solid";
         _timer = CBA_missionTime;
-        _args set [8, _timer];
+        _args set [9, _timer];
         TRACE_2("Started Contesting",_controlSide,_timer);
         // For HOLD mode, teams must continue to hold objective or else it will default back to uncontested
         if (_controlSide isEqualTo sideEmpty) then {
@@ -230,7 +224,7 @@ if (_interval < 5) then {
             };
         };
         _oldOwner = _controlSide;
-        _args set [9, _oldOwner];
+        _args set [10, _oldOwner];
         missionNamespace setVariable [_zoneVar, sideEmpty, true];
     };
 }, _interval,
@@ -241,6 +235,7 @@ if (_interval < 5) then {
         _sides,
         _mode,
         _playerOnly,
+        _colourChangePercent,
         _messages,
         _colours
     ]
