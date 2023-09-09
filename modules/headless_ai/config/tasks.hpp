@@ -1,39 +1,34 @@
-class Assault {
-    function = QFUNC(taskAssault);
-    isMove = true;
-    needsPos = true;
-};
-class Attack {
-    function = QFUNC(taskAttack);
-    isMove = true;
-    needsPos = true;
-};
-class Bunker {
-    function = QFUNC(taskBunker);
-    isMove = false;
-    needsPos = true;
-};
-class Defend {
-    function = QFUNC(taskDefend);
-    isMove = false;
-    needsPos = true;
-};
-class Garrison {
-    isMove = QFUNC(taskGarrison);
-    isMove = false;
-    needsPos = true;
-};
+// basic move task
 class Move {
     isMove = true;
     needsPos = true;
 };
-class Patrol {
-    function = QFUNC(taskPatrol);
-    isMove = true;
+class Attack: Move {
+    function = QFUNC(taskAttack);
+};
+class Assault: Attack {
+    function = QFUNC(taskAssault);
+};
+// basic bunker task
+class Bunker: Move {
+    function = QFUNC(taskBunker);
+    isMove = false;
+};
+// basic defend task
+class Defend: Move {
+    function = QFUNC(taskDefend);
+    isMove = false;
+};
+class Garrison: Defend {
+    function = QFUNC(taskGarrison);
+    needsPos = true;
+};
+class Stationary: Defend {
+    function = QFUNC(taskStationary);
     needsPos = false;
 };
-class Stationary {
-    function = QFUNC(taskStationary);
-    isMove = false;
+// basic patrol task
+class Patrol: Move {
+    function = QFUNC(taskPatrol);
     needsPos = false;
 };
