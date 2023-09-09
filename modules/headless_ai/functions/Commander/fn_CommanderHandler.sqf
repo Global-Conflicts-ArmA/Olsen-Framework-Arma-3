@@ -11,23 +11,35 @@ GVAR(CommanderHandlerPFH) = [{
         private _group = _x;
         private _assetType = GETVAR(_group,assetType,"NONE");
         if (_assetType isEqualTo "NONE") then {
-            _assetType = "Infantry";
+            _assetType = "INFANTRY";
         };
         private _areaAssigned = GETVAR(_group,areaAssigned,"NONE");
-        if (_areaAssigned isEqualTo "NONE") then {
+        if (_areaAssigned isNotEqualTo "NONE") then {
+            private _index = GVAR(CommanderAreasParsed) findIf {
+                private _namespace = missionNamespace getVariable _x;
+                private _marker = GETVAR(_namespace,marker,"");
+                _areaAssigned isEqualTo _marker
+            };
+            if (_index isEqualTo -1) then {
+                ERROR_2("Group %1 assigned to a null area with value %2",_group,_areaAssigned);
+            } else {
+                private _namespace = missionNamespace getVariable (GVAR(CommanderAreasParsed) select _index);
+                LOG_2("Sending group %1 to area %2",_group,_areaAssigned);
+                [_group,_namespace] call FUNC(assignToArea);
+            };
+        } else {
             //check zones for assignments
             private _assigned = false;
+            private _inAreaIndex = GVAR(CommanderAreasParsed) findIf {
+                private _namespace = missionNamespace getVariable _x;
+                private _marker = GETVAR(_namespace,marker,"");
+                leader _group inArea _marker
+            };
             if (
                 (GETMVAR(CommanderAssignStartZone,false)) &&
-                {
-                    GVAR(CommanderAreasParsed) findIf {
-                        private _namespace = missionNamespace getVariable _x;
-                        private _marker = GETVAR(_namespace,marker,"");
-                        leader _group inArea _marker
-                    } isNotEqualTo -1
-                }
+                {_inAreaIndex isNotEqualTo -1}
             ) then {
-                private _namespace = missionNamespace getVariable (GVAR(CommanderAreasParsed) select _index);
+                private _namespace = missionNamespace getVariable (GVAR(CommanderAreasParsed) select _inAreaIndex);
                 private _displayName = GETVAR(_namespace,displayName,"");
                 private _max = GETVAR(_namespace,max,10);
                 private _assignedAssets = GETVAR(_namespace,assignedAssets,[]);
@@ -113,7 +125,6 @@ GVAR(CommanderHandlerPFH) = [{
                 };
             };
         };
-
     } forEach GVAR(CommanderAssets);
     // Handle Areas
     {

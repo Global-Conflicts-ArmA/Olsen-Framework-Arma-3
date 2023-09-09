@@ -1,5 +1,5 @@
 // AI commander options -WIP
-feature = false;
+feature = true;
 debug = true;
 side = "east";
 //"Random" "Aggressive" "Defensive" "Guerilla"

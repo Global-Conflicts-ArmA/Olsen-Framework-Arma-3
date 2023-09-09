@@ -1,11 +1,9 @@
 #include "script_component.hpp"
 
-
 params [
     "_group",
     "_namespace"
 ];
-
 
 //private _position = GETVAR(_group,position,getposATL leader _group);
 //private _hasRadio = (_group call FUNC(hasRadioGroup)) select 0;
