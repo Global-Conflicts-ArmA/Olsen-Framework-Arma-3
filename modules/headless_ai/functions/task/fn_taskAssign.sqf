@@ -16,9 +16,8 @@ params [
 private _taskSet = [_group,_pos,_radius,_wait,_behaviour,_combat,_speed,_formation];
 
 _task = toUpper _task;
-private _defaultTask = ["PATROL", "STATIONARY"] select (INVEHICLE(leader _group));
 if (_task isEqualTo "NONE") then {
-    _task = _defaultTask;
+    _task = ["PATROL", "STATIONARY"] select (INVEHICLE(leader _group));
     LOG_2("group:%1 defaulted to task: %2,",_group,_task);
 };
 LOG_2("group:%1 set to task: %2,",_group,_task);

@@ -5,7 +5,7 @@ params ["_group", "_groupcaller", "_distanceToCaller", "_reportedLocation", "_ti
 private _return = false;
 private _lastReinforcmentTime = GETVAR(_group,lastReinforcmentTime,-120);
 private _task = GETVAR(_group,task,"Patrol");
-private _assetType = GETVAR(_group,assetType,"Infantry");
+private _assetType = GETVAR(_group,assetType,"INFANTRY");
 private _knownEnemy = (_nearbyEnemy isNotEqualTo []);
 //if (GETMVAR(CommanderEnabled,false)) then {
 //    private _areaAssigned = GETVAR(_group,areaAssigned,"NONE");
@@ -52,8 +52,8 @@ private _knownEnemy = (_nearbyEnemy isNotEqualTo []);
     };
     if (
         _enemyHasArmored &&
-        {_assetType in ["Motorized"] ||
-        {_assetType in ["Snipers", "Infantry"]}//&&
+        {_assetType in ["MOTORIZED"] ||
+        {_assetType in ["SNIPERS", "INFANTRY"]}//&&
         //{!(_group call FUNC(hasAT))}}
         }
     ) exitwith {

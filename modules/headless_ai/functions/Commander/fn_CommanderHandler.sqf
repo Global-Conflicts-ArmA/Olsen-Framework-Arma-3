@@ -24,8 +24,11 @@ GVAR(CommanderHandlerPFH) = [{
                 ERROR_2("Group %1 assigned to a null area with value %2",_group,_areaAssigned);
             } else {
                 private _namespace = missionNamespace getVariable (GVAR(CommanderAreasParsed) select _index);
-                LOG_2("Sending group %1 to area %2",_group,_areaAssigned);
-                [_group,_namespace] call FUNC(assignToArea);
+                private _assetsAssigned = GETVAR(_namespace,assignedAssets,[]);
+                if !(_group in _assetsAssigned) then {
+                    LOG_2("Sending group %1 to area %2",_group,_areaAssigned);
+                    [_group,_namespace] call FUNC(assignToArea);
+                };
             };
         } else {
             //check zones for assignments

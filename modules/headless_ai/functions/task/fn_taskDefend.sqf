@@ -16,7 +16,7 @@ if (_buildings isNotEqualTo []) then {
     [_group, _pos, _radius] call FUNC(combatGarrison);
 } else {
     SETVAR(_group,Task,"DEFEND");
-    [_group] call FUNC(combatDefend);
+    [_group] call FUNC(combatPatrol);
 };
 
 [_group] call FUNC(taskRelease);
