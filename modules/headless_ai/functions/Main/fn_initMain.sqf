@@ -34,9 +34,9 @@ if (GVAR(stanceFeature)) then {
     	[] call FUNC(CommanderInit);
     };
 	[] call FUNC(GroupHandler);
-    if (GETMVAR(UseMarkers,false)) then {
-        [] call FUNC(MapMarkers);
-    };
+    //if (GETMVAR(UseMarkers,false)) then {
+    //    [] call FUNC(MapMarkers);
+    //};
 }, []] call CBA_fnc_execNextFrame;
 
 //Spawns initial HC arrays

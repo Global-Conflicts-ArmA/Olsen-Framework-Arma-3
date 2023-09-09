@@ -5,16 +5,7 @@ GVAR(GroupMarkersPFH) = [{
         private _key = _x;
         _y params [
             /*1*/ "_group",
-            /*2*/ "_side",
-            /*3*/ "_leader",
-            /*4*/ "_groupcount",
-            /*5*/ "_task",
-            /*6*/ "_behaviour",
-            /*7*/ "_target",
-            /*8*/ "_position",
-            /*9*/ "_areaAssigned",
-           /*10*/ "_assetType",
-           /*11*/ ["_usedMarkers", [], [[]]]
+            /*2*/ ["_usedMarkers", [], [[]]]
         ];
         if (
             _group isEqualTo grpNull ||
@@ -29,6 +20,17 @@ GVAR(GroupMarkersPFH) = [{
                 };
             };
         } else {
+            private _units = units _group;
+            private _aliveUnits = _units select {alive _x};
+            private _leader = leader _group;
+            private _side = side _leader;
+            private _task = GETVAR(_group,Task,"NONE");
+            private _position = getposATL _leader;
+            private _areaAssigned = GETVAR(_group,areaAssigned,"NONE");
+            private _assetType = GETVAR(_group,assetType,"INFANTRY");
+            private _groupcount = count _aliveUnits;
+            private _behaviour = behaviour _leader;
+            private _target = GETVAR(_group,CurrentTarget,objNull);
             _usedMarkers params [
                 ["_tracker", "", [""]],
                 ["_dest", "", [""]],
@@ -140,6 +142,13 @@ GVAR(GroupMarkersPFH) = [{
                         _destline setMarkerPos _center;
                     };
                 };
+            } else {
+                if (_dest isNotEqualTo "") then {
+                    deletemarker _dest;
+                    deletemarker _destline;
+                    _dest = "";
+                    _destline = "";
+                };
             };
             if (_usetarget) then {
                 if (_target isEqualTo objNull || _target isEqualTo "NONE") then {
@@ -174,16 +183,7 @@ GVAR(GroupMarkersPFH) = [{
             ];
             GVAR(markerTrackedGroups) set [_key, [
                 /*1*/ _group,
-                /*2*/ _side,
-                /*3*/ _leader,
-                /*4*/ _groupcount,
-                /*5*/ _task,
-                /*6*/ _behaviour,
-                /*7*/ _target,
-                /*8*/ _position,
-                /*9*/ _areaAssigned,
-               /*10*/ _assetType,
-               /*11*/ _usedMarkers
+                /*2*/ _usedMarkers
             ]]
         }
     } forEach GVAR(markerTrackedGroups);

@@ -30,8 +30,17 @@ private _areaAssignedAssets = GETVAR(_namespace,assignedAssets,[]);
 LOG_2("assigning %1 to Area: %2",_group,_areaDisplayName);
 SETVAR(_group,areaAssigned,_areaMarker);
 
-private _pos = [_areaMarker] call CBA_fnc_randPosArea;
+//private _pos = [_areaMarker] call CBA_fnc_randPosArea;
 private _radius = 50;
+markerSize _areaMarker params ["_markerSizeA", "_markerSizeB"];
+private _markerAreaArray = [
+    markerPos _areaMarker,
+    _markerSizeA - _radius max _radius,
+    _markerSizeB - _radius max _radius,
+    markerDir _areaMarker,
+    markerShape _areaMarker isEqualTo "RECTANGLE"
+];
+private _pos = [_markerAreaArray] call CBA_fnc_randPosArea;
 if (
     _areaTerrainMode in ["URBAN"] &&
     {_assetType in ["INFANTRY"]}
