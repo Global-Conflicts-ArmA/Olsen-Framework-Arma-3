@@ -2,10 +2,10 @@
 
 params ["_target"];
 
-if !(
-        (_target call EFUNC(FW,isAlive)) &&
+if (
+        !(_target call EFUNC(FW,isAlive)) ||
         {
-            !(INVEHICLE(_target)) ||
+            (INVEHICLE(_target)) &&
             {((vehicle _target) call EFUNC(FW,getEmptyPositions)) isEqualTo []}
         }
 ) then {
@@ -16,7 +16,13 @@ if !(
 		{_x isNotEqualTo player}
     } apply {
         _count = _count + 1;
-        if ((rankId _x > _rank) && {!(INVEHICLE(_x)) || {((vehicle _x) call EFUNC(FW,getEmptyPositions) isEqualTo [])}}) then {
+        if (
+            rankId _x > _rank &&
+            {
+                !(INVEHICLE(_x)) ||
+                {((vehicle _x) call EFUNC(FW,getEmptyPositions) isNotEqualTo [])}
+            }
+        ) then {
             _rank = rankId _x;
             _target = _x;
         };
