@@ -95,7 +95,8 @@ private _spawnLoc = missionNamespace getVariable [_spawnLocationVar, objNull];
 if (_spawnLoc isEqualTo objNull) then {
     _spawnLoc = getPosATL player;
 } else {
-    player setPosATL getPosATL _spawnLoc;
+    _spawnLoc = getPosATL _spawnLoc;
+    player setPosATL _spawnLoc;
 };
 
 GVAR(JIPSpawnPos) = _spawnLoc;
