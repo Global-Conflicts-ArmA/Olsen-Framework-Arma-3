@@ -1,5 +1,12 @@
+// special manual task
+class Manual {
+    function = "";
+    isMove = false;
+    needsPos = false;
+};
 // basic move task
 class Move {
+    function = QFUNC(taskPatrol);
     isMove = true;
     needsPos = true;
 };
@@ -27,8 +34,16 @@ class Stationary: Defend {
     function = QFUNC(taskStationary);
     needsPos = false;
 };
+class Loiter: Defend {
+    function = QFUNC(taskLoiter);
+    needsPos = false;
+};
 // basic patrol task
 class Patrol: Move {
     function = QFUNC(taskPatrol);
+    needsPos = false;
+};
+class Sentry: Patrol {
+    function = QFUNC(taskSentry);
     needsPos = false;
 };

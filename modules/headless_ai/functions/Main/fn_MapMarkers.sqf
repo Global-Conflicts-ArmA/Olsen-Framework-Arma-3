@@ -84,20 +84,13 @@ GVAR(GroupMarkersPFH) = [{
             //LOG_1("MarkerText: %1",_text);
             _tracker setMarkerText _text;
             // find appropriate dest waypoint, if any
-            if (_task in [
-                "PATROL",
-                "PERIMPATROL",
-                "SENTRY",
-                "ATTACK",
-                "ASSAULT",
-                "FLANK",
-                "MOVE",
-                "MANUAL",
-                "BLDMOVE",
-                "BLDSEARCH",
-                "PICKUP",
-                "DROPOFF"
-            ]) then {
+            private _taskInfo = GVAR(Tasks) getOrDefault [_task, []];
+            _taskInfo params [
+                ["_function", "", [""]],
+                ["_isMove", true, [true]],
+                ["_needsPos", true, [true]]
+            ];
+            if (_isMove) then {
                 private _groupWPs = waypoints _group;
                 if (_groupWPs isEqualTo []) then {
                     if (_dest isNotEqualTo "") then {

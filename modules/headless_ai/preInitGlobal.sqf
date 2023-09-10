@@ -158,6 +158,25 @@ _configAreas apply {
 };
 TRACE_1("",GVAR(CommanderAreas));
 
+GVAR(Tasks) = createHashMap;
+private _configTasks = "true" configClasses (missionConfigFile >> QGVAR(config) >> "Tasks");
+TRACE_1("",_configTasks);
+_configTasks apply {
+    private _name = toUpper configName _x;
+    private _isMove = ([_x >> "isMove", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+    private _needsPos = ([_x >> "needsPos", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+    private _function = [_x >> "function", "string", "PZAI_fnc_taskPatrol"] call CBA_fnc_getConfigEntry;
+    GVAR(Tasks) set [
+        _name,
+        [
+            _function,
+            _isMove,
+            _needsPos
+        ]
+    ];
+};
+TRACE_1("",GVAR(CommanderAreas));
+
 [] call FUNC(checkifHC);
 
 //exit clients
