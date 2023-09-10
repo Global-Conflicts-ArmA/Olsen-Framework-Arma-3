@@ -118,17 +118,19 @@ if (player isEqualTo _target || !(_target call EFUNC(FW,isAlive))) then {
 };
 
 private _distance = missionNamespace getVariable [_distanceVar, 50];
-if (player isNotEqualTo _target && {player distance _target < _distance}) exitWith {};
+if (player isEqualTo _target || player isNotEqualTo _target && {player distance _target < _distance}) exitWith {};
 
 private _spawnDistance = missionNamespace getVariable [_spawnDistanceVar, 200];
 
 switch (missionNamespace getVariable [_typeVar, "TELEPORT"]) do {
     case "TELEPORT": {
         private _teleportAction = [QGVAR(TeleportAction), "Teleport To Squad", "", {
-            params ["_target", "_player", "_args"];
-            _args params ["_spawnDistance"];
-            [_target,_args] call FUNC(Teleport);
-        }, {((player distance ((_this select 2 ) select 1)) < ((_this select 2 ) select 0))}, {}, [_spawnDistance, _spawnLoc]] call ace_interact_menu_fnc_createAction;
+            params ["", "", "_args"];
+            _args params ["_spawnDistance", "_target"];
+            [_target] call FUNC(Teleport);
+        }, {
+            player distance ((_this select 2 ) select 1) < (_this select 2) select 0
+        }, {}, [_spawnDistance, _target, _spawnLoc]] call ace_interact_menu_fnc_createAction;
         [player, 1, ["ACE_SelfActions"], _teleportAction] call ace_interact_menu_fnc_addActionToObject;
         [{
             params ["_args","_idPFH"];
