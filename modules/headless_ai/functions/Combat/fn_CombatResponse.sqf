@@ -6,7 +6,7 @@
 params ["_group", ["_radioEnemy", objnull, [objnull]], ["_reinforcement", false, [false]]];
 
 private _leader = leader _group;
-private _currentmission = SETVAR(_group,Task,"NONE");
+private _currentmission = GETVAR(_group,Task,"NONE");
 if (behaviour _leader isEqualTo "SAFE") then {
 	_group setbehaviour "AWARE";
 };

@@ -186,6 +186,13 @@ class COMPONENT {
 		class searchNestedArray {};
 	};
 
+    class Responses {
+		file = "modules\headless_ai\functions\Responses";
+		class responseDefend {};
+		class responseAttack {};
+		class responseChance {};
+	};
+
     class set {
 		file = "modules\headless_ai\functions\set";
 	    class setBuildingPos {};

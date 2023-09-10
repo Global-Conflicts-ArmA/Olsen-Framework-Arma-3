@@ -168,12 +168,16 @@ _configTasks apply {
     private _isMove = ([_x >> "isMove", "number", 0] call CBA_fnc_getConfigEntry) == 1;
     private _needsPos = ([_x >> "needsPos", "number", 0] call CBA_fnc_getConfigEntry) == 1;
     private _function = [_x >> "function", "string", "PZAI_fnc_taskPatrol"] call CBA_fnc_getConfigEntry;
+    private _combatResponse = [_x >> "combatResponse", "string", "PZAI_fnc_responseDefend"] call CBA_fnc_getConfigEntry;
+    private _reinforce = ([_x >> "reinforce", "number", 1] call CBA_fnc_getConfigEntry) == 1;
     GVAR(Tasks) set [
         _name,
         [
             _function,
             _isMove,
-            _needsPos
+            _needsPos,
+            _combatResponse,
+            _reinforce
         ]
     ];
 };
