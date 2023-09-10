@@ -91,13 +91,14 @@ if (missionNamespace getVariable [_dismountVehiclesVar, true] && {INVEHICLE(play
     moveOut player;
 };
 
-GVAR(JIPSpawnPos) = getPosATL player;
-
 private _spawnLoc = missionNamespace getVariable [_spawnLocationVar, objNull];
-if (_spawnLoc isNotEqualTo objNull) then {
-    player setPosATL _spawnLoc;
-    GVAR(JIPSpawnPos) = getPosATL _spawnLoc;
+if (_spawnLoc isEqualTo objNull) then {
+    _spawnLoc = getPosATL player;
+} else {
+    player setPosATL getPosATL _spawnLoc;
 };
+
+GVAR(JIPSpawnPos) = _spawnLoc;
 
 if (missionNamespace getVariable [_typeVar, "TELEPORT"] isEqualTo "NONE") exitWith {
     ["JIP set to regular spawn, no transport or teleport option available."] call EFUNC(FW,parsedTextDisplay);
