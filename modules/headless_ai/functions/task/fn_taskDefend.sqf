@@ -5,11 +5,10 @@ params [
     "_pos",
     ["_radius",100,[0]]
 ];
-
-private _excludeClaimedHouses = true;
+;
 private _buildings = (nearestObjects [_pos, ["House", "Strategic", "Ruins"], _radius, true]) select {
     private _blg = _x;
-    (!_excludeClaimedHouses || !(GETVAR(_blg,claimed,false))) &&
+    (!(GETMVAR(garrisonExcludeClaimedBuildings,true)) || !(GETVAR(_blg,claimed,false))) &&
     {
         private _bPosArray = _blg buildingPos -1;
         (count _bPosArray >= 3) &&

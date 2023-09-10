@@ -52,6 +52,9 @@ cacheAllPlayers = true;
 
 stanceFeature = true;
 
+// buildings will only be 'claimed' by one group occupying them, if set to false each building position is available regardless if another group is within the building
+garrisonExcludeClaimedBuildings = true;
+
 // How far can the AI hear gunshots from?
 hearingDistance = 2000;
 // How revealed an enemy is from a gunshot report

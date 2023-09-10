@@ -36,6 +36,8 @@ GVAR(cacheAllPlayers) = ([missionConfigFile >> QGVAR(settings) >> "cacheAllPlaye
 
 GVAR(stanceFeature) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeature", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
+GVAR(garrisonExcludeClaimedBuildings) = ([missionConfigFile >> QGVAR(settings) >> "garrisonExcludeClaimedBuildings", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+
 GVAR(hearingDistance) = [missionConfigFile >> QGVAR(settings) >> "hearingDistance", "number", 2000] call CBA_fnc_getConfigEntry;
 GVAR(hearingMinIncrease) = [missionConfigFile >> QGVAR(settings) >> "hearingMinIncrease", "number", 1] call CBA_fnc_getConfigEntry;
 GVAR(radioDistance) = [missionConfigFile >> QGVAR(settings) >> "radioDistance", "number", 0] call CBA_fnc_getConfigEntry;

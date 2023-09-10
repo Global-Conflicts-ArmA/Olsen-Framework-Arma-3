@@ -11,11 +11,10 @@ params [
     ["_formation", "NO CHANGE", [""]]
 ];
 
-private _excludeClaimedHouses = true;
 private _largerSearch = true;
 private _buildings = (nearestObjects [_pos, ["House", "Strategic", "Ruins"], _radius, true]) select {
     private _blg = _x;
-    (!_excludeClaimedHouses || !(GETVAR(_blg,claimed,false))) &&
+    (!(GETMVAR(garrisonExcludeClaimedBuildings,true)) || !(GETVAR(_blg,claimed,false))) &&
     {
         private _bPosArray = _blg buildingPos -1;
         (count _bPosArray >= 3) &&
@@ -28,7 +27,7 @@ TRACE_2("",_group,_buildings);
 if (_largerSearch && {_buildings isEqualTo []}) then {
     _buildings = (nearestObjects [_pos, ["House", "Strategic", "Ruins"], _radius * 3, true]) select {
         private _blg = _x;
-        (!_excludeClaimedHouses || !(GETVAR(_blg,claimed,false))) &&
+        (!(GETMVAR(garrisonExcludeClaimedBuildings,true)) || !(GETVAR(_blg,claimed,false))) &&
         {
             private _bPosArray = _blg buildingPos -1;
             (count _bPosArray >= 3) &&

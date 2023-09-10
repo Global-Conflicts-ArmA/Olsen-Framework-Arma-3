@@ -14,7 +14,6 @@ private _units = units _group select {!(INVEHICLE(_x))};
 private _allPositions = [];
 TRACE_2("Garrison Function:",count _units,count _buildings);
 private _largerSearch = true;
-private _excludeClaimedHouses = true;
 
 _units apply {
     private _unit = _x;
@@ -27,7 +26,7 @@ _units apply {
             };
             _buildings = (nearestObjects [_pos, ["House", "Strategic", "Ruins"], _radius * 3, true]) select {
                 private _bld = _x;
-                (!_excludeClaimedHouses || !(GETVAR(_bld,claimed,false))) &&
+                (!(GETMVAR(garrisonExcludeClaimedBuildings,true)) || !(GETVAR(_bld,claimed,false))) &&
                 {((_bld buildingPos -1) select {!(_x in GVAR(OccupiedPositions))}) isNotEqualTo []}
             };
             TRACE_2("Ran larger search",_group,_buildings);
