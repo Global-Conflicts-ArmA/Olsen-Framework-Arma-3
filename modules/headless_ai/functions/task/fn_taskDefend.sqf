@@ -6,14 +6,23 @@ params [
     ["_radius",100,[0]]
 ];
 
-private _buildings = _pos nearObjects ["Building", _radius];
-_buildings = _buildings select {
-    private _positions = _x buildingPos -1;
-    count _positions >= 3
+private _excludeClaimedHouses = true;
+private _buildings = (nearestObjects [_pos, ["House", "Strategic", "Ruins"], _radius, true]) select {
+    private _blg = _x;
+    (!_excludeClaimedHouses || !(GETVAR(_blg,claimed,false))) &&
+    {
+        private _bPosArray = _blg buildingPos -1;
+        (count _bPosArray >= 3) &&
+        {
+            (_bPosArray select {!(_x in GVAR(OccupiedPositions))}) isNotEqualTo []
+        }
+    }
 };
+TRACE_2("Garrison Choice:",_group,count _buildings);
+
 if (_buildings isNotEqualTo []) then {
     SETVAR(_group,Task,"GARRISON");
-    [_group, _pos, _radius] call FUNC(combatGarrison);
+    [_group, _pos, _radius, _buildings] call FUNC(combatGarrison);
 } else {
     SETVAR(_group,Task,"DEFEND");
     [_group] call FUNC(combatPatrol);

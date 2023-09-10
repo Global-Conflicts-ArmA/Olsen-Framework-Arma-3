@@ -172,7 +172,6 @@ class COMPONENT {
 		file = "modules\headless_ai\functions\Main";
 		class GroupHandler {};
 		class initMain {};
-		class MapMarkers {};
 	};
 
 	class Misc {
