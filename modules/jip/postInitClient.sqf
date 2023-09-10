@@ -118,7 +118,7 @@ if (player isEqualTo _target || !(_target call EFUNC(FW,isAlive))) then {
 };
 
 private _distance = missionNamespace getVariable [_distanceVar, 50];
-if (player isNotEqualTo _target && {player distance _target < _distance}) exitWith {};
+if (player isNotEqualTo _target && {player distance vehicle _target < _distance}) exitWith {};
 
 private _spawnDistance = missionNamespace getVariable [_spawnDistanceVar, 200];
 
