@@ -41,16 +41,15 @@ GVAR(GroupHandlerPFH) = [{
                 SETVAR(_group,CurrentTarget,_target);
                 // react
                 // switch tasks on actions
-                // handle for special loiter task - regroup
-                if (_task isEqualTo "LOITER") then {
-                    _group setSpeedMode "FULL";
-        			_units apply {_x setUnitPos "Auto"; _x doFollow _leader};
-                    [_group, _target] call FUNC(CombatDefend);
-                };
-                if (_task in ["PATROL", "PERIMPATROL", "SENTRY", "BLDMOVE"]) then {
-                    //TRACE_2("non combat task check",_group,_task);
-                    [_group, _target] call FUNC(CombatDefend);
-                };
+                private _taskInfo = GVAR(Tasks) getOrDefault [_task, []];
+                _taskInfo params [
+                    ["_function", "", [""]],
+                    ["_isMove", false, [false]],
+                    ["_needsPos", false, [false]],
+                    ["_combatResponse", "", [""]],
+                    ["_reinforce", false, [false]]
+                ];
+                [_group, _target] call (missionNamespace getVariable [_combatResponse, {}]);
                 //radio for help
                 if ((GETMVAR(RadioDistance,2000)) > 0) then {
                     if (

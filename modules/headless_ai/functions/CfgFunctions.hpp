@@ -46,7 +46,6 @@ class COMPONENT {
 		class ForceHeal {};
 		class FormationChange {};
 		class FragmentMove {};
-		class GroupPatrol {};
 		class LightGarrison {};
 		class LoiterAction {};
 		class MoveInCombat {};

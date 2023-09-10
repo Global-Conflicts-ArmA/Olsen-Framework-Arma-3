@@ -23,4 +23,4 @@ if (
 private _enemydir = _leader getdir _currenttarget;
 private _enemydist = _leader distance _currenttarget;
 
-[_group, _currenttarget] call FUNC(CombatDefend);
+[_group, _currenttarget] call FUNC(taskDefend);

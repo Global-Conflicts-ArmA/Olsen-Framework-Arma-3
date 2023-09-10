@@ -14,6 +14,7 @@ private _units = units _group select {!(INVEHICLE(_x))};
 private _allPositions = [];
 TRACE_2("Garrison Function:",count _units,count _buildings);
 private _largerSearch = true;
+private _currentBuilding = objNull;
 
 _units apply {
     private _unit = _x;
@@ -31,13 +32,17 @@ _units apply {
             };
             TRACE_2("Ran larger search",_group,_buildings);
         };
-        private _currentBuilding = selectRandom _buildings;
+        _currentBuilding = _buildings deleteAt (random ((count _buildings) - 1));
         SETVAR(_currentBuilding,claimed,true);
         (_currentBuilding buildingPos -1) select {!(_x in GVAR(OccupiedPositions))} apply {
             _allPositions pushBackUnique _x;
         };
     };
     private _posUnit = _allPositions deleteAt 0;
+    if (isNil "_posUnit") then {
+        // positions not found for some reason, default to stacking them around friendly building
+        _posUnit = selectRandom (_currentBuilding buildingPos -1);
+    };
     //TRACE_2("unit loop end:",_unit,_posUnit);
     SETVAR(_unit,Busy,true);
     GVAR(OccupiedPositions) pushBackUnique _posUnit;

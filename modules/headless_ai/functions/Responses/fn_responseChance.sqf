@@ -26,14 +26,14 @@ private _enemydist = _leader distance _currenttarget;
 
 if (_enemydist <= 150) then {
     if (_reinforcement) then {
-        [_group, _currenttarget] call FUNC(CombatAttack);
+        [_group, _currenttarget] call FUNC(taskAttack);
     } else {
-        [_group, _currenttarget] call FUNC(CombatDefend);
+        [_group, _currenttarget] call FUNC(taskDefend);
     };
 } else {
     if (_reinforcement) then {
-        [_group, _currenttarget] call FUNC(CombatMoveTo);
+        [_group, _currenttarget] call FUNC(taskAttack);
     } else {
-        [_group, _currenttarget] call FUNC(CombatDefend);
+        [_group, _currenttarget] call FUNC(taskAttack);
     };
 };
