@@ -6,6 +6,7 @@ GVAR(LeaderExecuteCurrent) = 0;
 GVAR(MarkerArray) = [];
 GVAR(markerTrackedGroups) = createHashMap;
 GVAR(OccupiedPositions) = [];
+GVAR(sideEnemyTargets) = createHashMap;
 
 //StateMachines
 LOG("creating bunkerStateMachine");
