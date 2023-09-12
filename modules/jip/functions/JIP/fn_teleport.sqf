@@ -2,10 +2,10 @@
 
 params ["_target"];
 
-if !(
-        (_target call EFUNC(FW,isAlive)) &&
+if (
+        !(_target call EFUNC(FW,isAlive)) ||
         {
-            !(INVEHICLE(_target)) ||
+            (INVEHICLE(_target)) &&
             {((vehicle _target) call EFUNC(FW,getEmptyPositions)) isEqualTo []}
         }
 ) then {
@@ -16,7 +16,13 @@ if !(
 		{_x isNotEqualTo player}
     } apply {
         _count = _count + 1;
-        if ((rankId _x > _rank) && {!(INVEHICLE(_x)) || {((vehicle _x) call EFUNC(FW,getEmptyPositions) isEqualTo [])}}) then {
+        if (
+            rankId _x > _rank &&
+            {
+                !(INVEHICLE(_x)) ||
+                {((vehicle _x) call EFUNC(FW,getEmptyPositions) isNotEqualTo [])}
+            }
+        ) then {
             _rank = rankId _x;
             _target = _x;
         };
@@ -50,7 +56,7 @@ if (_target isNotEqualTo objnull) then {
             };
             player playAction _animName;
             private _pos = [(_target getpos [-2, getdir _target]), 1, 10, 1, 0, 25, 0] call BIS_fnc_findSafePos;
-    		player setPosATL _pos;
+    		player setPos _pos;
             ["ace_common_displayTextStructured", [["%1 has teleported to you", name player], 1.5, _target], [_target]] call CBA_fnc_targetEvent;
     	};
     }, _target, 5] call CBA_fnc_waitAndExecute;
