@@ -176,13 +176,14 @@ class COMPONENT {
 	class Misc {
 		file = "modules\headless_ai\functions\Misc";
 		class checkifHC {};
+        class deleteVehicles {};
+        class findUniqueName {};
+        class initPostMan {};
+        class searchNestedArray {};
+        class setInit {};
 		class setunitskill {};
-		class UnitInit {};
-		class SetInit {};
-		class initPostMan {};
-		class findUniqueName {};
-		class deleteVehicles {};
-		class searchNestedArray {};
+		class targetHelper {};
+		class unitInit {};
 	};
 
     class Responses {

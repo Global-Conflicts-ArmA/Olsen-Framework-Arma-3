@@ -1,37 +1,12 @@
 #include "script_component.hpp"
 
 params [
-    ["_unit", objNull, [objNull]], 
-    ["_direction", 0, [0]], 
+    ["_unit", objNull, [objNull]],
+    ["_direction", 0, [0]],
     ["_timeToSuppress", 3, [3]]
 ];
 
-private _invisibleTarget = GETVAR(_unit,InvisibleTarget,objnull);
-if (_invisibleTarget isEqualTo objnull) then {
-    private _targetClass = "CBA_O_InvisibleTarget";
-    private _side = side _unit;
-    if ([_side, east] call BIS_fnc_sideIsEnemy) then {
-        _targetClass = "CBA_O_InvisibleTarget";
-    } else {
-        if ([_side, west] call BIS_fnc_sideIsEnemy) then {
-            _targetClass = "CBA_B_InvisibleTarget";
-        } else {
-            if ([_side, independent] call BIS_fnc_sideIsEnemy) then {
-                _targetClass = "CBA_I_InvisibleTarget";
-            };
-        };
-    };
-    _invisibleTarget = _targetClass createVehicleLocal [0,0,0];
-    _invisibleTarget allowdamage false;
-    private _invisibleTargetHelper = "Sign_Sphere100cm_F" createVehicleLocal [0,0,0];
-    if (GETMVAR(UseMarkers,false)) then {
-        _invisibleTargetHelper setobjecttexture [0,"#(rgb,8,8,3)color(1,0,0,1)"];
-    } else {
-        _invisibleTargetHelper setobjecttexture [0,""];
-    };
-    _invisibleTargetHelper attachTo [_invisibleTarget, [0,0,0]];
-    SETVAR(_unit,InvisibleTarget,_invisibleTarget);
-};
+private _invisibleTarget = [_unit] call FUNC(targetHelper);
 
 private _relpos = _unit getPos [40, _direction];
 private _laserPos = [(_relpos) select 0, (_relpos) select 1, (((getposASL _unit)) select 2) + 1.5];
@@ -62,6 +37,3 @@ _unit doSuppressiveFire _laserPos;
         }, [_unit], 0.15] call CBA_fnc_waitAndExecute;
     };
 }, 0.25, [_unit, CBA_MissionTime, _timeToSuppress]] call CBA_fnc_addPerFrameHandler;
-
-
-
