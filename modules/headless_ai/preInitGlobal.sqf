@@ -38,6 +38,7 @@ GVAR(stanceFeature) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeature",
 
 GVAR(garrisonExcludeClaimedBuildings) = ([missionConfigFile >> QGVAR(settings) >> "garrisonExcludeClaimedBuildings", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
+GVAR(ignoreDirection) = ([missionConfigFile >> QGVAR(settings) >> "ignoreDirection", "number", 0] call CBA_fnc_getConfigEntry) == 1;
 GVAR(hearingDistance) = [missionConfigFile >> QGVAR(settings) >> "hearingDistance", "number", 2000] call CBA_fnc_getConfigEntry;
 GVAR(hearingMinIncrease) = [missionConfigFile >> QGVAR(settings) >> "hearingMinIncrease", "number", 1] call CBA_fnc_getConfigEntry;
 GVAR(radioDistance) = [missionConfigFile >> QGVAR(settings) >> "radioDistance", "number", 0] call CBA_fnc_getConfigEntry;
@@ -70,6 +71,7 @@ GVAR(SightAidVehicles) = ([missionConfigFile >> QGVAR(settings) >> "SightAid" >>
 GVAR(SightAidDistance) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "distance", "number", 800] call CBA_fnc_getConfigEntry;
 GVAR(SightAidMinIncrease) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "minIncrease", "number", 2] call CBA_fnc_getConfigEntry;
 GVAR(SightAidEngageDistance) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "engageDistance", "number", 200] call CBA_fnc_getConfigEntry;
+GVAR(SightAidSightlevel) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "sightlevel", "number", 0.15] call CBA_fnc_getConfigEntry;
 
 GVAR(forceGrenades) = ([missionConfigFile >> QGVAR(settings) >> "SightAid" >> "forceGrenades", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 GVAR(grenadeChance) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "grenadeChance", "number", 25] call CBA_fnc_getConfigEntry;

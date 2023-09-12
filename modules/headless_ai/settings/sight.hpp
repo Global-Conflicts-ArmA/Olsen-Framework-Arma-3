@@ -8,6 +8,9 @@ distance = 800;
 minIncrease = 2;
 // Distance at which the AI will force engage the enemies
 engageDistance = 200;
+// Sensitivity/Sightlevel needed for AI to engage - lower is more sensitive.
+sightlevel = 0.15;
+
 
 // Do AI use grenades forced by the statemachine?
 forceGrenades = true;

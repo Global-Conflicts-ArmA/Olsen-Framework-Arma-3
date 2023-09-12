@@ -55,6 +55,9 @@ stanceFeature = true;
 // buildings will only be 'claimed' by one group occupying them, if set to false each building position is available regardless if another group is within the building
 garrisonExcludeClaimedBuildings = true;
 
+// whether or not AI will ignore the direction they are facing and be able to detect enemies behind them (mostly for bunker AI)
+// can be individually set on units with `[this, "ignoreDirection", true] call PZAI_fnc_setInit`
+ignoreDirection = false;
 // How far can the AI hear gunshots from?
 hearingDistance = 2000;
 // How revealed an enemy is from a gunshot report
