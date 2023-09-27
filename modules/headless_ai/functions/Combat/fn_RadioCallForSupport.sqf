@@ -39,7 +39,19 @@ allGroups select {
 	{!(GETVAR(_leader,NOAI,false))} &&
 	{!(isPlayer _leader)} &&
 	{!([_x] call FUNC(isInCombat))} &&
-    {!(GETVAR(_x,Reinforcing,false))}
+    {!(GETVAR(_x,Reinforcing,false))} && 
+	{
+		private _task = GETVAR(_x,Task,"NONE");
+		private _taskInfo = GVAR(Tasks) getOrDefault [_task, []];
+		_taskInfo params [
+			["_function", "", [""]],
+			["_isMove", false, [false]],
+			["_needsPos", false, [false]],
+			["_combatResponse", "", [""]],
+			["_reinforce", false, [false]]
+		];
+		_reinforce
+	}
 } apply {
 	private _group = _x;
 	//private _aliveUnits = units _group select {alive _x};

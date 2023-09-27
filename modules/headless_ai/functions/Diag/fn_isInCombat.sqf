@@ -3,20 +3,16 @@
 params ["_group"];
 
 private _leader = leader _group;
-private _task = GETVAR(_group,Task,"NONE");
-private _position = getposATL _leader;
-private _areaAssigned = GETVAR(_group,areaAssigned,"NONE");
-private _assetType = GETVAR(_group,assetType,"INFANTRY");
-private _behaviour = behaviour _leader;
+private _assignedTarget = assignedTarget _leader;
+private _setTarget = _group getVariable [QGVAR(CurrentTarget), objNull];
 
-private _combat = if (_task in ["ATTACK", "ASSAULT", "FLANK", "DEFEND"]) then {
+private _combat = if (
+    _assignedTarget isNotEqualTo objNull ||
+    _setTarget isNotEqualTo objNull
+) then {
     true
 } else {
-    if (_behaviour in ["COMBAT","STEALTH"]) then {
-        true
-    } else {
-        false
-    };
+    false
 };
 
 _combat

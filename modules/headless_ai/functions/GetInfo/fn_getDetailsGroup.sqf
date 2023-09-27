@@ -27,7 +27,9 @@ private _vehAssigned = ((assignedVehicleRole _unit) isNotEqualTo []);
 private _waypoints = [waypoints _unit] call FUNC(getWaypointDetails);
 private _commanderArray = [];
 private _storedVars = GETVAR(_group,storedVars,[]);
-TRACE_2("",_group,_storedVars);
+if (GETMVAR(VerboseDebug,false)) then {
+    TRACE_2("",_group,_storedVars);
+};
 
 [side _unit,
 _pos,

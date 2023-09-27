@@ -26,14 +26,18 @@ class COMPONENT {
 	class Combat {
 		file = "modules\headless_ai\functions\Combat";
 		class ArmEmptyStatic {};
+		class combatAmbientFire {};
 		class CombatAttack {};
 		class CombatAssault {};
 		class CombatAssaultVehicle {};
+		class CombatCover {};
+		class CombatCoverVehicle {};
 		class CombatDefend {};
 		class CombatDropOff {};
         class CombatGarrison {};
 		class CombatLand {};
 		class CombatMode {};
+		class CombatHunt {};
 		class CombatMoveTo {};
 		class CombatResponse {};
 		class DefaultGroupPatrol {};
@@ -82,6 +86,7 @@ class COMPONENT {
         class createWaypoint {};
         class createWaypointModified {};
         class createWaypoints {};
+        class createSubGroup {};
         class createZone {};
         class finishGroupSpawn {};
         class finishVehicleSpawn {};
@@ -114,6 +119,7 @@ class COMPONENT {
     	class DriverCheck {};
     	class EnemyArray {};
     	class getGrenades {};
+    	class getMuzzles {};
     	class getStance {};
     	class getWeaponType {};
     	class hasMine {};
@@ -233,14 +239,17 @@ class COMPONENT {
 
 	class task {
 		file = "modules\headless_ai\functions\task";
+	    class taskAmbientFire {};
 	    class taskAssign {};
 	    class taskAssault {};
+	    class taskCover {};
 	    class taskDropOff {};
 	    class taskLoiter {};
 	    class taskHoldUntil {};
 	    class taskRelease {};
 	    class taskSearchNearby {};
 	    class taskPickup {};
+	    class taskHunt {};
 	    class taskBunker {};
         class taskDefend {};
         class taskAttack {};

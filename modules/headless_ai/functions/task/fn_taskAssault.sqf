@@ -11,7 +11,7 @@ params [
     ["_formation", "NO CHANGE", [""]],
     ["_Type","MOVE",[""]],
     ["_oncomplete",QUOTE(this call FUNC(taskSearchNearby)),[""]],
-    ["_compradius",50,[0]],
+    ["_compRadius",50,[0]],
     ["_wpcount",10,[0]]
 ];
 

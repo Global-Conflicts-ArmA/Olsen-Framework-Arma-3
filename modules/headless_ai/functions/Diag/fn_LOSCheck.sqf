@@ -3,12 +3,19 @@
 params [
     ["_unit", objNull, [objNull]],
     ["_target", objNull, [objNull]],
-    ["_bunkerMode", false, [false]]
+    ["_bunkerMode", false, [false]],
+    ["_ignoreDirection", false, [false]]
 ];
 
 if (_target isEqualTo objNull) exitwith {false};
 
-private _ignoreDirection = _unit getVariable [QGVAR(ignoreDirection), (GETMVAR(ignoreDirection,false))];
+if (!_ignoreDirection && {
+    GETMVAR(ignoreDirection,false) ||
+    _unit getVariable [QGVAR(ignoreDirection), false]
+}) then {
+    _ignoreDirection = true
+};
+
 if (!_ignoreDirection && {!([_unit, _target] call FUNC(isFacing))}) exitWith {
     false
 };

@@ -43,7 +43,9 @@ if (
     (GETVAR(_group,noAI,false)) ||
     {(count _waypoints > 1) && {_task isEqualTo "NONE"}}
 ) then {
-    LOG_2("Setting %1 to manual wp mode with: %2",_group,_waypoints);
+    if (GETMVAR(VerboseDebug,false)) then {
+        LOG_2("Setting %1 to manual wp mode with: %2",_group,_waypoints);
+    };
     _waypoints deleteAt 0;
     [_group, _waypoints] call FUNC(createWaypoints);
 } else {
@@ -53,11 +55,15 @@ if (
         private _cargoGroups = GETVAR(_veh,vehCargoGroups,[]);
         _cargoGroups pushBackUnique _group;
         SETVAR(_veh,vehCargoGroups,_cargoGroups);
-        TRACE_2("vehCargoGroups added",_veh,_cargoGroups);
+        if (GETMVAR(VerboseDebug,false)) then {
+            TRACE_2("vehCargoGroups added",_veh,_cargoGroups);
+        };
         _task = "CARGO";
         [_group] call FUNC(taskRelease);
     };
-    LOG_2("Setting %1 to task: %2",_group,_task);
+    if (GETMVAR(VerboseDebug,false)) then {
+        LOG_2("Setting %1 to task: %2",_group,_task);
+    };
     private _taskPos = _groupPos;
     private _taskPosValue = GETVAR(_group,taskPos,[ARR_3(0,0,0)]);
     if (_taskPosValue isEqualType "" && {markerColor _taskPosValue isNotEqualTo ""}) then {
@@ -68,7 +74,9 @@ if (
             _taskPos = _taskPosValue;
         };
     };
-    TRACE_2("",_group,_taskPos);
+    if (GETMVAR(VerboseDebug,false)) then {
+        TRACE_2("",_group,_taskPos);
+    };
     private _passarray = [_group,_task,_taskPos,_taskRadius,_taskWait,_behaviour,_combat,_speed,_formation];
     [{(count waypoints (_this select 0)) isNotEqualTo 0},{
         _this call FUNC(taskAssign);

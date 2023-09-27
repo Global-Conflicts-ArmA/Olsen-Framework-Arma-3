@@ -23,7 +23,10 @@ if (_task isEqualTo "NONE") then {
 LOG_2("group:%1 set to task: %2,",_group,_task);
 if (_task isEqualTo "MANUAL") exitWith {};
 
-TRACE_2("getting task function",_group,_task);
+if (GETMVAR(VerboseDebug,false)) then {
+    TRACE_2("getting task function",_group,_task);
+};
+
 private _taskInfo = GVAR(Tasks) getOrDefault [_task, []];
 _taskInfo params [
     ["_function", "", [""]],
@@ -34,6 +37,8 @@ _taskInfo params [
 ];
 
 if (_function isNotEqualTo "") then {
-    TRACE_2("calling task assign function",_group,_function);
+    if (GETMVAR(VerboseDebug,false)) then {
+        TRACE_2("calling task assign function",_group,_function);
+    };
     _taskSet call (missionNamespace getVariable [_function, {}]);
 };

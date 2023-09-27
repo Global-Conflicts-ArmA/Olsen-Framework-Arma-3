@@ -24,6 +24,7 @@ GVAR(GroupHandlerPFH) = [{
         private _groupcount = count _aliveUnits;
         private _behaviour = behaviour _leader;
         private _target = GETVAR(_group,CurrentTarget,objNull);
+        // TODO: more consistent target reset and first detection reactions
         if (assignedTarget _leader isEqualTo objNull) then {
             // reset target to objNull
             if (_target isNotEqualTo objNull) then {
@@ -36,8 +37,8 @@ GVAR(GroupHandlerPFH) = [{
                 _target isEqualTo objNull &&
                 {!(_target call EFUNC(FW,isAlive))}
             ) then {
-                TRACE_2("set target on active group",_group,_target);
                 _target = assignedTarget _leader;
+                TRACE_2("set target on active group",_group,_target);
                 SETVAR(_group,CurrentTarget,_target);
                 // react
                 // switch tasks on actions
@@ -49,7 +50,36 @@ GVAR(GroupHandlerPFH) = [{
                     ["_combatResponse", "", [""]],
                     ["_reinforce", false, [false]]
                 ];
-                [_group, _target] call (missionNamespace getVariable [_combatResponse, {}]);
+                if (_combatResponse isNotEqualTo "") then {
+                    [_group, _target] call (missionNamespace getVariable [_combatResponse, {}]);
+                };
+                //vehicle dismount cargo if able 
+                //if (vehicle _leader isNotEqualTo _leader) then {
+                //    private _vehicle = vehicle _leader;
+                //    if (canMove _vehicle) then {
+                //        driver _vehicle forceSpeed 0;
+                //        private _cargoUnits = fullCrew [_vehicle, "cargo"];
+                //        if (_cargoUnits isNotEqualTo []) then {
+                //            _cargoUnits apply {
+                //                _x moveOut _vehicle;
+                //                unassignVehicle _x;
+                //            };
+                //        };
+                //        [{
+                //            (_this select 1) findIf {_x in (crew _vehicle)} isEqualTo -1
+                //        }, {
+                //            params ["_vehicle", "_cargoUnits"];
+                //            driver _vehicle forceSpeed -1;
+                //        }, [_vehicle, _cargoUnits], 3, {
+                //            driver _vehicle forceSpeed -1;
+                //        }] call CBA_fnc_waitUntilAndExecute;
+                //    } else {
+                //        _units apply {
+                //            _x moveOut _vehicle;
+                //            unassignVehicle _x;
+                //        };
+                //    };
+                //};
                 //radio for help
                 if ((GETMVAR(RadioDistance,2000)) > 0) then {
                     if (
