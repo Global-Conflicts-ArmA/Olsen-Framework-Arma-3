@@ -91,13 +91,15 @@ if (missionNamespace getVariable [_dismountVehiclesVar, true] && {INVEHICLE(play
     moveOut player;
 };
 
-GVAR(JIPSpawnPos) = getPosATL player;
-
 private _spawnLoc = missionNamespace getVariable [_spawnLocationVar, objNull];
-if (_spawnLoc isNotEqualTo objNull) then {
+if (_spawnLoc isEqualTo objNull) then {
+    _spawnLoc = getPosATL player;
+} else {
+    _spawnLoc = getPosATL _spawnLoc;
     player setPosATL _spawnLoc;
-    GVAR(JIPSpawnPos) = getPosATL _spawnLoc;
 };
+
+GVAR(JIPSpawnPos) = _spawnLoc;
 
 if (missionNamespace getVariable [_typeVar, "TELEPORT"] isEqualTo "NONE") exitWith {
     ["JIP set to regular spawn, no transport or teleport option available."] call EFUNC(FW,parsedTextDisplay);
@@ -105,10 +107,15 @@ if (missionNamespace getVariable [_typeVar, "TELEPORT"] isEqualTo "NONE") exitWi
 
 private _target = leader player;
 
+TRACE_1("",_target);
+
 if (player isEqualTo _target || !(_target call EFUNC(FW,isAlive))) then {
 	private _rank = -1;
-	((units group player) - [player]) apply {
-		if ((rankId _x > _rank) && {(_target call EFUNC(FW,isAlive))}) then {
+    (units group player) select {
+        _x call EFUNC(FW,isAlive) &&
+		{_x isNotEqualTo player}
+    } apply {
+		if (rankId _x > _rank) then {
 			_rank = rankId _x;
 			_target = _x;
 		};
@@ -116,17 +123,19 @@ if (player isEqualTo _target || !(_target call EFUNC(FW,isAlive))) then {
 };
 
 private _distance = missionNamespace getVariable [_distanceVar, 50];
-if (player isNotEqualTo _target && {player distance _target < _distance}) exitWith {};
+if (player isNotEqualTo _target && {vehicle player distance vehicle _target < _distance}) exitWith {
+    TRACE_1("exited on JIP exitwith condition",_target);
+};
 
 private _spawnDistance = missionNamespace getVariable [_spawnDistanceVar, 200];
 
 switch (missionNamespace getVariable [_typeVar, "TELEPORT"]) do {
     case "TELEPORT": {
         private _teleportAction = [QGVAR(TeleportAction), "Teleport To Squad", "", {
-            params ["_target", "_player", "_args"];
-            _args params ["_spawnDistance"];
-            [_target,_args] call FUNC(Teleport);
-        }, {((player distance ((_this select 2 ) select 1)) < ((_this select 2 ) select 0))}, {}, [_spawnDistance, _spawnLoc]] call ace_interact_menu_fnc_createAction;
+            _this params ["_target", "_player", "_args"];
+            _args params ["_spawnDistance", "_targetTele", "_spawnLoc"];
+            [_targetTele] call FUNC(Teleport);
+        }, {true}, {}, [_spawnDistance, _target, _spawnLoc]] call ace_interact_menu_fnc_createAction;
         [player, 1, ["ACE_SelfActions"], _teleportAction] call ace_interact_menu_fnc_addActionToObject;
         [{
             params ["_args","_idPFH"];
@@ -140,13 +149,12 @@ switch (missionNamespace getVariable [_typeVar, "TELEPORT"]) do {
     };
     case "TRANSPORT": {
         private _transportAction = [QGVAR(TransportAction), "Request Transport", "", {
-            params ["_target", "_player", "_args"];
-            _args params ["_spawnDistance"];
-            [_target,_args] call FUNC(Transport);
-        }, {((player distance ((_this select 2 ) select 1)) < ((_this select 2 ) select 0))}, {}, [_spawnDistance, _spawnLoc]] call ace_interact_menu_fnc_createAction;
+            _this params ["_target", "_player", "_args"];
+            [] call FUNC(Transport);
+        }, {true}, {}, []] call ace_interact_menu_fnc_createAction;
         [player, 1, ["ACE_SelfActions"], _transportAction] call ace_interact_menu_fnc_addActionToObject;
         [{
-            params ["_args","_idPFH"];
+            _this params ["_args","_idPFH"];
             _args params ["_spawnDistance", "_spawnLoc"];
             if (player distance _spawnLoc > _spawnDistance) exitwith {
                 [player,1,["ACE_SelfActions", QGVAR(TransportAction)]] call ace_interact_menu_fnc_removeActionFromObject;
