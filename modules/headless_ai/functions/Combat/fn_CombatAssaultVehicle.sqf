@@ -108,11 +108,11 @@ private _assaultTaskPFH = [{
             _group addVehicle _vehicle;
             _vehCrew apply {
                 if (gunner _vehicle isEqualTo _x) then {
+                    _group selectLeader _x;
                     _x assignAsGunner _vehicle;
+                    _vehicle setEffectiveCommander _x;
                 } else {
                     if (driver _vehicle isEqualTo _x) then {
-                        _group selectLeader _x;
-                        _vehicle setEffectiveCommander _x;
                         _x assignAsDriver _vehicle;
                     };
                 };
@@ -165,11 +165,11 @@ private _assaultTaskPFH = [{
             _group addVehicle _vehicle;
             _vehCrew apply {
                 if (gunner _vehicle isEqualTo _x) then {
+                    _group selectLeader _x;
                     _x assignAsGunner _vehicle;
+                    _vehicle setEffectiveCommander _x;
                 } else {
                     if (driver _vehicle isEqualTo _x) then {
-                        _group selectLeader _x;
-                        _vehicle setEffectiveCommander _x;
                         _x assignAsDriver _vehicle;
                     };
                 };

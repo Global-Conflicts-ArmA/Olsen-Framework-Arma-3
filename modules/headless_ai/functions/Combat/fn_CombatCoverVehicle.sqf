@@ -38,7 +38,7 @@ _group setSpeedMode "FULL";
     ];
     private _vehicle = vehicle _leader;
     if (
-        (_group getVariable [QGVAR(Task), "PATROL"]) isNotEqualTo "COVER" || 
+        (_group getVariable [QGVAR(Task), "PATROL"]) isNotEqualTo "COVER" ||
         units _group isEqualTo [] ||
         !alive _vehicle
     ) exitWith {
@@ -51,7 +51,7 @@ _group setSpeedMode "FULL";
     };
     private _leader = leader _group;
     private _supportLeader = leader _supportedGroup;
-    private _aheadPos = _leader getPos [10, _leader getDir _targetPos]; 
+    private _aheadPos = _leader getPos [10, _leader getDir _targetPos];
     private _driver = driver _vehicle;
     //private _canSeeObj = ([vehicle _leader, "VIEW", objNull] checkVisibility [getPosWorld _vehicle, _targetPos] >= 0.5);
     private _distToSupportGroup = _leader distance2D _supportLeader;
@@ -67,7 +67,7 @@ _group setSpeedMode "FULL";
     };
     private _enemyArray = [side _leader] call FUNC(enemyArray);
     private _LOSCheckNearbyEnemy = _enemyArray findIf {
-        _x distance2D _leader <= 800 && 
+        _x distance2D _leader <= 800 &&
         {[_leader, _x, false, true] call FUNC(LOSCheck)}
     };
     private _canSeeEnemy = _LOSCheckNearbyEnemy isEqualTo -1;
@@ -89,8 +89,8 @@ _group setSpeedMode "FULL";
         };
     } else {
         TRACE_1("cover veh cant see enemy, suppress anyways",_group);
-        private _randomAngle = random [-10, 0, 10];
-        [gunner _vehicle, _vehicle getDir _targetPos + _randomAngle, 3] call FUNC(suppressDirection);
+        private _randomAngle = random [-8, 0, 8];
+        [gunner _vehicle, (_vehicle getDir _targetPos) + _randomAngle, 3] call FUNC(suppressDirection);
     };
 }, 3, [
     _group,
@@ -98,6 +98,3 @@ _group setSpeedMode "FULL";
     _targetPos,
     _compRadius
 ]] call CBA_fnc_addPerFrameHandler;
-
-
-
