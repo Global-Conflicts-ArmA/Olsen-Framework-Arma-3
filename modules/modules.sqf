@@ -13,6 +13,7 @@ Enabled modules by default, disable them by adding // in front.
 #include "jip\root.sqf"
 #include "self_actions\root.sqf"
 #include "weapon_helper\root.sqf"
+#include "unconsciousnessFade\root.sqf"
 
 /*
 Additional modules that can be enabled by removing the //
