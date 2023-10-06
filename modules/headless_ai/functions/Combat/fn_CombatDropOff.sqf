@@ -92,7 +92,7 @@ private _dropOffTaskPFH = [{
         [_group, _supportGroup, _supportTaskPos] call FUNC(TaskCover);
     };
     private _driver = driver _veh;
-    _driver moveTo _dropOffPos;
+    _veh moveTo _dropOffPos;
     _driver setDestination [_dropOffPos, "VEHICLE PLANNED", false];
 }, 5, [_group, _dropOffPos, _units, _compRadius]] call CBA_fnc_addPerFrameHandler;
 

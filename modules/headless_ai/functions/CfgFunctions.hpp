@@ -214,11 +214,11 @@ class COMPONENT {
 
     class SightAidSM {
 		file = "modules\headless_ai\functions\SightAidSM";
-		class SA_OnSECheckNearbyEnemies {};
-		class SA_OnSECombatMode {};
-		class SA_onSEEnemyInRange {};
-		class SA_OnSERemoveCantSeeEnemy {};
-        class SA_OnWait {};
+		class SA_condEnemyInRange {};
+		class SA_condSameEnemy {};
+		class SA_condCanSee {};
+		class SA_onSECombat {};	
+		class SA_onSEWait {};	
 	};
 
 	class StateMachine {

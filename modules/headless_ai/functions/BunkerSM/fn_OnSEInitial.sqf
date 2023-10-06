@@ -37,5 +37,5 @@ SETVAR(_unit,laserPos,_laserPos);
 
 if ((leader _group) isEqualTo _unit) then {
 	SETVAR(_group,Task,"BUNKER");
-	SETVAR(_group,CurrentTarget,objnull);
+	SETVAR(_group,CurrentTarget,objNull);
 };

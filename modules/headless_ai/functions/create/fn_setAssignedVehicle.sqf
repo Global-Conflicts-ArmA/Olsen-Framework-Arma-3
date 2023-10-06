@@ -7,7 +7,7 @@ params [
     ["_index", 0, [0,[]]]
 ];
 
-if (_veh isEqualTo objnull) exitWith {
+if (_veh isEqualTo objNull) exitWith {
     ERROR_1("Vehicle for %1 not found",_unit);
 };
 

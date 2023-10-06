@@ -60,8 +60,8 @@ private _knownEnemy = (_nearbyEnemy isNotEqualTo []);
         TRACE_2("exiting response with enemy armored no AT",_group,_enemyHasArmored);
         false
     };
-    private _currenttarget = GETVAR(_group,CurrentTarget,objnull);
-    if (_currenttarget isEqualTo objnull) exitWith {
+    private _currenttarget = GETVAR(_group,CurrentTarget,objNull);
+    if (_currenttarget isEqualTo objNull) exitWith {
         TRACE_1("exiting response true with null currenttarget",_group);
         true
     };

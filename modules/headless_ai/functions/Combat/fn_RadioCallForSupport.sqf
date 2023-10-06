@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-params ["_groupcaller", ["_enemycaller", objnull, [objnull]]];
+params ["_groupcaller", ["_enemycaller", objNull, [objNull]]];
 
 private _sideCaller = side _groupcaller;
 private _posCaller = getposATL leader _groupcaller;
@@ -14,7 +14,7 @@ private _respondingMotorized = [];
 private _respondingMechanized = [];
 private _respondingArmored = [];
 
-private _knownEnemy = (_enemycaller isNotEqualTo objnull);
+private _knownEnemy = (_enemycaller isNotEqualTo objNull);
 private _nearbyEnemy = [];
 private _enemyHasArmored = false;
 private _enemyHasVehicles = false;
@@ -63,11 +63,11 @@ allGroups select {
 	private _assetType = GETVAR(_group,assetType,"INFANTRY");
 	//private _groupcount = count _aliveUnits;
 	//private _behaviour = behaviour _leader;
-	private _target = GETVAR(_group,CurrentTarget,objnull);
+	private _target = GETVAR(_group,CurrentTarget,objNull);
 	private _distanceToGroup = (leader _groupcaller) distance2d _leader;
     if (
     	([_sideCaller, _side] call BIS_fnc_sideIsFriendly) &&
-    	{!_knownEnemy || {_target isEqualTo objnull} || {!(_target in _nearbyEnemy)}} &&
+    	{!_knownEnemy || {_target isEqualTo objNull} || {!(_target in _nearbyEnemy)}} &&
     	{_distanceToGroup <= GVAR(RadioDistance)} &&
     	{!(GETMVAR(RadioNeedRadio,false)) || {(_group call FUNC(hasRadioGroup)) select 0}}
     ) then {

@@ -17,7 +17,7 @@ _group setCombatMode "BLUE";
 _group setSpeedMode "FULL";
 
 private _arrayTest = ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET"];
-_group enableAttack false;
+//_group enableAttack false;
 private _leader = leader _group;
 private _veh = vehicle _leader;
 private _driver = driver _veh;
@@ -71,53 +71,54 @@ private _assaultTaskPFH = [{
             (getPosATL _leader distance2D _targetPos) <= _compRadius
         } ||
         {
-            !(((side _leader call FUNC(EnemyArray)) findif {
+            (((side _leader call FUNC(EnemyArray)) findif {
                 ((_leader distance2D _x) <= (GETVAR(_group,AssaultEngageDistance,200))) &&
                 {[_leader, _x] call FUNC(LOSCheck)}
-            }) isEqualTo -1)
+            }) isNotEqualTo -1)
         }
     ) exitWith {
         [_idPFH] call CBA_fnc_removePerFrameHandler;
         SETVAR(_group,ExitAssault,false);
         TRACE_2("Group exited Assault PFH",_veh,_cargoSoldiers);
         if (_cargoSoldiers isNotEqualTo []) then {
-            _cargoSoldiers orderGetIn false;
-            _cargoSoldiers apply {
-                moveOut _x;
-                unassignVehicle _x;
-            };
-            [_leader, _driver] apply {
-                private _unit = _x;
-                ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET"] apply {
-                    _unit enableAI _x;
+            _veh forceSpeed 0;
+            [{
+                speed (_this select 0) < 2
+            }, {
+                params [
+                    "_veh",
+                    "_group",
+                    "_cargoSoldiers",
+                    "_targetPos"
+                ];
+                _cargoSoldiers orderGetIn false;
+                _cargoSoldiers apply {
+                    _x setVariable [QGVAR(Busy), true];
+                    moveOut _x;
+                    unassignVehicle _x;
+                    private _unitPos = getposATL _x;
+                    private _dir = _veh getDir _unitPos;
+                    doStop _x;
+                    private _dismountPos = _x getPos [10, _dir];
+                    _x moveTo _dismountPos;
                 };
-            };
-            private _vehCrew = units _group - _cargoSoldiers;
-            TRACE_2("splitting groups",_vehCrew,_cargoSoldiers);
-            private _newGroup = [
-                side _leader,
+                private _vehCrew = units _group - _cargoSoldiers;
+                TRACE_2("splitting groups",_vehCrew,_cargoSoldiers);
+                private _newGroup = [
+                    _group,
+                    _cargoSoldiers,
+                    "ASSAULT",
+                    _targetPos,
+                    20,
+                    false
+                ] call FUNC(createSubGroup);
+                [_group, _newGroup, _targetPos] call FUNC(taskCover);
+            }, [
+                _veh,
                 _group,
                 _cargoSoldiers,
-                "ASSAULT",
-                _targetPos,
-                20,
-                false
-            ] call FUNC(createSubGroup);
-            private _vehicle = (vehicle (_vehCrew select 0));
-            _vehicle setUnloadInCombat [false, false];
-            _group addVehicle _vehicle;
-            _vehCrew apply {
-                if (gunner _vehicle isEqualTo _x) then {
-                    _group selectLeader _x;
-                    _x assignAsGunner _vehicle;
-                    _vehicle setEffectiveCommander _x;
-                } else {
-                    if (driver _vehicle isEqualTo _x) then {
-                        _x assignAsDriver _vehicle;
-                    };
-                };
-            };
-            [_group, _newGroup, _targetPos] call FUNC(taskCover);
+                _targetPos
+            ]] call CBA_fnc_waitUntilAndExecute;
         } else {
             [_group, getPos _leader] call FUNC(taskPatrol);
         };
@@ -129,52 +130,59 @@ private _assaultTaskPFH = [{
         //};
     };
     //TRACE_2("assault cargoUnits", _group, _cargoSoldiers);
+    private _cargoTroopsOutStatus = _cargoSoldiers findIf {
+        (vehicle _x isNotEqualTo _veh) 
+    };
+    private _getAttackStatus = units _group findIf {
+        getAttackTarget vehicle _x isNotEqualTo objNull 
+    };
+    //TRACE_2("veh assault status of targets",_cargoTroopsOutStatus, _getAttackStatus);
     if (
-        _cargoSoldiers findIf {
-            (vehicle _x isNotEqualTo _veh) 
-        } isNotEqualTo -1
+         _cargoTroopsOutStatus isNotEqualTo -1 ||
+         (_getAttackStatus isNotEqualTo -1)
     ) exitWith {
         TRACE_1("Group exited Assault PFH due to dismounts",_group);
         [_idPFH] call CBA_fnc_removePerFrameHandler;
         //dismount quicker
         if (_cargoSoldiers isNotEqualTo []) then {
-            _cargoSoldiers orderGetIn false;
-            _cargoSoldiers apply {
-                moveOut _x;
-                unassignVehicle _x;
-            };
-            [_leader, _driver] apply {
-                private _unit = _x;
-                ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET"] apply {
-                    _unit enableAI _x;
+            _veh forceSpeed 0;
+            [{
+                speed (_this select 0) < 2
+            }, {
+                params [
+                    "_veh",
+                    "_group",
+                    "_cargoSoldiers",
+                    "_targetPos"
+                ];
+                _cargoSoldiers orderGetIn false;
+                _cargoSoldiers apply {
+                    _x setVariable [QGVAR(Busy), true];
+                    moveOut _x;
+                    unassignVehicle _x;
+                    private _unitPos = getposATL _x;
+                    private _dir = _veh getDir _unitPos;
+                    doStop _x;
+                    private _dismountPos = _x getPos [10, _dir];
+                    _x doMove _dismountPos;
                 };
-            };
-            private _vehCrew = units _group - _cargoSoldiers;
-            TRACE_2("splitting groups",_vehCrew,_cargoSoldiers);
-            private _newGroup = [
-                side _leader,
+                private _vehCrew = units _group - _cargoSoldiers;
+                TRACE_2("splitting groups",_vehCrew,_cargoSoldiers);
+                private _newGroup = [
+                    _group,
+                    _cargoSoldiers,
+                    "ASSAULT",
+                    _targetPos,
+                    20,
+                    false
+                ] call FUNC(createSubGroup);
+                [_group, _newGroup, _targetPos] call FUNC(taskCover);
+            }, [
+                _veh,
                 _group,
                 _cargoSoldiers,
-                "ASSAULT",
-                _targetPos,
-                20,
-                false
-            ] call FUNC(createSubGroup);
-            private _vehicle = (vehicle (_vehCrew select 0));
-            _vehicle setUnloadInCombat [false, false];
-            _group addVehicle _vehicle;
-            _vehCrew apply {
-                if (gunner _vehicle isEqualTo _x) then {
-                    _group selectLeader _x;
-                    _x assignAsGunner _vehicle;
-                    _vehicle setEffectiveCommander _x;
-                } else {
-                    if (driver _vehicle isEqualTo _x) then {
-                        _x assignAsDriver _vehicle;
-                    };
-                };
-            };
-            [_group, _newGroup, _targetPos] call FUNC(taskCover);
+                _targetPos
+            ]] call CBA_fnc_waitUntilAndExecute;
         } else {
             [_group, getPos _leader] call FUNC(taskPatrol);
         };
@@ -182,7 +190,7 @@ private _assaultTaskPFH = [{
     _group setCombatMode "BLUE";
     _group setBehaviour "AWARE";
     _group setSpeedMode "FULL";
-    _driver moveTo _targetPos;
+    _veh moveTo _targetPos;
     _driver setDestination [_targetPos, "VEHICLE PLANNED", false];
 }, 2, [
     _group,

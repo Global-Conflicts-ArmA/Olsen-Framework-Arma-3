@@ -3,7 +3,7 @@
 
 //unit 1, unit 2
 params [
-    ["_unit", objnull, [objnull]],
+    ["_unit", objNull, [objNull]],
     ["_chosenMuzzle", [], [[]]]
 ];
 

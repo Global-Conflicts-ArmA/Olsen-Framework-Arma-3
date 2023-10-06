@@ -3,15 +3,15 @@
 
 //FUNC(CombatResponse)
 
-params ["_group", ["_radioEnemy", objnull, [objnull]], ["_reinforcement", false, [false]]];
+params ["_group", ["_radioEnemy", objNull, [objNull]], ["_reinforcement", false, [false]]];
 
 private _leader = leader _group;
 private _currentmission = GETVAR(_group,Task,"NONE");
 if (behaviour _leader isEqualTo "SAFE") then {
 	_group setbehaviour "AWARE";
 };
-private _currenttarget = GETVAR(_group,CurrentTarget,objnull);
-if ((_radioEnemy isNotEqualTo objnull) && {(_currenttarget isEqualTo objnull)}) then {
+private _currenttarget = GETVAR(_group,CurrentTarget,objNull);
+if ((_radioEnemy isNotEqualTo objNull) && {(_currenttarget isEqualTo objNull)}) then {
 	_currenttarget = _radioEnemy;
 	SETVAR(_group,CurrentTarget,_radioEnemy);
 };

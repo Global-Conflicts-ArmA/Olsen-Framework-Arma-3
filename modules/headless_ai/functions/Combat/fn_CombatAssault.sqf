@@ -15,10 +15,11 @@ _group setFormDir _enemyDir;
 private _units = units _group;
 
 [_group] call CBA_fnc_clearWaypoints;
-[_group, _targetPos, 0, "MOVE", "CARELESS", "WHITE"] call CBA_fnc_addWaypoint;
+[_group, _targetPos, 0, "MOVE", "AWARE", "WHITE"] call CBA_fnc_addWaypoint;
 
-private _arrayTest = ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "FSM"];
-_group enableAttack false;
+//private _arrayTest = ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "FSM"];
+private _arrayTest = ["AUTOCOMBAT", "COVER", "SUPPRESSION"];
+//_group enableAttack false;
 _units apply {
     private _unit = _x;
     _arrayTest apply {
@@ -27,7 +28,7 @@ _units apply {
     doStop _unit;
     _unit setUnitPos "UP";
 };
-_group setBehaviourStrong "CARELESS";
+_group setBehaviourStrong "AWARE";
 //_group setFormation "DIAMOND";
 _group setCombatMode "BLUE";
 _group setSpeedMode "FULL";
@@ -63,12 +64,13 @@ private _assaultTaskPFH = [{
         SETVAR(_group,ExitAssault,false);
         _group setCombatMode "RED";
         _group setBehaviour "COMBAT";
-        _group enableAttack true;
+        //_group enableAttack true;
         _units apply {
             private _unit = _x;
             ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "FSM"] apply {
                 _unit enableAI _x;
             };
+            _unit setVariable [QGVAR(Busy), false];
         };
         //hunt in local area
         [_group, _targetPos] call FUNC(taskHunt);
@@ -95,27 +97,28 @@ private _assaultTaskPFH = [{
             _x params ["_distance", "_unit"];
             _unit setUnitCombatMode "YELLOW";
             _unit setBehaviour "COMBAT";
-            _unit lookAt _nearestEnemy;
+            //_unit lookAt _nearestEnemy;
+            _unit setVariable [QGVAR(Busy), false];
             _unit forcespeed 0;
-            private _relDir = _unit getDir _nearestEnemy;
-            if (
-                RNG(0.75)
-                && {(_unit call FUNC(hasUGL)) isNotEqualTo ""}
-            ) then {
-                TRACE_1("attempting to fire UGL",_unit);
-                if (stance _unit isEqualTo "PRONE") then {
-                    _unit setUnitPos "MIDDLE";
-                };
-                private _muzzle = _unit call FUNC(hasUGL);
-                [_unit, _muzzle, _targetPos] call FUNC(fireUGL);
-            } else {
-                if (RNG(0.5) && {!(stance _unit isNotEqualTo "PRONE")}) then {
-                    _unit setUnitPos "DOWN";
-                } else {
-                    _unit setUnitPos "MIDDLE";
-                };
-                [_unit, _relDir, 3] call FUNC(SuppressDirection);
-            }
+            //private _relDir = _unit getDir _nearestEnemy;
+            //if (
+            //    RNG(0.75)
+            //    && {(_unit call FUNC(hasUGL)) isNotEqualTo ""}
+            //) then {
+            //    TRACE_1("attempting to fire UGL",_unit);
+            //    if (stance _unit isEqualTo "PRONE") then {
+            //        _unit setUnitPos "MIDDLE";
+            //    };
+            //    private _muzzle = _unit call FUNC(hasUGL);
+            //    [_unit, _muzzle, _targetPos] call FUNC(fireUGL);
+            //} else {
+            //    if (RNG(0.5) && {!(stance _unit isNotEqualTo "PRONE")}) then {
+            //        _unit setUnitPos "DOWN";
+            //    } else {
+            //        _unit setUnitPos "MIDDLE";
+            //    };
+            //    [_unit, _relDir, 3] call FUNC(SuppressDirection);
+            //}
         };
         _moveGroup apply {
             _x params ["_distance", "_unit"];
@@ -125,7 +128,8 @@ private _assaultTaskPFH = [{
             private _relPos = _unit getPos [20, _relDir + (random 30) - (random 30)];
             _unit doMove _relPos;
             _unit lookAt _nearestEnemy;
-            //_unit setDestination [_relPos, "FORMATION PLANNED", false];
+            _unit setVariable [QGVAR(Busy), true];
+            _unit setDestination [_relPos, "FORMATION PLANNED", false];
             if (RNG(0.75)) then {
                 _unit setUnitPos "UP";
             } else {
@@ -146,9 +150,10 @@ private _assaultTaskPFH = [{
             _unit doMove _relPos;
             //_unit setDestination [_relPos, "FORMATION PLANNED", false];
             _unit setUnitPos "UP";
+            _unit setVariable [QGVAR(Busy), true];
             //_unit setSuppression 0;
         };
     };
-}, 2, [_group, _targetPos, _radius]] call CBA_fnc_addPerFrameHandler;
+}, 5, [_group, _targetPos, _radius]] call CBA_fnc_addPerFrameHandler;
 
 SETVAR(_group,Task,"ASSAULT");

@@ -2,17 +2,27 @@
 
 params ["_group"];
 
-private _leader = leader _group;
-private _assignedTarget = assignedTarget _leader;
-private _setTarget = _group getVariable [QGVAR(CurrentTarget), objNull];
+private _getAttackStatus = units _group findIf {
+    getAttackTarget vehicle _x isNotEqualTo objNull 
+} isNotEqualTo -1;
 
-private _combat = if (
-    _assignedTarget isNotEqualTo objNull ||
-    _setTarget isNotEqualTo objNull
-) then {
-    true
-} else {
-    false
+if !(_getAttackStatus) then {
+    allGroups select {
+        (GETVAR(_x,Spawned,false)) &&
+        {!isNull leader _x} &&
+        {alive leader _x} &&
+        {!(GETVAR(leader _x,NOAI,false))} &&
+        {!(GETVAR(_x,NOAI,false))} &&
+        {!(isPlayer leader _x)} && 
+        {side _x isEqualTo side _group} &&
+        {leader _x distance2D leader _group <= 300}
+    } apply {
+        if (units _x findIf {
+            getAttackTarget vehicle _x isNotEqualTo objNull 
+        } isNotEqualTo -1) exitWith {
+            _getAttackStatus = true;
+        };
+    };
 };
 
-_combat
+_getAttackStatus

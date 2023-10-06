@@ -5,17 +5,17 @@
 
 params [
     "_group",
-    ["_radioEnemy", objnull, [objnull]]
+    ["_radioEnemy", objNull, [objNull]]
 ];
 
 private _leader = leader _group;
 if (behaviour _leader isEqualTo "SAFE") then {
 	_group setbehaviour "AWARE";
 };
-private _currenttarget = GETVAR(_group,CurrentTarget,objnull);
+private _currenttarget = GETVAR(_group,CurrentTarget,objNull);
 if (
-    _radioEnemy isNotEqualTo objnull &&
-    {_currenttarget isEqualTo objnull}
+    _radioEnemy isNotEqualTo objNull &&
+    {_currenttarget isEqualTo objNull}
 ) then {
 	_currenttarget = _radioEnemy;
 	SETVAR(_group,CurrentTarget,_radioEnemy);

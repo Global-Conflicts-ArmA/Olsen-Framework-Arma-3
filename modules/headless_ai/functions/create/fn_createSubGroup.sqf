@@ -1,7 +1,6 @@
 #include "script_component.hpp"
 
 params [
-    ["_side", west, [west]], /*side*/ 
     ["_oldGroup", grpNull, [grpNull]], /*old group*/ 
     ["_newUnits", [], [[]]], /*new units*/ 
     ["_newTask", "PATROL", [""]], /*new task*/ 
@@ -9,6 +8,8 @@ params [
     ["_newRadius", 50, [50]], /*new radius*/ 
     ["_rejoinCondition", false, [{}, false]] /*condition to rejoin old group*/ 
 ];
+
+private _side = side _oldGroup;
 
 if (GETMVAR(VerboseDebug,false)) then {
     TRACE_3("createSubGroup called",_side,_oldGroup,_newUnits);

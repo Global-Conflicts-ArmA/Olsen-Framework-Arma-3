@@ -247,8 +247,8 @@ GVAR(acreRadiosArray) = (_acreRadios select 0) + (_acreRadios select 1);
     };
     private _initial = CBA_MissionTime <= 0;
     //LOG_2("SpawnArray _Array: %1 _initial: %2",_arrayName,_initial);
-    private _logic = missionNamespace getVariable [_arrayName, objnull];
-    if (_logic isEqualTo objnull) exitwith {
+    private _logic = missionNamespace getVariable [_arrayName, objNull];
+    if (_logic isEqualTo objNull) exitwith {
         //LOG_1("Could not find arrayName %1",_arrayName);
     };
     if !(_arrayName in GVAR(zoneEntities)) exitwith {

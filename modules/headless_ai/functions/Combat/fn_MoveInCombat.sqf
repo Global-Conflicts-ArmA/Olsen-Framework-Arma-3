@@ -94,7 +94,7 @@ if (PZAI_CurrentlyMoving < PZAI_CurrentlyMovingLimit) then
 							};
 						};
 
-							_Unit doWatch ObjNull;
+							_Unit doWatch objNull;
 							_Unit disableAI "TARGET";
 							_Unit disableAI "AUTOTARGET";
 							_Unit disableAI "SUPPRESSION";

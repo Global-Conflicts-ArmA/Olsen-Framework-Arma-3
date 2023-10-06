@@ -2,9 +2,9 @@
 
 params ["_unit", ["_offset", false, [false]]];
 
-private _invisibleTarget = GETVAR(_unit,InvisibleTarget,objnull);
+private _invisibleTarget = GETVAR(_unit,InvisibleTarget,objNull);
 
-if (_invisibleTarget isEqualTo objnull) exitwith {
+if (_invisibleTarget isEqualTo objNull) exitwith {
     if (GETMVAR(VerboseDebug,false)) then {
     	LOG_1("_unit: %1 cannot find invisible target",_unit);
     };

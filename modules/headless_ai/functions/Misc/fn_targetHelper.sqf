@@ -1,11 +1,11 @@
 #include "script_component.hpp"
 
 params [
-    ["_unit", objnull, [objnull]]
+    ["_unit", objNull, [objNull]]
 ];
 
-private _invisibleTarget = GETVAR(_unit,InvisibleTarget,objnull);
-if (_invisibleTarget isEqualTo objnull) then {
+private _invisibleTarget = GETVAR(_unit,InvisibleTarget,objNull);
+if (_invisibleTarget isEqualTo objNull) then {
     private _side = side _unit;
     private _targetClass = GVAR(sideEnemyTargets) getOrDefault [_side, ""];
     if (_targetClass isEqualTo "") then {

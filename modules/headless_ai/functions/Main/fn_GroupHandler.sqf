@@ -159,7 +159,7 @@ GVAR(GroupHandlerPFH) = [{
                 _tracker setMarkerColor _markercolour;
             };
             _tracker setMarkerPos [getpos _leader select 0, getpos _leader select 1];
-            private _usetarget = _target isNotEqualTo objnull;
+            private _usetarget = _target isNotEqualTo objNull;
             if !(_usetarget) then {
                 _target = "NONE";
             };
