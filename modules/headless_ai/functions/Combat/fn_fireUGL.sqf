@@ -2,7 +2,7 @@
 
 params ["_unit", "_muzzle", ["_target", objNull, [[], objNull]]];
 
-_unit call FUNC(tempRemovePrimaryMags);
+//[_unit, 3] call FUNC(tempRemovePrimaryMags);
 
 private _invisibleTarget = [_unit] call FUNC(targetHelper);
 
@@ -17,34 +17,24 @@ _unit reveal [_invisibleTarget, 4];
 _unit doTarget _invisibleTarget;
 
 [{
-    private _unit = _this select 0;
-    ({
-        !([getPosATL _unit, getDir _unit, 5, getPosATL _x] call BIS_fnc_inAngleSector)
-    } forEach ((units group _unit) - [_unit]))
-    && {[_unit, false] call FUNC(isAimed)}
+    params ["_unit", "_muzzle", "_invisibleTarget"];
+    (weaponState _unit select 1 isEqualTo _muzzle) &&
+    [_unit] call FUNC(clearSight) &&
+    {[_unit] call FUNC(isAimed)}
 }, {
-    _this params ["_unit", "_muzzle", "_invisibleTarget"];
-    [_unit, _muzzle] call BIS_fnc_fire;
-    private _relDir = _unit getDir _invisibleTarget;
+    params ["_unit", "_muzzle", "_invisibleTarget"];
+    //[_unit, _muzzle] call BIS_fnc_fire;
+    _unit forceWeaponFire [_muzzle, weaponState _unit select 2];
+    //private _relDir = _unit getDir _invisibleTarget;
     [{
-        params ["_unit", "_invisibleTarget"];
-        _unit reveal [_invisibleTarget, 0];
-        _invisibleTarget setposASL [0,0,0];
-        SETVAR(_unit,busy,false);
+        params ["_unit"];
+        [_unit, true] call FUNC(targetHelper);
+        _unit setVariable [QGVAR(Busy), false];
     }, [
-        _unit,
-        _invisibleTarget
-    ], 3] call CBA_fnc_waitAndExecute;
-    //TODO: move to optional param or put in existing functions that call this
-    //[{
-    //	_this params ["_unit", "_invisibleTarget", "_relDir"];
-    //    _invisibleTarget setPosASL [0,0,0];
-    //    _unit doTarget objNull;
-    //    [_unit, _relDir, 2] call FUNC(SuppressDirection);
-    //}, [_unit, _invisibleTarget, _relDir]] call CBA_fnc_execNextFrame;
+        _unit
+    ], 1] call CBA_fnc_waitAndExecute;
 }, [_unit, _muzzle, _invisibleTarget], 3, {
-    _this params ["_unit", "", "_invisibleTarget"];
-    _unit reveal [_invisibleTarget, 0];
-    _invisibleTarget setposASL [0,0,0];
-    SETVAR(_unit,busy,false);
+    private _unit = _this select 0;
+    [_unit, true] call FUNC(targetHelper);
+    _unit setVariable [QGVAR(Busy), false];
 }] call CBA_fnc_waitUntilAndExecute;

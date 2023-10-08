@@ -10,8 +10,7 @@ params [
 private _invisibleTarget = [_unit] call FUNC(targetHelper);
 
 private _getposTarget = getposASL _target;
-_unit doWatch objNull;
-_unit doTarget objNull;
+
 
 if (_engageMode) then {
     if (GETMVAR(VerboseDebug,false)) then {

@@ -2,11 +2,6 @@
 
 params ["_unit"];
 
-// reset sightAid targets
-if (_unit getVariable [QGVAR(SA_needsReset), false]) then {
-    [_unit, false, objNull] call FUNC(WatchEnemy);
-};
-
 //private _target = _unit getVariable [QGVAR(SA_target), objNull];
 //private _genuineTarget = if (
 //        !(_unit getVariable [QGVAR(busy), false]) &&

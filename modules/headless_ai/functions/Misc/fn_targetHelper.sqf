@@ -1,11 +1,28 @@
 #include "script_component.hpp"
 
 params [
-    ["_unit", objNull, [objNull]]
+    ["_unit", objNull, [objNull]],
+    ["_deleteMode", false, [false]]
 ];
 
-private _invisibleTarget = GETVAR(_unit,InvisibleTarget,objNull);
-if (_invisibleTarget isEqualTo objNull) then {
+private _return = false;
+
+private _target = _unit getVariable [QGVAR(InvisibleTarget), objNull];
+private _targetHelper = _unit getVariable [QGVAR(InvisibleTargetHelper), objNull];
+private _targetCrew = _unit getVariable [QGVAR(InvisibleTargetCrew), grpNull];
+if (_targetCrew isNotEqualTo grpNull) then {
+    units _targetCrew apply {
+        deleteVehicle _x;
+    };
+    deleteGroup _targetCrew;
+};
+[_target, _targetHelper] select {_x isNotEqualTo objNull} apply {
+    deleteVehicle _x;
+};
+
+if (_deleteMode) then {
+    _return = true;
+} else {
     private _side = side _unit;
     private _targetClass = GVAR(sideEnemyTargets) getOrDefault [_side, ""];
     if (_targetClass isEqualTo "") then {
@@ -24,14 +41,17 @@ if (_invisibleTarget isEqualTo objNull) then {
             };
         };
     };
-    _invisibleTarget = _targetClass createVehicleLocal [0,0,0];
-    createVehicleCrew _invisibleTarget;
+    private _invisibleTarget = _targetClass createVehicleLocal [0,0,0];
+    private _targetCrew = createVehicleCrew _invisibleTarget;
     _invisibleTarget allowDamage false;
     private _invisibleTargetHelper = "Sign_Sphere100cm_F" createVehicleLocal [0,0,0];
     private _texture = ["", "#(rgb,8,8,3)color(1,0,0,1)"] select (GETMVAR(UseMarkers,false));
     _invisibleTargetHelper setobjecttexture [0, _texture];
     _invisibleTargetHelper attachTo [_invisibleTarget, [0,0,0]];
     SETVAR(_unit,InvisibleTarget,_invisibleTarget);
+    SETVAR(_unit,InvisibleTargetCrew,_targetCrew);
+    SETVAR(_unit,InvisibleTargetHelper,_invisibleTargetHelper);
+    _return = _invisibleTarget;
 };
 
-_invisibleTarget
+_return

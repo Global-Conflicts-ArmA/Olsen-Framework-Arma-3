@@ -63,6 +63,8 @@ class COMPONENT {
 		class SuppressingShots {};
 		class ThrowGrenade {};
 		class WatchEnemy {};
+		class PrepToFire {};
+		class exitFiring {};
 		class SearchBuilding {};
 		class VehicleEject {};
 	};
@@ -217,8 +219,8 @@ class COMPONENT {
 		class SA_condEnemyInRange {};
 		class SA_condSameEnemy {};
 		class SA_condCanSee {};
-		class SA_onSECombat {};	
-		class SA_onSEWait {};	
+		class SA_onSECombat {};
+		class SA_onSEWait {};
 	};
 
 	class StateMachine {

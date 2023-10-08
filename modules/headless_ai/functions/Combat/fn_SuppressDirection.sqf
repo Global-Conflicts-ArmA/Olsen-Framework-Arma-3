@@ -9,27 +9,27 @@ params [
 
 private _invisibleTarget = [_unit] call FUNC(targetHelper);
 
-private _laserPos = if (_direction isEqualType []) then {
+private _targetPos = if (_direction isEqualType []) then {
     _direction
 } else {
     private _relpos = _unit getPos [200, _direction];
     [(_relpos) select 0, (_relpos) select 1, (((getposASL _unit)) select 2) + 1.5]
 };
 
-_invisibleTarget setposASL _laserPos;
+_invisibleTarget setposASL _targetPos;
 _unit reveal [_invisibleTarget, 4];
-_unit doWatch _laserPos;
+_unit doWatch _invisibleTarget;
+_unit lookAt _invisibleTarget;
 _unit doTarget _invisibleTarget;
-_unit doSuppressiveFire _laserPos;
 
 [{
     params ["_argNested", "_idPFH"];
     _argNested params ["_unit", "_timeStart", "_timeToSuppress"];
-    if (CBA_MissionTime >= _timeStart + _timeToSuppress) exitWith {
-        private _invisibleTarget = GETVAR(_unit,InvisibleTarget,objNull);
-        _invisibleTarget setPosASL [0,0,0];
-        _unit doTarget objNull;
-        _unit doWatch objNull;
+    if (
+        CBA_MissionTime >= _timeStart + _timeToSuppress || 
+        !(_unit call EFUNC(FW,isAlive))
+    ) exitWith {
+        [_unit, true] call FUNC(targetHelper);
         [_idPFH] call CBA_fnc_removePerFrameHandler;
     };
     private _otherFriendlies = (units group _unit) - [_unit];

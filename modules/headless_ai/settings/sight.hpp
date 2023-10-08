@@ -25,16 +25,16 @@ usesmoke = false;
 // Do AI use UGLs forced by the statemachine?
 forceUGLs = true;
 // What percentage chance does the AI have in using a ugl?
-UGLChance = 15;
+UGLChance = 25;
 // What distance does the AI need to be within to use a ugl?
-UGLMaxRange = 200;
+UGLMaxRange = 400;
 // What distance does the AI need to be outside of to use a ugl?
 UGLMinRange = 50;
 
 // Do AI use launchers forced by the statemachine?
 forceAT = true;
 // What percentage chance does the AI have in using a laucnher?
-ATChance = 10;
+ATChance = 30;
 // What distance does the AI need to be within to use a laucnher?
 ATMaxRange = 300;
 // What distance does the AI need to be outside of to use a laucnher?

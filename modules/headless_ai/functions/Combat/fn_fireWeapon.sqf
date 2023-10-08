@@ -8,7 +8,7 @@ params [
 ];
 
 if (INVEHICLE(_unit)) then {
-    private _invisibleTarget = [_unit] call FUNC(targetHelper);
+    //private _invisibleTarget = [_unit] call FUNC(targetHelper);
     private _vehWeapons = weapons (vehicle _unit);
     private _selectedWeapon = _vehWeapons select 0;
     private _ambientFireMuzzles = vehicle _unit getVariable [QGVAR(ambientFireMuzzles), []];
@@ -23,8 +23,10 @@ if (INVEHICLE(_unit)) then {
     } else {
         _selectedWeapon = selectRandom _vehWeapons
     };
+    private _target = _unit getVariable [QGVAR(InvisibleTarget), objNull];
+    //private _targetHelper = _unit getVariable [QGVAR(InvisibleTargetHelper), objNull];
     //TRACE_3("vehicle weapon list",_unit,_vehWeapons,_selectedWeapon);
-    (vehicle _unit) fireAtTarget [_invisibleTarget, _selectedWeapon];
+    (vehicle _unit) fireAtTarget [_target, _selectedWeapon];
     if (GETMVAR(VerboseDebug,false)) then {
         LOG_1("vehicle %1 attempting to fire weapon",_unit);
     };

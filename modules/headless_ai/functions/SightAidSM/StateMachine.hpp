@@ -21,40 +21,34 @@ class GVAR(sightAidStateMachine) {
         };
     };
     class Enemy_Check_ {
-        onStateEntered = QFUNC(SA_onSEWait);
+        //onStateEntered = QFUNC(SA_onSEWait);
         class Same_Enemy_ {
             targetState = QUOTE(Combat);
-
             condition = QUOTE([_this] call FUNC(SA_condSameEnemy));
         };
         class Enemy_in__Range {
             targetState = QUOTE(Check_Nearby_Ene);
-
             condition = QUOTE([_this] call FUNC(SA_condEnemyInRange));
         };
         class No_Enemy__in_Ran {
             targetState = QUOTE(Wait);
-
             condition = QUOTE(true);
         };
     };
     class Check_Nearby_Ene {
-
         class Can_See {
             targetState = QUOTE(Combat);
-
             condition = QUOTE([_this] call FUNC(SA_condCanSee));
         };
         class Can_Not_See {
             targetState = QUOTE(Wait);
-
             condition = QUOTE(true);
         };
     };
     class Combat {
         onStateEntered = QFUNC(SA_onSECombat);
         class Wait {
-            targetState = QUOTE(Enemy_Check_);
+            targetState = QUOTE(Wait);
             conditionFrequency = 1;
             condition = QUOTE(true);
         };
@@ -63,7 +57,7 @@ class GVAR(sightAidStateMachine) {
         onStateEntered = "";
         class Wait_Completed {
             targetState = QUOTE(Enemy_Check_);
-            conditionFrequency = 2;
+            conditionFrequency = 1;
             condition = QUOTE(true);
         };
     };
