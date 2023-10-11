@@ -7,6 +7,8 @@
 
 #ifdef description
 	#include "dia\rscdefinitions.hpp" //Must have for the end screen to work, if removed Arma 3 will crash on mission load
+    #include "dia\briefingMenu\dia_briefingMenu.hpp"
+    #include "dia\gearMenu\dia_gearMenu.hpp"
 
 	// DO NOT CHANGE, spectator script needs people to respawn, to be declared as dead and put into spectator mode
 	// See: https://community.bistudio.com/wiki/Description.ext#respawn
