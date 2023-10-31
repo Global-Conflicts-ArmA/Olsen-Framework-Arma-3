@@ -63,7 +63,7 @@ Additional modules that can be enabled by removing the //
 //#include "start_text\root.sqf"
 //#include "task_control\root.sqf"
 //#include "tracking_markers\root.sqf"
-//#include "vehicle_boost\root.sqf"
+#include "vehicle_boost\root.sqf"
 
 /********* EXPERIMENTAL / INCOMPLETE MODULES *********/
 // These modules may or may not work and aren't supported in their current state
