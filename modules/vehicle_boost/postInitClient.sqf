@@ -53,13 +53,13 @@
                 };
             };
             _vehicle setVariable [QGVAR(validCheck), _valid];
-            TRACE_2("vehicle valid for boost",_vehicle,_valid);
+            //TRACE_2("vehicle valid for boost",_vehicle,_valid);
         } else {
             private _vehValue = GVAR(BoostNamespace) getOrDefault [_className, -1];
             if (_vehValue isEqualType -1) exitWith {
                 ERROR_1("error getting boost data for vehicle class",_className);
             };
-            TRACE_2("vehicle valid for boost",_vehicle,_vehValue);
+            //TRACE_2("vehicle valid for boost",_vehicle,_vehValue);
             _vehValue params [
                 ["_maxSpeed", -1, [0]],
                 ["_maxSpeedInWater", -1, [0]]
