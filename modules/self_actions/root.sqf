@@ -1,15 +1,25 @@
+#include "script_component.hpp"
+
 #ifdef description_XEH_PreInit
-	class SELFA {
+	class COMPONENT {
 		clientInit = "'' call compile preprocessFileLineNumbers 'modules\self_actions\preInitClient.sqf'";
 	};
 #endif
 
 #ifdef description_XEH_PostInit
-	class SELFA {
+	class COMPONENT {
 		clientInit = "'' call compile preprocessFileLineNumbers 'modules\self_actions\postInitClient.sqf'";
 	};
 #endif
 
-#ifdef description_functions
+#ifdef description
+    class GVAR(settings) {
+        #include "settings.hpp"
+    };
+#endif
+
+#ifdef description_external_functions
 	#include "functions\CfgFunctions.hpp"
 #endif
+
+#undef COMPONENT
