@@ -3,6 +3,5 @@ class COMPONENT {
 	class PARAFL {
 		file = "modules\paraflare\functions\PARAFL";
 		class flareFire {};
-		class flareLight {};
 	};
 };
