@@ -12,7 +12,7 @@
 //DATETIME -> Displays date and time (no text required)
 // To disable the start text for a specific team just comment out its declaration.
 
-GVAR(START_TEXT_DELAY) = 10; // Delay (in seconds) after mission start to display the text
+GVAR(START_TEXT_DELAY) = 5; // Delay (in seconds) after mission start to display the text
 
 // If player is BLUFOR they receive this message
 GVAR(START_TEXT_ARRAY_BLUFOR) = [
