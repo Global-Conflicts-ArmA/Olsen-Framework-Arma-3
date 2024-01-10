@@ -3,7 +3,15 @@
 #define preInitClient
 
 // Debug settings
-GVAR(debugMessagesEnabled) = ([missionConfigFile >> QGVAR(debugSettings) >> "debugMessagesEnabled", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+if (
+    isMultiplayer &&
+    {(toLower serverName) find "main" isNotEqualTo -1}
+) then {
+    GVAR(debugMessagesEnabled) = false;
+} else {
+    GVAR(debugMessagesEnabled) = ([missionConfigFile >> QGVAR(debugSettings) >> "debugMessagesEnabled", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+};
+
 GVAR(DiaryRecords) = [];
 
 // Start on Safe settings
