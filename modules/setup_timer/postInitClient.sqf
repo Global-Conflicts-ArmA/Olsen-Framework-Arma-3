@@ -20,7 +20,7 @@ GVAR(SetupTimers) apply {
         LOG("Starting Setup Timer");
         GVAR(PFHhandle_Main) = [{
             params ["_argNested", "_idPFH"];
-            _argNested params ["_unit","_area","_endTime","_pos"];
+            _argNested params ["_unit","_area","_endTime","_pos","_uavPos"];
             private _timeLeft = (_endTime - CBA_missionTime);
             if (_timeLeft <= 0) exitwith {
                 LOG_1("%1 exited SetupTimer PFHandle Main",_unit);
@@ -32,6 +32,15 @@ GVAR(SetupTimers) apply {
             } else {
                 (vehicle _unit) setVelocity [0,0,0];
                 (vehicle _unit) setPosATL _pos;
+            };
+            if (!isNull(getConnectedUAV _unit)) then {
+                if ((getConnectedUAV _unit) inArea _area) then {
+                    _uavPos = getPosATL (getConnectedUAV _unit);
+                    _argNested set [4,_uavPos];
+                } else {
+                    (getConnectedUAV _unit) setVelocity [0,0,0];
+                    (getConnectedUAV _unit) setPosATL _uavPos;
+                };
             };
         }, 0, [player,_area,_waitTime]] call CBA_fnc_addPerFrameHandler;
     }, _x] call CBA_fnc_waitUntilAndExecute;
