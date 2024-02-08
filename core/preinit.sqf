@@ -3,7 +3,14 @@
 #include "script_macros.hpp"
 
 // debug settings
-GVAR(testingDisableFriendlyAI) = ([missionConfigFile >> QGVAR(debugSettings) >> "testingDisableFriendlyAI", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+if (
+    isMultiplayer &&
+    {(toLower serverName) find "main" isNotEqualTo -1}
+) then {
+    GVAR(testingDisableFriendlyAI) = false;
+} else {
+    GVAR(testingDisableFriendlyAI) = ([missionConfigFile >> QGVAR(debugSettings) >> "testingDisableFriendlyAI", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+};
 
 // gear settings
 GVAR(force_remove_facewear) = ([missionConfigFile >> QGVAR(gearSettings) >> "forceRemoveFacewear", "number", 0] call CBA_fnc_getConfigEntry) == 1;

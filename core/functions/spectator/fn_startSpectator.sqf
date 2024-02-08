@@ -66,12 +66,9 @@ private _specGroup = switch _side do {
 //If babel is enabled, allowed spectator to hear all languages present in mission.
 if (GETMVAR(ACRE_Enable_Babel,false)) then {
     private _missionLanguages = [];
-    GVAR(ACRE_Languages_Babel) apply {
-        _x apply {
-            if (!(_x in _missionLanguages)) then {
-                _missionLanguages pushback _x;
-            };
-        };
+    GVAR(ACRE_All_Languages) apply {
+        _x params ["_short", "_long"];
+        _missionLanguages pushBackUnique _short;
     };
     _missionLanguages call acre_api_fnc_babelSetSpokenLanguages;
 };
