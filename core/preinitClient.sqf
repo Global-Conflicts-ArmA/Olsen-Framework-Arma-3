@@ -3,7 +3,16 @@
 #define preInitClient
 
 // Debug settings
-GVAR(debugMessagesEnabled) = ([missionConfigFile >> QGVAR(debugSettings) >> "debugMessagesEnabled", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+if (
+    isMultiplayer &&
+    {(toLower serverName) find "main" isNotEqualTo -1}
+) then {
+    GVAR(debugMessagesEnabled) = false;
+} else {
+    GVAR(debugMessagesEnabled) = ([missionConfigFile >> QGVAR(debugSettings) >> "debugMessagesEnabled", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+};
+
+GVAR(DiaryRecords) = [];
 
 // Start on Safe settings
 GVAR(StartOnSafe) = ([missionConfigFile >> QGVAR(clientSettings) >> "StartOnSafe" >> "enabled", "number", 1] call CBA_fnc_getConfigEntry) == 1;
@@ -351,6 +360,18 @@ GVAR(CheckingCoC) = false;
         };
         default {};
     };
+}] call CBA_fnc_addEventHandler;
+
+[QGVAR(TestModeNotification), {
+    params [
+        ["_mode", false, [false]],
+        ["_name", "", [""]]
+    ];
+    private _text = [
+        format ["Test Mode disabled by: %1", _name],
+        format ["Test Mode enabled by: %1", _name]
+    ] select _mode;
+    [_text, 1.5, ACE_Player, 10] call ace_common_fnc_displayTextStructured;
 }] call CBA_fnc_addEventHandler;
 
 #include "..\customization\inits\PreInitClient.sqf" //DO NOT REMOVE

@@ -1,3 +1,3 @@
-#include "..\..\core\script_macros.hpp"
+#include "script_component.hpp"
 
-[] call FUNC(SELFA_init);
+[] call FUNC(init);

@@ -7,6 +7,7 @@ class Core {
 	class addTeam {};
 	class isAlive {};
 	class areaCount {};
+    class briefing {};
 	class canAttachItem {};
 	class canLinkItem {};
 	class casualtyCount {};
@@ -33,7 +34,6 @@ class Core {
 	class spectatePrep {};
 	class trackAsset {};
 	class untrackUnit {};
-	class briefing {};
 	class gearExport {};
 	class gearScript {};
 	class getCO {};
@@ -73,6 +73,16 @@ class endscreen {
 class debug {
 	file = "core\dia\debug";
 	class debug {};
+};
+
+class briefingMenu {
+	file = "core\dia\briefingMenu";
+	class briefingMenu {};
+};
+
+class gearMenu {
+	file = "core\dia\gearMenu";
+	class gearMenu {};
 };
 
 class ShotCount {
