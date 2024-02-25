@@ -5,6 +5,8 @@
 GVAR(Teams) = []; //DO NOT REMOVE
 GVAR(TeamSides) = []; //DO NOT REMOVE
 GVAR(MissionEnded) = false; //Mission has not ended
+GVAR(TestMode) = false;
+GVAR(UsedGearTypes) = [];
 
 [QGVAR(spawnedEvent), {
     params ["_unit"];

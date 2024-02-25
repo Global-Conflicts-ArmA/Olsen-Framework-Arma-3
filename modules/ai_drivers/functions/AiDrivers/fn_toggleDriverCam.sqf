@@ -20,7 +20,7 @@ if (_arg) then {
         //GVAR(DriverCam) attachTo [_veh, _pos];
         GVAR(DriverCam) setPosASL (_veh modelToWorldWorld _pos);
         GVAR(DriverCamTarget) = "Sign_Sphere10cm_F" createVehicleLocal [0,0,0];
-        //GVAR(DriverCamTarget) setobjecttexture [0,"#(rgb,8,8,3)color(1,0,0,1)"];
+        GVAR(DriverCamTarget) setobjecttexture [0,""];
         //GVAR(DriverCamTarget) attachTo [_veh, _targetPos];
         GVAR(DriverCamTarget) setPosASL (_veh modelToWorldWorld _targetPos);
         GVAR(DriverCam) attachTo [_veh];

@@ -1,5 +1,18 @@
 #include "script_component.hpp"
 
+params [
+    ["_side", blufor, [blufor]],
+    ["_testMode", false, [false]]
+];
+
+if !(_testMode) then {
+    _side = side player;
+} else {
+    GVAR(DiaryRecords) apply {
+        ACE_Player removeDiaryRecord ["Diary", _x];
+    };
+};
+
 #define NEWTAB(NAME) _briefing set [count _briefing, ["Diary",[NAME,"
 #define ENDTAB "]]];
 
@@ -19,7 +32,7 @@ private _briefing = [];
 #include "..\..\customization\briefings\civilian.sqf"
 private _civBriefing = _briefing;
 
-private _playerBriefing = switch (side player) do {
+private _playerBriefing = switch _side do {
 	case west: {_westBriefing};
 	case east: {_eastBriefing};
 	case independent: {_indBriefing};
@@ -47,5 +60,6 @@ if (!isNil "uo_fnc_hasGMAccess" && {call uo_fnc_hasGMAccess}) then {
 
 reverse _playerBriefing;
 _playerBriefing apply {
-	player createDiaryRecord _x;
+	private _record = player createDiaryRecord _x;
+    GVAR(DiaryRecords) pushBackUnique _record;
 };

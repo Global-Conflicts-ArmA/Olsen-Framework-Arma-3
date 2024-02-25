@@ -1,15 +1,13 @@
+#include "script_component.hpp"
+
 #ifdef description_XEH_PreInit
-	class START {
+	class COMPONENT {
 		clientInit = "'' call compile preprocessFileLineNumbers 'modules\start_text\preInitClient.sqf'";
 	};
 #endif
 
-#ifdef description_XEH_InitPost_CAManBase
-	class START {
-		clientInit = "_this call compile preprocessFileLineNumbers 'modules\start_text\postInitClient.sqf'";
-	};
-#endif
-
-#ifdef description_functions
+#ifdef description_external_functions
 	#include "functions\CfgFunctions.hpp"
 #endif
+
+#undef COMPONENT

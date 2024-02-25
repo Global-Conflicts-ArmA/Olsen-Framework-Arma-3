@@ -61,7 +61,7 @@ switch side player do {
         _dismountVehiclesVar = QGVAR(independent_dismountVehicles);
         _transportersVar = QGVAR(independent_transporters);
     };
-    default {
+    case civilian: {
         _typeVar = QGVAR(civilian_type);
         _deniedVar = QGVAR(civilian_JIPDenied);
         _distanceVar = QGVAR(civilian_distance);
@@ -70,6 +70,7 @@ switch side player do {
         _dismountVehiclesVar = QGVAR(civilian_dismountVehicles);
         _transportersVar = QGVAR(civilian_transporters);
     };
+    default {};
 };
 
 if (

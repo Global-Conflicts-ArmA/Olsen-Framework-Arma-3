@@ -116,5 +116,45 @@
     [(localize "STR_GCFW_InCommand")] call ace_common_fnc_displayTextStructured;
 }] call CBA_fnc_addEventHandler;
 
+private _testMenuAction = [QGVAR(testMenuAction), "Test Menu", "", {true}, {
+    (!isMultiplayer || isServer || (([] call BIS_fnc_admin) isNotEqualTo 0 && (serverName == "Global Conflicts Test Server")) || (GETMVAR(TestMode,false)))
+}] call ace_interact_menu_fnc_createAction;
+[ACE_Player, 1, ["ACE_SelfActions"], _testMenuAction] call ace_interact_menu_fnc_addActionToObject;
+
+
+private _enableTestAction = [QGVAR(enableTestModeAction), "Enable Mission Test Mode", "", {
+    missionNamespace setVariable [QGVAR(TestMode), true, true];
+    [QGVAR(TestModeNotification), [true, profileName]] call CBA_fnc_globalEvent;
+}, {
+    !(GETMVAR(TestMode,false)) &&
+    {(!isMultiplayer || isServer || ([] call BIS_fnc_admin) isNotEqualTo 0)}
+}] call ace_interact_menu_fnc_createAction;
+[ACE_Player, 1, ["ACE_SelfActions", QGVAR(testMenuAction)], _enableTestAction] call ace_interact_menu_fnc_addActionToObject;
+
+private _disableTestAction = [QGVAR(disableTestModeAction), "Disable Mission Test Mode", "", {
+    missionNamespace setVariable [QGVAR(TestMode), false, true];
+    [QGVAR(TestModeNotification), [false, profileName]] call CBA_fnc_globalEvent;
+}, {
+    (GETMVAR(TestMode,false)) &&
+    {(!isMultiplayer || isServer || ([] call BIS_fnc_admin) isNotEqualTo 0)}
+}] call ace_interact_menu_fnc_createAction;
+[ACE_Player, 1, ["ACE_SelfActions", QGVAR(testMenuAction)], _disableTestAction] call ace_interact_menu_fnc_addActionToObject;
+
+private _gearTestMenu = [QGVAR(disableTestModeAction), "Gear Test", "", {
+    findDisplay 46 createDisplay QGVAR(GearMenuCfg);
+}, {
+    (GETMVAR(TestMode,false)) &&
+    {(GETMVAR(UsedGearTypes,[])) isNotEqualTo []}
+}] call ace_interact_menu_fnc_createAction;
+[ACE_Player, 1, ["ACE_SelfActions", QGVAR(testMenuAction)], _gearTestMenu] call ace_interact_menu_fnc_addActionToObject;
+
+private _briefingTestMenu = [QGVAR(disableTestModeAction), "Briefing Test", "", {
+    findDisplay 46 createDisplay QGVAR(BriefingMenuCfg);
+}, {
+    (GETMVAR(TestMode,false))
+}] call ace_interact_menu_fnc_createAction;
+[ACE_Player, 1, ["ACE_SelfActions", QGVAR(testMenuAction)], _briefingTestMenu] call ace_interact_menu_fnc_addActionToObject;
+
+
 #include "..\customization\inits\PostInitClient.sqf" //DO NOT REMOVE
 #include "..\modules\modules.sqf" //DO NOT REMOVE
