@@ -2,7 +2,7 @@
 
 
 //unit 1, unit 2
-params ["_unit", ["_dir", 0, [0]], ["_testHeight", -1, [-1]], ["_target", objnull, [objnull]]];
+params ["_unit", ["_dir", 0, [0]], ["_testHeight", -1, [-1]], ["_target", objNull, [objNull]]];
 
 private _unitPos = getPosATL _unit;
 private _samplePosUnit = if (_testHeight > -1) then {
@@ -12,7 +12,7 @@ private _samplePosUnit = if (_testHeight > -1) then {
 };
 
 private _samplePos = [0,0,0];
-if (_target isEqualTo objnull) then {
+if (_target isEqualTo objNull) then {
     private _relPos = _unit getPos [2, _dir];
     _samplePos = if (_testHeight > -1) then {
         AGLToASL [_relPos select 0, _relPos select 1, _testHeight]
@@ -21,7 +21,7 @@ if (_target isEqualTo objnull) then {
         [_convGetPos select 0, _convGetPos select 1, eyePos _unit select 2]
     };
 } else {
-    _samplePos = getPosASL _target
+    _samplePos = eyePos _target
 };
 
 private _cansee = (([_unit, "VIEW", objNull] checkVisibility [_samplePosUnit, _samplePos]) >= 0.1);
