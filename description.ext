@@ -86,15 +86,6 @@ class Extended_Respawn_EventHandlers {
 	};
 };
 
-class Extended_Suppressed_EventHandlers {
-	class CAManBase {
-		#define description_XEH_Suppressed_CAManBase
-		#include "core\description.hpp" //DO NOT REMOVE
-		#include "modules\modules.sqf" //DO NOT REMOVE
-		#undef description_XEH_Suppressed_CAManBase
-	};
-};
-
 class Extended_InitPost_EventHandlers {
 	class CAManBase {
 		#define description_XEH_InitPost_CAManBase

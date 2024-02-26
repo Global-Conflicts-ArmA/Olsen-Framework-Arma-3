@@ -137,7 +137,6 @@ class COMPONENT {
     class Eventhandlers {
 		file = "modules\headless_ai\functions\Eventhandlers";
 		class onFiredMan {};
-		class onSuppressed {};
 	};
 
     class get {

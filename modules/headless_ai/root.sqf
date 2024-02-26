@@ -46,12 +46,6 @@
 	};
 #endif
 
-#ifdef description_XEH_Suppressed_CAManBase
-    class COMPONENT {
-        suppressed = QUOTE(_this call FUNC(onSuppressed));
-    };
-#endif
-
 #ifdef description_XEH_InitPost_CAManBase
 	class COMPONENT {
 		init = QUOTE(_this call FUNC(initPostMan));

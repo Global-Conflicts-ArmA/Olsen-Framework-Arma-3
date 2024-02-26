@@ -2,7 +2,7 @@
 
 params ["_unit"];
 
-private _suppressionFactor = GETVAR(_unit,suppressionFactor,0);
+private _suppressionFactor = getSuppression(_unit);
 if (_suppressionFactor isEqualTo 0) exitwith {};
 private _stance = stance _unit;
 private _unitPos = unitPos _unit;
@@ -11,7 +11,7 @@ private _combatMode = combatMode _unit;
 switch (_stance) do {
     case "CROUCH": {
         //TRACE_2("case CROUCH",_unit);
-        if (_suppressionFactor > 40) then {
+        if (_suppressionFactor > 0.7) then {
             if (combatMode _unit isNotEqualTo "BLUE") then {
                 _unit setCombatMode "BLUE";
                 _unit doWatch objNull;
@@ -27,8 +27,8 @@ switch (_stance) do {
     };
     case "STAND": {
         //TRACE_1("case STAND",_unit);
-        if (_suppressionFactor > 20) then {
-            if (_suppressionFactor > 40) then {
+        if (_suppressionFactor > 0.35) then {
+            if (_suppressionFactor > 0.7) then {
                 if (combatMode _unit isNotEqualTo "BLUE") then {
                     _unit setCombatMode "BLUE";
                     _unit doWatch objNull;
