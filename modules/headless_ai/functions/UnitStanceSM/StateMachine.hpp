@@ -34,7 +34,6 @@ class GVAR(unitStanceStateMachine) {
             targetState = QUOTE(Check_Stance);
 
             condition = QUOTE(((behaviour _this) in [ARR_2(QN(COMBAT),QN(STEALTH))])\
-            && {(QGETVAR(_this,suppressionFactor,0) < 20) || (QGETVAR(_this,suppressionImmunity,false))}\
             && {(_this targets []) isNotEqualTo []}\
             && {!(QGETVAR(_this,reloading,false))});
         };
@@ -42,7 +41,6 @@ class GVAR(unitStanceStateMachine) {
             targetState = QUOTE(Reset_Stance);
 
             condition = QUOTE(!((behaviour _this) in [ARR_2(QN(COMBAT),QN(STEALTH))])\
-            && {(QGETVAR(_this,suppressionFactor,0) < 20) || (QGETVAR(_this,suppressionImmunity,false))}\
             && {(_this targets []) isEqualTo []}\
             && {QGETVAR(_this,US_SetStance,false)}\
             && {!(QGETVAR(_this,reloading,false))});

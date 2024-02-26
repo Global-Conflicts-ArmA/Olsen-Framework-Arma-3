@@ -5,9 +5,10 @@ class GVAR(unitStanceStateMachine) {
         local _x && \
         {!isPlayer _x} && \
         {QGETVAR(_x,spawned,false)} && \
-        {(QGETVAR(_x,stance,'') isEqualTo '') && {(QGETVAR(group _x,stance,'') isEqualTo '')}} && \
+        {(QGETVAR(_x,stance,'AUTO') == 'AUTO') && {(QGETVAR(group _x,stance,'AUTO') == 'AUTO')}} && \
         {!(QGETVAR(_x,NOAI,false))} && \
         {!([group _x] call FUNC(isMoveTask))} && \
+        {!(QGETVAR(_x,Busy,false))} && \
         {(vehicle _x isEqualTo _x)} \
     });
     skipNull = 1;
@@ -21,6 +22,14 @@ class GVAR(unitStanceStateMachine) {
     };
     class Unit_Checks {
         onStateEntered = QFUNC(US_onSEUnitChecks);
+        class Is_Suppressed {
+            targetState = QUOTE(Check_Suppression);
+
+            condition = QUOTE(((behaviour _this) in [ARR_2(QN(COMBAT),QN(STEALTH))])\
+            && {(QGETVAR(_this,suppressionFactor,0) > 20)}\
+            && {!(QGETVAR(_this,suppressionImmunity,false))}\
+            && {!(QGETVAR(_this,reloading,false))});
+        };
         class Is_Targeting {
             targetState = QUOTE(Check_Stance);
 
@@ -39,6 +48,14 @@ class GVAR(unitStanceStateMachine) {
         class No_Enemy_Targets {
             targetState = QUOTE(Wait);
 
+            condition = QUOTE(true);
+        };
+    };
+    class Check_Suppression {
+        onStateEntered = QFUNC(US_onSESuppressionCheck);
+        class Wait_Completed {
+            targetState = QUOTE(Unit_Checks);
+            conditionFrequency = 2;
             condition = QUOTE(true);
         };
     };
