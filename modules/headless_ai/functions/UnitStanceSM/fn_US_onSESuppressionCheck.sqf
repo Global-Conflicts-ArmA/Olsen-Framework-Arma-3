@@ -20,15 +20,9 @@ switch (_stance) do {
     case "STAND": {
         //TRACE_1("case STAND",_unit);
         if (_suppressionFactor > GVAR(stanceFeatureSuppressionThreshold)) then {
-            if (_suppressionFactor > GVAR(stanceFeatureSuppressionThreshold) * 2) then {
-                _unit setUnitPos "DOWN";
-                SETVAR(_unit,US_SetStance,true);
-                //TRACE_3("Set to DOWN",_unit, _unitPos,_combatMode);
-            } else {
-                _unit setUnitPos "MIDDLE";
-                SETVAR(_unit,US_SetStance,true);
-                //TRACE_3("Set to MIDDLE",_unit, _unitPos,_combatMode);
-            };
+            _unit setUnitPos "MIDDLE";
+            SETVAR(_unit,US_SetStance,true);
+            //TRACE_3("Set to MIDDLE",_unit, _unitPos,_combatMode);
         };
     };
     default {};
