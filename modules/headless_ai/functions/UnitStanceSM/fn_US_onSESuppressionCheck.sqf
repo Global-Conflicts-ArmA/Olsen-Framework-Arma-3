@@ -12,14 +12,6 @@ switch (_stance) do {
     case "CROUCH": {
         //TRACE_2("case CROUCH",_unit);
         if (_suppressionFactor > 0.7) then {
-            if (combatMode _unit isNotEqualTo "BLUE") then {
-                _unit setCombatMode "BLUE";
-                _unit doWatch objNull;
-                [{
-                    params ["_unit", "_combatMode"];
-                    _unit setCombatMode _combatMode;
-                }, [_unit, _combatMode], 2] call CBA_fnc_waitAndExecute;
-            };
 			_unit setUnitPos "DOWN";
 			SETVAR(_unit,US_SetStance,true);
 			//TRACE_3("Set to DOWN",_unit, _unitPos,_combatMode);
@@ -29,14 +21,6 @@ switch (_stance) do {
         //TRACE_1("case STAND",_unit);
         if (_suppressionFactor > 0.35) then {
             if (_suppressionFactor > 0.7) then {
-                if (combatMode _unit isNotEqualTo "BLUE") then {
-                    _unit setCombatMode "BLUE";
-                    _unit doWatch objNull;
-                    [{
-                        params ["_unit", "_combatMode"];
-                        _unit setCombatMode _combatMode;
-                    }, [_unit, _combatMode], 2] call CBA_fnc_waitAndExecute;
-                };
                 _unit setUnitPos "DOWN";
                 SETVAR(_unit,US_SetStance,true);
                 //TRACE_3("Set to DOWN",_unit, _unitPos,_combatMode);
@@ -56,5 +40,5 @@ switch (_stance) do {
 	[{
 		params ["_unit"];
 		SETVAR(_unit,suppressionImmunity,false);
-	}, [_unit], 10] call CBA_fnc_waitAndExecute;
-}, [_unit], 10] call CBA_fnc_waitAndExecute;
+	}, [_unit], 3] call CBA_fnc_waitAndExecute;
+}, [_unit], 5] call CBA_fnc_waitAndExecute;
