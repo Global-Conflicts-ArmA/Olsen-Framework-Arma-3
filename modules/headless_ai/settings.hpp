@@ -56,7 +56,7 @@ stanceFeature = true;
 stanceFeatureSuppression = true;
 // How suppressed the AI needs to be on a scale of 0 to 1 to lower their stance. Double this threshold is when they will attempt to go prone.
 stanceFeatureSuppressionThreshold = 0.35;
-// How long the AI will lower their stance for in response to suppression in seconds
+// How long the AI will lower their stance for in response to suppression in seconds, before gaining resistance
 stanceFeatureSuppressionDuration = 7;
 // How long the AI will be resistant to the effects of suppression in their stance, after the above duration
 stanceFeatureSuppressionResistance = 3;

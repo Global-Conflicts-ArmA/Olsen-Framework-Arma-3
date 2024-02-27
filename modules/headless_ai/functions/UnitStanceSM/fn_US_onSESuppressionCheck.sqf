@@ -28,11 +28,13 @@ switch (_stance) do {
     default {};
 };
 
-[{
-	params ["_unit"];
-	SETVAR(_unit,suppressionImmunity,true);
-	[{
-		params ["_unit"];
-		SETVAR(_unit,suppressionImmunity,false);
-	}, [_unit], GVAR(stanceFeatureSuppressionResistance)] call CBA_fnc_waitAndExecute;
-}, [_unit], GVAR(stanceFeatureSuppressionDuration)] call CBA_fnc_waitAndExecute;
+if (GVAR(stanceFeatureSuppressionResistance) > 0) then {
+    [{
+        params ["_unit"];
+        SETVAR(_unit,suppressionImmunity,true);
+        [{
+            params ["_unit"];
+            SETVAR(_unit,suppressionImmunity,false);
+        }, [_unit], GVAR(stanceFeatureSuppressionResistance)] call CBA_fnc_waitAndExecute;
+    }, [_unit], GVAR(stanceFeatureSuppressionDuration)] call CBA_fnc_waitAndExecute;
+};

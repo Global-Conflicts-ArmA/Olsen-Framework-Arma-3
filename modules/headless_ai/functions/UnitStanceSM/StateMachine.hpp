@@ -21,7 +21,7 @@ class GVAR(unitStanceStateMachine) {
         };
     };
     class Unit_Checks {
-        onStateEntered = QFUNC(US_onSEUnitChecks);
+        onStateEntered = "";
         class Is_Suppressed {
             targetState = QUOTE(Check_Suppression);
 
@@ -35,15 +35,14 @@ class GVAR(unitStanceStateMachine) {
             targetState = QUOTE(Check_Stance);
 
             condition = QUOTE(((behaviour _this) in [ARR_2(QN(COMBAT),QN(STEALTH))])\
-            && {(_this targets []) isNotEqualTo []}\
+            && {(_this targets [true]) isNotEqualTo []}\
             && {!(QGETVAR(_this,reloading,false))});
         };
         class No_target {
             targetState = QUOTE(Reset_Stance);
 
             condition = QUOTE(!((behaviour _this) in [ARR_2(QN(COMBAT),QN(STEALTH))])\
-            && {(_this targets []) isEqualTo []}\
-            && {QGETVAR(_this,US_SetStance,false)}\
+            && {(_this targets [true]) isEqualTo []}\
             && {!(QGETVAR(_this,reloading,false))});
         };
         class No_Enemy_Targets {
@@ -72,15 +71,15 @@ class GVAR(unitStanceStateMachine) {
         onStateEntered = "";
         class Wait_Completed {
             targetState = QUOTE(Unit_Checks);
-            conditionFrequency = 2;
+            conditionFrequency = 4;
             condition = QUOTE(true);
         };
     };
     class Reset_Stance {
-        onStateEntered = QFUNC(US_onSEStanceCheck);
+        onStateEntered = QFUNC(US_onSEUnitChecks);
         class Wait_Completed {
             targetState = QUOTE(Unit_Checks);
-            conditionFrequency = 2;
+            conditionFrequency = 4;
             condition = QUOTE(true);
         };
     };
