@@ -11,7 +11,7 @@ private _combatMode = combatMode _unit;
 switch (_stance) do {
     case "CROUCH": {
         //TRACE_2("case CROUCH",_unit);
-        if (_suppressionFactor > 0.7) then {
+        if (_suppressionFactor > GVAR(stanceFeatureSuppressionThreshold) * 2) then {
 			_unit setUnitPos "DOWN";
 			SETVAR(_unit,US_SetStance,true);
 			//TRACE_3("Set to DOWN",_unit, _unitPos,_combatMode);
@@ -19,8 +19,8 @@ switch (_stance) do {
     };
     case "STAND": {
         //TRACE_1("case STAND",_unit);
-        if (_suppressionFactor > 0.35) then {
-            if (_suppressionFactor > 0.7) then {
+        if (_suppressionFactor > GVAR(stanceFeatureSuppressionThreshold)) then {
+            if (_suppressionFactor > GVAR(stanceFeatureSuppressionThreshold) * 2) then {
                 _unit setUnitPos "DOWN";
                 SETVAR(_unit,US_SetStance,true);
                 //TRACE_3("Set to DOWN",_unit, _unitPos,_combatMode);
@@ -40,5 +40,5 @@ switch (_stance) do {
 	[{
 		params ["_unit"];
 		SETVAR(_unit,suppressionImmunity,false);
-	}, [_unit], 3] call CBA_fnc_waitAndExecute;
-}, [_unit], 5] call CBA_fnc_waitAndExecute;
+	}, [_unit], GVAR(stanceFeatureSuppressionResistance)] call CBA_fnc_waitAndExecute;
+}, [_unit], GVAR(stanceFeatureSuppressionDuration)] call CBA_fnc_waitAndExecute;

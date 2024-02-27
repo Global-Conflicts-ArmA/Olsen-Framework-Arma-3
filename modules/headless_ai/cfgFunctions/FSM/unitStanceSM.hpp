@@ -26,7 +26,8 @@ class GVAR(unitStanceStateMachine) {
             targetState = QUOTE(Check_Suppression);
 
             condition = QUOTE(((behaviour _this) in [ARR_2(QN(COMBAT),QN(STEALTH))])\
-            && {(getSuppression(_this) > 0.35)}\
+            && {(getSuppression(_this) > GVAR(stanceFeatureSuppressionThreshold))}\
+            && {GVAR(stanceFeatureSuppression)}\
             && {!(QGETVAR(_this,suppressionImmunity,false))}\
             && {!(QGETVAR(_this,reloading,false))});
         };
