@@ -2,9 +2,9 @@
 #ifndef COMPONENT
     #define COMPONENT FW
 #endif
-//#define DEBUG_MODE_NORMAL
-#define DEBUG_MODE_FULL
-#define VERSIONSTR "1.1.6 Dev"
+#define DEBUG_MODE_NORMAL
+//#define DEBUG_MODE_FULL
+#define VERSIONSTR "1.1.6"
 #define VERSION 1.1
 #define VERSION_AR 1,1,6
 #include "script_macros_mission.hpp"

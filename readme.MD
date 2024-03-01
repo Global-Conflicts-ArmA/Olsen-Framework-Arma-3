@@ -3,7 +3,7 @@
 </p>
 <p align="center">
     <a href="https://github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3/releases/latest">
-        <img src="https://img.shields.io/badge/Version-1.1.5-blue.svg" alt="Global Conflicts Framework Version">
+        <img src="https://img.shields.io/badge/Version-1.1.6-blue.svg" alt="Global Conflicts Framework Version">
     </a>
     <a href="https://github.com/Global-Conflicts-ArmA/Olsen-Framework-Arma-3/issues">
         <img src="https://img.shields.io/github/issues-raw/Global-Conflicts-ArmA/Olsen-Framework-Arma-3.svg?label=Issues" alt="Global Conflicts Framework Issues">
