@@ -4,7 +4,7 @@ params ["_group", "_targetPos", ["_radius", 50, [0]], ["_mode", "ASSAULT", [""]]
 LOG_1("combatAssault started _this: %1",_this);
 
 private _leader = leader _group;
-if (INVEHICLE(_leader)) exitWith {
+if (INVEHICLE(_leader) && !(vehicle _leader isKindOf "StaticWeapon")) exitWith {
     _this call FUNC(CombatAssaultVehicle);
 };
 
@@ -28,6 +28,8 @@ _units apply {
     _unit setVariable [QGVAR(Busy), ffalse];
     _unit doFollow _leader;
     _unit forceSpeed -1;
+    unassignVehicle _unit;
+    doGetOut _unit;
 };
 _group setBehaviourStrong "AWARE";
 _group setFormation _formation;
