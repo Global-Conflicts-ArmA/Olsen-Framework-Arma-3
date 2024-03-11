@@ -83,9 +83,9 @@ private _assaultTaskPFH = [{
         };
         //hunt/defend in local area
         if (_mode == "RETREAT") then {
-            [_group, _targetPos] call FUNC(taskDefend);
+            [_group, "DEFEND", _targetPos] call FUNC(taskAssign);
         } else {
-            [_group, _targetPos] call FUNC(taskHunt);
+            [_group, "HUNT", _targetPos] call FUNC(taskAssign);
         };
     };
     if (_firstRun) then {
@@ -150,6 +150,7 @@ private _assaultTaskPFH = [{
                     {
                         params ["_group", "_newUnits", "_args"];
                         _group enableAttack false;
+                        _group setCombatMode "BLUE";
                         _group setBehaviourStrong "AWARE";
                         _group setSpeedMode "FULL";
 
@@ -166,8 +167,9 @@ private _assaultTaskPFH = [{
                         [_group, _relPos, 0, "MOVE", "AWARE", "YELLOW", "FULL", formation _group, "", [0,0,0], 10] call CBA_fnc_addWaypoint;
                         [_group, 0] setWaypointCompletionRadius 10;
 
-                        _newUnits apply {
+                        units _group apply {
                             private _unit = _x;
+                            _unit setUnitCombatMode "BLUE";
                             _unit setVariable [QGVAR(Busy), true];
                             _unit doWatch objNull;
                             _unit forceSpeed (_unit getSpeed "FAST");
@@ -183,8 +185,12 @@ private _assaultTaskPFH = [{
                         }, {
                             params ["_group", "_oldGroup"];
                             _group enableAttack true;
+                            _group setCombatMode "YELLOW";
                             _group setBehaviourStrong "COMBAT";
                             _group setVariable["boundComplete", true];
+                            units _group apply {
+                                _x setUnitCombatMode "YELLOW";
+                            };
                         }, [_group, _oldGroup]] call CBA_fnc_waitUntilAndExecute;
                     },
                     {false},
