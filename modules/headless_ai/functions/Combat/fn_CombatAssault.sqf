@@ -44,6 +44,10 @@ private _assaultTaskPFH = [{
         ["_firstRun", true, [true]]
     ];
     _units = units _group select {_x call EFUNC(FW,isAlive)};
+    _subGroup = _group getVariable["subGroup", objNull];
+    if (_subGroup isNotEqualTo objNull) then {
+        _units = _units + units _subGroup;
+    };
     TRACE_2("",_group,count _units);
     private _leader = leader _group;
     if (_units isEqualTo []) exitWith {
@@ -62,7 +66,7 @@ private _assaultTaskPFH = [{
         (GETVAR(_group,Task,"PATROL")) isNotEqualTo "ASSAULT" ||
         {(GETVAR(_group,ExitAssault,false))} ||
         {(getPosATL _leader distance2D _targetPos) <= _compRadius} ||
-        {count units _group <= 3} ||
+        {count _units <= 3} ||
         {_mode != "RETREAT" && _leader distance2D _nearestEnemy <= 15}
     ) exitWith {
         [_idPFH] call CBA_fnc_removePerFrameHandler;
