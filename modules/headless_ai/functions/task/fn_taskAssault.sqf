@@ -4,6 +4,7 @@ params [
     "_group",
     "_attackPos",
     ["_radius",100,[0]],
+    ["_mode", "ASSAULT", [""]],
     ["_wait",3,[0]],
     ["_behaviour", "UNCHANGED", [""]],
     ["_combat", "NO CHANGE", [""]],
@@ -33,4 +34,4 @@ _attackPos = _attackPos call CBA_fnc_getPos;
 SETVAR(_group,Task,"ASSAULT");
 [_group] call FUNC(taskRelease);
 
-[_group, _attackPos, _radius] call FUNC(combatAssault);
+[_group, _attackPos, _radius, _mode] call FUNC(combatAssault);

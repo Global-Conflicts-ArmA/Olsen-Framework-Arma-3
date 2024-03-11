@@ -49,6 +49,25 @@ if (
     _waypoints deleteAt 0;
     [_group, _waypoints] call FUNC(createWaypoints);
 } else {
+    private _retreatPos = GETVAR(_group,retreatPos,objNull);
+    if (_retreatPos isNotEqualTo objNull) then {
+        _retreatThreshold = GETVAR(_group,retreatThreshold,0.5);
+        _retreatCount = floor((count units _group) * _retreatThreshold);
+        [{  
+            _group = _this select 0;
+            _retreatCount = _this select 2;
+            _subGroup = _group getVariable["subGroup", objNull];
+            _subGroupCount = 0;
+            if (_subGroup isNotEqualTo objNull) then {
+                _subGroupCount = count units _subGroup;
+            };
+            (({ alive _x } count units _group) + _subGroupCount) <= _retreatCount;
+        }, {
+            params ["_group", "_retreatPos", "_retreatCount"];
+            [_group, _retreatPos, 50, "RETREAT"] call FUNC(taskAssault);
+        }, [_group, _retreatPos, _retreatCount]] call CBA_fnc_waitUntilAndExecute;
+    };
+
     if (GETVAR(_group,vehCargo,false)) then {
         SETVAR(_group,vehCargoOrigTask,_task);
         private _veh = vehicle leader _group;
