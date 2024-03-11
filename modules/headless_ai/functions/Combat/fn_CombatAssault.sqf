@@ -62,14 +62,14 @@ private _assaultTaskPFH = [{
         (GETVAR(_group,Task,"PATROL")) isNotEqualTo "ASSAULT" ||
         {(GETVAR(_group,ExitAssault,false))} ||
         {(getPosATL _leader distance2D _targetPos) <= _compRadius} ||
-        {_mode != "RETREAT" && count units _group <= 3} ||
+        {count units _group <= 3} ||
         {_mode != "RETREAT" && _leader distance2D _nearestEnemy <= 15}
     ) exitWith {
         [_idPFH] call CBA_fnc_removePerFrameHandler;
         TRACE_1("Group exited Assault PFH",_group);
         SETVAR(_group,ExitAssault,false);
-        _group setCombatMode "RED";
-        _group setBehaviour "COMBAT";
+        _group setCombatMode "YELLOW";
+        _group setBehaviour "AWARE";
         _group enableAttack true;
         _units apply {
             private _unit = _x;
@@ -81,12 +81,8 @@ private _assaultTaskPFH = [{
             _unit setUnitPos "AUTO";
             _unit setVariable [QGVAR(Busy), false];
         };
-        //hunt/defend in local area
-        if (_mode == "RETREAT") then {
-            [_group, "DEFEND", _targetPos] call FUNC(taskAssign);
-        } else {
-            [_group, "HUNT", _targetPos] call FUNC(taskAssign);
-        };
+        //patrol in local area
+        [_group, "PATROL", _targetPos] call FUNC(taskAssign);
     };
     if (_firstRun) then {
         if (GETVAR(_group,AssaultPFH,objNull) isNotEqualTo objNull) then {
