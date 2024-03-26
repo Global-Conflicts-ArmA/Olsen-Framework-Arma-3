@@ -11,7 +11,7 @@ private _enemyDir = _unit getDir _assignedEnemy;
 switch (_stance) do {
     case "PRONE": {
         //TRACE_1("case PRONE",_unit);
-        if !([_unit, _enemyDir, 0.2, _assignedEnemy] call FUNC(checkView)) then {
+        if !([_unit, _enemyDir, 0.25, _assignedEnemy] call FUNC(checkView)) then {
             if ([_unit, _enemyDir, 1, _assignedEnemy] call FUNC(checkView)) then {
                 _unit setUnitPos "MIDDLE";
                 SETVAR(_unit,US_SetStance,true);
@@ -36,9 +36,9 @@ switch (_stance) do {
         };
     };
     case "STAND": {
-        //TRACE_1("case STAND",_unit);
+       //TRACE_1("case STAND",_unit);
         if ([_unit, _enemyDir, 1, _assignedEnemy] call FUNC(checkView)) then {
-            if ([_unit, _enemyDir, 0.2, _assignedEnemy] call FUNC(checkView)) then {
+            if ([_unit, _enemyDir, 0.25, _assignedEnemy] call FUNC(checkView)) then {
                 _unit setUnitPos "DOWN";
                 SETVAR(_unit,US_SetStance,true);
                 //TRACE_1("Set to DOWN",_unit);
