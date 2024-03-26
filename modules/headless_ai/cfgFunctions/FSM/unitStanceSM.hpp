@@ -73,7 +73,7 @@ class GVAR(unitStanceStateMachine) {
         };
     };
     class Reset_Stance {
-        onStateEntered = QFUNC(US_onSEUnitChecks);
+        onStateEntered = QFUNC(US_onSEResetStance);
         class Wait_Completed {
             targetState = QUOTE(Unit_Checks);
             conditionFrequency = 4;
