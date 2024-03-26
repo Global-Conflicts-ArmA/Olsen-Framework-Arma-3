@@ -8,7 +8,7 @@ private _stanceGroup = GETVAR(group _unit,stance,"");
 if (_stance isNotEqualTo "" || {_stanceGroup isNotEqualTo ""}) exitWith {};
 private _originalStance = [stance _unit] call FUNC(getStance);
 
-//LOG_2("stanceMachine set: %1 with originalStance: %2", _unit,_originalStance);
+//LOG_2("stanceMachine set: %1 with originalStance: %2",_unit,_originalStance);
 
 SETVAR(_unit,originalStance,_originalStance);
 SETVAR(_unit,US_SetStance,false);
