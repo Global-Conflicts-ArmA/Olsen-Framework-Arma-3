@@ -18,11 +18,12 @@ GVAR(spawnUnitsQueue) = [];
 GVAR(spawnUnitsQueueActiveGroup) = [];
 
 //Ask server for entities data
-[{
-    [QGVAR(HCRequestArrayDataEvent), clientOwner] call CBA_fnc_serverEvent;
+[{GETMVAR(ArrayDataChecked,false)}, {
+    params ["_clientOwner"];
+    [QGVAR(HCRequestArrayDataEvent), _clientOwner] call CBA_fnc_serverEvent;
 	[{
 	    (GETMVAR(receivedArrayData,false))
 	},{
 	    [] call FUNC(initMain);
 	}] call CBA_fnc_waitUntilAndExecute;
-}] call CBA_fnc_execNextFrame;
+}, [clientOwner]] call CBA_fnc_waitUntilAndExecute;
