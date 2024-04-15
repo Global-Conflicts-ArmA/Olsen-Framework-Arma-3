@@ -46,6 +46,11 @@ GVAR(cacheAllPlayers) = ([missionConfigFile >> QGVAR(settings) >> "cacheAllPlaye
 
 GVAR(stanceFeature) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeature", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
+GVAR(stanceFeatureSuppression) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppression", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(stanceFeatureSuppressionThreshold) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppressionThreshold", "number", 0.35] call CBA_fnc_getConfigEntry);
+GVAR(stanceFeatureSuppressionDuration) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppressionDuration", "number", 7] call CBA_fnc_getConfigEntry);
+GVAR(stanceFeatureSuppressionResistance) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppressionResistance", "number", 3] call CBA_fnc_getConfigEntry);
+
 GVAR(hearingDistance) = [missionConfigFile >> QGVAR(settings) >> "hearingDistance", "number", 2000] call CBA_fnc_getConfigEntry;
 GVAR(hearingMinIncrease) = [missionConfigFile >> QGVAR(settings) >> "hearingMinIncrease", "number", 1] call CBA_fnc_getConfigEntry;
 GVAR(radioDistance) = [missionConfigFile >> QGVAR(settings) >> "radioDistance", "number", 0] call CBA_fnc_getConfigEntry;
