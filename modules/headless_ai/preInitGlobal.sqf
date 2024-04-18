@@ -227,13 +227,18 @@ GVAR(acreRadiosArray) = (_acreRadios select 0) + (_acreRadios select 1);
 [QGVAR(SpawnArrayEvent), {
     private _arrayName = "";
     private _specialArgs = [];
+    private _initial = CBA_MissionTime <= 0;
     if (_this isEqualType []) then {
         _arrayName = _this deleteAt 0;
+        _initial = _this deleteAt 0;
         _specialArgs = _this;
     } else {
         _arrayName = _this;
     };
-    private _initial = CBA_MissionTime <= 0;
+    if !(_initial isEqualType false) then {
+        //LOG_1("Could not find initial spawn type %1",_arrayName);
+        _initial = false;
+    };
     //LOG_2("SpawnArray _Array: %1 _initial: %2",_arrayName,_initial);
     private _logic = missionNamespace getVariable [_arrayName, objnull];
     if (_logic isEqualTo objnull) exitwith {
