@@ -38,9 +38,18 @@
 	// See: https://community.bistudio.com/wiki/Description.ext#enableDebugConsole
 	enableDebugConsole = 1;
 
-	// Sets the mode for corpse removal manager. 1 = All units are managed by the manager
-	// See: https://community.bistudio.com/wiki/Description.ext#corpseManagerMode
-	corpseManagerMode = 1;
+    // Sets default cleanup settings
+    // See: https://community.bistudio.com/wiki/Description.ext#corpseManagerMode
+    
+    corpseManagerMode = 1;             // 1 = All vehicles are managed
+    corpseLimit = 15;                 // Number of dead bodies to use minimum instead of maximum timers
+    corpseRemovalMinTime = 120;     // minimum time, in seconds a body may remain
+    corpseRemovalMaxTime = 7200;     // maximum time, in seconds, a body may remain
+    wreckManagerMode = 1;             // 1 = All vehicle wrecks are managed
+    wreckLimit = 5;                 // Number of vehicle wrecks to use minimum instead of maximum timers
+    wreckRemovalMinTime = 300;         // minimum time, in seconds a wreck may remain
+    wreckRemovalMaxTime = 7200;     // maximum time, in seconds, a wreck may remain
+    minPlayerDistance = 200;         // minimum radius, in meters, to players to not delete a corpse or wreck.
 
 	// Enable CBA Target Debugging
 	// See: https://github.com/CBATeam/CBA_A3/wiki/Target-Debugging

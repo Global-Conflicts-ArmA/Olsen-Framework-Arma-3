@@ -46,6 +46,12 @@ GVAR(cacheAllPlayers) = ([missionConfigFile >> QGVAR(settings) >> "cacheAllPlaye
 
 GVAR(stanceFeature) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeature", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
+
+GVAR(stanceFeatureSuppression) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppression", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(stanceFeatureSuppressionThreshold) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppressionThreshold", "number", 0.35] call CBA_fnc_getConfigEntry);
+GVAR(stanceFeatureSuppressionDuration) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppressionDuration", "number", 7] call CBA_fnc_getConfigEntry);
+GVAR(stanceFeatureSuppressionResistance) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppressionResistance", "number", 3] call CBA_fnc_getConfigEntry);
+
 GVAR(garrisonExcludeClaimedBuildings) = ([missionConfigFile >> QGVAR(settings) >> "garrisonExcludeClaimedBuildings", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
 GVAR(ignoreDirection) = ([missionConfigFile >> QGVAR(settings) >> "ignoreDirection", "number", 0] call CBA_fnc_getConfigEntry) == 1;
@@ -249,13 +255,18 @@ GVAR(acreRadiosArray) = (_acreRadios select 0) + (_acreRadios select 1);
 [QGVAR(SpawnArrayEvent), {
     private _arrayName = "";
     private _specialArgs = [];
+    private _initial = CBA_MissionTime <= 0;
     if (_this isEqualType []) then {
         _arrayName = _this deleteAt 0;
+        _initial = _this deleteAt 0;
         _specialArgs = _this;
     } else {
         _arrayName = _this;
     };
-    private _initial = CBA_MissionTime <= 0;
+    if !(_initial isEqualType false) then {
+        //LOG_1("Could not find initial spawn type %1",_arrayName);
+        _initial = false;
+    };
     //LOG_2("SpawnArray _Array: %1 _initial: %2",_arrayName,_initial);
     private _logic = missionNamespace getVariable [_arrayName, objNull];
     if (_logic isEqualTo objNull) exitwith {
