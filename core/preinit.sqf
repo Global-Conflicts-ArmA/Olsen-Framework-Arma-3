@@ -21,6 +21,9 @@ GVAR(removeAllGear) = ([missionConfigFile >> QGVAR(gearSettings) >> "testingDisa
 GVAR(loadingScreen) = ([missionConfigFile >> QGVAR(settings) >> "loadingScreen", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 ace_respawn_RemoveDeadBodiesDisconnected = ([missionConfigFile >> QGVAR(settings) >> "removeDeadBodiesDisconnected", "number", 0] call CBA_fnc_getConfigEntry) == 1;
 
+// ITC settings
+ITC_LAND_CIWS_INTERCEPTABLE = [missionConfigFile >> QGVAR(settings) >> "interceptableMissiles", "ARRAY", []] call CBA_fnc_getConfigEntry;
+
 GVAR(DebugMessages) = [];
 GVAR(Modules) = [];
 

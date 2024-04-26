@@ -40,6 +40,6 @@ if (GVAR(ArrayObjects) isNotEqualTo []) then {
 				};
 			};
 		};
-        SETMVAR(ArrayDataChecked,true);
+        missionNamespace setVariable [QGVAR(ArrayDataChecked), true, true];
 	}, [_ArrayObjects]] call CBA_fnc_execNextFrame;
 };
