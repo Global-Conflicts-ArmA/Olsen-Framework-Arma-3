@@ -20,10 +20,11 @@ GVAR(GroupHandlerPFH) = [{
         private _task = GETVAR(_group,Task,"NONE");
         private _position = getposATL _leader;
         private _areaAssigned = GETVAR(_group,areaAssigned,"NONE");
-        private _assetType = GETVAR(_group,assetType,"Infantry");
+        private _assetType = GETVAR(_group,assetType,"INFANTRY");
         private _groupcount = count _aliveUnits;
         private _behaviour = behaviour _leader;
         private _target = GETVAR(_group,CurrentTarget,objNull);
+        // TODO: more consistent target reset and first detection reactions
         if (assignedTarget _leader isEqualTo objNull) then {
             // reset target to objNull
             if (_target isNotEqualTo objNull) then {
@@ -36,21 +37,49 @@ GVAR(GroupHandlerPFH) = [{
                 _target isEqualTo objNull &&
                 {!(_target call EFUNC(FW,isAlive))}
             ) then {
-                TRACE_2("set target on active group",_group,_target);
                 _target = assignedTarget _leader;
+                TRACE_2("set target on active group",_group,_target);
                 SETVAR(_group,CurrentTarget,_target);
                 // react
                 // switch tasks on actions
-                // handle for special loiter task - regroup
-                if (_task isEqualTo "LOITER") then {
-                    _group setSpeedMode "FULL";
-        			_units apply {_x setUnitPos "Auto"; _x doFollow _leader};
-                    [_group, _target] call FUNC(CombatDefend);
+                private _taskInfo = GVAR(Tasks) getOrDefault [_task, []];
+                _taskInfo params [
+                    ["_function", "", [""]],
+                    ["_isMove", false, [false]],
+                    ["_needsPos", false, [false]],
+                    ["_combatResponse", "", [""]],
+                    ["_reinforce", false, [false]]
+                ];
+                if (_combatResponse isNotEqualTo "") then {
+                    [_group, _target] call (missionNamespace getVariable [_combatResponse, {}]);
                 };
-                if (_task in ["PATROL", "PERIMPATROL", "SENTRY", "BLDMOVE"]) then {
-                    //TRACE_2("non combat task check",_group,_task);
-                    [_group, _target] call FUNC(CombatDefend);
-                };
+                //vehicle dismount cargo if able 
+                //if (vehicle _leader isNotEqualTo _leader) then {
+                //    private _vehicle = vehicle _leader;
+                //    if (canMove _vehicle) then {
+                //        driver _vehicle forceSpeed 0;
+                //        private _cargoUnits = fullCrew [_vehicle, "cargo"];
+                //        if (_cargoUnits isNotEqualTo []) then {
+                //            _cargoUnits apply {
+                //                _x moveOut _vehicle;
+                //                unassignVehicle _x;
+                //            };
+                //        };
+                //        [{
+                //            (_this select 1) findIf {_x in (crew _vehicle)} isEqualTo -1
+                //        }, {
+                //            params ["_vehicle", "_cargoUnits"];
+                //            driver _vehicle forceSpeed -1;
+                //        }, [_vehicle, _cargoUnits], 3, {
+                //            driver _vehicle forceSpeed -1;
+                //        }] call CBA_fnc_waitUntilAndExecute;
+                //    } else {
+                //        _units apply {
+                //            _x moveOut _vehicle;
+                //            unassignVehicle _x;
+                //        };
+                //    };
+                //};
                 //radio for help
                 if ((GETMVAR(RadioDistance,2000)) > 0) then {
                     if (
@@ -93,18 +122,170 @@ GVAR(GroupHandlerPFH) = [{
         };
         if (GETMVAR(UseMarkers,false)) then {
             //TRACE_2("",GVAR(markerTrackedGroups),str _group);
-            GVAR(markerTrackedGroups) set [str _group, [
-                _group,
-                _side,
-                _leader,
-                _groupcount,
-                _task,
-                _behaviour,
-                _target,
-                _position,
-                _areaAssigned,
-                _assetType
-            ]]
+            private _key = str _group;
+            private _usedMarkers = [];
+            if !(_key in GVAR(markerTrackedGroups)) then {
+                GVAR(markerTrackedGroups) set [_key, [
+                    _group,
+                    []
+                ]];
+            } else {
+                _usedMarkers = (GVAR(markerTrackedGroups) get _key) select 1;
+            };
+            _usedMarkers params [
+                ["_tracker", "", [""]],
+                ["_dest", "", [""]],
+                ["_destLine", "", [""]],
+                ["_targetMarker", "", [""]]
+            ];
+            private _markercolour = switch (_side) do {
+                case west: {"ColorBlue"};
+                case east: {"ColorRed"};
+                case independent: {"ColorGreen"};
+                case civilian: {"ColorYellow"};
+                default {"ColorBlack"};
+            };
+            if (_tracker isEqualTo "") then {
+                _tracker = format ["trk_%1_%2",_side,_group];
+                createMarker [_tracker,[0,0]];
+                private _drawicon = switch (_assetType) do {
+                    case "Infantry": {"b_inf"};
+                    case "Motorized": {"b_motor_inf"};
+                    default {"b_inf"};
+                };
+                _tracker setMarkerShapeLocal "ICON";
+                _tracker setMarkerSizeLocal [0.5, 0.5];
+                _tracker setMarkerTypeLocal _drawicon;
+                _tracker setMarkerColor _markercolour;
+            };
+            _tracker setMarkerPos [getpos _leader select 0, getpos _leader select 1];
+            private _usetarget = _target isNotEqualTo objNull;
+            if !(_usetarget) then {
+                _target = "NONE";
+            };
+            private _text = if ((GETMVAR(CommanderEnabled,false)) && {(GETMVAR(CommanderSide,east)) isEqualTo _side}) then {
+                format ["%1 - Grpcount: %2 - Task: %3 - Area: %4 - Type: %5 - CombatMode: %6 - Target: %7",
+                    _group,
+                    _groupcount,
+                    _task,
+                    _areaAssigned,
+                    _assetType,
+                    _behaviour,
+                    _target
+                ];
+            } else {
+                format ["%1 - Grpcount: %2 - Task: %3 - CombatMode: %4 - Target: %5",
+                    _group,
+                    _groupcount,
+                    _task,
+                    _behaviour,
+                    _target
+                ];
+            };
+            //LOG_1("MarkerText: %1",_text);
+            _tracker setMarkerText _text;
+            // find appropriate dest waypoint, if any
+            if (_task in [
+                "PATROL",
+                "PERIMPATROL",
+                "SENTRY",
+                "ATTACK",
+                "ASSAULT",
+                "FLANK",
+                "MOVE",
+                "MANUAL",
+                "BLDMOVE",
+                "BLDSEARCH",
+                "PICKUP",
+                "DROPOFF"
+            ]) then {
+                private _groupWPs = waypoints _group;
+                if (_groupWPs isEqualTo []) then {
+                    if (_dest isNotEqualTo "") then {
+                        deletemarker _dest;
+                        deletemarker _destline;
+                        _dest = "";
+                        _destline = "";
+                    };
+                } else {
+                    private _currentWP = currentWaypoint _group;
+                    private _wpPos = waypointPosition [_group, _currentWP];
+                    if (
+                        _currentWP >= count _groupWPs &&
+                        {_wpPos isEqualTo [0,0,0]}
+                    ) then {
+                        if (_dest isNotEqualTo "") then {
+                            deletemarker _dest;
+                            deletemarker _destline;
+                            _dest = "";
+                            _destline = "";
+                        };
+                    } else {
+                        if (_dest isEqualTo "") then {
+                            _dest = format["dest_%1_%2", _side, _group];
+                            createMarker [_dest, [0, 0]];
+                            _dest setMarkerShapeLocal "ICON";
+                            _dest setMarkerTypeLocal "mil_marker";
+                            _dest setMarkerSizeLocal [0.25, 0.25];
+                            _dest setMarkerColorLocal _markercolour;
+                            _destline = format ["destline_%1_%2", _side, _group];
+                            createMarker [_destline, [0, 0]];
+                            _destline setMarkerShapeLocal "RECTANGLE";
+                            _destline setMarkerBrushLocal "SOLID";
+                            _destline setMarkerColorLocal _markercolour;
+                        };
+                        _dest setMarkerPos _wpPos;
+                        private _dist = (_position distance2D _wppos) / 2;
+                        private _ang = _position getDir _wppos;
+                        private _center = _position getPos [_dist, _ang];
+                        _destline setMarkerSizeLocal [1, _dist];
+                        _destline setMarkerDirLocal _ang;
+                        _destline setMarkerPos _center;
+                    };
+                };
+            } else {
+                if (_dest isNotEqualTo "") then {
+                    deletemarker _dest;
+                    deletemarker _destline;
+                    _dest = "";
+                    _destline = "";
+                };
+            };
+            if (_usetarget) then {
+                if (_target isEqualTo objNull || _target isEqualTo "NONE") then {
+                    if (_targetMarker isNotEqualTo "") then {
+                        deletemarker _targetMarker;
+                        _targetMarker = "";
+                    };
+                } else {
+                    if (_targetMarker isEqualTo "") then {
+                        _targetMarker = format["target_%1_%2",_side,_group];
+                        createMarker [_targetMarker,[0,0]];
+                        private _targettext = format ["%1",_group];
+                        _targetMarker setMarkerShapeLocal "ICON";
+                        _targetMarker setMarkerTypeLocal "mil_objective";
+                        _targetMarker setMarkerSizeLocal [0.5,0.5];
+                        _targetMarker setmarkercolorLocal _markercolour;
+                        _targetMarker setMarkerTextLocal _targettext;
+                    };
+                    _targetMarker setMarkerPos [(getpos _target select 0),(getpos _target select 1)];
+                };
+            } else {
+                if (_targetMarker isNotEqualTo "") then {
+                    deletemarker _targetMarker;
+                    _targetMarker = "";
+                };
+            };
+            _usedMarkers = [
+                _tracker,
+                _dest,
+                _destLine,
+                _targetMarker
+            ];
+            GVAR(markerTrackedGroups) set [_key, [
+                /*1*/ _group,
+                /*2*/ _usedMarkers
+            ]];
         };
         // AI Commander
         if (
@@ -118,4 +299,17 @@ GVAR(GroupHandlerPFH) = [{
         };
         SETVAR(_group,lastTimeChecked,CBA_missionTime);
     };
+    {
+        private _groupStr = _x;
+        private _groupArray = _y;
+        _groupArray params ["_group", "_usedMarkers"];
+        if (_group isEqualTo grpNull || leader _group isEqualTo objNull) then {
+            GVAR(markerTrackedGroups) deleteAt _groupStr;
+            if (_usedMarkers isNotEqualTo []) then {
+                _usedMarkers select {_x isNotEqualTo ""} apply {
+                    deletemarker _x;
+                };
+            };
+        };
+    } forEach GVAR(markerTrackedGroups);
 }, 1] call CBA_fnc_addPerFrameHandler;

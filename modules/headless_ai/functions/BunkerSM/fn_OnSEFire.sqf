@@ -8,7 +8,7 @@ SETVAR(_unit,LastFiredTime,CBA_MissionTime);
 private _burstCount = (GETVAR(_unit,burstCount,0)) + 1;
 SETVAR(_unit,burstCount,_burstCount);
 
-private _enemyTarget = GETVAR(_unit,enemyTarget,objnull);
+private _enemyTarget = GETVAR(_unit,enemyTarget,objNull);
 
 if (GETMVAR(VerboseDebug,false)) then {
     LOG_2("%1 Attempting to fire bunker mode at %2",_unit,_enemyTarget);

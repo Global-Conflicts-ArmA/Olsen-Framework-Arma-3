@@ -20,13 +20,19 @@ if (_storedVars isNotEqualTo []) then {
     };
 };
 
+
 private _driverGroup = group driver _vehicle;
 private _effectiveCommanderGrp = group effectiveCommander _vehicle;
-TRACE_2("finishVehSpawn",_driverGroup,_effectiveCommanderGrp);
+if (GETMVAR(VerboseDebug,false)) then {
+    TRACE_2("finishVehSpawn",_driverGroup,_effectiveCommanderGrp);
+};
+SETMVAR(PFHBusy, false);
 if (_effectiveCommanderGrp isNotEqualTo _driverGroup) then {
     private _leader = leader _driverGroup;
     _vehicle setEffectiveCommander _leader;
-    TRACE_2("set EC",_leader,effectiveCommander _vehicle);
+    if (GETMVAR(VerboseDebug,false)) then {
+        TRACE_2("set EC",_leader,effectiveCommander _vehicle);
+    };
     doStop driver _vehicle;
     driver _vehicle doFollow _leader;
 };

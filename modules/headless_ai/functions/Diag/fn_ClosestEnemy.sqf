@@ -3,7 +3,8 @@
 
 params [
     ["_unit", objNull, [objNull]],
-    ["_randomSelect", false, [false]]
+    ["_randomSelect", false, [false]],
+    ["_arrayReturn", false, [false]]
 ];
 
 if (_unit isEqualTo objNull) exitwith {objNull};
@@ -20,6 +21,11 @@ private _distanceArray = _enemyArray select {
 };
 
 _distanceArray sort true;
+
+if (_arrayReturn) exitWith {
+    _distanceArray resize 20;
+    _distanceArray
+};
 
 private _selectIndex = if (_randomSelect) then {
 	floor random (count _distanceArray / 2)

@@ -32,7 +32,7 @@ _groupSet params [
     /* 25 */ ["_assetType", "INFANTRY", [""]]
 ];
 
-SETVAR(_group,Pos,_gpos);
+SETVAR(_group,Pos,_groupPos);
 SETVAR(_group,behaviour,_behaviour);
 SETVAR(_group,combatMode,_combat);
 SETVAR(_group,speed,_speed);

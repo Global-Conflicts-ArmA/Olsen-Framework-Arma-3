@@ -42,7 +42,9 @@ if (
 		) then {
             private _newCurrent = _current + 1;
             private _newTotal = _total + 1;
-            TRACE_3("Setting new alive count",_unit,_newTotal,_newCurrent);
+            if (GETMVAR(verboseDebugEnabled,false)) then {
+                TRACE_3("Setting new alive count",_unit,_newTotal,_newCurrent);
+            };
             (_team select 0) set [3, _newTotal];
             (_team select 0) set [4, _newCurrent];
 		};

@@ -48,7 +48,9 @@ private _cargoGroup = [];
     };
 };
 
-TRACE_3("",typeOf _veh,count _vehCrew, count _cargoCrew);
+if (GETMVAR(VerboseDebug,false)) then {
+    TRACE_3("",typeOf _veh,count _vehCrew, count _cargoCrew);
+};
 
 private _cargo = [_cargoGroup, _cargoCrew];
 

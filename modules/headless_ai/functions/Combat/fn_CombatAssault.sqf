@@ -15,129 +15,146 @@ _group setFormDir _enemyDir;
 private _units = units _group;
 
 [_group] call CBA_fnc_clearWaypoints;
-[_group, _targetPos, _radius, "MOVE", "CARELESS", "WHITE"] call CBA_fnc_addWaypoint;
+[_group, _targetPos, 0, "MOVE", "AWARE", "WHITE"] call CBA_fnc_addWaypoint;
 
-private _arrayTest = ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "FSM"];
-_group enableAttack false;
+//private _arrayTest = ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "FSM"];
+private _arrayTest = ["AUTOCOMBAT"];
+//_group enableAttack false;
 _units apply {
     private _unit = _x;
     _arrayTest apply {
         _unit disableAI _x;
     };
-    doStop _unit;
     _unit setUnitPos "UP";
+    _unit setVariable [QGVAR(Busy), ffalse];
+    _unit doFollow _leader;
+    _unit forceSpeed -1;
 };
-_group setBehaviourStrong "CARELESS";
-//_group setFormation "DIAMOND";
+_group setBehaviourStrong "AWARE";
+_group setFormation "WEDGE";
 _group setCombatMode "BLUE";
 _group setSpeedMode "FULL";
 
 // manoeuvre function
 private _assaultTaskPFH = [{
     params ["_args", "_idPFH"];
-    _args params ["_group", "_targetPos", "_compradius"];
+    _args params [
+        "_group",
+        "_targetPos",
+        "_compRadius",
+        ["_firstRun", true, [true]]
+    ];
     _units = units _group select {_x call EFUNC(FW,isAlive)};
     TRACE_2("",_group,count _units);
     private _leader = leader _group;
+    if (_units isEqualTo []) exitWith {
+        [_idPFH] call CBA_fnc_removePerFrameHandler;
+    };
+    private _nearestEnemy = _leader call FUNC(closestEnemy);
+    //unset fire and move groups
+    if !(_firstRun) then {
+        units _group apply {
+            _x forceSpeed -1;
+            _x setVariable [QGVAR(Busy), false];
+            doStop _x;
+        };
+    };
     if (
-        (_units isEqualTo []) ||
-        {(GETVAR(_group,Task,"PATROL")) isNotEqualTo "ASSAULT"} ||
+        (GETVAR(_group,Task,"PATROL")) isNotEqualTo "ASSAULT" ||
         {(GETVAR(_group,ExitAssault,false))} ||
-        {
-            (getPosATL _leader distance2D _targetPos) <= _compradius
-        }
+        {(getPosATL _leader distance2D _targetPos) <= _compRadius} ||
+        {count units _group <= 3} ||
+        {_leader distance2D _nearestEnemy <= 15}
     ) exitWith {
         [_idPFH] call CBA_fnc_removePerFrameHandler;
         TRACE_1("Group exited Assault PFH",_group);
         SETVAR(_group,ExitAssault,false);
+        _group setCombatMode "RED";
+        _group setBehaviour "COMBAT";
+        _group enableAttack true;
         _units apply {
             private _unit = _x;
             ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "FSM"] apply {
                 _unit enableAI _x;
             };
-            _group setCombatMode "RED";
-            _group setBehaviour "COMBAT";
-            _group enableAttack true;
+            _unit forceSpeed -1;
+            _unit setVariable [QGVAR(Busy), false];
         };
-        [_group, _targetPos] call FUNC(CombatAttack);
+        //hunt in local area
+        [_group, _targetPos] call FUNC(taskHunt);
     };
-    _group setCombatMode "BLUE";
-    _group setBehaviourStrong "CARELESS";
-    _group setSpeedMode "FULL";
-    private _nearestEnemy = _leader call FUNC(closestEnemy);
-    if (
-            _nearestEnemy isNotEqualTo objNull
-            && {(_leader distance2d _nearestEnemy < (GETVAR(_group,AssaultEngageDistance,200)))}
-            && {count _units > 2}
-    ) then {
-        //sort the members by distance to the objective... find the farthest and make them move, closest do fire support
-        TRACE_2("Enemy Detected and in range",_group,_leader distance2d _nearestEnemy);
-        private _sortArray = _units apply {
-        	private _dis = _x distance2d _nearestEnemy;
-        	[_dis, _x]
+    if (_firstRun) then {
+        units _group apply {
+            private _unit = _x;
+            _unit forceSpeed -1;
+            private _relDir = _unit getDir _targetPos;
+            private _relPos = _unit getPos [20, _relDir];
+            _unit doMove _relPos;
+            _unit setDestination [_relPos, "FORMATION PLANNED", false];
+            _unit setUnitPos "UP";
+            _unit setVariable [QGVAR(Busy), true];
         };
-        _sortArray sort true;
-        private _fireGroup = [_sortArray, 0, count _sortArray / 2] call BIS_fnc_subSelect;
-        private _moveGroup = _sortArray - _fireGroup;
-
-        _fireGroup apply {
-            _x params ["_distance", "_unit"];
-            _unit setUnitCombatMode "YELLOW";
-            _unit setBehaviour "COMBAT";
-            _unit lookAt _nearestEnemy;
-            _unit forcespeed 0;
-            private _relDir = _unit getDir _nearestEnemy;
-            if (
-                RNG(0.75)
-                && {(_unit call FUNC(hasUGL)) isNotEqualTo ""}
-            ) then {
-                TRACE_1("attempting to fire UGL",_unit);
-                if (stance _unit isEqualTo "PRONE") then {
-                    _unit setUnitPos "MIDDLE";
-                };
-                private _muzzle = _unit call FUNC(hasUGL);
-                [_unit, _muzzle, _targetPos] call FUNC(fireUGL);
-            } else {
-                if (RNG(0.5) && {!(stance _unit isNotEqualTo "PRONE")}) then {
-                    _unit setUnitPos "DOWN";
+        _firstRun = false;
+        _args set [3, _firstRun];
+    } else {
+        if (
+            (_nearestEnemy isNotEqualTo objNull) && 
+            {(_leader distance2d _nearestEnemy < (GETVAR(_group,AssaultEngageDistance,200)))}
+        ) then {
+            //sort the members by distance to the objective... find the farthest and make them move, closest do fire support
+            TRACE_2("Enemy Detected and in range",_group,_leader distance2d _nearestEnemy);
+            private _sortArray = units _group apply {
+                private _dis = _x distance2d _nearestEnemy;
+                [_dis, _x]
+            };
+            _sortArray sort true;
+            private _fireGroup = [_sortArray, 0, count _sortArray / 2] call BIS_fnc_subSelect;
+            private _moveGroup = _sortArray - _fireGroup;
+            if (_moveGroup isEqualTo []) then {
+                _fireGroup = _sortArray deleteAt 0;
+                _moveGroup = _sortArray;
+            };
+            TRACE_2("assault groups chosen",_fireGroup,_moveGroup);
+            _fireGroup apply {
+                _x params ["_distance", "_unit"];
+                _unit setUnitCombatMode "YELLOW";
+                _unit setBehaviour "COMBAT";
+                _unit lookAt _nearestEnemy;
+                _unit setVariable [QGVAR(Busy), false];
+                _unit forcespeed 0;
+            };
+            _moveGroup apply {
+                _x params ["_distance", "_unit"];
+                //_unit doFollow _leader;
+                _unit forceSpeed -1;
+                private _relDir = _unit getDir _targetPos;
+                private _relPos = _unit getPos [20, _relDir + (random 30) - (random 30)];
+                _unit doMove _relPos;
+                //_unit lookAt _nearestEnemy;
+                _unit setVariable [QGVAR(Busy), true];
+                _unit setDestination [_relPos, "FORMATION PLANNED", false];
+                if (RNG(0.75)) then {
+                    _unit setUnitPos "UP";
                 } else {
                     _unit setUnitPos "MIDDLE";
                 };
-                [_unit, _relDir, 3] call FUNC(SuppressDirection);
-            }
-        };
-
-        _moveGroup apply {
-            _x params ["_distance", "_unit"];
-            //_unit doFollow _leader;
-            _unit forceSpeed -1;
-            private _relDir = _unit getDir _targetPos;
-            private _relPos = _unit getPos [20, _relDir + (random 30) - (random 30)];
-            _unit doMove _relPos;
-            _unit lookAt _nearestEnemy;
-            //_unit setDestination [_relPos, "FORMATION PLANNED", false];
-            if (RNG(0.75)) then {
+                _unit setSuppression 0;
+            };
+        } else {
+            TRACE_2("rushing towards obj",_group,_units);
+            units _group apply {
+                private _unit = _x;
+                _unit forceSpeed -1;
+                private _relDir = _unit getDir _targetPos;
+                private _relPos = _unit getPos [20, _relDir + (random 30) - (random 30)];
+                _unit doMove _relPos;
+                _unit setDestination [_relPos, "FORMATION PLANNED", false];
                 _unit setUnitPos "UP";
-            } else {
-                _unit setUnitPos "MIDDLE";
+                _unit setVariable [QGVAR(Busy), true];
+                _unit setSuppression 0;
             };
-            _unit setSuppression 0;
-        };
-    } else {
-        _units apply {
-            private _unit = _x;
-            ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "FSM"] apply {
-                _unit disableAI _x;
-            };
-            _unit forceSpeed -1;
-            private _relDir = _unit getDir _targetPos;
-            private _relPos = _unit getPos [20, _relDir + (random 30) - (random 30)];
-            _unit doMove _relPos;
-            //_unit setDestination [_relPos, "FORMATION PLANNED", false];
-            _unit setUnitPos "UP";
-            _unit setSuppression 0;
         };
     };
-}, 4, [_group, _targetPos, _radius]] call CBA_fnc_addPerFrameHandler;
+}, 3, [_group, _targetPos, _radius]] call CBA_fnc_addPerFrameHandler;
 
 SETVAR(_group,Task,"ASSAULT");

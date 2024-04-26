@@ -18,11 +18,15 @@ _args params [
     ["_unitIndex", 0, [0]]
 ];
 
-TRACE_3("vehicle spawn PFH",_vehicle, count _vehCrew, count _cargoCrew);
+if (GETMVAR(VerboseDebug,false)) then {
+    TRACE_3("vehicle spawn PFH",_vehicle, count _vehCrew, count _cargoCrew);
+};
 
 if (_vehCrew isEqualTo []) then {
     if (_cargoCrew isEqualTo []) then {
-        TRACE_1("no more veh members! finishing veh spawn",_vehCrew);
+        if (GETMVAR(VerboseDebug,false)) then {
+            TRACE_1("no more veh members! finishing veh spawn",_vehCrew);
+        };
         if (_cargoGroup isNotEqualTo grpNull) then {
             [_cargoGroup, _cargoGroupInfo] call FUNC(finishGroupSpawn);
         };
@@ -31,7 +35,9 @@ if (_vehCrew isEqualTo []) then {
     } else {
         private _toSpawn = _cargoCrew deleteAt 0;
         _args set [6, _cargoCrew];
-        TRACE_1("vehicle cargo spawn",_toSpawn);
+        if (GETMVAR(VerboseDebug,false)) then {
+            TRACE_1("vehicle cargo spawn",_toSpawn);
+        };
         _toSpawn params ["_vehRole", "_userInfo"];
         _vehRole params ["_role", "_index"];
         private _unit = [false, _cargoGroup, _groupPos, false, _unitIndex, _userInfo] call FUNC(createUnit);
@@ -44,7 +50,9 @@ if (_vehCrew isEqualTo []) then {
 } else {
     private _toSpawn = _vehCrew deleteAt 0;
     _args set [3, _vehCrew];
-    TRACE_1("vehicle spawn",_toSpawn);
+    if (GETMVAR(VerboseDebug,false)) then {
+        TRACE_1("vehicle spawn",_toSpawn);
+    };
     _toSpawn params ["_vehRole", "_userInfo"];
     _vehRole params ["_role", "_index"];
     private _unit = [false, _group, _groupPos, false, _unitIndex, _userInfo] call FUNC(createUnit);

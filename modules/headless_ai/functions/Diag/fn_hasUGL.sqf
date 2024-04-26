@@ -12,7 +12,9 @@ if (isNil QGVAR(weaponMuzzleNamespace)) then {
 
 // see if weapon is already cached in hashmap
 private _return = GVAR(weaponMuzzleNamespace) getOrDefault [_weapon, "NA"];
-TRACE_2("r1",_unit,_return);
+if (GETMVAR(VerboseDebug,false)) then {
+    TRACE_2("r1",_unit,_return);
+};
 
 if (_return isEqualTo "NA") then {
     // otherwise generate info and store in hashmap
