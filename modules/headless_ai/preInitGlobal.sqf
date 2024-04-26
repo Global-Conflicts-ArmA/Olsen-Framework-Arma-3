@@ -7,10 +7,20 @@ GVAR(InitialSpawn) = [missionConfigFile >> QGVAR(settings) >> "initialSpawn", "a
 GVAR(InitialRandomSpawns) = [missionConfigFile >> QGVAR(settings) >> "initialRandomSpawns", "array", []] call CBA_fnc_getConfigEntry;
 GVAR(InitialRandomSpawnsCount) = [missionConfigFile >> QGVAR(settings) >> "initialRandomSpawnsCount", "number", 0] call CBA_fnc_getConfigEntry;
 
-GVAR(debug) = ([missionConfigFile >> QGVAR(settings) >> "debug", "number", 1] call CBA_fnc_getConfigEntry) == 1;
-GVAR(verboseDebug) = ([missionConfigFile >> QGVAR(settings) >> "verboseDebug", "number", 1] call CBA_fnc_getConfigEntry) == 1;
-GVAR(groupDebug) = ([missionConfigFile >> QGVAR(settings) >> "groupDebug", "number", 1] call CBA_fnc_getConfigEntry) == 1;
-GVAR(useMarkers) = ([missionConfigFile >> QGVAR(settings) >> "useMarkers", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+if (
+    isMultiplayer &&
+    {(toLower serverName) find "main" isNotEqualTo -1}
+) then {
+    GVAR(debug) = false;
+    GVAR(verboseDebug) = false;
+    GVAR(groupDebug) = false;
+    GVAR(useMarkers) = false;
+} else {
+    GVAR(debug) = ([missionConfigFile >> QGVAR(settings) >> "debug", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+    GVAR(verboseDebug) = ([missionConfigFile >> QGVAR(settings) >> "verboseDebug", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+    GVAR(groupDebug) = ([missionConfigFile >> QGVAR(settings) >> "groupDebug", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+    GVAR(useMarkers) = ([missionConfigFile >> QGVAR(settings) >> "useMarkers", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+};
 
 GVAR(AIViewDistance) = [missionConfigFile >> QGVAR(settings) >> "AIViewDistance", "number", 2500] call CBA_fnc_getConfigEntry;
 GVAR(AITerrainDetail) = [missionConfigFile >> QGVAR(settings) >> "AIViewDistance", "number", 3.125] call CBA_fnc_getConfigEntry;
@@ -35,6 +45,12 @@ GVAR(cacheDisableDistance) = [missionConfigFile >> QGVAR(settings) >> "cacheDisa
 GVAR(cacheAllPlayers) = ([missionConfigFile >> QGVAR(settings) >> "cacheAllPlayers", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
 GVAR(stanceFeature) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeature", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+
+
+GVAR(stanceFeatureSuppression) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppression", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GVAR(stanceFeatureSuppressionThreshold) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppressionThreshold", "number", 0.35] call CBA_fnc_getConfigEntry);
+GVAR(stanceFeatureSuppressionDuration) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppressionDuration", "number", 7] call CBA_fnc_getConfigEntry);
+GVAR(stanceFeatureSuppressionResistance) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppressionResistance", "number", 3] call CBA_fnc_getConfigEntry);
 
 GVAR(garrisonExcludeClaimedBuildings) = ([missionConfigFile >> QGVAR(settings) >> "garrisonExcludeClaimedBuildings", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
@@ -239,13 +255,18 @@ GVAR(acreRadiosArray) = (_acreRadios select 0) + (_acreRadios select 1);
 [QGVAR(SpawnArrayEvent), {
     private _arrayName = "";
     private _specialArgs = [];
+    private _initial = CBA_MissionTime <= 0;
     if (_this isEqualType []) then {
         _arrayName = _this deleteAt 0;
+        _initial = _this deleteAt 0;
         _specialArgs = _this;
     } else {
         _arrayName = _this;
     };
-    private _initial = CBA_MissionTime <= 0;
+    if !(_initial isEqualType false) then {
+        //LOG_1("Could not find initial spawn type %1",_arrayName);
+        _initial = false;
+    };
     //LOG_2("SpawnArray _Array: %1 _initial: %2",_arrayName,_initial);
     private _logic = missionNamespace getVariable [_arrayName, objNull];
     if (_logic isEqualTo objNull) exitwith {

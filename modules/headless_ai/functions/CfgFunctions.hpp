@@ -267,6 +267,6 @@ class COMPONENT {
 		class US_onSEInitial {};
 		class US_onSEResetStance {};
 		class US_onSEStanceCheck {};
-		class US_onSEUnitChecks {};
+		class US_onSESuppressionCheck {};
 	};
 };

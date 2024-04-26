@@ -5,6 +5,8 @@
 GVAR(Teams) = []; //DO NOT REMOVE
 GVAR(TeamSides) = []; //DO NOT REMOVE
 GVAR(MissionEnded) = false; //Mission has not ended
+GVAR(TestMode) = false;
+GVAR(UsedGearTypes) = [];
 
 [QGVAR(spawnedEvent), {
     params ["_unit"];
@@ -110,13 +112,14 @@ GVAR(MissionEnded) = false; //Mission has not ended
                 };
                 [{
                     params [
-                        ["_respawnPen", [], [[]]]
+                        ["_respawnPen", [], [[]]],
+                        ["_waveUnlockedVar", "", [""]]
                     ];
                     _respawnPen apply {
                         _x hideObjectGlobal false;
                     };
                     missionNamespace setVariable [_waveUnlockedVar, false];
-                }, [_respawnPen], 30] call CBA_fnc_waitAndExecute;
+                }, [_respawnPen, _waveUnlockedVar], 30] call CBA_fnc_waitAndExecute;
             };
         };
     };

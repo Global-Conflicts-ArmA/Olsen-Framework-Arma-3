@@ -9,9 +9,10 @@ call compile format ['%1 = {
 
 #define ADD_GROUP(groupName) call call compile format ["%1", #groupName + package]
 
-params ["_unit", "_type", ["_groupId", "", [""]]];
+params ["_unit", "_type", ["_groupId", "", [""]], ["_testMode", false, [false]]];
 
 if !(local _unit) exitWith {};
+if !(_type isEqualType "") exitWith {};
 
 private _temp = "";
 
@@ -23,7 +24,12 @@ if (GETMVAR(removeAllGear, true)) then {
 	[_unit] call FUNC(removeAllGear);
 };
 
-SETPVAR(_unit,Loadout,_type);
+if !(_testMode) then {
+    SETPVAR(_unit,Loadout,_type);
+    GVAR(UsedGearTypes) pushBackUnique _type;
+    missionNamespace setVariable [QGVAR(UsedGearTypes), GVAR(UsedGearTypes), true];
+};
+
 _unit setVariable ["BIS_enableRandomization", false];
 
 FUNC(AddItem) = {([_unit, _type] + _this) call FUNC(AddItemOrg);};

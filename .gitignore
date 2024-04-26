@@ -59,4 +59,5 @@ release/*
 *.pbo
 texHeaders.bin
 
-.vscode
+.vscode/
+.vs/
