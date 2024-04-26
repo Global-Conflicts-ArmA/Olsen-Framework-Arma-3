@@ -43,7 +43,6 @@ if (_gunner isNotEqualTo objNull) then {
 } else {
     _group selectLeader _driver;
 };
-_group setCombatMode "BLUE";
 _group setBehaviour "SAFE";
 _group setSpeedMode "FULL";
 [_group] call CBA_fnc_clearWaypoints;

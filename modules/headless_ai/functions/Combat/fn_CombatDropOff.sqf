@@ -24,7 +24,6 @@ private _driver = driver _veh;
 [_group, _dropOffPos, 0, "SAD"] call CBA_fnc_addWaypoint;
 
 _group setBehaviourStrong "AWARE";
-_group setCombatMode "BLUE";
 _group setSpeedMode "FULL";
 
 // manoeuvre function

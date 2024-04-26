@@ -84,6 +84,11 @@ class Patrol: Move {
     needsPos = false;
     combatResponse = QFUNC(responseChance);
 };
+class PerimPatrol: Move {
+    function = QFUNC(taskPatrolPerimeter);
+    needsPos = false;
+    combatResponse = QFUNC(responseChance);
+};
 class Sentry: Patrol {
     function = QFUNC(taskSentry);
     needsPos = false;

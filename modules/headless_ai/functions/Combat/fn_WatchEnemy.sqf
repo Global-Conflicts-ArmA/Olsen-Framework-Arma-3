@@ -23,6 +23,10 @@ if (_engageMode) then {
     _unit reveal [_invisibleTarget,4];
     _unit doWatch _targetPos;
     _unit doTarget _invisibleTarget;
+    [{
+        params ["_unit"];
+        [_unit, true] call FUNC(targetHelper);
+    }, [_unit], 30] call CBA_fnc_waitAndExecute;
 } else {
     if (GETMVAR(VerboseDebug,false)) then {
     	LOG_1("_unit: %1 resetting target",_unit);
@@ -32,8 +36,7 @@ if (_engageMode) then {
         _unit doWatch _getposTarget;
         _unit doTarget _target;
     };
-    _unit reveal [_invisibleTarget, 0];
-    _invisibleTarget setposASL [0,0,0];
+    [_unit, true] call FUNC(targetHelper);
 };
 
 true

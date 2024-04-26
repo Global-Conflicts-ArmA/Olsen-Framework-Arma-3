@@ -19,6 +19,9 @@ if (GETMVAR(VerboseDebug,false)) then {
 };
 
 private _group = createGroup _side;
+
+_oldGroup setVariable["subGroup", _group];
+
 _newUnits joinSilent _group;
 private _newLeader = leader _group;
 if (assignedVehicle _newLeader isNotEqualTo objNull) then {
@@ -110,7 +113,7 @@ if (
 };
 
 if (_rejoinCondition isEqualType {}) then {
-    private _conditionTest = call _rejoinCondition;
+    private _conditionTest = [_group, _newUnits, _args] call _rejoinCondition;
     if !(_conditionTest isEqualType false) then {
         ERROR_2("condition must return bool false or true", _group, _rejoinCondition);
     };
@@ -125,9 +128,10 @@ if (_rejoinCondition isEqualType {}) then {
         if (_group isEqualTo grpNull || _oldGroup isEqualTo grpNull || _units isEqualTo [] || units _oldGroup isEqualTo []) exitWith {
             [_idPFH] call CBA_fnc_removePerFrameHandler;
         };
-        if (call _rejoinCondition) then {
+        if ([_group, _newUnits, _args] call _rejoinCondition) then {
              _units joinSilent _oldGroup;
              deleteGroup _group;
+             _oldGroup setVariable["subGroup", objNull];
         };
     }, 3, [
         _group,
