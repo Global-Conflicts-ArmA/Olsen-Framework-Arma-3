@@ -3,7 +3,7 @@
 params ["_group", "_targetPos", ["_radius", 50, [50]]];
 
 // rewrite combat attack function to be more aggressive - or completely replace with assault
-[_group, _targetPos, _radius] call FUNC(combatAssault);
+[_group, _targetPos, _radius] call FUNC(combatBound);
 
 //private _enemyDir = leader _group getDir _targetPos;
 //
