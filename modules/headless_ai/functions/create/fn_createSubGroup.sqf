@@ -21,6 +21,7 @@ if (GETMVAR(VerboseDebug,false)) then {
 private _group = createGroup _side;
 
 _oldGroup setVariable["subGroup", _group];
+_oldGroup setVariable["groupLeader", leader _oldGroup];
 
 _newUnits joinSilent _group;
 private _newLeader = leader _group;
@@ -131,6 +132,9 @@ if (_rejoinCondition isEqualType {}) then {
         if ([_group, _newUnits, _args] call _rejoinCondition) then {
              _units joinSilent _oldGroup;
              deleteGroup _group;
+             if (_oldGroup getVariable["groupLeader", objNull] isNotEqualTo objNull && (_oldGroup getVariable "groupLeader") call EFUNC(FW,isAlive)) then {
+                _oldGroup selectLeader (_oldGroup getVariable "groupLeader");
+             };
              _oldGroup setVariable["subGroup", objNull];
         };
     }, 3, [
