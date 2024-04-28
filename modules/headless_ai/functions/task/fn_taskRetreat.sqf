@@ -36,6 +36,10 @@ SETVAR(_group,Task,"RETREAT");
 
 [_group, _retreatPos, _radius, "RETREAT"] call FUNC(combatBound);
 
-[{GETVAR(_group,BoundPFH,objNull) isEqualTo objNull}, {
+[{
+    params ["_group", "_nextTask", "_retreatPos"];
+    GETVAR(_group,BoundPFH,objNull) isEqualTo objNull;
+}, {
+    params ["_group", "_nextTask", "_retreatPos"];
     [_group, _nextTask, _retreatPos] call FUNC(taskAssign);
-}, [_group]]
+}, [_group, _nextTask, _retreatPos]] call CBA_fnc_waitUntilAndExecute;

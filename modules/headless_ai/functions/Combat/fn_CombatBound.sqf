@@ -66,7 +66,11 @@ private _boundTaskPFH = [{
         };
     };
     if (
-        ((GETVAR(_group,Task,"PATROL")) isNotEqualTo "ASSAULT" && (GETVAR(_group,Task,"PATROL")) isNotEqualTo "RETREAT") ||
+        (
+            (GETVAR(_group,Task,"PATROL")) isNotEqualTo "ASSAULT" &&
+            (GETVAR(_group,Task,"PATROL")) isNotEqualTo "ATTACK" && 
+            (GETVAR(_group,Task,"PATROL")) isNotEqualTo "RETREAT" 
+        ) ||
         {(GETVAR(_group,ExitBound,false))} ||
         {(getPosATL _leader distance2D _targetPos) <= _compRadius} ||
         {count _units <= 3} ||
