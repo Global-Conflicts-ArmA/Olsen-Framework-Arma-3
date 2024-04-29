@@ -64,7 +64,7 @@ if (
             (({ alive _x } count units _group) + _subGroupCount) <= _retreatCount;
         }, {
             params ["_group", "_retreatPos", "_retreatCount"];
-            [_group, _retreatPos, 50, "RETREAT"] call FUNC(taskAssault);
+            [_group, "RETREAT", _retreatPos, 50] call FUNC(taskAssign);
         }, [_group, _retreatPos, _retreatCount]] call CBA_fnc_waitUntilAndExecute;
     };
 

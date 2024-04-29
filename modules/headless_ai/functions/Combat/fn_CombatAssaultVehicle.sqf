@@ -73,7 +73,7 @@ private _assaultTaskPFH = [{
         } ||
         {
             (((side _leader call FUNC(EnemyArray)) findif {
-                ((_leader distance2D _x) <= (GETVAR(_group,AssaultEngageDistance,200))) &&
+                ((_leader distance2D _x) <= (GETVAR(_group,engageDistance,200))) &&
                 {[_leader, _x] call FUNC(LOSCheck)}
             }) isNotEqualTo -1)
         } ||

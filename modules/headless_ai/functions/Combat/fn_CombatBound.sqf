@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 
 params ["_group", "_targetPos", ["_radius", 50, [0]], ["_mode", "ASSAULT", [""]]];
-LOG_1("combatAssault started _this: %1",_this);
+LOG_1("combatBound started _this: %1",_this);
 
 private _leader = leader _group;
 if (INVEHICLE(_leader) && !(vehicle _leader isKindOf "StaticWeapon")) exitWith {
@@ -25,7 +25,7 @@ _units apply {
         _unit disableAI _x;
     };
     _unit setUnitPos "UP";
-    _unit setVariable [QGVAR(Busy), ffalse];
+    _unit setVariable [QGVAR(Busy), false];
     _unit doFollow _leader;
     _unit forceSpeed -1;
     unassignVehicle _unit;
@@ -37,7 +37,7 @@ _group setCombatMode "YELLOW";
 _group setSpeedMode "FULL";
 
 // manoeuvre function
-private _assaultTaskPFH = [{
+private _boundTaskPFH = [{
     params ["_args", "_idPFH"];
     _args params [
         "_group",
@@ -54,6 +54,7 @@ private _assaultTaskPFH = [{
     private _leader = leader _group;
     if (_units isEqualTo []) exitWith {
         [_idPFH] call CBA_fnc_removePerFrameHandler;
+        SETVAR(_group,BoundPFH,objNull);
     };
     private _nearestEnemy = _leader call FUNC(closestEnemy);
     //unset fire and move groups
@@ -65,15 +66,20 @@ private _assaultTaskPFH = [{
         };
     };
     if (
-        (GETVAR(_group,Task,"PATROL")) isNotEqualTo "ASSAULT" ||
-        {(GETVAR(_group,ExitAssault,false))} ||
+        (
+            (GETVAR(_group,Task,"PATROL")) isNotEqualTo "ASSAULT" &&
+            (GETVAR(_group,Task,"PATROL")) isNotEqualTo "ATTACK" && 
+            (GETVAR(_group,Task,"PATROL")) isNotEqualTo "RETREAT" 
+        ) ||
+        {(GETVAR(_group,ExitBound,false))} ||
         {(getPosATL _leader distance2D _targetPos) <= _compRadius} ||
         {count _units <= 3} ||
         {_mode != "RETREAT" && _leader distance2D _nearestEnemy <= 15}
     ) exitWith {
         [_idPFH] call CBA_fnc_removePerFrameHandler;
-        TRACE_1("Group exited Assault PFH",_group);
-        SETVAR(_group,ExitAssault,false);
+        TRACE_1("Group exited Bound PFH",_group);
+        SETVAR(_group,ExitBound,false);
+        SETVAR(_group,BoundPFH,objNull);
         _group setCombatMode "YELLOW";
         _group setBehaviour "AWARE";
         _group enableAttack true;
@@ -87,14 +93,12 @@ private _assaultTaskPFH = [{
             _unit setUnitPos "AUTO";
             _unit setVariable [QGVAR(Busy), false];
         };
-        //patrol in local area
-        [_group, "PATROL", _targetPos] call FUNC(taskAssign);
     };
     if (_firstRun) then {
-        if (GETVAR(_group,AssaultPFH,objNull) isNotEqualTo objNull) then {
-            [GETVAR(_group,AssaultPFH,objNull)] call CBA_fnc_removePerFrameHandler;
+        if (GETVAR(_group,BoundPFH,objNull) isNotEqualTo objNull) then {
+            [GETVAR(_group,BoundPFH,objNull)] call CBA_fnc_removePerFrameHandler;
         };
-        SETVAR(_group,AssaultPFH,_idPFH);
+        SETVAR(_group,BoundPFH,_idPFH);
         units _group apply {
             private _unit = _x;
             _unit forceSpeed -1;
@@ -113,7 +117,7 @@ private _assaultTaskPFH = [{
     } else {
         if (
             (_nearestEnemy isNotEqualTo objNull) && 
-            {(_leader distance2d _nearestEnemy < (GETVAR(_group,AssaultEngageDistance,200)))}
+            {(_leader distance2d _nearestEnemy < (GETVAR(_group,engageDistance,200)))}
         ) then {
             //sort the members by distance to the objective... find the farthest and make them move, closest do fire support
             // do this if the bound was finished
@@ -133,7 +137,7 @@ private _assaultTaskPFH = [{
                     _fireGroup = _sortArray deleteAt 0;
                     _moveGroup = _sortArray;
                 };
-                TRACE_2("assault groups chosen",_fireGroup,_moveGroup);
+                TRACE_2("bound groups chosen",_fireGroup,_moveGroup);
                 _fireGroup apply {
                     if (RNG(0.5)) then {
                         _x setUnitPos "MIDDLE";
@@ -224,5 +228,3 @@ private _assaultTaskPFH = [{
         };
     };
 }, 3, [_group, _targetPos, _radius]] call CBA_fnc_addPerFrameHandler;
-
-SETVAR(_group,Task,"ASSAULT");

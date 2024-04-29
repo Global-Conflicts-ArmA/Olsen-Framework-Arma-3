@@ -28,8 +28,8 @@ class COMPONENT {
 		class ArmEmptyStatic {};
 		class combatAmbientFire {};
 		class CombatAttack {};
-		class CombatAssault {};
 		class CombatAssaultVehicle {};
+		class CombatBound {};
 		class CombatCover {};
 		class CombatCoverVehicle {};
 		class CombatDefend {};
@@ -249,6 +249,7 @@ class COMPONENT {
 	    class taskLoiter {};
 	    class taskHoldUntil {};
 	    class taskRelease {};
+		class taskRetreat {};
 	    class taskSearchNearby {};
 	    class taskPickup {};
 	    class taskHunt {};
