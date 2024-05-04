@@ -38,8 +38,9 @@ SETVAR(_group,Task,"RETREAT");
 
 [{
     params ["_group", "_nextTask", "_retreatPos"];
-    GETVAR(_group,BoundPFH,objNull) isEqualTo objNull;
+    GETVAR(_group,ExitingBound,false);
 }, {
     params ["_group", "_nextTask", "_retreatPos"];
+    SETVAR(_group,ExitingBound,false);
     [_group, _nextTask, _retreatPos] call FUNC(taskAssign);
 }, [_group, _nextTask, _retreatPos]] call CBA_fnc_waitUntilAndExecute;
