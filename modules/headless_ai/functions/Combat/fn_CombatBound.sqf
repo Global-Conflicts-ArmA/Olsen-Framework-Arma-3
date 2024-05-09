@@ -71,14 +71,13 @@ private _boundTaskPFH = [{
             (GETVAR(_group,Task,"PATROL")) isNotEqualTo "ATTACK" && 
             (GETVAR(_group,Task,"PATROL")) isNotEqualTo "RETREAT" 
         ) ||
-        {(GETVAR(_group,ExitBound,false))} ||
         {(getPosATL _leader distance2D _targetPos) <= _compRadius} ||
         {count _units <= 3} ||
         {_mode != "RETREAT" && _leader distance2D _nearestEnemy <= 15}
     ) exitWith {
         [_idPFH] call CBA_fnc_removePerFrameHandler;
         TRACE_1("Group exited Bound PFH",_group);
-        SETVAR(_group,ExitBound,false);
+        SETVAR(_group,ExitingBound,true);
         SETVAR(_group,BoundPFH,objNull);
         _group setCombatMode "YELLOW";
         _group setBehaviour "AWARE";
@@ -98,6 +97,7 @@ private _boundTaskPFH = [{
         if (GETVAR(_group,BoundPFH,objNull) isNotEqualTo objNull) then {
             [GETVAR(_group,BoundPFH,objNull)] call CBA_fnc_removePerFrameHandler;
         };
+        SETVAR(_group,ExitingBound,false);
         SETVAR(_group,BoundPFH,_idPFH);
         units _group apply {
             private _unit = _x;
