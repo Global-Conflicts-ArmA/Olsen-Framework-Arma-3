@@ -8,7 +8,7 @@ if (leader _unit == _unit) then {
 SETVAR(_unit,TargetSet,true);
 SETVAR(_unit,LastFiredTime,CBA_MissionTime);
 
-private _enemyTarget = GETVAR(_unit,enemyTarget,objnull);
+private _enemyTarget = GETVAR(_unit,enemyTarget,objNull);
 
 if (GETMVAR(VerboseDebug,false)) then {
     LOG_2("%1 Targeted %2 in bunker mode",_unit,_enemyTarget);

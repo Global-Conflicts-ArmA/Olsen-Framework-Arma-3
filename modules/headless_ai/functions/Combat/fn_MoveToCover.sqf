@@ -50,7 +50,7 @@ waitUntil {PZAI_CurrentlyMoving < PZAI_CurrentlyMovingLimit};
 		};
 
 		_WaitTime = CBA_MissionTime + 35;
-		_Unit doWatch ObjNull;
+		_Unit doWatch objNull;
 		_Unit disableAI "TARGET";
 		_Unit disableAI "AUTOTARGET";
 		_Unit disableAI "SUPPRESSION";

@@ -2,21 +2,35 @@
 
 params ["_group"];
 
-private _leader = leader _group;
-private _task = GETVAR(_group,Task,"NONE");
-private _position = getposATL _leader;
-private _areaAssigned = GETVAR(_group,areaAssigned,"NONE");
-private _assetType = GETVAR(_group,assetType,"Infantry");
-private _behaviour = behaviour _leader;
+private _getAttackStatus = units _group findIf {
+    getAttackTarget vehicle _x isNotEqualTo objNull
+} isNotEqualTo -1;
 
-private _combat = if (_task in ["ATTACK", "ASSAULT", "FLANK", "DEFEND"]) then {
-    true
-} else {
-    if (_behaviour in ["COMBAT","STEALTH"]) then {
-        true
+if !(_getAttackStatus) then {
+    private _targets = _group targets [true];
+    if (_targets isEqualTo []) then {
+        allGroups select {
+            (GETVAR(_x,Spawned,false)) &&
+            {!isNull leader _x} &&
+            {alive leader _x} &&
+            {!(GETVAR(leader _x,NOAI,false))} &&
+            {!(GETVAR(_x,NOAI,false))} &&
+            {!(isPlayer leader _x)} && 
+            {side _x isEqualTo side _group} &&
+            {leader _x distance2D leader _group <= 300}
+        } apply {
+            if (
+            (units _x findIf {
+                getAttackTarget vehicle _x isNotEqualTo objNull 
+            } isNotEqualTo -1) || 
+            {_x targets [true] isNotEqualTo []}
+            ) exitWith {
+                _getAttackStatus = true;
+            };
+        };
     } else {
-        false
+        _getAttackStatus = true;
     };
 };
 
-_combat
+_getAttackStatus

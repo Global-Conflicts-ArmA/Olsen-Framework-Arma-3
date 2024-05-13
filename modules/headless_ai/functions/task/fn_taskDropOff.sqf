@@ -11,13 +11,19 @@ params [
     ["_formation", "NO CHANGE", [""]],
     ["_Type","MOVE",[""]],
     ["_oncomplete",QUOTE(this call FUNC(taskSearchNearby)),[""]],
-    ["_compradius",50,[0]],
+    ["_compRadius",50,[0]],
     ["_wpcount",10,[0]]
 ];
 
 if (_radius < 30) then {
-    ERROR_1("taskPatrol _group: %1 radius too small! Setting to default 30m",_group);
+    ERROR_1("taskDropOff _group: %1 radius too small! Setting to default 30m",_group);
     _radius = 30;
+};
+
+private _veh = vehicle leader _group;
+private _cargoGroups = GETVAR(_veh,vehCargoGroups,[]);
+if (_cargoGroups isEqualTo []) exitWith {
+    ERROR_1("taskDropOff _group: %1 has no cargo group!",_group);
 };
 
 TRACE_1("taskDropOff started",_this);
@@ -32,9 +38,9 @@ _dropOffPos = _dropOffPos call CBA_fnc_getPos;
 SETVAR(_group,Task,"DROPOFF");
 [_group] call FUNC(taskRelease);
 
-_compradius = GETVAR(_group,taskCompRadius,100);
-if (_compradius < 100) then {
-    _compradius = 100;
+_compRadius = GETVAR(_group,taskCompRadius,100);
+if (_compRadius < 100) then {
+    _compRadius = 100;
 };
 
-[_group, _dropOffPos, _compradius] call FUNC(combatDropOff);
+[_group, _dropOffPos, _compRadius] call FUNC(combatDropOff);

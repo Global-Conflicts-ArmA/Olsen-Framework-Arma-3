@@ -12,7 +12,7 @@ params [
     ["_formation","WEDGE",[""]],
     ["_Type","MOVE",[""]],
     ["_oncomplete",QUOTE(this call FUNC(taskSearchNearby)),[""]],
-    ["_compradius",0,[0]],
+    ["_compRadius",0,[0]],
     ["_wpcount",10,[0]],
     "_i"
 ];

@@ -23,7 +23,13 @@ _group setSpeedMode "FULL";
 // manoeuvre function
 private _landTaskPFH = [{
     params ["_args", "_idPFH"];
-    _args params ["_group", "_targetPos", "_pilot", "_vehicle", ["_state", "FLYING", [""]]];
+    _args params [
+        "_group",
+        "_targetPos",
+        "_pilot",
+        "_vehicle",
+        ["_state", "FLYING", [""]]
+    ];
     _units = _units select {_x call EFUNC(FW,isAlive)};
     private _leader = leader _group;
     

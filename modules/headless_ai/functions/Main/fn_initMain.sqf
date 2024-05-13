@@ -6,6 +6,7 @@ GVAR(LeaderExecuteCurrent) = 0;
 GVAR(MarkerArray) = [];
 GVAR(markerTrackedGroups) = createHashMap;
 GVAR(OccupiedPositions) = [];
+GVAR(sideEnemyTargets) = createHashMap;
 
 //StateMachines
 LOG("creating bunkerStateMachine");
@@ -34,9 +35,9 @@ if (GVAR(stanceFeature)) then {
     	[] call FUNC(CommanderInit);
     };
 	[] call FUNC(GroupHandler);
-    if (GETMVAR(UseMarkers,false)) then {
-        [] call FUNC(MapMarkers);
-    };
+    //if (GETMVAR(UseMarkers,false)) then {
+    //    [] call FUNC(MapMarkers);
+    //};
 }, []] call CBA_fnc_execNextFrame;
 
 //Spawns initial HC arrays

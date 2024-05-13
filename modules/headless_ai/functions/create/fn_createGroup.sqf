@@ -77,7 +77,9 @@ if (_initial) then {
     [_group, _groupSet] call FUNC(finishGroupSpawn);
 } else {
     private _groupArray = [_group, _groupSet, _groupMem, _groupVehs];
-    TRACE_1("sending to spawn units pfh",_groupArray);
+    if (GETMVAR(VerboseDebug,false)) then {
+        TRACE_1("sending to spawn units pfh",_groupArray);
+    };
     [FUNC(spawnUnitsGroupPFH), 0.1, _groupArray] call CBA_fnc_addPerFrameHandler;
 };
 

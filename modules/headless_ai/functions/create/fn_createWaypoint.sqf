@@ -12,7 +12,7 @@ params [
     ["_formation", "NO CHANGE", [""]],
     ["_Type","MOVE",[""]],
     ["_oncomplete","",[""]],
-    ["_compradius", 0, [0]]
+    ["_compRadius", 0, [0]]
 ];
 
 private _timeout = [_wait*0.5,_wait,_wait*1.5];
@@ -26,5 +26,5 @@ _wp setWaypointSpeed _speed;
 _wp setWaypointFormation _formation;
 _wp setWaypointStatements ["true", _oncomplete];
 _wp setWaypointTimeout _timeout;
-_wp setWaypointCompletionRadius _compradius;
+_wp setWaypointCompletionRadius _compRadius;
 _wp

@@ -8,11 +8,10 @@ class GVAR(sightAidStateMachine) {
         {!isPlayer (leader _x)} && \
         {!(QGETVAR(_x,NOAI,false))} && \
         {QGETVAR(group _x,Spawned,false)} && \
-        {((QGETVAR(group _x,Mission,'NONE')) isNotEqualTo 'BUNKER') && {!(QGETVAR(_x,Bunker,false))}} && \
+        {!((QGETVAR(group _x,Mission,'NONE')) isEqualTo 'BUNKER') && {!(QGETVAR(_x,Bunker,false))}} && \
         {(QGETMVAR(SightAidVehicles,true)) || {vehicle _x isEqualTo _x}} \
     });
     skipNull = 1;
-    repeatPerFrame = 1;
     class Initial {
         onStateEntered = "";
         class isInitialized {
@@ -22,61 +21,43 @@ class GVAR(sightAidStateMachine) {
         };
     };
     class Enemy_Check_ {
-        onStateEntered = QFUNC(SA_onSEEnemyInRange);
+        //onStateEntered = QFUNC(SA_onSEWait);
+        class Same_Enemy_ {
+            targetState = QUOTE(Combat);
+            condition = QUOTE([_this] call FUNC(SA_condSameEnemy));
+        };
         class Enemy_in__Range {
             targetState = QUOTE(Check_Nearby_Ene);
-
-            condition = QUOTE((QGETVAR(_this,SA_enemyInRange,[])) isNotEqualTo []);
+            condition = QUOTE([_this] call FUNC(SA_condEnemyInRange));
         };
         class No_Enemy__in_Ran {
             targetState = QUOTE(Wait);
-
             condition = QUOTE(true);
         };
     };
     class Check_Nearby_Ene {
-        onStateEntered = QFUNC(SA_OnSECheckNearbyEnemies);
         class Can_See {
-            targetState = QUOTE(CombatCheck);
-
-            condition = QUOTE((QGETVAR(_this,SA_enemyTarget,objnull)) isNotEqualTo objnull);
+            targetState = QUOTE(Combat);
+            condition = QUOTE([_this] call FUNC(SA_condCanSee));
         };
         class Can_Not_See {
-            targetState = QUOTE(Remove_Cant_See);
-
-            condition = QUOTE(true);
-        };
-    };
-    class CombatCheck {
-        onStateEntered = QFUNC(SA_onSECombatMode);
-        class WaitDoneCond {
             targetState = QUOTE(Wait);
             condition = QUOTE(true);
         };
     };
-    class Remove_Cant_See {
-        onStateEntered = QFUNC(SA_onSERemoveCantSeeEnemy);
-        class Check_Next_Enemy {
-            targetState = QUOTE(Check_Nearby_Ene);
-            conditionFrequency = 0.1;
-            condition = QUOTE((QGETVAR(_this,SA_enemyInRange,[])) isNotEqualTo []);
-        };
-        class Max_Checks {
+    class Combat {
+        onStateEntered = QFUNC(SA_onSECombat);
+        class Wait {
             targetState = QUOTE(Wait);
-
-            condition = QUOTE(QGETVAR(_this,SA_seeChecks,0) > 8);
-        };
-        class No_Enemy__in_Ran {
-            targetState = QUOTE(Wait);
-
+            conditionFrequency = 1;
             condition = QUOTE(true);
         };
     };
     class Wait {
-        onStateEntered = QFUNC(SA_onWait);
+        onStateEntered = "";
         class Wait_Completed {
             targetState = QUOTE(Enemy_Check_);
-            conditionFrequency = 2;
+            conditionFrequency = 1;
             condition = QUOTE(true);
         };
     };

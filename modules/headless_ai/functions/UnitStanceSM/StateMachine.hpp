@@ -8,7 +8,6 @@ class GVAR(unitStanceStateMachine) {
         {(QGETVAR(_x,stance,'AUTO') == 'AUTO') && {(QGETVAR(group _x,stance,'AUTO') == 'AUTO')}} && \
         {!(QGETVAR(_x,NOAI,false))} && \
         {!([group _x] call FUNC(isMoveTask))} && \
-        {!(QGETVAR(_x,Busy,false))} && \
         {(vehicle _x isEqualTo _x)} \
     });
     skipNull = 1;

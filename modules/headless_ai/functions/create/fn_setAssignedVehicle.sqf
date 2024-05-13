@@ -7,7 +7,7 @@ params [
     ["_index", 0, [0,[]]]
 ];
 
-if (_veh isEqualTo objnull) exitWith {
+if (_veh isEqualTo objNull) exitWith {
     ERROR_1("Vehicle for %1 not found",_unit);
 };
 
@@ -24,7 +24,9 @@ switch (toLower _role) do {
         };
         _unit assignAsCargoIndex [_veh, _index];
         private _return = _unit moveInCargo _veh;
-        LOG_4("cargoIndex index: %1 for unit: %2 veh: %3 success: %4",_index, _unit, _veh,_return);
+        if (GETMVAR(VerboseDebug,false)) then {
+            LOG_4("cargoIndex index: %1 for unit: %2 veh: %3 success: %4",_index, _unit, _veh,_return);
+        };
     };
     case "gunner": {
         _unit assignAsGunner _veh;

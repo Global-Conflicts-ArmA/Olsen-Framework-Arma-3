@@ -162,7 +162,10 @@ if (_initial) then {
     [_vehicle, _init, _storedVars] call FUNC(finishVehicleSpawn);
 } else {
     private _vehArray = [_group, _gpos, _vehicle, _vehCrew, _cargoGroup, _groupInfo, _cargoCrew, _init, _storedVars];
-    TRACE_1("sending to spawn veh pfh",_vehArray);
+    if (GETMVAR(VerboseDebug,false)) then {
+        TRACE_1("sending to spawn veh pfh",_vehArray);
+    };
+    SETMVAR(PFHBusy, true);
     [FUNC(spawnUnitsVehiclePFH), 0.1, _vehArray] call CBA_fnc_addPerFrameHandler;
 };
 

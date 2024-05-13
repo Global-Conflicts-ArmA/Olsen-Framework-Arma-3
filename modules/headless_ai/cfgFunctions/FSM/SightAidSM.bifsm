@@ -49,7 +49,7 @@ class GraphItems
 			class ItemInfo
 			{
 				Id=12;
-				InitCode="onStateEntered = QFUNC(SA_onSEEnemyInRange);";
+				InitCode="onStateEntered = QFUNC(SA_onSEEnemyCheck);";
 			};
 		};
 	};
@@ -77,6 +77,7 @@ class GraphItems
 			{
 				Id=4;
 				Condition="true";
+				ConditionTab=1;
 			};
 		};
 	};
@@ -104,7 +105,7 @@ class GraphItems
 			{
 				Id=13;
 				Priority=1;
-				Condition="!((QGETVAR(_this,SA_enemyInRange,[])) isEqualTo [])";
+				Condition="[_this] call QFUNC(SA_condEnemyInRange)";
 			};
 		};
 	};
@@ -132,6 +133,7 @@ class GraphItems
 			{
 				Id=14;
 				Condition="true";
+				ConditionTab=2;
 			};
 		};
 	};
@@ -157,7 +159,6 @@ class GraphItems
 			class ItemInfo
 			{
 				Id=15;
-				InitCode="onStateEntered = QFUNC(SA_OnSECheckNearbyEnemies);";
 			};
 		};
 	};
@@ -185,7 +186,7 @@ class GraphItems
 			{
 				Id=16;
 				Priority=1;
-				Condition="([ARR_2((vehicle _this),QGETVAR(_this,SA_enemyTarget,objnull))] call FUNC(LOSCheck))";
+				Condition="[_this] call QFUNC(SA_condCanSee)";
 			};
 		};
 	};
@@ -193,10 +194,10 @@ class GraphItems
 	{
 		Flags=218;
 		BasicText="";
-		Left=-100;
-		Top=100;
-		Right=0;
-		Bottom=150;
+		Left=50;
+		Top=150;
+		Right=150;
+		Bottom=200;
 		BgColor=8421440;
 		class ItemInfo
 		{
@@ -213,6 +214,7 @@ class GraphItems
 			{
 				Id=17;
 				Condition="true";
+				ConditionTab=1;
 			};
 		};
 	};
@@ -227,7 +229,7 @@ class GraphItems
 		BgColor=16777215;
 		class ItemInfo
 		{
-			Text="CombatMode";
+			Text="Combat";
 			lStyle=-842150451;
 			Group=-842150451;
 			FontFace="Arial";
@@ -266,48 +268,23 @@ class GraphItems
 			{
 				Id=19;
 				Condition="true";
-				PreCondition="conditionFrequency = 2;";
+				PreCondition="conditionFrequency = 0.5;";
+				ConditionTab=2;
 			};
 		};
 	};
 	class Item10
 	{
-		Flags=250;
-		BasicText="";
-		Left=0;
-		Top=150;
-		Right=100;
-		Bottom=200;
-		BgColor=16777215;
-		class ItemInfo
-		{
-			Text="Remove Cant" \n "See Enemy";
-			lStyle=-842150451;
-			Group=-842150451;
-			FontFace="Arial";
-			FontHeight=10;
-			FontWeight=0;
-			FontCharSet=0;
-			ItemType=2;
-			class ItemInfo
-			{
-				Id=33;
-				InitCode="onStateEntered = QFUNC(SA_onSERemoveCantSeeEnemy);";
-			};
-		};
-	};
-	class Item11
-	{
 		Flags=218;
 		BasicText="";
 		Left=-125;
-		Top=200;
+		Top=100;
 		Right=-25;
-		Bottom=250;
+		Bottom=150;
 		BgColor=65535;
 		class ItemInfo
 		{
-			Text="Check Next Enemy";
+			Text="" \n "Same" \n "Enemy" \n "";
 			lStyle=-842150451;
 			Shape=2;
 			Group=-842150451;
@@ -318,13 +295,13 @@ class GraphItems
 			ItemType=4;
 			class ItemInfo
 			{
-				Id=34;
-				Priority=1;
-				Condition="!((QGETVAR(_this,SA_enemyInRange,[])) isEqualTo [])";
+				Id=39;
+				Priority=2;
+				Condition="[_this] call QFUNC(SA_condSameEnemy)";
 			};
 		};
 	};
-	class Item12
+	class Item11
 	{
 		Flags=250;
 		BasicText="";
@@ -350,7 +327,7 @@ class GraphItems
 			};
 		};
 	};
-	class Item13
+	class Item12
 	{
 		Flags=218;
 		BasicText="";
@@ -374,36 +351,8 @@ class GraphItems
 			{
 				Id=37;
 				Condition="true";
-				PreCondition="conditionFrequency = 2;";
+				PreCondition="conditionFrequency = 0.5;";
 				ConditionTab=2;
-			};
-		};
-	};
-	class Item14
-	{
-		Flags=218;
-		BasicText="";
-		Left=125;
-		Top=125;
-		Right=225;
-		Bottom=175;
-		BgColor=65535;
-		class ItemInfo
-		{
-			Text="Max Checks";
-			lStyle=-842150451;
-			Shape=2;
-			Group=-842150451;
-			FontFace="Arial";
-			FontHeight=10;
-			FontWeight=0;
-			FontCharSet=0;
-			ItemType=4;
-			class ItemInfo
-			{
-				Id=38;
-				Priority=2;
-				Condition="QGETVAR(_this,SA_seeChecks,0) > 8";
 			};
 		};
 	};
@@ -445,6 +394,17 @@ class GraphLinks
 	};
 	class Link3
 	{
+		From=1;
+		To=10;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link4
+	{
 		From=2;
 		To=1;
 		Color=6316128;
@@ -454,7 +414,7 @@ class GraphLinks
 			ArrowSize=0;
 		};
 	};
-	class Link4
+	class Link5
 	{
 		From=3;
 		To=5;
@@ -465,21 +425,10 @@ class GraphLinks
 			ArrowSize=0;
 		};
 	};
-	class Link5
-	{
-		From=4;
-		To=12;
-		Color=6316128;
-		Flags=2;
-		class Extra
-		{
-			ArrowSize=0;
-		};
-	};
 	class Link6
 	{
-		From=5;
-		To=6;
+		From=4;
+		To=11;
 		Color=6316128;
 		Flags=2;
 		class Extra
@@ -490,7 +439,7 @@ class GraphLinks
 	class Link7
 	{
 		From=5;
-		To=7;
+		To=6;
 		Color=6316128;
 		Flags=2;
 		class Extra
@@ -499,6 +448,17 @@ class GraphLinks
 		};
 	};
 	class Link8
+	{
+		From=5;
+		To=7;
+		Color=6316128;
+		Flags=2;
+		class Extra
+		{
+			ArrowSize=0;
+		};
+	};
+	class Link9
 	{
 		From=6;
 		To=8;
@@ -509,10 +469,10 @@ class GraphLinks
 			ArrowSize=0;
 		};
 	};
-	class Link9
+	class Link10
 	{
 		From=7;
-		To=10;
+		To=11;
 		Color=6316128;
 		Flags=2;
 		class Extra
@@ -520,7 +480,7 @@ class GraphLinks
 			ArrowSize=0;
 		};
 	};
-	class Link10
+	class Link11
 	{
 		From=8;
 		To=9;
@@ -531,7 +491,7 @@ class GraphLinks
 			ArrowSize=0;
 		};
 	};
-	class Link11
+	class Link12
 	{
 		From=9;
 		To=1;
@@ -542,21 +502,10 @@ class GraphLinks
 			ArrowSize=0;
 		};
 	};
-	class Link12
-	{
-		From=10;
-		To=4;
-		Color=6316128;
-		Flags=2;
-		class Extra
-		{
-			ArrowSize=0;
-		};
-	};
 	class Link13
 	{
 		From=10;
-		To=11;
+		To=8;
 		Color=6316128;
 		Flags=2;
 		class Extra
@@ -566,8 +515,8 @@ class GraphLinks
 	};
 	class Link14
 	{
-		From=10;
-		To=14;
+		From=11;
+		To=12;
 		Color=6316128;
 		Flags=2;
 		class Extra
@@ -577,41 +526,8 @@ class GraphLinks
 	};
 	class Link15
 	{
-		From=11;
-		To=5;
-		Color=6316128;
-		Flags=2;
-		class Extra
-		{
-			ArrowSize=0;
-		};
-	};
-	class Link16
-	{
 		From=12;
-		To=13;
-		Color=6316128;
-		Flags=2;
-		class Extra
-		{
-			ArrowSize=0;
-		};
-	};
-	class Link17
-	{
-		From=13;
 		To=1;
-		Color=6316128;
-		Flags=2;
-		class Extra
-		{
-			ArrowSize=0;
-		};
-	};
-	class Link18
-	{
-		From=14;
-		To=12;
 		Color=6316128;
 		Flags=2;
 		class Extra
@@ -623,7 +539,7 @@ class GraphLinks
 class Globals
 {
 	NextGroupID=1;
-	NextID=39;
+	NextID=40;
 	FSMName="GVAR(sightAidStateMachine)";
 	CompileConfig="C:\Program Files (x86)\Steam\steamapps\common\Arma 3 Tools\FSMEditor\CBA_FSMEditor.cfg";
 	class Attributes
@@ -653,10 +569,10 @@ class Globals
 	DefaultLinkColorFromSelected=6316287;
 	DefaultLinkColorToSelected=6356832;
 	DefaultLinkUseCustom=1;
-	PZoomLeft=-314.6539;
-	PZoomRight=308.90567;
-	PZoomBottom=546.974;
-	PZoomTop=-204.26373;
+	PZoomLeft=-268.44772;
+	PZoomRight=336.59146;
+	PZoomBottom=547.92468;
+	PZoomTop=-180.99821;
 	Clxs=547;
 	Clys=659;
 	Aspect=1;
@@ -668,10 +584,10 @@ class Window
 	MaxPosY=-1;
 	MinPosX=-1;
 	MinPosY=-1;
-	Left=-1712;
-	Top=208;
-	Right=-771;
-	Bottom=1039;
+	Left=162;
+	Top=167;
+	Right=1103;
+	Bottom=998;
 	ShowCmd=1;
 	SplitPos=565;
 };

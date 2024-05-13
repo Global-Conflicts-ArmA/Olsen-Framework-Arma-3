@@ -1,9 +1,9 @@
 #include "script_component.hpp"
 
 
-params [["_list",[],[[]]],["_object",objnull,[objnull]],["_randomSelect",false,[false]]];
+params [["_list",[],[[]]],["_object",objNull,[objNull]],["_randomSelect",false,[false]]];
 
-if ("_object" isEqualTo objnull) exitWith {};
+if ("_object" isEqualTo objNull) exitWith {};
 if ("_list" isEqualTo []) exitWith {};
 
 private _DistanceArray = [];

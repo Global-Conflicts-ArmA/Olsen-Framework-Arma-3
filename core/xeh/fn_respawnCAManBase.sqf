@@ -2,6 +2,11 @@
 
 params ["_unit", "_body"];
 if !(local _unit) exitWith {};
+if (
+    _unit isKindOf "B_UAV_AI" ||
+    _unit isKindOf "O_UAV_AI" ||
+    _unit isKindOf "I_UAV_AI"
+) exitWith {};
 
 LOG("Respawned_Event called");
 //Makes the player go into spectator mode when dead or respawn if he has respawn tickets

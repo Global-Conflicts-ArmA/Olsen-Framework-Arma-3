@@ -22,10 +22,10 @@ private _respondingArmored = [];
 	private _task = GETVAR(_group,Task,"NONE");
 	private _position = getposATL _leader;
 	private _areaAssigned = GETVAR(_group,areaAssigned,"NONE");
-	private _assetType = GETVAR(_group,assetType,"Infantry");
+	private _assetType = GETVAR(_group,assetType,"INFANTRY");
 	private _groupcount = count _aliveUnits;
 	private _behaviour = behaviour _leader;
-	private _target = GETVAR(_group,CurrentTarget,objnull);
+	private _target = GETVAR(_group,CurrentTarget,objNull);
 	private _distanceToGroup = (leader _groupcaller) distance2d _leader;
 	if (
 		([_sidecaller, _side] call BIS_fnc_sideIsFriendly) &&

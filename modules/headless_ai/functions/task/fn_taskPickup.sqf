@@ -11,7 +11,7 @@ params [
     ["_formation", "NO CHANGE", [""]],
     ["_Type","MOVE",[""]],
     ["_oncomplete",QUOTE(this call FUNC(taskSearchNearby)),[""]],
-    ["_compradius",50,[0]],
+    ["_compRadius",50,[0]],
     ["_wpcount",10,[0]]
 ];
 
@@ -28,7 +28,7 @@ _landPos = _landPos call CBA_fnc_getPos;
 SETVAR(_group,Task,"PICKUP");
 [_group] call FUNC(taskRelease);
 
-_compradius = GETVAR(_group,taskCompRadius,150);
-TRACE_2("",_group,_compradius);
+_compRadius = GETVAR(_group,taskCompRadius,150);
+TRACE_2("",_group,_compRadius);
 
-[_group, _landPos, _compradius] call FUNC(combatLand);
+[_group, _landPos, _compRadius] call FUNC(combatLand);
