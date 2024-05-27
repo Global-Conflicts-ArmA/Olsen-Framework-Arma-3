@@ -29,7 +29,7 @@ private _return = if (_index isEqualTo -1) then {
         {(_veh selectionPosition [_mempoint, "memory"]) isEqualTo [0,0,0]}
     ) then {
         ERROR_1("Driver mempoint not found, make a custom value in settings.hpp",_type);
-        [0,0,0]
+        [[0,0,0], [0,0,0]]
     } else {
         GVAR(OpticsNamespace) set [_type, _mempoint];
         TRACE_2("storing mempoint in namespace",_veh,_mempoint);
