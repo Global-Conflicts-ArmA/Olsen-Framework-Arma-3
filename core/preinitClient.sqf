@@ -52,47 +52,44 @@ GVAR(eg_spectator_marker) = [missionConfigFile >> QGVAR(clientSettings) >> "Spec
 GVAR(killcam_active) = ([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "killCam", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 GVAR(eg_instant_death) = ([missionConfigFile >> QGVAR(clientSettings) >> "Spectator" >> "instantDeath", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
+#define NEWTAB(NAME) _briefing set [count _briefing, ["Diary",[NAME,"
+#define ENDTAB "]]];
 
-if (GETMVAR(SpectateBriefing,true)) then {
+GVAR(allBriefings) = [];
 
-	#define NEWTAB(NAME) _briefing set [count _briefing, ["Diary",[NAME,"
-	#define ENDTAB "]]];
+private _briefing = [];
+#include "..\customization\briefings\blufor.sqf"
+private _westBriefing = _briefing;
 
-	GVAR(allBriefings) = [];
+_briefing = [];
+#include "..\customization\briefings\opfor.sqf"
+private _eastBriefing = _briefing;
 
-	private _briefing = [];
-	#include "..\customization\briefings\blufor.sqf"
-	private _westBriefing = _briefing;
+_briefing = [];
+#include "..\customization\briefings\indfor.sqf"
+private _indBriefing = _briefing;
 
-	_briefing = [];
-	#include "..\customization\briefings\opfor.sqf"
-	private _eastBriefing = _briefing;
+_briefing = [];
+#include "..\customization\briefings\civilian.sqf"
+private _civBriefing = _briefing;
 
-	_briefing = [];
-	#include "..\customization\briefings\indfor.sqf"
-	private _indBriefing = _briefing;
+_briefing = [];
+#include "..\customization\briefings\missionNotes.sqf"
+private _missionNotes = _briefing;
 
-	_briefing = [];
-	#include "..\customization\briefings\civilian.sqf"
-	private _civBriefing = _briefing;
+_briefing = [];
+#include "..\customization\briefings\changelog.sqf"
+private _changelog = _briefing;
 
-	_briefing = [];
-	#include "..\customization\briefings\missionNotes.sqf"
-	private _missionNotes = _briefing;
-
-	_briefing = [];
-	#include "..\customization\briefings\changelog.sqf"
-	private _changelog = _briefing;
-
-	[_westBriefing, _eastBriefing, _indBriefing, _civBriefing, _missionNotes, _changelog] apply {
-		private _tempEntry = [];
-		_x apply {
-			(_x select 1) params ["_name", "_text"];
-			_text = _text call FUNC(parseBriefing);
-			_tempEntry pushBack [_name, _text];
-		};
-		GVAR(allBriefings) pushBack _tempEntry;
+[_westBriefing, _eastBriefing, _indBriefing, _civBriefing, _missionNotes, _changelog] apply {
+	private _tempEntry = [];
+    private _selectedBrief = _x;
+	_selectedBrief apply {
+		(_x select 1) params ["_name", "_text"];
+		_text = _text call FUNC(parseBriefing);
+		_tempEntry pushBack [_name, _text];
 	};
+	GVAR(allBriefings) pushBack _tempEntry;
 };
 
 [{!isNull ace_player},{
