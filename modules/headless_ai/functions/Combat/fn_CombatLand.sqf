@@ -43,7 +43,57 @@ private _landTaskPFH = [{
     
     switch (_state) do {
         case "LANDED": {
-            //code
+            [_idPFH] call CBA_fnc_removePerFrameHandler;
+            TRACE_1("Group exited Land PFH",_group);
+            SETVAR(_group,ExitTask,false);
+            private _cargoGroups = GETVAR(_vehicle,vehCargoGroups,[]);
+            [_leader, _pilot] apply {
+                private _unit = _x;
+                ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET", "FSM"] apply {
+                    _unit enableAI _x;
+                };
+            };
+            _vehicle flyInHeight 100;
+            _vehicle limitSpeed (2 * getNumber(configOf _vehicle >> "maxSpeed"));
+            if (_cargoGroups isNotEqualTo []) then {
+                _cargoGroups apply {
+                    private _group = _x;
+                    //_group call FUNC(vehicleEject);
+                    [{
+                        speed _vehicle <= 2
+                    },{
+                        private _group = _this;
+                        (units _group) apply {
+                            unassignVehicle _x;
+                            doGetOut _x;
+                        };
+                    }, _group, 3, {
+                        private _group = _this;
+                        (units _group) apply {
+                            unassignVehicle _x;
+                            doGetOut _x;
+                        };
+                    }] call CBA_fnc_waitUntilAndExecute;
+                    private _task = GETVAR(_group,NextTask,"PATROL");
+                    private _manualPos = GETVAR(_group,taskPos,[ARR_3(0,0,0)]);
+                    private _taskPos = if (_manualPos isEqualTo [0,0,0]) then {
+                        getPosATL _leader
+                    } else {
+                        _manualPos
+                    };
+                    TRACE_2("",_group,_taskPos);
+                    [_group,_task,_taskPos] call FUNC(taskAssign);
+                };
+            };
+            SETVAR(_vehicle,vehCargoGroups,[]);
+            private _rtb = GETVAR(_group,rtbPos,objNull);
+            if (_rtb isNotEqualTo objNull) then {
+                SETVAR(_group,rtbPos,objNull);
+                [_group,_rtb] call FUNC(combatLand);
+            } else {
+                doStop _vehicle;
+                _vehicle land "LAND";
+            };
         };
         case "LANDING": {
             private _relVelocity = velocityModelSpace _vehicle;

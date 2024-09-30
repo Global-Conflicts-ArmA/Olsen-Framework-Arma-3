@@ -7,12 +7,17 @@ params [
 ];
 TRACE_1("combatDropOff started",_this);
 
-private _arrayTest = ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET"];
-_group enableAttack false;
 private _leader = leader _group;
 private _units = units _group;
 private _veh = vehicle _leader;
 private _driver = driver _veh;
+
+if (_veh isKindOf "Helicopter") exitWith {
+    [_group, _dropOffPos] call FUNC(combatLand);
+};
+
+private _arrayTest = ["AUTOCOMBAT", "COVER", "SUPPRESSION", "AUTOTARGET", "TARGET"];
+_group enableAttack false;
 [_leader, _driver] apply {
     private _unit = _x;
     _arrayTest apply {
