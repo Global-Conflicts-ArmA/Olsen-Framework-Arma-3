@@ -81,7 +81,7 @@ GVAR(map_currentAO) = "";
             ["_zoomLevel", 0.4, [0]],
             ["_name", "", [""]],
             ["_bgColour", "ColorBlack", [""]],
-            ["_condition", true, [true, {}]]
+            ["_condition", false, [false, {}]]
         ];
         private _text = "Switch Map to " + _name;
         private _MapChangeAction = ["switch_MapAO", _text, "", {

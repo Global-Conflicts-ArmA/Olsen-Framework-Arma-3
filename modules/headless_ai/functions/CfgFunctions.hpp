@@ -26,14 +26,18 @@ class COMPONENT {
 	class Combat {
 		file = "modules\headless_ai\functions\Combat";
 		class ArmEmptyStatic {};
+		class combatAmbientFire {};
 		class CombatAttack {};
-		class CombatAssault {};
 		class CombatAssaultVehicle {};
+		class CombatBound {};
+		class CombatCover {};
+		class CombatCoverVehicle {};
 		class CombatDefend {};
 		class CombatDropOff {};
         class CombatGarrison {};
 		class CombatLand {};
 		class CombatMode {};
+		class CombatHunt {};
 		class CombatMoveTo {};
 		class CombatResponse {};
 		class DefaultGroupPatrol {};
@@ -46,7 +50,6 @@ class COMPONENT {
 		class ForceHeal {};
 		class FormationChange {};
 		class FragmentMove {};
-		class GroupPatrol {};
 		class LightGarrison {};
 		class LoiterAction {};
 		class MoveInCombat {};
@@ -60,6 +63,8 @@ class COMPONENT {
 		class SuppressingShots {};
 		class ThrowGrenade {};
 		class WatchEnemy {};
+		class PrepToFire {};
+		class exitFiring {};
 		class SearchBuilding {};
 		class VehicleEject {};
 	};
@@ -83,6 +88,7 @@ class COMPONENT {
         class createWaypoint {};
         class createWaypointModified {};
         class createWaypoints {};
+        class createSubGroup {};
         class createZone {};
         class finishGroupSpawn {};
         class finishVehicleSpawn {};
@@ -115,6 +121,7 @@ class COMPONENT {
     	class DriverCheck {};
     	class EnemyArray {};
     	class getGrenades {};
+    	class getMuzzles {};
     	class getStance {};
     	class getWeaponType {};
     	class hasMine {};
@@ -172,19 +179,26 @@ class COMPONENT {
 		file = "modules\headless_ai\functions\Main";
 		class GroupHandler {};
 		class initMain {};
-		class MapMarkers {};
 	};
 
 	class Misc {
 		file = "modules\headless_ai\functions\Misc";
 		class checkifHC {};
+        class deleteVehicles {};
+        class findUniqueName {};
+        class initPostMan {};
+        class searchNestedArray {};
+        class setInit {};
 		class setunitskill {};
-		class UnitInit {};
-		class SetInit {};
-		class initPostMan {};
-		class findUniqueName {};
-		class deleteVehicles {};
-		class searchNestedArray {};
+		class targetHelper {};
+		class unitInit {};
+	};
+
+    class Responses {
+		file = "modules\headless_ai\functions\Responses";
+		class responseDefend {};
+		class responseAttack {};
+		class responseChance {};
 	};
 
     class set {
@@ -202,11 +216,11 @@ class COMPONENT {
 
     class SightAidSM {
 		file = "modules\headless_ai\functions\SightAidSM";
-		class SA_OnSECheckNearbyEnemies {};
-		class SA_OnSECombatMode {};
-		class SA_onSEEnemyInRange {};
-		class SA_OnSERemoveCantSeeEnemy {};
-        class SA_OnWait {};
+		class SA_condEnemyInRange {};
+		class SA_condSameEnemy {};
+		class SA_condCanSee {};
+		class SA_onSECombat {};
+		class SA_onSEWait {};
 	};
 
 	class StateMachine {
@@ -227,14 +241,18 @@ class COMPONENT {
 
 	class task {
 		file = "modules\headless_ai\functions\task";
+	    class taskAmbientFire {};
 	    class taskAssign {};
 	    class taskAssault {};
+	    class taskCover {};
 	    class taskDropOff {};
 	    class taskLoiter {};
 	    class taskHoldUntil {};
 	    class taskRelease {};
+		class taskRetreat {};
 	    class taskSearchNearby {};
 	    class taskPickup {};
+	    class taskHunt {};
 	    class taskBunker {};
         class taskDefend {};
         class taskAttack {};

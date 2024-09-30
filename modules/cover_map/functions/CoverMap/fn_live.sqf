@@ -2,6 +2,7 @@
 
 //Covers Map outside marker and centers map on marker center in game map
 if !(hasinterface) exitwith {};
+    
 params [
     "_marker",
     ["_centered", true, [true]],
@@ -10,6 +11,15 @@ params [
     ["_bgColour", "BH_checkLOS_colorNotVisible", [""]],
     ["_condition", true, [true, {}]]
 ];
+    
+if (count _this isEqualTo 1) then {
+    private _AOArray = GVAR(AONamespace) getOrDefault [_marker, []];;
+    _centered = _AOArray select 0;
+    _zoomlevel = _AOArray select 1;
+    _name = _AOArray select 2;
+    _bgColour = _AOArray select 3;
+    _condition = _AOArray select 4;
+};
 
 //delete old markers if present
 if !(GVAR(map_cover) isEqualTo []) then {

@@ -1,4 +1,3 @@
-#define COMPONENT PZAI
 #include "..\..\script_component.hpp"
 
 #define TRANSITIONS(var) (var + "_transitions")

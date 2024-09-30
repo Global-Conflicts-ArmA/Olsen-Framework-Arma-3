@@ -39,7 +39,7 @@ class GVAR(sightAidStateMachine) {
         class Can_See {
             targetState = QUOTE(CombatCheck);
 
-            condition = QUOTE((QGETVAR(_this,SA_enemyTarget,objnull)) isNotEqualTo objnull);
+            condition = QUOTE((QGETVAR(_this,SA_enemyTarget,objNull)) isNotEqualTo objNull);
         };
         class Can_Not_See {
             targetState = QUOTE(Remove_Cant_See);

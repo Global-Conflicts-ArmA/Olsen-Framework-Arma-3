@@ -8,8 +8,10 @@ if (
     {(toLower serverName) find "main" isNotEqualTo -1}
 ) then {
     GVAR(debugMessagesEnabled) = false;
+    GVAR(verboseDebugEnabled) = false;
 } else {
     GVAR(debugMessagesEnabled) = ([missionConfigFile >> QGVAR(debugSettings) >> "debugMessagesEnabled", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+    GVAR(verboseDebugEnabled) = ([missionConfigFile >> QGVAR(debugSettings) >> "verboseDebugEnabled", "number", 0] call CBA_fnc_getConfigEntry) == 1;
 };
 
 GVAR(DiaryRecords) = [];

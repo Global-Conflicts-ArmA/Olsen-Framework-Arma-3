@@ -14,14 +14,20 @@ _arr select {
         deleteVehicle _object;
         private _tracked = EGETVAR(_object,FW,Tracked,false);
         if (_tracked) then {
-            TRACE_2("deleting HC Synced tracked",_object, side _object);
+            if (GETMVAR(VerboseDebug,false)) then {
+                TRACE_2("deleting HC Synced tracked",_object, side _object);
+            };
             [QEGVAR(FW,untrackEvent), [_object, side _object]] call CBA_fnc_serverEvent;
         };
     } foreach attachedObjects _vehicle;
     deleteVehicle _vehicle;
-    TRACE_2("deleting HC Synced object",_vehicle, _tracked);
+    if (GETMVAR(VerboseDebug,false)) then {
+        TRACE_2("deleting HC Synced object",_vehicle, _tracked);
+    };
     if (_tracked) then {
-        TRACE_2("deleting HC Synced tracked",_vehicle, side _vehicle);
+        if (GETMVAR(VerboseDebug,false)) then {
+            TRACE_2("deleting HC Synced tracked",_vehicle, side _vehicle);
+        };
         [QEGVAR(FW,untrackEvent), [_vehicle, side _vehicle]] call CBA_fnc_serverEvent;
     };
 };

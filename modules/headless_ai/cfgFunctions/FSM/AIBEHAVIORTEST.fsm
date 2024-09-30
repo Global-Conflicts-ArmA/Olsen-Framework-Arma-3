@@ -1229,7 +1229,7 @@ class FSM
                         name = "Release_from_Bun";
                         itemno = 41;
                         init = /*%FSM<STATEINIT""">*/"(group _unit) setBehaviour ""AWARE"";" \n
-                         "_unit dowatch objnull;" \n
+                         "_unit dowatch objNull;" \n
                          "_unit doFollow (leader _unit);" \n
                          "_unit enableAI ""PATH"";" \n
                          "_unit enableAI ""AIMINGERROR"";" \n
@@ -1326,11 +1326,11 @@ class FSM
                 {
                         name = "Reset_Vector_";
                         itemno = 47;
-                        init = /*%FSM<STATEINIT""">*/"_group setvariable [""PZAI_CurrentTarget"",objnull];" \n
+                        init = /*%FSM<STATEINIT""">*/"_group setvariable [""PZAI_CurrentTarget"",objNull];" \n
                          "_laserTarget setposASL _laserPos;" \n
                          "[_unit,_laserTarget,_laserTarget] call PZAI_fnc_WatchEnemy;" \n
-                         "private _invisibleTarget = (_unit getvariable [""PZAI_InvisibleTarget"",objnull]);" \n
-                         "if (_invisibleTarget isNotEqualTo objnull) then {" \n
+                         "private _invisibleTarget = (_unit getvariable [""PZAI_InvisibleTarget"",objNull]);" \n
+                         "if (_invisibleTarget isNotEqualTo objNull) then {" \n
                          "    _invisibleTarget setPosASL [0,0,0];" \n
                          "};" \n
                          "" \n
@@ -1767,7 +1767,7 @@ class FSM
                          "" \n
                          "if ((leader _group) isEqualTo _unit) then {" \n
                          "    _group setvariable [""PZAI_Mission"",""BUNKER""];" \n
-                         "    _group setvariable [""PZAI_CurrentTarget"",objnull];" \n
+                         "    _group setvariable [""PZAI_CurrentTarget"",objNull];" \n
                          "    _group setvariable [""PZAI_InitialWPSet"",true];" \n
                          "};" \n
                          "" \n
@@ -1823,7 +1823,7 @@ class FSM
                 {
                         name = "Reset_Target";
                         itemno = 92;
-                        init = /*%FSM<STATEINIT""">*/"_group setvariable [""PZAI_CurrentTarget"",objnull];" \n
+                        init = /*%FSM<STATEINIT""">*/"_group setvariable [""PZAI_CurrentTarget"",objNull];" \n
                          ""/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
@@ -1898,7 +1898,7 @@ class FSM
                          "};" \n
                          "_currentmission = _group getvariable [""PZAI_Mission"",""NONE""];" \n
                          "_InitialWaypointSet = _group getvariable [""PZAI_InitialWPSet"",false];" \n
-                         "_currenttarget = _group getvariable [""PZAI_CurrentTarget"",objnull];" \n
+                         "_currenttarget = _group getvariable [""PZAI_CurrentTarget"",objNull];" \n
                          "if (PZAI_VerboseDebug) then {" \n
                          "diag_log format [""check %1 mission: %2 WPSet: %3 target: %4"",_group,_currentmission,_InitialWaypointSet,_currenttarget];" \n
                          "};"/*%FSM</STATEINIT""">*/;
@@ -2048,7 +2048,7 @@ class FSM
                                         priority = 2.000000;
                                         to="Radio_Check";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"((_currentTarget isNotEqualTo objnull))"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"((_currentTarget isNotEqualTo objNull))"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/"if (PZAI_VerboseDebug) then {" \n
                                          "	diag_log format [""_target set for: %1"",_group];" \n
                                          "};"/*%FSM</ACTION""">*/;
@@ -2061,7 +2061,7 @@ class FSM
                                         priority = 1.000000;
                                         to="Execute_Count__1_1";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"(_currentTarget isEqualto objnull)"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(_currentTarget isEqualto objNull)"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/"if (PZAI_VerboseDebug) then {" \n
                                          "	diag_log format [""_group: %1 leadercheck target not set"",_group];" \n
                                          "};" \n
@@ -2226,7 +2226,7 @@ class FSM
                                         priority = 3.000000;
                                         to="Check_State_of_E";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"(_ClosestTarget isEqualto objnull) "/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(_ClosestTarget isEqualto objNull) "/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -2237,7 +2237,7 @@ class FSM
                                         priority = 2.000000;
                                         to="Set_Target_as_Cu";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"((_group getvariable [""PZAI_CurrentTarget"",objnull]) isEqualto objnull)"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"((_group getvariable [""PZAI_CurrentTarget"",objNull]) isEqualto objNull)"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -2248,7 +2248,7 @@ class FSM
                                         priority = 1.000000;
                                         to="Check_State_of_E";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"((!((_group getvariable [""PZAI_CurrentTarget"",objnull]) isEqualto objnull)) && {(_targetdistancediff < 100)}) || (_currentTarget isEqualto _ClosestTarget)"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"((!((_group getvariable [""PZAI_CurrentTarget"",objNull]) isEqualto objNull)) && {(_targetdistancediff < 100)}) || (_currentTarget isEqualto _ClosestTarget)"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -2794,7 +2794,7 @@ class FSM
                                         priority = 1.000000;
                                         to="____FAKE____";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"(!((_group getvariable [""PZAI_CurrentTarget"",objnull]) isEqualto objnull))"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(!((_group getvariable [""PZAI_CurrentTarget"",objNull]) isEqualto objNull))"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
