@@ -43,6 +43,11 @@ class Cover: Move {
     combatResponse = "";
     reinforce = false;
 };
+class Retreat: Move {
+    function = QFUNC(taskRetreat);
+    combatResponse = "";
+    reinforce = false;
+};
 // basic bunker task
 class Bunker: Move {
     function = QFUNC(taskBunker);
