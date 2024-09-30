@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 
 params [
-    ["_logic", objnull, [objnull]]
+    ["_logic", objNull, [objNull]]
 ];
 
 private _synced = synchronizedObjects _logic;

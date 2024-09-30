@@ -14,7 +14,7 @@ params [
 SETVAR(_group,Task,"ATTACK");
 [_group] call FUNC(taskRelease);
 
-LOG_1("taskAssault started _this: %1",_this);
+LOG_1("taskAttack started _this: %1",_this);
 _group = _group call CBA_fnc_getGroup;
 if !(local _group) exitWith {}; // Don't create waypoints on each machine
 

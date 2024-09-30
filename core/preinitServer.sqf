@@ -10,7 +10,9 @@ GVAR(UsedGearTypes) = [];
 
 [QGVAR(spawnedEvent), {
     params ["_unit"];
-    TRACE_1("spawned Event",_unit);
+    if (GETMVAR(verboseDebugEnabled,false)) then {
+        TRACE_2("spawned Event",_unit,typeOf _unit);
+    };
     [{CBA_missionTime > 3}, {
     	params ["_unit"];
         _unit call FUNC(eventSpawned);
@@ -19,13 +21,17 @@ GVAR(UsedGearTypes) = [];
 
 [QGVAR(untrackEvent), {
     params ["_unit", ["_forced", sideEmpty, [sideEmpty]]];
-    TRACE_2("untrack Event",_unit,_forced);
+    if (GETMVAR(verboseDebugEnabled,false)) then {
+        TRACE_2("untrack Event",_unit,_forced);
+    };
 	[_unit, _forced] call FUNC(untrackUnit);
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(killedEvent), {
     params [["_unit", objNull, [objNull]], ["_killer", objNull, [objNull]]];
-    TRACE_2("killed Event",_unit,_killer);
+    if (GETMVAR(verboseDebugEnabled,false)) then {
+        TRACE_2("killed Event",_unit,_killer);
+    };
 	[_unit, _killer] call FUNC(EventKilled);
 }] call CBA_fnc_addEventHandler;
 

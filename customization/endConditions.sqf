@@ -1,13 +1,13 @@
-private _westCasualty = "USMC" call FUNC(CasualtyPercentage); //Gets the casualty percentage of team "USMC"
-private _eastCasualty = "VDV" call FUNC(CasualtyPercentage); //Gets the casualty percentage of team "VDV"
-
-if (_westCasualty >= 50) exitWith {
-	"VDV VICTORY<br />USMC has retreated due to casualties." call FUNC(EndMission);
-};
-
-if (_eastCasualty >= 75) exitWith {
-	"USMC VICTORY<br />VDV has retreated due to casualties." call FUNC(EndMission);
-};
+//private _westCasualty = "USMC" call FUNC(CasualtyPercentage); //Gets the casualty percentage of team "USMC"
+//private _eastCasualty = "VDV" call FUNC(CasualtyPercentage); //Gets the casualty percentage of team "VDV"
+//
+//if (_westCasualty >= 50) exitWith {
+//	"VDV VICTORY<br />USMC has retreated due to casualties." call FUNC(EndMission);
+//};
+//
+//if (_eastCasualty >= 75) exitWith {
+//	"USMC VICTORY<br />VDV has retreated due to casualties." call FUNC(EndMission);
+//};
 
 /*
 Soft Ending the Mission

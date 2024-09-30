@@ -17,7 +17,9 @@
 params ["_unit", ["_forcedSide", sideEmpty, [sideEmpty]]];
 
 private _forced = _forcedSide isNotEqualTo sideEmpty;
-TRACE_2("untrackUnit",_unit,_forced);
+if (GETMVAR(verboseDebugEnabled,false)) then {
+    TRACE_2("untrackUnit",_unit,_forced);
+};
 
 if (GETVAR(_unit,Tracked,false) || {_forced}) then {
     private _team = GVAR(Teams) select {
@@ -40,7 +42,9 @@ if (GETVAR(_unit,Tracked,false) || {_forced}) then {
 		) then {
             private _newCurrent = _current - 1;
             private _newTotal = _total - 1;
-            TRACE_3("Setting new alive count",_unit,_newTotal,_newCurrent);
+            if (GETMVAR(verboseDebugEnabled,false)) then {
+                TRACE_3("Setting new alive count",_unit,_newTotal,_newCurrent);
+            };
             (_team select 0) set [3, _newTotal];
             (_team select 0) set [4, _newCurrent];
 		};

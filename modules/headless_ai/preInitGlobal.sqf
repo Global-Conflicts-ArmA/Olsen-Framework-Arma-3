@@ -46,11 +46,15 @@ GVAR(cacheAllPlayers) = ([missionConfigFile >> QGVAR(settings) >> "cacheAllPlaye
 
 GVAR(stanceFeature) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeature", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
+
 GVAR(stanceFeatureSuppression) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppression", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 GVAR(stanceFeatureSuppressionThreshold) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppressionThreshold", "number", 0.35] call CBA_fnc_getConfigEntry);
 GVAR(stanceFeatureSuppressionDuration) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppressionDuration", "number", 7] call CBA_fnc_getConfigEntry);
 GVAR(stanceFeatureSuppressionResistance) = ([missionConfigFile >> QGVAR(settings) >> "stanceFeatureSuppressionResistance", "number", 3] call CBA_fnc_getConfigEntry);
 
+GVAR(garrisonExcludeClaimedBuildings) = ([missionConfigFile >> QGVAR(settings) >> "garrisonExcludeClaimedBuildings", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+
+GVAR(ignoreDirection) = ([missionConfigFile >> QGVAR(settings) >> "ignoreDirection", "number", 0] call CBA_fnc_getConfigEntry) == 1;
 GVAR(hearingDistance) = [missionConfigFile >> QGVAR(settings) >> "hearingDistance", "number", 2000] call CBA_fnc_getConfigEntry;
 GVAR(hearingMinIncrease) = [missionConfigFile >> QGVAR(settings) >> "hearingMinIncrease", "number", 1] call CBA_fnc_getConfigEntry;
 GVAR(radioDistance) = [missionConfigFile >> QGVAR(settings) >> "radioDistance", "number", 0] call CBA_fnc_getConfigEntry;
@@ -83,6 +87,7 @@ GVAR(SightAidVehicles) = ([missionConfigFile >> QGVAR(settings) >> "SightAid" >>
 GVAR(SightAidDistance) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "distance", "number", 800] call CBA_fnc_getConfigEntry;
 GVAR(SightAidMinIncrease) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "minIncrease", "number", 2] call CBA_fnc_getConfigEntry;
 GVAR(SightAidEngageDistance) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "engageDistance", "number", 200] call CBA_fnc_getConfigEntry;
+GVAR(SightAidSightlevel) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "sightlevel", "number", 0.15] call CBA_fnc_getConfigEntry;
 
 GVAR(forceGrenades) = ([missionConfigFile >> QGVAR(settings) >> "SightAid" >> "forceGrenades", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 GVAR(grenadeChance) = [missionConfigFile >> QGVAR(settings) >> "SightAid" >> "grenadeChance", "number", 25] call CBA_fnc_getConfigEntry;
@@ -173,6 +178,29 @@ _configAreas apply {
 };
 TRACE_1("",GVAR(CommanderAreas));
 
+GVAR(Tasks) = createHashMap;
+private _configTasks = "true" configClasses (missionConfigFile >> QGVAR(config) >> "Tasks");
+TRACE_1("",_configTasks);
+_configTasks apply {
+    private _name = toUpper configName _x;
+    private _isMove = ([_x >> "isMove", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+    private _needsPos = ([_x >> "needsPos", "number", 0] call CBA_fnc_getConfigEntry) == 1;
+    private _function = [_x >> "function", "string", "PZAI_fnc_taskPatrol"] call CBA_fnc_getConfigEntry;
+    private _combatResponse = [_x >> "combatResponse", "string", "PZAI_fnc_responseDefend"] call CBA_fnc_getConfigEntry;
+    private _reinforce = ([_x >> "reinforce", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+    GVAR(Tasks) set [
+        _name,
+        [
+            _function,
+            _isMove,
+            _needsPos,
+            _combatResponse,
+            _reinforce
+        ]
+    ];
+};
+TRACE_1("",GVAR(CommanderAreas));
+
 [] call FUNC(checkifHC);
 
 //exit clients
@@ -240,8 +268,8 @@ GVAR(acreRadiosArray) = (_acreRadios select 0) + (_acreRadios select 1);
         _initial = false;
     };
     //LOG_2("SpawnArray _Array: %1 _initial: %2",_arrayName,_initial);
-    private _logic = missionNamespace getVariable [_arrayName, objnull];
-    if (_logic isEqualTo objnull) exitwith {
+    private _logic = missionNamespace getVariable [_arrayName, objNull];
+    if (_logic isEqualTo objNull) exitwith {
         //LOG_1("Could not find arrayName %1",_arrayName);
     };
     if !(_arrayName in GVAR(zoneEntities)) exitwith {

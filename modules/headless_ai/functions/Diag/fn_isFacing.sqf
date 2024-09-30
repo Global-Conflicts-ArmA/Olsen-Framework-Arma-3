@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 
-params ["_unit", ["_target", objnull, [objnull]]];
+params ["_unit", ["_target", objNull, [objNull]]];
 
-if (_target isEqualTo objnull) exitwith {false}; 
+if (_target isEqualTo objNull) exitwith {false}; 
  
 private _relDir = _unit getRelDir _target; 
  

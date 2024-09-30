@@ -11,31 +11,37 @@ params [
     ["_formation", "NO CHANGE", [""]]
 ];
 
-private _excludeClaimedHouses = true;
 private _largerSearch = true;
-private _houses = (nearestObjects [leader _group, ["House", "Strategic", "Ruins"], _radius, true]) select {
-    private _bPosArray = _x buildingPos -1;
-    (count _bPosArray >= 3) &&
+private _buildings = (nearestObjects [_pos, ["House", "Strategic", "Ruins"], _radius, true]) select {
+    private _blg = _x;
+    (!(GETMVAR(garrisonExcludeClaimedBuildings,true)) || !(GETVAR(_blg,claimed,false))) &&
     {
-        (_bPosArray select {!(_x in GVAR(OccupiedPositions))}) isNotEqualTo []
-    } &&
-    {!_excludeClaimedHouses || !(GETVAR(_x,claimed,false))}
-};
-if (_houses isEqualTo [] && _largerSearch) then {
-    _houses = (nearestObjects [leader _group, ["House", "Strategic", "Ruins"], _radius * 3, true]) select {
-        private _bPosArray = _x buildingPos -1;
+        private _bPosArray = _blg buildingPos -1;
         (count _bPosArray >= 3) &&
         {
             (_bPosArray select {!(_x in GVAR(OccupiedPositions))}) isNotEqualTo []
-        } &&
-        {!_excludeClaimedHouses || !(GETVAR(_x,claimed,false))}
+        }
+    }
+};
+TRACE_2("",_group,_buildings);
+if (_largerSearch && {_buildings isEqualTo []}) then {
+    _buildings = (nearestObjects [_pos, ["House", "Strategic", "Ruins"], _radius * 3, true]) select {
+        private _blg = _x;
+        (!(GETMVAR(garrisonExcludeClaimedBuildings,true)) || !(GETVAR(_blg,claimed,false))) &&
+        {
+            private _bPosArray = _blg buildingPos -1;
+            (count _bPosArray >= 3) &&
+            {
+                (_bPosArray select {!(_x in GVAR(OccupiedPositions))}) isNotEqualTo []
+            }
+        }
     };
 };
-TRACE_2("Garrison Choice:",_group,_houses);
+TRACE_2("Garrison Choice:",_group,count _buildings);
 
-if (_houses isNotEqualTo []) then {
+if (_buildings isNotEqualTo []) then {
     SETVAR(_group,Task,"GARRISON");
-    [_group, _pos, _radius, _houses] call FUNC(combatGarrison);
+    [_group, _pos, _radius, _buildings] call FUNC(combatGarrison);
 } else {
     SETVAR(_group,Task,"DEFEND");
     [_group] call FUNC(combatDefend);

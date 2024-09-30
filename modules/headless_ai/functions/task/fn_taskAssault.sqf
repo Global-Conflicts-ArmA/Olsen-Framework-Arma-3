@@ -11,7 +11,8 @@ params [
     ["_formation", "NO CHANGE", [""]],
     ["_Type","MOVE",[""]],
     ["_oncomplete",QUOTE(this call FUNC(taskSearchNearby)),[""]],
-    ["_compradius",50,[0]],
+    ["_nextTask","PATROL",[""]],
+    ["_compRadius",50,[0]],
     ["_wpcount",10,[0]]
 ];
 
@@ -33,4 +34,13 @@ _attackPos = _attackPos call CBA_fnc_getPos;
 SETVAR(_group,Task,"ASSAULT");
 [_group] call FUNC(taskRelease);
 
-[_group, _attackPos, _radius] call FUNC(combatAssault);
+[_group, _attackPos, _radius, "ASSAULT"] call FUNC(combatBound);
+
+[{
+    params ["_group", "_nextTask", "_attackPos"];
+    GETVAR(_group,ExitingBound,false);
+}, {
+    params ["_group", "_nextTask", "_attackPos"];
+    SETVAR(_group,ExitingBound,false);
+    [_group, _nextTask, _attackPos] call FUNC(taskAssign);
+}, [_group, _nextTask, _attackPos]] call CBA_fnc_waitUntilAndExecute;

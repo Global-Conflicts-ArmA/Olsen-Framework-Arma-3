@@ -23,7 +23,7 @@ if (GVAR(ArrayObjects) isNotEqualTo []) then {
 		_ArrayObjects apply {
             private _arrayName = _x;
 			LOG_1("Getting Array data for %1",_arrayName);
-            //private _logic = missionNamespace getVariable [_arrayName, objnull];
+            //private _logic = missionNamespace getVariable [_arrayName, objNull];
             private _logic = missionNamespace getVariable [_x, objNull];
 			if (isNull _logic) then {
 				ERROR_MSG_1("Could not find arrayName %1",_arrayName);
